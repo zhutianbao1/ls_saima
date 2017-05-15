@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>课程报名</title>
+	<style type="text/css">
+		*{margin: 0px;padding:0px;font-size: 12px;}
+		.sj p{margin: 10px;}
+		.sj input{height: 20px;width: 200px; border: 1px solid #ccc;}
+		.high{color: red;}
+		.onError{color: red;}
+		.sj .btn{border: 0px;width: 100px;background: rgb(15, 142, 226);color: #fff;margin:20px 0 30px;height: 30px;}
+	</style>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+	<script type="text/javascript">
+		$(function(){
+			$("form :input.required").each(function(){
+	            var $required = $("<strong class='high'> *</strong>"); //创建元素
+	            $(this).parent().append($required); //然后将它追加到文档中
+	        });
+
+	        $('form :input').blur(function(){
+	        	var $parent=$(this).parent();
+	        	 $parent.find(".formtips").remove();
+	             //验证手机号码
+	             if( $(this).is('#phone') ){
+	                    if( this.value=="" || (this.value!="" && !/^1[3|4|5|7|8]\d{9}$/.test(this.value)) ){
+	                        var errorMsg = '请输入正确的手机号码.';
+	                        $parent.append('<span class="formtips onError">'+errorMsg+'</span>');
+	                    }else{
+	                        var okMsg = '输入正确.';
+	                        $parent.append('<span class="formtips onSuccess">'+okMsg+'</span>');
+	                    }
+	             }
+	             //验证邮件
+	            /* if( $(this).is('#email') ){
+	                if( this.value=="" || ( this.value!="" && !/.+@.+\.[a-zA-Z]{2,4}$/.test(this.value) ) ){
+	                      var errorMsg = '请输入正确的E-Mail地址.';
+	                      $parent.append('<span class="formtips onError">'+errorMsg+'</span>');
+	                }else{
+	                      var okMsg = '输入正确.';
+	                      $parent.append('<span class="formtips onSuccess">'+okMsg+'</span>');
+	                }
+	             }*/
+	        }).keyup(function(){
+	           $(this).triggerHandler("blur");
+	        }).focus(function(){
+	             $(this).triggerHandler("blur");
+	        });
+	        $('#send').click(function(){
+                $("form :input.required").trigger('blur');
+                var numError = $('form .onError').length;
+                if(numError){
+                    return false;
+                } 
+	        });
+	        //重置
+	        $('#res').click(function(){
+	            $(".formtips").remove(); 
+	        });
+		});
+	</script>
+</head>
+<body>
+<if condition="$errMsg neq null">
+    <div class="errMsg" style="width: 1000px; position: absolute;top:30%;left: 15%; background: #eee;font-size: 50px;height: 300px;line-height: 300px; text-align: center;" >
+    {$errMsg}<span style="font-size: 14px;left: 0;position: absolute;top: 40%;width: 1000px;"><if condition="$count[0]['SUM'] neq null">目前已有{$count[0]['SUM']}人报名，报名人数达到30人，将开始分班开课<else/></if></span>
+    </div>
+<elseif condition="$kc['课程编号'] eq null"/>
+	<div class="errMsg" style="width: 1000px; position: absolute;top:30%;left: 15%; background: #eee;font-size: 50px;height: 300px;line-height: 300px; text-align: center;" >
+     	暂无课程不能报名
+    </div>
+<else/>
+	<div style="width: 500px; position: absolute;top:30%;left: 30%;">
+		<fieldset style="border: 1px; background: #eee;">
+			<div style="height: 30px;line-height: 30px;text-align: center;background:rgb(15, 142, 226);color:#fff;">{$kc['课程']}</div>
+			<div class="sj">
+				<form method="post" action="{:U('hr/hr_enter')}?cours_id={$kc['课程编号']}">
+					<input name="cours" value="{$kc['课程']}" style="display: none;" />
+					<p>姓<span style="visibility: hidden;">姓名</span>名：<input name="user_name" value="{$name[0]['POS_NAME']}{$name[0]['USER_NAME']}" readonly="true"/></p>
+					<p>手机号码：<input name="bill_id" value="" class="required" id="phone" /></p>
+					<p>邮<span style="visibility: hidden;">邮箱</span>箱：<input name="email" value="" id="email" /></p>
+					<p>备<span style="visibility: hidden;">备注</span>注：<textarea style="width: 400px;height: 100px;border: 1px solid #ccc;" name="remark"></textarea></p>
+					<span style="padding-left: 100px;margin-bottom: 10px;"><input value="提交" type="submit" id="send" class="btn"/></span><span style="padding-left: 100px;margin-bottom: 10px;"><input type="reset" id="res" class="btn" /></span>
+				</form>
+			</div>
+		</fieldset>
+	</div>
+</if>
+</body>
+</html>

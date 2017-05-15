@@ -1,0 +1,161 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">借阅管理</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+ 
+
+<block name="main_right">
+  <style>
+  th,td{height:18px;line-height: 18px;}
+  </style>
+  <div class="query_div hide">
+    <form action="" name="theForm" method="post">
+      <ul>
+        <li>条件1：<input type="text" name=""></li>
+        <li>条件2：<input type="text" name=""></li>
+        <li>条件3：<input type="text" name=""></li>
+        <li>条件4：<input type="text" name=""></li>
+        <li><a class="btn" href="javascript:;"> 查询 </a>&nbsp;
+        <!-- <a class="btn" href="{:U('manager/manager_xinde_edit')}"> 添加心得 </a></li> -->
+      </ul>
+    </form>
+  </div>
+
+  <div class="data_table clear">
+    <div class="section">
+     <table width="100%">
+      <tr>
+        <th>书籍</th>
+        <th>借阅人</th>
+        <th>借阅时间</th>
+        <th>借出人</th>
+        <th>借出时间</th>
+        <th>收回人</th>
+        <th>归还时间</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      <volist name="borrows" id="br">
+      <tr>
+        <td>{$br['book_name']}</td>
+        <td><?php 
+                $info = R('ls/get_oper_info',array($br['borrow_oper']));
+                echo $info['OPER_NAME'];
+              ?><br>{$br['borrow_oper']}</td>
+        <td>{$br['borrow_date']|date='Y-m-d',###}</td>
+        <td><?php 
+                $info = R('ls/get_oper_info',array($br['oper_lend']));
+                echo $info['OPER_NAME'];
+              ?>
+              <br>{$br['oper_lend']}
+        </td>
+        <td>
+          <if condition="$br['oper_date'] neq null">
+          {$br['oper_date']|date='Y-m-d',###}
+          </if>
+        </td>
+        <td><?php 
+                $info = R('ls/get_oper_info',array($br['comp_oper']));
+                echo $info['OPER_NAME'];
+              ?>
+              <br>{$br['comp_oper']}
+              </td>
+        <td>
+          <if condition="$br['comp_date'] neq null">
+          {$br['comp_date']|date='Y-m-d',###}
+          </if>
+        </td>
+        <td>
+          <?php 
+            if($br['status']==1){
+              echo '发起借阅';
+            }
+            if($br['status']==0){
+              echo '已归还';
+            }
+            if($br['status']==2){
+              echo '已领书';
+            }
+          ?>
+        </td>
+        <td>
+          <if condition="$br['status'] eq 1">
+            <a para="{$br['id']}" class="lend" href="javascript:;">借出</a>
+          </if>
+          <if condition="$br['status'] eq 2">
+            <a bookId="{$br['book_id']}" para="{$br['id']}" class="comp" href="javascript:;">归还</a>
+          </if>
+        </td>
+      </tr>
+      </volist>
+     </table>
+    <div class="ft">
+      {$_page}
+    </div>
+  </div>
+  </div>
+</block>
+
+
+<block name="js">
+<script>  
+ $(".lend").click(function(){
+    var oper_login_code = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+    if(oper_login_code.isEmpty()){
+       layer.msg('未获取登录信息，请登录后操作');
+       return;
+    }
+    var e = $(this),
+        br_id = e.attr("para"),
+        url = "{:U('manager/manager_book_lend')}";
+    $.ajax({
+       type:'post',
+       url:url,
+       dataType:'json',
+       data:{borrow_id:br_id},
+       success:function(re){
+          layer.msg(re.msg);
+          e.remove();
+       },
+       error:function(){
+          layer.msg('系统错误，请稍后重试');
+       }
+    });
+ });
+
+ $(".comp").click(function(){
+    var oper_login_code = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+    if(oper_login_code.isEmpty()){
+       layer.msg('未获取登录信息，请登录后操作');
+       return;
+    }
+    var e = $(this),
+        br_id = e.attr("para"),
+        book_id = e.attr("bookId"),
+        url = "{:U('manager/manager_book_comp')}";
+    $.ajax({
+       type:'post',
+       url:url,
+       dataType:'json',
+       data:{borrow_id:br_id,book_id:book_id},
+       success:function(re){
+          layer.msg(re.msg);
+          e.remove();
+       },
+       error:function(){
+          layer.msg('系统错误，请稍后重试');
+       }
+    });
+ });
+</script>
+</block>

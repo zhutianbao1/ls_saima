@@ -1,0 +1,123 @@
+<if condition="$errMsg neq null">
+<div class="errMsg">
+    {$errMsg}
+</div>
+<else/>
+<?php
+$dept_value = isset($_POST['dept']) ? $_POST['dept'] : '';
+$year_value = isset($_POST['year1']) ? $_POST['year1'] : '';
+?>
+<div class="wrap query">
+<input id="initURL" type="hidden" value="{$initURL}"/>
+<form  action="?bill_id={$bill_id}&menuId=1" method="post">
+<table class="query-table">
+    <tr>
+        <td>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;县&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市&nbsp;</span>
+            <select id="a" name="dept" style="width: 140px;border: 1px solid #ccc;">
+                <option value="">请选择</option>
+                <option value="莲都" <?php echo $dept_value == '莲都' ? 'selected' : '' ?>>莲都</option>
+                <option value="青田" <?php echo $dept_value == '青田' ? 'selected' : '' ?>>青田</option>
+                <option value="景宁" <?php echo $dept_value == '景宁' ? 'selected' : '' ?>>景宁</option>
+                <option value="缙云" <?php echo $dept_value == '缙云' ? 'selected' : '' ?>>缙云</option>
+                <option value="遂昌" <?php echo $dept_value == '遂昌' ? 'selected' : '' ?>>遂昌</option>
+                <option value="庆元" <?php echo $dept_value == '庆元' ? 'selected' : '' ?>>庆元</option>
+                <option value="龙泉" <?php echo $dept_value == '龙泉' ? 'selected' : '' ?>>龙泉</option>
+                <option value="松阳" <?php echo $dept_value == '松阳' ? 'selected' : '' ?>>松阳</option>
+                <option value="云和" <?php echo $dept_value == '云和' ? 'selected' : '' ?>>云和</option>
+                <option value="南城" <?php echo $dept_value == '南城' ? 'selected' : '' ?>>南城</option>
+                <option value="市公司" <?php echo $dept_value == '市公司' ? 'selected' : '' ?>>市公司</option>
+            </select>
+        </td>
+       
+        <td>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;度&nbsp;</span>
+            <select id="a" name="year1" style="width: 140px;border: 1px solid #ccc;">
+            <option value="">请选择</option>
+            <option value="2016" <?php echo $year_value == '2016' ? 'selected' : '' ?>>2016</option>
+            <option value="2017" <?php echo $year_value == '2017' ? 'selected' : '' ?>>2017</option>
+            <option value="2018" <?php echo $year_value == '2018' ? 'selected' : '' ?>>2018</option>
+            <option value="2019" <?php echo $year_value == '2019' ? 'selected' : '' ?>>2019</option>
+            <option value="2020" <?php echo $year_value == '2020' ? 'selected' : '' ?>>2020</option>
+            </select>
+        </td>
+
+        <td>
+            <input type="submit"  value="  查     询  " class="btn term" style="background:rgb(15,142,226);color:#fff;">
+        </td>
+    </tr>
+</table>
+</form>
+
+<td>
+    <input type="button"  value="导    出" class="btn exportExl" style="background:rgb(15,142,226);color:#fff;">
+</td>
+
+<div class="xq">
+<table id="tableSort" class="rank" border="0px" cellspacing="0" cellpadding="1">
+    <thead class="piao">
+    <tr class="head" align="center">   
+        <th class="rank-title">部门</th>
+        <th class="rank-title">工号</th>
+        <th class="rank-title">姓名</th>
+        <th class="rank-title">年份</th>
+        <th class="rank-title">业务知识</th>   
+        <th class="rank-title">业务知识测试次数</th>   
+        <th class="rank-title">客户管理</th>
+        <th class="rank-title">客户管理测试次数</th>
+        <th class="rank-title">通讯技术</th>
+        <th class="rank-title">通讯技术测试次数</th>
+        <th class="rank-title">市场敏感</th>
+        <th class="rank-title">市场敏感测试次数</th>
+        <th class="rank-title">市场营销</th>
+        <th class="rank-title">市场营销测试次数</th>
+        <th class="rank-title">自我管理与沟通合作</th>
+        <th class="rank-title">自我管理与沟通合作测试次数</th>
+    </tr>
+    </thead>
+    <tbody>
+    <volist name="hrs" id="hr">
+    <tr align="center">
+        <td class="fixeds">{$hr.DEPT}</td>
+        <td class="fixeds">{$hr.USER_ID}</td>
+        <td >{$hr.USER_NAME}</td>
+        <td >{$hr.YEAR1}</td>
+        <td >{$hr.业务知识}</td>
+        <td >{$hr.业务知识测试次数}</td>
+        <td >{$hr.客户管理}</td>
+        <td >{$hr.客户管理测试次数}</td>
+        <td >{$hr.通讯技术}</td>
+        <td >{$hr.通讯技术测试次数}</td>
+        <td >{$hr.市场敏感}</td>
+        <td >{$hr.市场敏感测试次数}</td>
+        <td >{$hr.市场营销}</td>
+        <td >{$hr.市场营销测试次数}</td>
+        <td >{$hr.自我管理与沟通合作}</td>
+        <td >{$hr.自我管理与沟通合作测试次数}</td>
+    </tr>
+    </volist>
+    </tbody>
+</table>
+</div>
+{$_page}
+</div>
+</if>
+
+<script language="JavaScript" type="text/javascript" src="__STATIC__/jquery.tablesorter.min.js"></script>
+<script>
+//排序
+    $('#tableSort').tablesorter();
+    $(function(){   
+        $("th").each(function(index, el) {
+            var e = $(this),
+            order= e.attr('order');
+            if(order==null || order=='' || order==undefined){
+                e.css('cursor','default');
+            }
+        });
+
+        $(".exportExl").click(function(){
+            location.href="{:U('Group/exportall')}";
+        });
+    });
+</script>

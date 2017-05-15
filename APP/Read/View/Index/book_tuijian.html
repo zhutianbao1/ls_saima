@@ -1,0 +1,101 @@
+l<extend name="Tpl/base"/>
+<block name="title">书籍推荐</block>
+<block name="css">
+	<style type="text/css">
+	.show{width:86%;margin:50px auto; }
+	.show fieldset{margin: 10px;border:1px solid #ccc;}
+    .group{height: 30px;line-height: 30px;	width: 100%;margin-top: 5px;  } 
+    .group label{display: inline-block;	width: 20%;text-align: right;font-size: 13px;color: #666;
+    	        line-height: 30px;height: 30px;}
+    .group input{height: 18px;line-height: 18px;margin-bottom: 5px;width: 70%;border:1px solid #ccc;
+    			color: #666;text-indent: 5px;font-size: 13px;background-color: #fffff9; }
+    .group1{height: 100px;line-height: 100px;width: 100%;margin-top: 5px;}
+    .group1 label{display: inline-block;width: 20%;text-align: right;font-size: 13px;color: #666;
+    	         line-height: 100px;height: 100px;}
+    .group1 textarea{height: 90px;width: 70%;border:1px solid #ccc;font-size: 13px;color: #666;
+    	         background-color: #fffff9; }
+	.btn_div{height: 30px;margin: 20px auto 0;width: 200px;line-height: 30px;}
+	.btn_div .sub_btn{padding: 3px 15px;font-size: 14px;color: #666;border:1px solid #666;}
+	.btn_div input[type='reset']{padding: 3px 15px;font-size: 14px;	color: #666;border:1px solid #666;
+		         margin-left: 68px;}
+	</style>	
+</block>
+<block name="main_top">
+	<div class="show" >
+		<form id="theForm" method="post" action="{:U('index/book_tuijian')}" >
+		    <fieldset>
+		    	<legend>书籍信息:</legend>
+		        <div class="group">
+		        	<label>书籍名称</label>
+		        	<input  type="text" name="book_name"   class="req" />
+		        </div> 
+		        <div class="group">
+		        	<label>书籍作者</label>
+		        	<input type="text" name="book_auth" class="req"/>
+		        </div>
+			    <div class="group1">
+			    	<label>书籍简介</label>
+			    	<textarea  name="book_jianjie" class="req"></textarea>
+			    </div>
+			    <div class="group1">
+			    	<label>推荐理由</label>
+			    	<textarea  name="book_reason" class="req"></textarea>
+			    </div>
+			    <div style="height: 10px;"></div>
+		    </fieldset>
+			<div class="btn_div">
+				<input type="button"  value="提 交" class="sub_btn" />
+				<input type="reset" value="重 置" />
+			</div>		
+		</form>
+	</div>
+</block>
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+ 
+ <script type="text/javascript">
+    $(function(){
+    	
+    	$('.sub_btn').click(function(event) {
+    		var flag=true;
+    		$('.req').each(function(index, el) {
+		    	if($(this).val().isEmpty()){
+		    		flag=false;
+		    		$(this).css('background','infobackground');
+		            layer.alert('请将数据填写完整!');
+		    	};
+		    });
+
+		    if(flag){
+		    	layer.confirm('您确定要保存数据吗?', {icon: 3, title:'提示'}, function(index){
+				   $('#theForm').submit();
+				   layer.close(index);
+				});
+		    }
+    	});
+
+
+        $('.req').each(function(index, el) {
+        	$(this).focus(function(event) {
+    			$(this).css('background','');
+    		});
+        });
+    });
+</script>
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

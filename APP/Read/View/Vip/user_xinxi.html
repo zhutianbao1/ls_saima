@@ -1,0 +1,120 @@
+<extend name="Tpl/base"/>
+<block name="title">个人信息</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title" >
+  {:W('Side/user_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+<block name="main_left">
+  {:W('Side/vip_html')}
+</block>
+
+<block name="main_right">
+ <div class="hd lined">
+   <h3 style="float:left;">我的积分</h3>
+  <div style="float:left;margin-left:20px;margin-top:5px; color: #666;letter-spacing: 1px;">        
+          <if condition="$type eq manager">  
+          <div class="bd">    
+                <span style="font-size:14px;color: #666;letter-spacing: 1px;">
+                截止目前,全市组织读书会<span style="color:red">{$book_meeting_no[0]['book_meeting_no']*1}</span>场,参与读书会人员<span style="color:red">{$people_totle[0]['people_totle']*1}</span>人,
+                共推荐书籍<span style="color:red">{$book_no[0]['book_no']*1}</span>本.
+                </span>     
+          </div>
+        <elseif condition="$type eq gen_user"/> 
+          <div class="bd">    
+                <span style="font-size:14px;">
+                截止目前您本月读书活动的总积分为<span style="color:red">{$arr4[0]['total']*1}</span>分, 其中参与积分<span style="color:red">{$arr4[1]['canyu']*1}</span>分,心得发表积分<span style="color:red">{$arr4[2]['xinde']*1}</span>分. 
+                </span>     
+          </div>
+        </if>
+  </div>
+  <div style="clear: both;"></div> 
+</div>
+<div>
+<if  condition="$myscores neq null">
+  <table width="100%">
+  <tr height="22px">  
+  <th style="background:#6e839a;color:#fff;">标题</th>
+  <th style="background:#6e839a;color:#fff;">积分类型</th>
+  <th style="background:#6e839a;color:#fff;">积分</th>
+  <th style="background:#6e839a;color:#fff;">时间</th>
+  </tr>
+  <volist name="myscores" id="myscore">
+  <tr>
+    <td>{$myscore['sc_name']}</td>
+    <td>{$myscore['sc_reason']}</td>
+    <td>{$myscore['score']}</td>
+    <td>{$myscore['oper_date']|date='Y-m-d',###}</td>
+  </tr>
+  </volist>
+</table>
+    <div class="ft">
+      {$_page}
+    </div>
+  <else/>
+   <p style="color: #666;letter-spacing: 1px; font-size: 13px;font-weight: 700;"> 
+  暂未获得到您关于阅读会请假的数据!</p>
+  </if>
+</div>
+<br/>
+  
+{:W('Side/haoshu')}
+</block>
+
+<block name="js">
+<script>
+
+$(".del_bao").click(function(){
+  var e = $(this),
+      id= e.attr('para');
+  if(confirm('是否确认撤销报名？')){
+    $.ajax({
+        type:'get',
+        data:{id:id},
+        url:"{:U('index/meeting_bao_del')}",
+        dataType:'json',
+        success:function(re){
+          if(re.success){
+            e.parent().parent().remove();
+          }else{
+            layer.msg('撤销失败');
+          }
+        },
+        error:function(){
+          layer.msg('删除失败');
+        }
+      });
+  }
+});
+
+$(".del_xinde").click(function(){
+  var e = $(this),
+      id= e.attr('para');
+  if(confirm('是否确认删除心得？')){
+    $.ajax({
+        type:'get',
+        data:{id:id},
+        url:"{:U('index/xinde_del')}",
+        dataType:'json',
+        success:function(re){
+          if(re.success){
+            e.parent().parent().remove();
+          }else{
+            layer.msg('删除失败');
+          }
+        },
+        error:function(){
+          layer.msg('删除失败');
+        }
+      });
+  }
+});
+</script>
+</block>

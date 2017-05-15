@@ -1,0 +1,171 @@
+<extend name='pub/main_newRank'/>
+
+<block name='title'>{$year['USER_NAME']}的个人主页</block>
+<block name='css'>
+</block>
+<block name='ext'>
+</block>
+<block name='body'>
+<div class="body">
+	<div style="background:#F7FAFF;width:100%;height:300px;">
+		<div style="width:960px;height:100px;border-bottom:1px solid #E9EDF0;margin-bottom:20px;margin-left:20px;">
+			<!-- <div style="float:left;padding-right:20px;">
+			<span style="font-size:16px;font-weight:bold;padding-top:20px;display:block">总得分</span>
+			<span style="color:red;font-size:36px;font-weight:bold;display:block;float:left;">{$user['AMOUNT']}</span>
+			</div> -->
+			<div style="float:left;">		 
+			<span style="font-size:16px;font-weight:bold;padding-top:20px;display:block">所在条线最高积分</span>
+			<span style="color:red;font-size:36px;font-weight:bold;display:block;float:left;">{$year['A']}</span>
+			<span style="color:#808080;margin-left:40px;position: relative;top:20px;">同最高积分相差：<?php echo sprintf("%.2f",$year['AMOUNT']-$year['A'])?></span>
+			</div>
+		</div>
+		<img src="__HEAD_IMG__{$year['BILL_ID']}.jpg" width="120px" height="150px" style="float:left;margin-left:20px;">
+		<div class="pinfo">
+			<ul>
+				<li><span>姓名</span>{$year['USER_NAME']}</li>
+				<li><span>职位</span>{$year['POS_NAME']}</li>
+				<li><span>县市</span>{$year['COUNTY_NAME']}</li>
+				<li><span>手机号码</span>{$year['BILL_ID']}</li>
+				<li><span>年份</span><?php echo substr($month,0,4)?></li>
+				<li><span>总积分</span>{$year['AMOUNT']}</li>
+                <li><span>目前累计积分排名</span>{$year['PM']}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div style="margin-top:20px;">
+		<h2 class="rig-title">其他明细<span class="active" id="avd-pre" style="margin-left:30px;">个人历史排名</span></h2>
+	</div>
+<!-- 个人历史排名 -->
+	<div id="cons1" class="model-cons">
+		<div class="float">
+			<table class="rank_line" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">月份</td>
+				<td class="rank-title">姓名</td>
+				<td class="rank-title">手机</td>
+				<td class="rank-title">总分</td>
+				<td class="rank-title">排名</td>
+			</tr>
+			<volist name="lines" id="line">
+			<tr>
+				<td>{$line.RPT_MONTH}</td>
+				<td>{$line.USER_NAME}</td>
+				<td>{$line.BILL_ID}</td>
+				<td>{$line.全员赛马积分}</td>
+				<td>{$line.同岗位排名}</td>
+			</tr>
+			</volist>
+			</table>
+		</div>
+		<div>
+			<div class="pcontainer">{$rankUser['USER_NAME']} 历史排名情况</div>
+			<div id="container" class="float2"></div>
+		</div>
+	</div>
+</div>
+</block>
+<block name='js'>
+<script type="text/javascript" src="__STATIC__/highcharts.js"></script>
+<script type="text/javascript" src="__STATIC__/exporting.js"></script>
+<script language="javascript" type="text/javascript"> 
+var chart; 
+$(document).ready(function () { 
+    chart = new Highcharts.Chart({ 
+        chart: { 
+            renderTo: 'container', 
+            defaultSeriesType: 'line', //图表类别，可取值有：line、spline、area、areaspline、bar、column等 
+            marginRight: 50, 
+            marginBottom: 55,
+            height:300
+        }, 
+        xAxis: { 
+            categories: [<?php 
+            		$x_num='';
+            		for ($i=0; $i <count($lines) ; $i++) { 
+            			if($i<(count($lines)-1)){
+            				$x_num .=$lines[$i]['RPT_MONTH'].',';
+            			}else{
+            				$x_num .=$lines[$i]['RPT_MONTH'];
+            			}
+            		}
+            		echo $x_num;
+             ?>]//设置x轴的标题 
+        },  
+        yAxis: [{
+        	labels: {
+	                formatter: function() {
+	                    return '第'+this.value +'名';
+	                },
+	                style: {
+                		color: '#000'
+            		}
+	            }, 
+            tickPositions: [<?php 
+            		$max=$lines[0]['同岗位排名'];
+				 	for ($i=0; $i <count($lines) ; $i++) { 
+				 	 	if($max<$lines[$i]['同岗位排名']){
+				 	 		$max=$lines[$i]['同岗位排名'];
+				 	 	}
+				 	 } 
+
+            		$y_num='';
+            	for ($i=0; $i < count($lines) ; $i++) { 
+            		if($i<(count($lines)-1)){
+            			$y_num .=  $lines[$i]['同岗位排名'].'|';
+            		}else{
+            			$y_num .=  $lines[$i]['同岗位排名'];
+            		}
+            	} 
+            		$b='';
+            		$y_nums=explode('|', $y_num);
+            		sort($y_nums);
+            		for ($j=count($y_nums)-1; $j >=0 ; $j--) {
+            			if($j>0){
+            				$b .= $y_nums[$j].',';
+            			} else{
+            				$b .= $y_nums[$j];
+            			}
+            		}
+            			echo $b;
+             ?>]
+        }], 
+        tooltip: {
+        	backgroundColor:'#E6E8FA',
+            valueSuffix: '名',
+        	valuePrefix: '第'
+        },
+        plotOptions: { 
+            line: { 
+                dataLabels: { 
+                    enabled: false //显示每条曲线每个节点的数据项的值 
+                },
+                enableMouseTracking: true 
+            } 
+        }, 
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{ 
+            name:"<?php $lines[0]['USER_NAME']=str_replace("\n","",$lines[0]['USER_NAME']);echo $lines[0]['USER_NAME'];?>", 
+            data: [
+            	<?php 
+            	$nums = '';
+            	for ($i=0; $i < count($lines) ; $i++) { 
+            		if($i<(count($lines)-1)){
+            			$nums .=  $lines[$i]['同岗位排名'].',';
+            		}else{
+            			$nums .=  $lines[$i]['同岗位排名'];
+            		}
+            	} 
+            	echo $nums;
+            	?> ]
+            //每条线的数据 
+        }] 
+    }); 
+}); 
+</script> 
+</block>

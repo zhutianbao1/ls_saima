@@ -1,0 +1,648 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+/* CSS reset */
+
+* {padding:0; margin:0;}
+
+ul,li {list-style:none;}
+
+fieldset, img {border:none;}
+
+body {background:#fff;overflow-x:hidden;}
+
+body,button,input,select,textarea {font:14px/1.5 tahoma,arial,"Hiragino Sans GB",\5b8b\4f53;}	 
+
+select,input,img,object,embed,iframe,label{vertical-align:middle;}
+
+select,input,textarea{font-family:inherit;margin:0;}
+
+input[type="text"],input[type="submit"],input[type="reset"]{-webkit-appearance:none;border-radius:0;}
+
+table{border-collapse:collapse;}
+
+table th{font-weight: normal;}
+
+input[type="submit"],input[type="reset"],button{cursor:pointer;}
+
+input:focus,select:focus,textarea:focus{outline:none;}
+
+textarea {resize:none;}
+
+table {border-collapse:collapse;border-spacing:0;}
+
+button {cursor:pointer;}
+
+em {font-style:normal;}
+
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:500;}
+
+a {text-decoration:none;}
+
+a:focus {outline:none;}
+
+.left{float:left;}
+
+.right{float: right;}
+
+/* ie debug */
+
+img,li {vertical-align:top;}
+
+th {text-align:inherit;}
+
+iframe {display:block;}
+
+/* CSS3 锟斤拷锟斤拷锟斤拷强 */
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus {border-color: rgba(242, 145, 73, 0.8) !important;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(242, 145, 73, 0.6);outline: 0 none;}
+
+a:hover, a:active, a:focus {text-decoration:underline; -webkit-transition: color 0.3s ease; transition: color 0.3s ease;}
+
+/* clearfix */
+
+.clearfix:after{content:"\0020";display:block;height:0;clear:both;}
+
+.clearfix{zoom:1;}
+
+.clearit{clear:both;height:0;font-size:0;overflow:hidden;}
+
+/* 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷省锟皆号ｏ拷锟斤拷锟借定锟斤拷锟斤拷 */ 
+
+.fn-text-overflow {overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+
+/* CSS Document */
+
+/*实时公告--导致deta05的margin-top由10变到45*/
+
+.auction{display: none;}
+
+/* 颜色 */
+
+.cd_bred{background:#FFD1D7}
+
+.cd_bg{background:#BFFFCF;}
+
+.cd_red{color:#ff1e21;}
+.cd_grey{color:#ccc;}
+
+.cd_g{color:Green;}
+
+body {font-family:"Microsoft Yahei","微软雅黑","SimHei";}
+
+.wrap {width:960px; margin:0 auto;}
+
+.fl {float:left;}
+
+.fr {float:right;}
+
+a {color:#1463b4;}
+
+a:hover {color:#1463b4 !important; text-decoration:none;}
+
+.smallLine {position:absolute; top:16px; left:3px; width:4px; height:18px; background:#2076ce; overflow:hidden;}
+
+.middleLine {position:absolute; top:13px; left:14px; width:5px; height:20px; background:#2076ce; overflow:hidden;}
+
+/* main-header */
+
+.sina-top-bar-inner{width:1240px;}
+
+img{vertical-align: middle;}
+
+.sina-top-bar-wrap{background: #f7f7f7;}
+
+.sina-top-bar-nav-list li a { padding: 20px 0 16px;}
+
+li.banner01{padding-left: 60px;}
+
+#HKlogo{height: 57px;line-height: 57px;float:left;}
+
+#HKlogo a{display: block;height: 57px;line-height: 57px;}
+
+.adver01{margin: 20px 0;height:90px;width: 100%;font-size: 35px;background:#270633}
+
+.main_nav{height: 50px;line-height: 50px;background: #2076ce;}
+
+.main_nav a{font-size: 16px;color:#fff;float: left;padding: 0 13px;}
+
+.main_nav a:hover{background:#1c67b3;color:#fff !important;}
+
+.main_nav a.nav_01{background: #bc1a00;}
+
+.main_nav a.nav_01:hover{background: #a91700;color:#fff;}
+
+.main_nav a.nav_last{float: right;font-size: 14px;}
+
+/* 滚动指数 */
+
+.zhishu{height: 40px;line-height: 40px;background: #f6f6f6;width: 100%;color:#000;}
+
+/* 面包屑导航+搜索 */
+
+.stockhead{margin: 10px 0 20px;height:30px;line-height: 30px;}
+
+.stockhead h4 a{color: #1463b4;}
+
+.stockhead h4 a:hover{color:#2076ce !important;}
+
+.stockhead h4 a.curr{color: #000;}
+
+.stockhead .search{float:right;position:relative;*margin-top:4px;}
+
+.stockhead .search input{float:left;vertical-align:middle;}
+
+.stockhead .search .txt{border: 1px solid #2076ce;width: 330px;line-height:28px;color:#999;height: 28px;padding-left:10px;font-size: 14px;}
+
+.stockhead .search .btn{width:40px;height:28px;background:url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat 0 -10px;border:none;padding:0;cursor:pointer;position: absolute;right:0px;top: 0px;}
+
+.stockhead .search input.btn:hover{background-position: 0 -57px;}
+
+/* 主体部分--左栏 自选股*/
+
+.col01_1,.col01_2,.col01_3{margin-bottom: 10px;}
+
+/*1463b4*/
+.zxtabs{height: 33px;border-top:2px solid #0f8ee2;line-height: 33px;width:100%; }
+
+.zxtabs_bottom{border:0px;border-bottom:2px solid #0f8ee2;}
+
+.zxtabs span{min-width:100px;float: left;height: 100%}
+
+.zxtabs a.more{float: right;color:#626262;font-size: 14px;width:60px;height: 100%} 
+
+.zxtabs a.more:hover{color:#1463b4;} 
+
+.zxtabs_two span {float: left;width:130px;font-size: 16px;color:#000;background: #f0f0f0;text-align: center;cursor:pointer}
+
+.zxtabs span.selected{background: #fff;color: #1463b4;width: 128px;border: 1px solid #dcdcdc;border-top: 0;border-bottom: 0;}
+
+.zxtabs_four span {float: left;width:30px !important;font-size: 14px;color:#000;background: #f0f0f0;text-align: center;cursor:pointer;min-width: 64px;}
+.zxtabs_four span.selected{background: #fff;color: #1463b4;width: 20px !important;border: 1px solid #dcdcdc;border-top: 0;border-bottom: 0;min-width: 65px;}
+
+
+.visit {width: 260px;}
+
+.visit tr th{padding-right: 2px;}
+
+.visit tr.head{height:33px;line-height: 33px;border-bottom: #ededed solid 1px;color:#999;text-align: right;}
+
+.visit tr td{height: 32px;line-height: 32px;text-align: right;}
+
+.hot_stock tr td{height: 32px;line-height: 32px;}
+
+.hot_stock table{display: table!important;*display: table;}
+
+.name a,.name_jg a{color:#000;}
+
+.visit tr th.name,.visit tr td.name{text-align: left;padding-left: 5px;}
+
+.g_zxg{height: 30px;border: 1px solid #ccc;line-height: 30px;margin-top: 10px;display:none;text-align: center;}
+
+/* 行业对比 */
+
+.hy_tabs2,.hy_tabs3,.hy_tabs4,.hy_tabs5{display: none;}
+
+ span.selected01{color: #1463b4;font-size: 20px;padding-left:2px;line-height: 40px;float: left;}
+
+.hydb_table{z-index: -1;}
+
+.hydb_table table{width:260px;display: none;}
+
+.hydb{z-index: 2;}
+
+.hydb div.pop{border-right:1px solid #ccc; width: 135px;}
+
+.hydb div.pop a{background-image: none;}
+
+.hydb div.pop a.slid{padding-right: 30px;position:absolute;left:115px;top:0px;background: url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat 6px -556px;height:20px;}
+
+.hydb .pop ul{width:144px;display: none;}
+
+.pop ul li{width:100%;}
+
+.hydb ul li{background: #fff;}
+
+/*相关资料*/
+
+.xgzl ul{padding: 10px 0;border-bottom: 1px solid #ededed;padding-left: 2px}
+
+.xgzl ul:last-child{border-bottom: 0}
+
+.xgzl ul li{height: 26px;line-height: 26px;}
+
+.xgzl li span{font-size: 14px;color:#999;}
+
+.xgzl li a{font-size: 16px;color: #000;padding-right: 18px;} 
+
+.xgzl li a:last-child{padding-right: 0;}
+
+/*.main div{background-color:#d3ddec;height:100px; }*/
+
+.guquan tr td{text-align: center !important;}
+
+.main div.colum01{width:260px;}
+
+.main div.colum02{width:950px;margin-top:30px;}
+
+.col02_1,.col02_2{width:950px;}
+
+.col02_1 div.stock_detail{position:relative;width:660px;}
+  
+.col02_1 div.stock_detail .user_pic{display:block;width:60px;height:60px;border-radius:40px;right:19px;top:-10px;border:solid 1px #0f8ee2 ;
+position:absolute;z-index:20;overflow:hidden;cursor:hand;
+-moz-border-radius:40px;
+-webkit-border-radius:40px;
+-ms-border-radius:40px;
+-o-border-radius:40px;}
+
+.col02_1 div.stock_detail .user_pic_model{display:block;width:80px;height:80px;border-radius:40px;right:19px;top:-10px;border:solid 2px #0f8ee2 ;
+position:absolute;z-index:1001;overflow:hidden;background-color:#ddd;text-align:center;line-heigt:200%;font-weight:600;color:#0f8ee2;
+-moz-border-radius:40px;
+-webkit-border-radius:40px;
+-ms-border-radius:40px;
+-o-border-radius:40px;}
+
+.col02_1 div.stock_detail .user_pic_model a{display:block;width:80px;height:80px;margin-top:40px;}
+
+.col02_1 div.stock_detail .user_pic img{width:59px;height:59px;border-radius:40px;}
+
+.col02_1 div.stock_detail .user_pic_update{display:block;width:200px;height:200px;border-radius:5px;right:83px;top:-10px;border:solid 1px #0f8ee2;
+position:absolute;z-index:1000;background-color:#fff;
+-moz-border-radius:5px;
+-webkit-border-radius:5px;
+-ms-border-radius:5px;
+-o-border-radius:5px;}
+
+.col02_1 div.stock_detail .user_pic_update > div{padding:10px;}
+.col02_1 div.stock_detail .user_pic_update div{padding-top:10px;}
+.col02_1 div.stock_detail .user_pic_update img{border:solid 1px #0f8ee2;border-radius:3px;}
+.col02_1 div.stock_detail .user_pic_update input{}
+.col02_1 div.stock_detail .user_pic_update a:hover{text-decoration:none;color:#FFF !important;FONT-WEIGHT:BOLD;}
+
+.col02_2 div.stock_r{width: 260px;}
+
+.stock_detail h4{height: 26px;line-height: 26px;padding-bottom: 5px;border-bottom: 2px solid #0f8ee2;width:660px;}
+
+ .stock_detail h4 span{color:#1463b4;font-size: 18px;}
+
+ h4 span.name01{font-size: 26px;font-weight: bold;padding-right: 30px;}
+
+ h4 div.detail_sx{width: 120px;}
+
+ .stock_sz a.suigu{display: block;height: 24px;border: 1px #ccc solid;width:120px;background: #f7f7f7;text-align: center;color:#ff1e21;line-height: 24px;}
+
+.stock_sz a.suigu:hover{color:#ff1e21 !important;border-color:#2076ce; }
+
+.stock_sz a.self_select{background: url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat 0 -246px;color:#fff;text-align: center;width:110px;height: 26px;padding-left: 10px; }
+
+.stock_sz a.self_select:hover{opacity: .75;filter:alpha(opacity=75);color:#fff !important;}
+
+.stock_detail h4 span.stock_h2a{ position: relative; top: -4px; right: -5px; width: 29px; height: 29px; margin-right: 10px;}
+
+.deta01{margin:10px 0 10px 0 ;width: 660px;line-height: 30px }
+
+.deta02,.deta03,.deta04,.deta05{width: 660px;}
+
+.deta01 span.price{font-size: 25px;}
+#mts_stock_hk_zdf{font-weight: bold;font-size: 18px;}
+
+div.up_price{color:green;background: url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat 5px -655px;width: 30px;height: 50px}
+
+div.down_price{color:#ff1e21;background: url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat 0px -476px;width: 30px;height: 50px;}
+
+.deta01_1{height: 50px;width: 420px;}
+
+.deta01_11{padding-top: 2px;}
+
+.deta01_11 p {height: 20px;line-height: 20px;font-size: 14px;color:#626262;}
+
+.deta01_11 p.date{color: #999;margin-top: 10px; }
+
+.deta01_11 span.price{font-size: 20px;}
+
+.deta01_11 p span.up{color:#ff1e21;padding-right: 10px;}
+
+.deta01_11 p span.down{color:green;padding-right: 10px;}
+
+.deta01_1 a{line-height:35px;color:#418ad5;height:37px;width: 88px;border: 1px solid #ccc;background: url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat -1px -350px;padding-left: 30px;margin-top: 5px;}
+
+.deta01_1 a:hover{color:#fff !important;background: url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat -1px -420px;border: 0;height: 40px;}
+
+.deta02{background: #f7f7f7;height: 35px;line-height: 35px;padding: 0 10px;width: 640px;}
+.deta02 span{color:#1463b4;font-size: 14px;padding-right: 8px;}
+
+.deta02 span.last{float: right;padding-right: 0;*float: none;*padding-left: 40px;}
+
+.deta02 span.first{color:#ff1e21;}
+
+/*成交分布*/
+
+.cjfb_tabs{width: 100%;margin: 10px 0;}
+
+.cjfb_tabs tr th{color:#626262;border-bottom: 1px solid #ebebeb;}
+
+.cjfb_tabs tr td{height: 32px;line-height: 32px;color:#626262;}
+
+.cjfb_tabs .t_l{text-align: left;}
+
+.cjfb_tabs .t_r{text-align: right;}
+
+/*均价和波幅*/
+
+.jb_tab01 li,.jb_tab02 li{line-height: 26px;height: 26px;}
+
+/* 正股与涡轮 */
+
+.zg_pre{height: 26px;line-height:26px;width: 260px;padding: 2px 0;}
+
+.zg_pre p{width: 200px;height: 10px;background: #ccc;border-radius: 2px;display: inline-block;zoom:1;*display:inline;}
+
+.zg_pre em{height:10px;display: block;border-radius: 2px;}
+
+.zg_pre em.em_g{background: #4bbc7c;width: 20%;float: left;}
+
+.zg_pre em.em_red{background: #eb6951;width:40% ;float: right;}
+
+.R_legend{height: 26px;line-height: 26px;width: 100%;text-align: center;padding-left: 15px;}
+
+.R_legend span.R_span{*margin-top:-14px;display: inline-block;zoom:1;*display:inline;padding-left:30px;height: 10px;margin-right: 5px;border-radius: 2px;}
+
+.R_up{background: #4bbc7c}
+
+.R_eq{background: #ccc}
+
+.R_down{background: #eb6951}
+
+/*大手笔成交分布*/
+
+.B_cjfb h4{color:#1463b4;border-bottom: 1px solid #ebebeb;padding-bottom: 5px;}
+
+.Bcjfb_deta{height:35px;line-height: 35px;padding: 10px 0;}
+
+.Bcjfb_deta div{height:100%;line-height: 17px;}
+
+.Bcjfb_deta div.precent p{width:150px;height:20px;background: #ccc;margin:5px 10px 0;border-radius: 3px;}
+
+.precent em{float: left;height: 20px;width:1%;border-top-left-radius: 3px;border-bottom-left-radius: 3px;display: block;background:#4bbc7c;}
+
+.precent em.down{float: right;width: 1%;background: #eb6951;border-radius:0px;border-top-right-radius: 3px;border-bottom-right-radius: 3px;}
+
+div.no_suigu{width:130px;}
+
+td.jdt{width: 200px;}
+
+.jdt span{float: left;}
+
+.jdt span.price_num{width: 40px;padding-right: 10px;}
+
+td.jdt span.price{width: 140px;height: 10px;background: #f2f2f2;margin-left: 5px;border-radius: 5px;float: left;margin-top: 10px;}
+
+td.jdt em{display: block;width:20%;background: #418bd6;height: 100%; border-radius: 5px;}
+
+/*.jdt span.price{display: block;float: left;}*/
+
+/* 昨收盘等数据列表 */
+
+.deta03{margin-top: 10px;background: #f7f7f7; padding: 0 10px; width: 640px;border-bottom: 1px solid #e0e0e0;}
+
+
+.deta03 ul {float: left;width:100%;}
+
+.deta03 ul li{height: 31px;line-height: 31px;font-size: 14px;color:#535353;border-bottom: 1px solid #e0e0e0;min-width: 115px;position:relative;}
+.deta03 ul li.last{border-bottom:0;}
+
+.deta03 ul li span{color:#000;padding-left:16px;*float: none;}
+
+.deta03 ul.last{float: right;margin-right: 0;}
+
+.deta03 ul.last02{margin-right: 0;min-width: 160px}
+
+/* 实时公报 */
+
+.deta04 {height: 30px;line-height: 30px; font-size: 14px;margin-top: 20px;background: #f7f7f7;padding-left: 10px;}
+
+.deta04 a{color:#1463b4;}
+
+.deta04 a:hover{color:#2076ce !important;}
+
+.deta04 a.more{float: right;color:#000;padding-right: 10px;} 
+
+.deta04 a.more:hover{color:#1463b4;}
+
+/* 免责声明 */
+
+#quicklink{font-size: 14px;color: #626262;margin: 10px 0;}
+
+#quicklink a{color:#1463b4;}
+
+/*hq_img*/
+
+.deta05{margin-top: 45px;}
+
+/* 对比图 */
+
+.compare{height: 40px;line-height: 40px;background: #f0f0f0;margin-top: 20px;}
+
+.compare01{font-size: 16px;width: 90px;padding-left: 10px;}
+
+.pop{height: 27px;border: 1px #ccc solid;border-right: 0;line-height: 27px;margin-top: 6px;width: 87px;padding-left: 10px;background: #fff;position: relative;}
+
+.pop a{color:#000 !important; background: url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat 62px -561px;padding-right: 30px;}
+
+.inputct{height: 27px;line-height: 27px;margin-top:5px;margin-top:6px\9;}
+
+.inputct input{border:1px #ccc solid;width: 160px;height: 27px;padding-left: 10px;line-height: 27px;}
+
+.pop ul{border: 1px solid #ccc;width: 98px;position:absolute;left:0;top:28px;box-shadow: 5px 5px 4px #ededed;}
+
+.pop ul li{border-bottom: 1px solid #ccc;background: #fff;}
+
+.pop ul li a{background: #fff;height: 35px;line-height: 35px;display: block;padding-left: 10px;}
+
+.pop ul li a:hover{background:#f4f4f4;color:#1463b4 !important;}
+
+ .btn_compare{background: #f7f7f7;width: 160px;height:27px;width: 54px;border: 1px solid #ccc;padding-bottom: 3px;color:#1463b4;}
+
+ button.btn_compare:hover{background: #418ad5;color:#fff;border: 0;height: 30px;}
+
+ /*个股资讯+公告+评论*/
+
+ .col02_2{margin-top: 20px;}
+
+ .col02_21,.col02_22{width: 460px;}
+
+ .col02_21 ul li,.col02_22 ul li{font-size: 16px;line-height: 35px;height:35px;background: url("http://i2.sinaimg.cn/cj/hk/list.png") no-repeat 0 16px; padding-left: 10px;}
+
+ .col02_21 li a,.col02_22 li a{color: #000;float:left;}
+
+ .col02_21 li span,.col02_22 li span{float: right;color:#999;}
+
+ /*财务数据+权益信息+个股评级*/
+
+ .col02_3{margin-top: 20px;}
+
+ .col02_31{width:660px;}
+
+ .col02_32{width:265px;}
+
+.col02_32>div{width:265px;}
+
+ span.danwei{font-size: 14px;color:#626262;padding-left: 50px}
+
+ table.cw,.qyi_tabs,.gv_tabs{border: 1px solid #ebebeb;width: 100%;margin-top: 15px;}
+
+ .cw tr,.qyi_tabs tr,.gv_tabs tr{height: 33px;line-height: 33px;}
+
+ .cw tr.odd,.qyi_tabs tr.odd,.gv_tabs tr.odd{background:#f7f7f7; }
+
+ .cw tr td,.qyi_tabs tr td,.gv_tabs tr td{border: 1px solid #ebebeb;padding: 0 10px;text-align: right;}
+
+ .qyi_tabs tr td{}
+
+.cw tr td.head{text-align: left;}
+
+.col02_31>div{margin-bottom: 20px;}
+
+.qyi{width: 660px;}
+
+.qyi_h{width: 100%;}
+
+.qyi_h>span{min-width: 150px;float: left;}
+
+.qyi_h a.more{font-size: 14px;color: #626262;padding-top: 10px;width: 60px;}
+
+.qyi span.s01{width:243px;}
+
+.qyi span.s02{width:415px;}
+
+.qyi span.selected{background: #fff;color: #1463b4;border: 1px solid #dcdcdc;border-top: 0;border-bottom: 0;}
+
+.qyi_tabs th, .gv_tabs th{font-size: 14px;color: #252525;background: #eef6ff;font-weight: normal;border:1px solid #dcdcdc; }
+
+.qyi_tabs,.gv_tabs{table-layout: fixed;}
+
+.qyi_tabs td.name div,.gv_tabs td.name div,.gv_tabs td.name_jg div{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;height:35px;line-height: 35px;text-align: left}
+
+.gv_tabs td.cen{text-align: center;}
+td.cen a[title]{color:#999;}
+td.cen a[title]:hover{color:#999;}
+td.cen a:hover{color:#2076ce !important;}
+
+/*派息记录*/
+
+.px_tab{table-layout: fixed;}
+
+.px_tab tr td{text-align: left;}
+
+.px_tab td.content div{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.pxjl{margin-top: 180px;height: 295px;overflow: hidden;}
+.pxjl div a{color:#000;}
+
+.px_tab div a:hover{color:#000 !important;}
+
+.pxjl a.more{padding-top: 4px;}
+
+/*综合评级*/
+
+.zh_val{margin-top: 25px;}
+
+/*右侧列表*/
+
+.stock_r{width: 260px;}
+
+/*相关权证*/
+
+.xgqz{}
+
+.xgqz_tabs{width: 100%;margin-bottom: 10px;}
+
+.xgqz_tabs tr{height: 30px;line-height: 30px;}
+
+.xgqz_tabs tr th{color:#626262;border-bottom: 1px solid #ededed}
+
+.xgqz_tabs tr td{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;height:28px;line-height: 28px;text-align: left;}
+
+.xgqz_tabs td.name div{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;height:28px;line-height: 28px;text-align: left;width:130px;}
+
+/*趋势图解*/
+
+.qs_compare{width:260px;}
+
+.qs_title{height: 40px;width: 100%;border-top: 2px solid #1463b4;z-index: 100;line-height: 40px;}
+
+.qs_title a{color: #252525;padding: 0 5px;}
+
+#qs_img{width: 144px;height: 30px;border: 1px solid #ccc;line-height: 30px;position: absolute;top:5px;right: 0px;}
+
+#qs_list{width:144px;border:1px solid #ccc;border-bottom: 0;position: absolute;right: 0px;top:35px;display: none;}
+
+#qs_list li{width:100%;height: 30px;line-height: 30px;border-bottom:1px solid #ccc;background: #fff; }
+
+.qs_title a.slid{background:url('http://i1.sinaimg.cn/cj/hk/HK_hq.png') no-repeat 7px -560px;padding-right: 20px; }
+
+#qs_list a:hover{color: #1463b4}
+
+/*页尾*/
+
+.page_foot{width:1240px;margin-top: 38px;text-align: center;font-size: 12px;color: #333;*padding-top: 38px;}
+
+.page_foot a{color:#333 !important;}
+
+/*热门股票*/
+
+#hotstock table{display: table;*display: block;}
+
+/*权证页面*/
+
+.qz_qyi_h{padding-bottom: 8px;}
+
+.qz_qyi_h span.selected01{line-height: 20px;}
+
+.qz_qyi_h a.more{padding-top: 2px;}
+
+/*基本数据*/
+
+.jbsj_tabs{width: 100%;margin: 10px 0;}
+
+.jbsj_tabs tr{height: 32px;line-height: 32px;}
+
+.jbsj_tabs tr.odd{background:#f7f7f7; }
+
+.jbsj_tabs tr td:first-child{color:#999;padding-left: 5px;}
+
+/*指数页面*/
+
+.HSI_deta01{width: 380px;}
+
+/*机构增减持*/
+
+.jgzjc{margin-top: 10px;}
+
+/*A+H股*/
+
+.A_H,.zdf10,.D_Value{margin-top:15px}
+
+.A_H table,.D_Value table{display: table;*display: block;}
+
+.A_H tr td{line-height: 30px;line-height: 30px;}
+
+/* 评级 */
+#gradepic{ position:relative; background:url(http://stock.finance.sina.com.cn/hkstock/view/images/grade.png) -20px 9px no-repeat; height:60px; }
+#gradepic i { top:3px; left:0px; display:block; width:27px; height:31px; position:absolute; z-index:100; background:url('http://i2.sinaimg.cn/cj/pic/20100612/grade.gif') 0 -64px no-repeat; }
+
+/* flash pic标签切换 */
+.sub01{ padding:0 1px;}
+.sub01 .sub01_tt{ height: 33px;border-top: 2px solid #1463b4;line-height: 33px; width: 100%;}
+.sub01 .sub01_tt span{ float: left; width: 130px; font-size: 16px; color: #000; background: #f0f0f0; text-align: center; cursor: pointer;}
+.sub01 .sub01_tt .selected{  background: #fff; color: #1463b4; width: 128px; border: 1px solid #dcdcdc; border-top: 0; border-bottom: 0;}
+.sub01 .sub01_cc{ text-align:center; padding:15px 0;}
+.sub01 .sub01_cc .sub01_c{}
+.sub01 .sub01_cc img{ width: 100%;}
+
+
+/*我的指标*/
+.wdzb {border-top: 2px solid #0f8ee2;margin-bottom:10px;}
+.wdzb > a{display:block;text-decoration:none;padding:5px;border-bottom:solid 1px #EEE;font-size:16px;margin-top:5px;font-weight:bold;color:#BBB !important;}
+.wdzb > a:hover{background-color:#0f8ee2;color:#FFFFFF !important; }

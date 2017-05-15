@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>营销活动缴费卡打印</title>
+	<style media="print">
+        .Noprint{display: none;}
+        .PageNext{page-break-after: always;}
+    </style>
+	<style type="text/css" >
+	*{margin: 0;padding: 0;color: #666;font-size: 14px;
+		font-family: "Microsoft Yahe,微软雅黑",background-color:#fff;}
+	.content{width:100%; min-width: 650px;}
+	.box{width: 650px;margin: 0 auto;border:1px solid #666;	}    
+    .box .header{position: relative;width: 100%;background-color: #eee;height: 50px;line-height: 50px;}
+	.header .back_btn{padding: 3px 15px;border:1px solid #666;margin-left: 50px;}
+	.header .title{text-align: center;width: 180px;letter-spacing: 1px;height: 20px;font-size: 16px;
+					display: inline-block;line-height: 20px;position: absolute;left: 210px;top: 15px;}
+    .show_table{margin:5px;border:0px solid #666;}
+    .show_table>div{padding:5px 5px;}
+    .show_table div table{width: 100%;border-collapse: collapse;margin-top: 5px;}
+    .show_table div table tr{height: 30px; line-height: 30px;}
+    .show_table div table tr td{border:1px solid #666;}
+    .tl{text-align: left;}
+    .tr{text-align: right;}
+    .tc{text-align: center;}
+    .header .dy_btn{padding: 3px 15px; border:1px solid #666; position: absolute;left: 540px;top:13px;}
+    .show_div{width: 100%;margin-top: 5px;}
+    .show_div .group{width: 100%;border:1px solid red;}
+    .show_div label{width:49%;display: inline-block;height: 30px;line-height: 30px;border:1px solid #666;}
+    .show_div label input[type='text']{width: 80%;height: 25px;line-height: 25px;border:none;}
+	</style>
+	<object id="WebBrowser" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" width="0"></object>
+</head>
+<body>
+	<div class="content">
+		<div class="box">
+			<div class="header">
+				<input type="button"  class="back_btn" value="返 回" />
+				<a class="title">缴费卡领取登记表</a>
+				<input type="button" value="打印"  class="dy_btn" onclick="document.all.WebBrowser.ExecWB(6,1)" />
+			</div>
+			<div class="show_table">
+			 	<div>
+			 		<h4>注意事项</h4>
+			 		<table class="table1">
+						<tr>
+							<td >1、缴费卡领取人请提供身份证复印件作为本登记表的附件1</td>
+						</tr>
+						<tr>
+							<td >2、领取缴费卡后,请双方清点金额并签字确认</td>
+						</tr>
+						<tr>
+							<td >3、打印人请提供打印清单作为本登记表附件2</td>
+						</tr>
+					</table>
+			 	</div>
+			 	<div >
+			 		<h4>操作信息</h4>
+			 		<table class="table2">
+						<tr>
+							<td ><div style="width: 100px;">工单编号:</div></td>
+							<td ><div style="width: 160px;">{$list.ITEM_ID}</div></td>
+							<td ><div style="width: 100px;">打印时间:</div></td>
+							<td ><div style="width: 160px;"><?php echo date('Y-m-d H:i:s');?></div></td>
+						</tr>
+						<tr>
+							<td >操作员名称:</td>
+							<td >{$_SESSION['payment']['OPER_NAME']}</td>
+							<td >联系方式:</td>
+							<td >{$_SESSION['payment']['OPER_LOGIN_CODE']}</td>
+						</tr>
+					</table>
+			 	</div>
+
+			 	<div class="">
+			 		<h4>领取人信息</h4>
+			 		<table class="table3">
+						<tr>
+							<td><div style="width: 120px;">组织(渠道)编号:</div></td>
+							<td><div style="width: 147px;">{$list.ORG_ID}</div></td>
+							<td><div style="width: 120px;">组织(渠道)名称:</div></td>
+							<td><div style="width: 147px;">{$list.ORG_NAME}</div></td>
+						</tr>
+						<tr>
+							<td>领取人姓名:</td>
+							<td >{$list['PAYMENT_OPER']}</td>							
+							<td>领取人电话:</td>
+							<td >{$list['PAYMENT_BILL']}</td>
+						</tr>
+					</table>
+			 	</div>
+
+			 	<div >
+			 		<h4>结算信息</h4>
+			 		<table class="table4" >
+						<tr>
+							<td><div style="width: 70px;">结算类型</div></td>
+							<td colspan="2"></td>
+							<td>金额合计(元)</td>
+							<td >{$list['PAYMENT_AMOUNT_SJ']}</td>
+						</tr>
+						<tr>
+							<td><div style="width: 70px;">500元面值</div></td>
+							<td><div style="width: 60px;">数量(张)</div></td>							
+							<td ><div style="width: 50px;">{$list500[0]['CARD_NO']}</div></td>
+							<td>缴费卡序列号<div style="width: 90px;"></div></td>
+							<td><div style="width: 253px;">{$card_xlh500}</div></td>	
+						</tr>
+						<tr>
+							<td >300元面值</td>
+							<td >数量(张)</td>
+							<td >{$list300[0]['CARD_NO']}</td>
+							<td>缴费卡序列号</td>
+							<td>{$card_xlh300}</td>
+						</tr>
+						<tr>
+							<td >100元面值</td>
+							<td>数量(张)</td>
+							<td>{$list100[0]['CARD_NO']}</td>
+							<td>缴费卡序列号</td>
+							<td>{$card_xlh100}</td>
+						</tr>
+						<tr>
+						<td >50元面值</td>
+							<td>数量(张)</td>
+							<td>{$list50[0]['CARD_NO']}</td>
+							<td>缴费卡序列号</td>
+							<td>{$card_xlh50}</td>
+						</tr>
+						<tr>
+							<td >30元面值</td>
+							<td>数量(张)</td>
+							<td>{$list30[0]['CARD_NO']}</td>
+							<td>缴费卡序列号</td>
+							<td>{$card_xlh30}</td>
+							
+						</tr>
+						<tr>
+							<td >20元面值</td>
+							<td>数量(张)</td>
+							<td>{$list20[0]['CARD_NO']}</td>
+							<td>缴费卡序列号</td>
+							<td>{$card_xlh20}</td>
+						</tr>
+					</table>
+			 	</div>
+
+			 	<div class="">
+			 		<h4>确认签字
+			 			<span style="font-size: 11px;font-weight: 400;">（注意：签字前请再次核对领取的缴费卡是否和上表结算信息中缴费卡的面值、张数、序列号一致)</span>
+			 		</h4>
+			 		<table class="table5">
+						<tr>
+							<td colspan="6">打印人签字:</td>
+						</tr>
+						<tr>
+							<td colspan="6">申领人签字:</td>
+						</tr>						
+					</table>
+			 	</div>			 	
+			 	<!--			 		
+				<input type="button" value="直接打印" class="dy_btn" onclick="document.all.WebBrowser.ExecWB(6,6)" />
+				<input type="button" value="页面设置" class="dy_btn" onclick="document.all.WebBrowser.ExecWB(8,1)" />
+				<input type="button" value="打印预览" class="dy_btn" onclick="document.all.WebBrowser.ExecWB(7,1)" />
+				-->			 	
+			</div>
+		</div>
+	</div>
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.back_btn').click(function(){
+			window.location="{:U('Payment/item_receive')}";
+		});
+	});
+</script>
+</html>

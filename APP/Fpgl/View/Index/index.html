@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>财务发票管理平台</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Fpgl/style/admin.css">
+<script type="text/javascript" src="__PUBLIC__/Fpgl/js/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Fpgl/js/admin.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+   name      : '财务发票管理平台', //项目名称
+   title     : $(document).attr('title'), //当前页面名称
+   county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+   user_id   : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+   bill_id   : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+   user_name   : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+   url     : location.href, //当前访问地址
+   ext     : '',  //拓展信息  
+   bInfo       : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+<script language="javascript" type="text/javascript">
+function SetWinHeight(obj)
+{
+var win=obj;
+if (document.getElementById)
+{
+if (win &&!window.opera)
+{
+if (win.contentDocument && win.contentDocument.body.offsetHeight) 
+win.height = win.contentDocument.body.offsetHeight; 
+else if(win.Document && win.Document.body.scrollHeight)
+win.height = win.Document.body.scrollHeight;
+}
+}
+}
+</script>
+
+</head>
+<body>
+<form id="form1" runat="server">
+<div id="top">
+<h1>财务发票管理平台</h1>
+<p>
+您好，<strong><?php echo session('user_auth.OA') ?></strong> [ <?php echo session('user_auth.DEPT') ?>]
+<!--  [ <a href="./" target="_blank">去首页</a> ] [ <a href="{:U('index/logout')}">退出</a> ] -->
+</p>
+</div>
+<h1>
+后台管理系统
+</h1>
+</div>
+</div>
+<div id="sidebar">
+<h3 class="menu">系统首页</h3>
+<dl>
+	<dd><a href="{:U('Index/index_list')}" target="main">发票信息列表</a></dd>
+	<dd><a href="{:U('Index/add')}" target="main">发票信息录入</a></dd>
+</dl>
+<h3 class="menu manager">发票管理</h3>
+<dl class="manager">
+	<dd><a href="{:U('Index/wait_list')}" target="main">待作废列表</a></dd>
+</dl>
+<h3 class="menu">统计报表</h3>
+<dl>
+	<dd><a href="{:U('Index/count_list')}" target="main">发票录入统计</a></dd>
+</dl>
+<!-- <h3 class="menu">系统管理</h3>
+<dl>
+	<dd><a href="{:U('index/system')}" target="main">系统配置文件</a></dd>
+</dl> -->
+</div>
+<div id="show">
+<!-- <iframe id="main" name="main" onload="Javascript:SetWinHeight(this)" frameborder="0" scrolling="no" width="100%" height="100%"> -->
+<iframe id="main" name="main" frameborder="0" scrolling="no" width="100%" height="99%">
+</iframe>
+</div>
+</form>
+</body>
+<!-- <script type="text/javascript">
+	var manager = "{$manager}";
+	if(manager == "no"){
+		$(".manager").css("display","none");
+	}
+</script> -->
+</html>

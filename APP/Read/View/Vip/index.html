@@ -1,0 +1,319 @@
+<extend name="Tpl/base"/>
+<block name="title">个人首页</block>
+
+<block name="main_left">
+	{:W('Side/vip_html')}
+</block>
+
+
+<block name="main_right">
+  <div class="hd lined" >
+  <h3 style="float:left;">我的积分</h3>
+  <div style="float:left;margin-left:20px;margin-top:5px;">        
+          <if condition="$type eq manager">  
+          <div class="bd">    
+                <span style="font-size:14px;color: #666;letter-spacing: 1px;">
+                截止目前,全市组织读书会<span style="color:red">{$book_meeting_no[0]['book_meeting_no']*1}</span>场,参与读书会人员<span style="color:red">{$people_totle[0]['people_totle']*1}</span>人,
+                共推荐书籍<span style="color:red">{$book_no[0]['book_no']*1}</span>本.
+                </span>     
+          </div>
+        <elseif condition="$type eq gen_user"/> 
+          <div class="bd">    
+                <span style="font-size:14px;">
+                截止目前您本月读书活动的总积分为<span style="color:red">{$arr4[0]['total']*1}</span>分, 其中参与积分<span style="color:red">{$arr4[1]['canyu']*1}</span>分,心得发表积分<span style="color:red">{$arr4[2]['xinde']*1}</span>分. 
+                </span>     
+          </div>
+        </if>
+  </div>
+  <div style="clear: both;"></div>
+  </div>
+   
+
+ <div class="hd lined">
+ <h3>我报名过的读书会
+      <span class="help-tip"></span></h3>
+  </div>
+  <div class="bd">
+	 <table width="100%">
+    <tr height="22px">
+    <th style="background:#6e839a;color:#fff;">读书会</th>
+    <th style="background:#6e839a;color:#fff;">报名时间</th>
+    <th style="background:#6e839a;color:#fff;">操作</th> 
+    </tr>
+    <volist name="baos" id="bao">
+    <tr>
+      <td>{$bao['meeting_name']}</td>
+      <td>{$bao['bao_date']|date='Y-m-d',###}</td>
+      <td>
+       <a href="javascript:;" para="{$bao['id']}" class="del_bao">撤销报名</a> 
+      </td>
+    </tr>
+    </volist>
+  </table><br>
+  </div>
+
+ <!-- 滚动书籍 -->
+<div class="hd lined">
+  <h3>我借阅的书籍
+    <span class="help-tip"></span></h3>
+</div>
+
+<div>
+  <table width="100%">
+    <tr height="22px">
+    <th style="background:#6e839a;color:#fff;">书籍</th>
+    <th style="background:#6e839a;color:#fff;">借阅时间</th>
+    <th style="background:#6e839a;color:#fff;">借阅状态</th>
+    </tr>
+    <volist name="borrows" id="borrow">
+    <tr>
+      <td>{$borrow['book_name']}</td>
+      <td>{$borrow['borrow_date']|date='Y-m-d H:m',###}</td>
+      <td>
+        <?php 
+            if($borrow['status']==0){
+              echo '已还书';
+            }else if($borrow['status']==1){
+              echo '<font color=blue>取书中..</font>';
+            }else if($borrow['status']==2){
+              echo '<font color=red>已取书</font>';
+            }
+        ?>
+      </td>
+    </tr>
+    </volist>
+  </table>
+  <br>
+</div>
+
+    
+
+ <div class="hd lined">
+ <h3>心得分享
+      <span class="help-tip"></span></h3>
+</div>
+<div>
+<table width="100%">
+  <tr height="22px">
+  <th style="background:#6e839a;color:#fff;">书籍</th>
+  <th style="background:#6e839a;color:#fff;">心得标题</th>
+  <th style="background:#6e839a;color:#fff;">发表时间</th>
+  <th style="background:#6e839a;color:#fff;">状态</th>
+  <th style="background:#6e839a;color:#fff;">操作</th>
+  </tr>
+  <volist name="xindes" id="xinde">
+  <tr>
+    <td>{$xinde['book_name']}</td>
+    <td>{$xinde['title']}</td>
+    <td>{$xinde['oper_date']|date='Y-m-d',###}</td>
+    <td>
+      <if condition="$xinde['shenhe'] eq 0 ">待审核
+      <elseif condition="$xinde['shenhe'] eq 1 " />审核通过
+      <else />审核未通过
+    </if>
+    </td>  
+    <td>
+      <a href="{:U('index/xinde_edit?book_id='.$xinde['book_id'].'&id='.$xinde['id'])}">编辑</a>&nbsp;
+      <a href="javascript:;" para="{$xinde['id']}" class="del_xinde">删除</a>
+    </td>
+  </tr>
+  </volist>
+</table>
+</div>
+<!--
+  {$_page}
+  -->
+  <br>
+
+
+<div class="hd lined">
+ <h3>书籍推荐
+      <span class="help-tip"></span></h3>
+</div>
+
+<table width="100%">
+  <tr height="22px">
+  <th style="background:#6e839a;color:#fff;">书籍</th>
+  <th style="background:#6e839a;color:#fff;">作者</th>
+  <th style="background:#6e839a;color:#fff;">推荐时间</th>
+  <th style="background:#6e839a;color:#fff;">状态</th>
+  <!--
+  <th style="background:#6e839a;color:#fff;">操作</th>  
+  -->
+  </tr>
+  <volist name="tuijs" id="tuijs">
+  <tr>
+    <td>{$tuijs['book_name']}</td>
+    <td>{$tuijs['book_auth']}</td>
+    <td>{$tuijs['book_date']|date='Y-m-d',###}</td>
+    <td>
+      <if condition="$tuijs['status'] eq 0 ">待审核
+      <elseif condition="$tuijs['status'] eq 1 " />审核采纳
+      <else />审核未采纳
+      </if>
+    </td> 
+    <!-- 
+    <td>
+      <a href="{:U('index/xinde_edit?book_id='.$xinde['book_id'].'&id='.$xinde['id'])}">编辑</a>&nbsp;
+      <a href="javascript:;" para="{$xinde['id']}" class="del_xinde">删除</a>
+    </td>
+    -->    
+  </tr>
+  </volist>
+</table>
+<!--
+ {$_page}
+-->
+  <br/>
+
+  <div class="hd lined">
+    <h3>我的请假<span class="help-tip"></span></h3>
+  </div>
+  <table width="100%">
+    <tr height="22px">
+      <th style="background:#6e839a;color:#fff;">读书会</th>
+      <th style="background:#6e839a;color:#fff;">请假时间</th>
+      <th style="background:#6e839a;color:#fff;">进度</th>
+      <th style="background:#6e839a;color:#fff;">结果</th>  
+    </tr>
+    <volist name="qingjia" id="qingjia">
+    <tr>
+      <td>{$qingjia['title']}</td>
+      <td>{$qingjia['item_date']|date='Y-m-d',###}</td>
+      <td>
+        <if condition="$qingjia['step'] eq 0 ">员工提出请假
+        <elseif  condition="$qingjia['step'] eq 1 " />读书会管理员已审核
+        <elseif  condition="$qingjia['step'] eq 2 " />公司培训管理员已审核
+        <elseif  condition="$qingjia['step'] eq 3 " />总经理已审核
+        </if>      
+      </td>      
+      <td>
+        <if condition="$qingjia['shenpi_result'] eq 0 ">待审核
+        <elseif condition="$qingjia['shenpi_result'] eq 1 " />审核通过  
+        <elseif condition="$qingjia['shenpi_result'] eq 2 " />审核未通过     
+        </if>
+      </td>     
+    </tr>
+    </volist>
+  </table>
+  <!--
+  {$_page}
+  -->
+  <br/>
+
+
+  <div class="bd">
+	 
+  </div>
+
+{:W('Side/haoshu')}
+
+</block>
+<!-- col10 END -->
+
+<block name="js">
+<script>
+
+$(".del_bao").click(function(){
+  var e = $(this),
+      id= e.attr('para');
+  if(confirm('是否确认撤销报名？')){
+    $.ajax({
+        type:'get',
+        data:{id:id},
+        url:"{:U('index/meeting_bao_del')}",
+        dataType:'json',
+        success:function(re){
+          if(re.success){
+            e.parent().parent().remove();
+          }else{
+            layer.msg('撤销失败');
+          }
+        },
+        error:function(){
+          layer.msg('删除失败');
+        }
+      });
+  }
+});
+
+$(".del_xinde").click(function(){
+  var e = $(this),
+      id= e.attr('para');
+  if(confirm('是否确认删除心得？')){
+    $.ajax({
+        type:'get',
+        data:{id:id},
+        url:"{:U('index/xinde_del')}",
+        dataType:'json',
+        success:function(re){
+          if(re.success){
+            e.parent().parent().remove();
+          }else{
+            layer.msg('删除失败');
+          }
+        },
+        error:function(){
+          layer.msg('删除失败');
+        }
+      });
+  }
+});
+
+var cml = 0; 	//当前 margin-left:0px;
+var index = 1;  //当前显示第1个ul 标签
+$('.slide-prev , .slide-next').click(function () {
+ 	slider($(this));
+});
+
+
+slider  = function (obj){
+  var e = obj;
+  if(e.hasClass('disabled')){
+    return false;
+  }
+
+  var div = e.siblings('.carousel:eq(0)').find(".slide-list:eq(0)"),
+  ml = div.css('marginLeft'),
+  mr = div.css('margin-right'),
+  cnt = div.find('ul').length,
+  wth = 700,
+  max = cnt * wth;
+ 
+  console.info('max :' + max);
+  console.info('ml :' + cml);
+  console.info('wth+ml :' + (wth + cml));
+  console.info(e.hasClass('slide-prev'));
+  
+  if (e.hasClass('slide-prev')) {
+    if (0 > cml) {
+      div.animate({
+        'margin-left': (cml + 696) + 'px'
+      },'slow');
+    }
+    cml = cml+696;
+    e.siblings('.slide-next').removeClass('disabled');
+    index--;
+  }
+  
+  if (e.hasClass('slide-next')) {
+    if (max > (wth + cml)) {
+      div.animate({
+        'margin-left': (cml - 696) + 'px'
+      },'slow');
+    }
+    cml = cml-696;
+    e.siblings('.slide-prev').removeClass('disabled');  
+    index++;
+  }
+  
+  if(index==1){
+    e.parent().children(".slide-prev").addClass('disabled');
+  }
+  if(index==cnt){
+    e.parent().children(".slide-next").addClass('disabled');
+  }
+}
+
+</script>
+</block>

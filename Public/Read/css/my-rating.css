@@ -1,0 +1,117 @@
+
+@font-face {
+    font-family: "arkitalic";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Georgia-Italic"), local("Georgia Italic");
+}
+@font-face {
+    font-family: "arkitalic";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Georgia-BoldItalic"), local("Georgia Bold Italic");
+}
+@font-face {
+    font-family: "doucoin";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot") format("embedded-opentype"), url("/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff") format("woff"), url("/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf") format("truetype"), url("/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg") format("svg");
+}
+[data-icon]::before {
+    content: attr(data-icon);
+    font-family: "arkicons";
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: none;
+}
+.rating-dialog .k-text {
+    margin-bottom: 0;
+}
+.rating-dialog .rating .label {
+    margin-right: 5px;
+}
+.dialog-rating-bd {
+    color: #666;
+    position: relative;
+    width: 528px;
+}
+.dialog-rating-bd .report {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.rating-confirm-form {
+    font-size: 12px;
+}
+.rating-confirm-form .share-options {
+    float: left;
+}
+.rating-confirm-form .share-options label {
+    margin: 0 0.5em;
+}
+.rating-confirm-form .share-options input {
+    margin: 0;
+    vertical-align: 0;
+}
+.rating-confirm-form .rating-comment {
+    margin: 10px 0;
+}
+.rating-confirm-form .rating-comment .text-count {
+    float: right;
+}
+.rating-confirm-form .rating-comment .comment-label {
+    display: block;
+    font-size: 12px;
+}
+.rating-confirm-form .rating-comment textarea {
+    height: 20em;
+    margin-top: 5px;
+    width: 518px;
+}
+.rating-confirm-form .form-ft label {
+    line-height: 2.2;
+}
+.rating-confirm-form .btn-confirm {
+    float: right;
+}
+.rating-confirm-form .error-msg {
+    color: #b85f5f;
+}
+.delete-confirm-dialog .k-text {
+    margin-bottom: 20px;
+    width: 200px;
+}
+.my-rating .rating-comment {
+    background: #f2f2ec none repeat scroll 0 0;
+    color: #888;
+    display: block;
+    padding: 8px 10px;
+    word-wrap: break-word;
+}
+.my-rating .rating-comment-wrapper {
+    padding-top: 10px;
+}
+.my-rating .rating, .my-rating .edit-rating-actions {
+    display: inline-block;
+}
+.my-rating .edit-rating-actions {
+    margin-top: 10px;
+}
+.my-rating .edit-rating-actions a {
+    margin-right: 5px;
+}
+.my-rating .rating-authority-hint {
+    color: #999;
+    display: none;
+}
+
+.stars-context, .stars-small-context {
+    background: rgba(0, 0, 0, 0) url("../images/stars.png") no-repeat scroll 0 0;
+    display: inline-block;
+    height: 18px;
+    margin-left: 4px;
+    overflow: hidden;
+    vertical-align: -5px;
+    width: 96px;
+}

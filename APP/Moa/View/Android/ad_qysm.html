@@ -1,0 +1,467 @@
+<!doctype html>
+<html data-dpr="1">
+<head>
+<meta charset="utf-8">
+<title>荣誉榜</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="author" content="duanliang, duanliang920.com" />
+	<!-- <link rel="stylesheet" href="__CSS__/rank_style.css"> -->
+<style>
+	*{margin: 0px;padding:0px;}
+    a{text-decoration: none;}
+    li{list-style-type: none;}
+    .button{overflow: hidden;background: #eff}
+    .button a{width:33.3%;display: block;float: left;text-align: center;height: 0.7rem;line-height: 0.7rem;font-size: 0.4rem}
+    .btn-col{background: #ccc;}
+    .padd img{float: left;width: 3rem;height: 3rem}
+    .padd{height: 3rem;width: 95%;border: 0px dashed;margin: 0 0 0.2rem 0.5rem;background: #eee;position: relative;font-size: 0.4rem}
+    .score{position: absolute;z-index: 99999;bottom: 0px;background: #000;opacity:0.7;filter:alpha(opacity=70);text-align: center;left: 0;color: #fff;width: 3rem;}
+    .span{margin-left: 1rem;float: left;margin-top: 0.7rem;}
+    .tempWrap{overflow: hidden;height:9.59rem;position: relative;}
+    .tempWrap ul{padding: 0;margin: 0;position: relative;}
+    .grid_rank{width:10rem; height: 100%;background: #fafafa;float: left;}
+    .nav1 img{float: left;height: 3.5rem;margin-top: 0.1rem}
+    .state{position: absolute;margin-top: 3.6rem;font-size: 0.4rem}
+    .foot{border: 1px solid;margin-top: 1rem;height: 9.5rem;border-radius: 20px;font-size: 0.4rem;}
+    .foot span{text-align:center;display: block;height: 1rem;line-height: 1rem}
+    .foot .mark{padding-top: 1rem;padding-left: 1rem}
+    .foot .end{text-align: center;margin-top: 2rem}
+    .nav{float: left;width: 10rem;display: none;}
+    .hide{display: block;}
+</style>
+ </head>
+ 
+<body>
+    <div class="viewport">
+        <div>
+        	<a href="{:U('android/index')}" style="position: absolute;z-index: 99999;"><img src="__IMG__/retreat.png" style="width: 1rem;height: 1rem;"></a>
+        	<div style="background: #0081CC;text-align: center;font-size: 0.6rem;height: 1rem;line-height: 1rem;color: #fff;">荣誉榜</div>
+        </div>
+        <div class="button"><a class="btn-col" id="0">年度千里马(3-7月)</a><a id="1">月度骏马(7月)</a><a id="2">月度黑马(7月)</a><!-- <a id="3">我的赛马</a> --></div>
+        <div class="nav nav4 hide">
+        	<div id="wrapper" style="margin-top: 0.5rem;margin-bottom: 1rem;position: relative;">
+	        	<div class="rank_yy" id="f_qlm">
+					<div class="tempWrap" id="g_qlm">
+						<ul id="qlm">
+						<volist name="qlm" id="u">
+							<li class="padd" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+								<a class="link">
+									<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'">
+									<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+									<div class="span"><span>{$u['POS_NAME']}</span><br/>
+									<span>{$u['COUNTY_NAME']}</span><br/>
+									<span>总积分：{$u['SCORE']}</span></div>
+								</a>
+							</li>
+						</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<hr style="width: 90%;margin-left: 5%;" />
+			<div style="margin: 0.5rem 1rem;">
+				<form action="{:U(android/ad_qysm)}" method="post">
+					<input placeholder="输入姓名或排名" type="text" name="qlm_pm" style="width: 6rem;height: 1rem;border:1px solid #000;border-radius:20px;text-indent: 10px;float: left;font-size: 0.5rem" />
+					<input type="submit" value="ok" style="width:1.5rem;margin-left:0.2rem;height: 1rem;font-size: 0.5rem" />
+				</form>
+			</div>
+        </div>
+        <div class="nav nav3">
+        	<div id="wrapper" style="margin-top: 0.5rem;margin-bottom: 1rem;position: relative;">
+        		<div class="rank_yy" id="f_jm">
+					<div class="tempWrap" id="g_jm">
+						<ul id="jm">
+						<volist name="jm" id="u">
+							<li class="padd" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+								 <a class="link">
+									<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'">
+									<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+									<div class="span"><span>{$u['POS_NAME']}</span><br/>
+									<span>{$u['COUNTY_NAME']}</span><br/></div>
+								</a>
+							</li>
+						</volist>
+						</ul>
+					</div>
+				</div>
+        	</div>
+			<hr style="width: 90%;margin-left: 5%;" />
+			<div style="margin: 0.5rem 1rem;">
+				<form action="{:U(android/ad_qysm)}" method="post">
+					<input placeholder="输入姓名或排名" type="text" name="jm_pm" style="width: 6rem;height: 1rem;border:1px solid #000;border-radius:20px;text-indent: 10px;float: left;font-size: 0.5rem" />
+					<input type="submit" value="ok" style="width:1.5rem;margin-left:0.2rem;height: 1rem;font-size: 0.5rem" />
+				</form>
+			</div>
+        </div>
+        <div class="nav nav2">
+        	<div id="wrapper" style="margin-top: 0.5rem;margin-bottom: 1rem;position: relative;">
+        		<div class="rank_yy" id="f_hm">
+					<div class="tempWrap" id="g_hm">
+						<ul id="hm">
+						<volist name="hm" id="u">
+							<li class="padd" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+								 <a class="link">
+									<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'">
+									<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+									<div class="span"><span>{$u['POS_NAME']}</span><br/>
+									<span>{$u['COUNTY_NAME']}</span><br/><span style="color:#979797;">排名提升：{$u['RANK_MINUS']}</span></div>
+								</a>
+							</li>
+						</volist>
+						</ul>
+					</div>
+				</div>
+        	</div>
+			<hr style="width: 90%;margin-left: 5%;" />
+			<div style="margin: 0.5rem 1rem;">
+				<form action="{:U(android/ad_qysm)}" method="post">
+					<input placeholder="输入姓名或排名" type="text" name="hm_pm" style="width: 6rem;height: 1rem;border:1px solid #000;border-radius:20px;text-indent: 10px;float: left;font-size: 0.5rem" />
+					<input type="submit" value="ok" style="width:1.5rem;margin-left:0.2rem;height: 1rem;font-size: 0.5rem" />
+				</form>
+			</div>
+        </div>
+		<!-- <div class="nav">
+		<div id="wrapper" style="margin-top: 0.5rem;margin-bottom: 1rem;position: relative;">
+			<div id="f_aa" class="rank_yy" style="">
+				<div id="g_aa" class="tempWrap" style="">
+					<ul id="aa" style="width: 40rem;position: relative;;">
+						<li class="grid_rank">
+							<div class="rank_yy" id="f_qlm">
+								<div class="tempWrap" id="g_qlm">
+									<ul id="qlm">
+									<volist name="qlm" id="u">
+										<li class="padd" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+											<a class="link">
+												<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'">
+												<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+												<div class="span"><span>{$u['POS_NAME']}</span><br/>
+												<span>{$u['COUNTY_NAME']}</span><br/>
+												<span>总积分：{$u['SCORE']}</span></div>
+											</a>
+										</li>
+									</volist>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="grid_rank">
+							<div class="rank_yy" id="f_jm">
+								<div class="tempWrap" id="g_jm">
+									<ul id="jm">
+									<volist name="jm" id="u">
+										<li class="padd" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+											 <a class="link">
+												<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'">
+												<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+												<div class="span"><span>{$u['POS_NAME']}</span><br/>
+												<span>{$u['COUNTY_NAME']}</span><br/></div>
+											</a>
+										</li>
+									</volist>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="grid_rank">
+							<div class="rank_yy" id="f_hm">
+								<div class="tempWrap" id="g_hm">
+									<ul id="hm">
+									<volist name="hm" id="u">
+										<li class="padd" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+											 <a class="link">
+												<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'">
+												<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+												<div class="span"><span>{$u['POS_NAME']}</span><br/>
+												<span>{$u['COUNTY_NAME']}</span><br/><span style="color:#979797;">排名提升：{$u['RANK_MINUS']}</span></div>
+											</a>
+										</li>
+									</volist>
+									</ul>
+								</div>
+							</div>
+						</li>				
+					</ul>
+				</div>
+			</div>
+		</div>
+		<hr style="width: 90%;margin-left: 5%;" />
+		<div style="margin: 0.7rem 1rem;">
+			<input id="pm" placeholder="输入姓名或排名" type="text" name="pm" maxlength="12" style="width: 6rem;height: 20px;border:1px solid #000;border-radius:20px;text-indent: 10px;float: left;" />
+			<a href="javascript:;" id="ok_button" style="width: 1.5rem;display: block;height: 20px;background: #ccc;float: left;text-align: center;color: black">ok</a>
+		</div>
+		</div> -->
+		<!-- <div class="nav nav1">
+			<div style="border: 1px solid;margin-top: 1rem;height: 4.2rem">
+				<li><img class="aimg" src="__HEAD_IMG__{$upsm[0]['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'" style="width:2rem;margin-left:0.9rem;margin-right: 0.1rem"><div class="state" style="left: 1.3rem">前一名</div></li>
+				<li><img class="aimg" src="__HEAD_IMG__{$mysm[0]['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'" style="width: 4rem;"><div style="position: absolute;z-index: 99999;margin-top: 3.08rem;background: #000;opacity:0.7;filter:alpha(opacity=70);text-align: center;left: 3rem;color: #fff;width: 4rem;font-size: 0.4rem">{$mysm[0]['PM']} &nbsp;&nbsp;{$mysm[0]['USER_NAME']}</div>
+				<div class="state" style="left: 3rem">{$mysm[0]['POS_NAME']} {$mysm[0]['COUNTY_NAME']}</div></li>
+				<li><img class="aimg" src="__HEAD_IMG__{$dnsm[0]['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'" style="width: 2rem;margin-left: 0.1rem"><div class="state" style="right: 1.3rem">后一名</div></li>
+			</div>
+			<div class="foot">
+				 <span>情况分析</span> <hr style="width: 90%;margin-left: 5%" />
+				 <div class="mark">您的成绩：{$mysm[0]['AMOUNT']}</div>
+				 <div class="mark">落后前一名：{$upsm[0]['AMOUNT']-$mysm[0]['AMOUNT']}</div>
+				 <div class="mark">领先后一名：{$mysm[0]['AMOUNT']-$dnsm[0]['AMOUNT']}</div>
+				 <div class="end">再接再厉 赶超前者 谨防后者</div>
+			</div>
+		</div> -->
+    </div>
+</body>
+
+<script type="text/javascript" src="__STATIC__/jquery-1.5.1.js"></script> 
+<script type="text/javascript" src="__STATIC__/jquery.cookie.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	//当前主菜单光标
+	var menu_index = $.cookie('show_menu')-0;
+	//alert(menu_index);
+	var num=4-menu_index;
+	//alert(num);
+	try{
+		$(".nav").removeClass('hide');
+		$(".nav"+num).addClass('hide');
+		$(".button a").removeClass('btn-col');
+		if(menu_index==null){
+			$("#0").addClass('btn-col');
+		}
+		else
+		$("#"+menu_index).addClass('btn-col');
+	}catch(e){
+		show_menu($(".nav > li").eq(0));
+	}
+});
+
+	$(".button > a").click(function(){
+		var index=$(this).index();
+		var num =4-index;
+		var id="#"+index;
+		$(".nav").removeClass('hide');
+		$(".nav"+num).addClass('hide');
+		$.cookie('show_menu',index);
+		$(".button a").removeClass('btn-col');
+		$(id).addClass('btn-col');
+	});
+	/*$('input:text').each(function(){  
+		var txt = $(this).val(); 
+		$(this).focus(function(){  
+		if(txt === $(this).val()) $(this).val("");  
+		}).blur(function(){  
+		if($(this).val() == "") $(this).val(txt);  
+		});  
+	})*/
+
+$(function(){
+	var page4 = 1; //当前第几页
+	var page5 = 1; //当前第几页
+	var page6 = 1; //当前第几页
+	var i = 3; //图片个数
+	var $jm = $("#g_jm ul");
+	var $jm_w = $("#f_jm").height();
+	var $len4 = $("#g_jm ul li").length;
+    var page_count4 = Math.ceil($len4/i); 
+    function marpuery4() {
+  		if(!$jm.is(":animated")){
+    		if(page4 == page_count4 ){
+     			$jm.animate({top:'0px'},"slow"); 
+      			page4=1;
+      		}else{
+       			$jm.animate({top:'-='+$jm_w},"normal");
+        		page4++;
+      		}
+     	}
+ 	}		
+    var MyMar4=setInterval(marpuery4,5000);
+    f_jm.onmouseover=function() {clearInterval(MyMar4)}
+    f_jm.onmouseout=function() {MyMar4=setInterval(marpuery4,5000)}
+
+
+	var i = 3; //图片个数
+	var $hm = $("#g_hm ul");
+	var $hm_w = $("#f_hm").height();
+	var $len5 = $("#g_hm ul li").length;
+    var page_count5 = Math.ceil($len5/i);
+    function marpuery5() {
+  		if(!$hm.is(":animated")){
+    		if(page5 == page_count5 ){
+     			$hm.animate({top:'0px'},"slow"); 
+      			page5=1;
+      		}else{
+       			$hm.animate({top:'-='+$hm_w},"normal");
+        		page5++;
+      		}
+     	}
+ 	}		
+    var MyMar5=setInterval(marpuery5,5000);
+    f_hm.onmouseover=function() {clearInterval(MyMar5)}
+    f_hm.onmouseout=function() {MyMar5=setInterval(marpuery5,5000)}
+
+  
+	var i = 3; //图片个数
+	var $qlm = $("#g_qlm ul");
+	var $qlm_w = $("#f_qlm").height();
+	var $len6 = $("#g_qlm ul li").length;
+    var page_count6 = Math.ceil($len6/i);
+    function marpuery6() {
+  		if(!$qlm.is(":animated")){
+    		if(page6 == page_count6 ){
+     			$qlm.animate({top:'0px'},"slow"); 
+      			page6=1;
+      		}else{
+       			$qlm.animate({top:'-='+$qlm_w},"normal");
+        		page6++;
+      		}
+     	}
+ 	}		
+    var MyMar6=setInterval(marpuery6,5000);
+    f_qlm.onmouseover=function() {clearInterval(MyMar6)}
+    f_qlm.onmouseout=function() {MyMar6=setInterval(marpuery6,5000)}
+});
+
+	var $aa = $("#g_aa #aa");
+	var $aa_w = $("#f_aa").width();
+ 	function andd(index1){
+ 		if(index1==1){
+ 			$aa.animate({left:'0px'},"1"); 
+ 		}
+ 		else if(index1==2){
+ 			$aa.animate({left:'-'+$aa_w},"1");
+ 		}
+ 		else if(index1==3){
+ 			$aa.animate({left:'-'+$aa_w*2},"1");
+ 		}
+ 	}
+
+
+	/*$("#aa").initslide(
+        {
+
+        }
+    );*/
+</script>
+
+<script type="text/javascript">
+	;(function(win, lib) {
+    var doc = win.document;
+    var docEl = doc.documentElement;
+    var metaEl = doc.querySelector('meta[name="viewport"]');
+    var flexibleEl = doc.querySelector('meta[name="flexible"]');
+    var dpr = 0;
+    var scale = 0;
+    var tid;
+    var flexible = lib.flexible || (lib.flexible = {});
+    
+    if (metaEl) {
+        console.warn('将根据已有的meta标签来设置缩放比例');
+        var match = metaEl.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
+        if (match) {
+            scale = parseFloat(match[1]);
+            dpr = parseInt(1 / scale);
+        }
+    } else if (flexibleEl) {
+        var content = flexibleEl.getAttribute('content');
+        if (content) {
+            var initialDpr = content.match(/initial\-dpr=([\d\.]+)/);
+            var maximumDpr = content.match(/maximum\-dpr=([\d\.]+)/);
+            if (initialDpr) {
+                dpr = parseFloat(initialDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));    
+            }
+            if (maximumDpr) {
+                dpr = parseFloat(maximumDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));    
+            }
+        }
+    }
+
+    if (!dpr && !scale) {
+        var isAndroid = win.navigator.appVersion.match(/android/gi);
+        var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+        var devicePixelRatio = win.devicePixelRatio;
+        if (isIPhone) {
+            // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+            if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {                
+                dpr = 3;
+            } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)){
+                dpr = 2;
+            } else {
+                dpr = 1;
+            }
+        } else {
+            // 其他设备下，仍旧使用1倍的方案
+            dpr = 1;
+        }
+        scale = 1 / dpr;
+    }
+
+    docEl.setAttribute('data-dpr', dpr);
+    if (!metaEl) {
+        metaEl = doc.createElement('meta');
+        metaEl.setAttribute('name', 'viewport');
+        metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        if (docEl.firstElementChild) {
+            docEl.firstElementChild.appendChild(metaEl);
+        } else {
+            var wrap = doc.createElement('div');
+            wrap.appendChild(metaEl);
+            doc.write(wrap.innerHTML);
+        }
+    }
+
+    function refreshRem(){
+        var width = docEl.getBoundingClientRect().width;
+        /*if (width / dpr > 540) {
+            width = 540 * dpr;
+        }*/
+        var rem = width / 10;
+        docEl.style.fontSize = rem + 'px';
+        flexible.rem = win.rem = rem;
+    }
+
+    win.addEventListener('resize', function() {
+        clearTimeout(tid);
+        tid = setTimeout(refreshRem, 300);
+    }, false);
+    win.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+            clearTimeout(tid);
+            tid = setTimeout(refreshRem, 300);
+        }
+    }, false);
+
+    if (doc.readyState === 'complete') {
+        doc.body.style.fontSize = 12 * dpr + 'px';
+    } else {
+        doc.addEventListener('DOMContentLoaded', function(e) {
+            doc.body.style.fontSize = 12 * dpr + 'px';
+        }, false);
+    }
+    
+
+    refreshRem();
+
+    flexible.dpr = win.dpr = dpr;
+    flexible.refreshRem = refreshRem;
+    flexible.rem2px = function(d) {
+        var val = parseFloat(d) * this.rem;
+        if (typeof d === 'string' && d.match(/rem$/)) {
+            val += 'px';
+        }
+        return val;
+    }
+    flexible.px2rem = function(d) {
+        var val = parseFloat(d) / this.rem;
+        if (typeof d === 'string' && d.match(/px$/)) {
+            val += 'rem';
+        }
+        return val;
+    }
+
+})(window, window['lib'] || (window['lib'] = {}));
+</script>
+</html>

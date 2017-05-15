@@ -1,0 +1,123 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">书籍管理</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+
+
+<block name="main_right">
+  <div class="query_div">
+    <form action="" name="theForm" method="post">
+      <ul>
+       <!--  <li>条件1：<input type="text" name=""></li>
+       <li>条件2：<input type="text" name=""></li>
+       <li>条件3：<input type="text" name=""></li>
+       <li>条件4：<input type="text" name=""></li> -->
+        <li><!-- <a class="btn" href="javascript:;"> 查询 </a> -->
+            <a class="btn" href="{:U('manager/manager_book_edit')}"> 添加 </a></li>
+      </ul>
+    </form>
+  </div>
+
+  <div class="data_table clear">
+    <div class="section">
+    
+    <div class="bd">
+      <ul class="list-lined ebook-list column-list">
+        
+        <volist name="books" id="book">
+        <li class="item">
+          <div class="cover shadow-cover">
+            <a  class="pic" href="{:U('index/book_info?id='.$book['id'])}">
+              <if condition="(substr($book['img'],0,5) eq 'https')">
+              <img width="110px" height="164px" itemprop="image" alt="" src="__IMG__/22325617.jpg" tmpsrc="{$book['img']}">
+              <else/>
+              <img width="110px" height="164px" itemprop="image" alt="" src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$book['img']}">
+              </if></a>
+          </div>
+          <div class="info">
+            <div class="article-actions hide">
+              <div class="action-buttons">
+                <!-- <span class="price-tag ">免费</span> -->
+                
+                <a class="btn btn-icon "  href="{:U('manager/manager_meeting_edit?book_id='.$book['id'])}">新增阅读计划</a>
+                <a class="btn btn-icon "  href="{:U('manager/manager_xinde_edit?book_id='.$book['id'])}">添加心得</a>
+                <a class="btn btn-icon "  href="{:U('manager/manager_xinde?book_id='.$book['id'])}">读书心得</a>
+
+                <a class="btn btn-icon "  href="{:U('manager/manager_book_edit')}">添加书籍</a>
+                <a class="btn btn-icon "  href="{:U('manager/manager_book_edit?id='.$book['id'])}">书籍编辑</a>
+                <a class="btn btn-icon "  href="{:U('manager/manager_book_del?id='.$book['id'])}">删除书籍</a>
+                </div>
+            </div>
+            <div class="title" style="font-size:14px;">
+              <a  href="{:U('index/book_info?id='.$book['id'])}">{$book['book_name']}</a></div>
+            <p class="">
+              <span class="">
+                <span class="label">作者</span>
+                <span class="labeled-text">
+                  <a href="javascript:;" class="author-item">{$book['author']}</a></span>
+              </span>
+            </p>
+            <p class="">
+              <span class="category">
+                <span class="label">类别</span>
+                <span class="labeled-text">
+                  <span itemprop="genre">
+                  <?php 
+                    $type  = R('para/attr_book_type',array($book['book_type']));
+                    echo $type;
+                  ?>
+                  </span></span>
+              </span>
+            </p>
+            <div class="rating list-rating hide">
+              <span class="rating-stars stars-context stars-5}" title="{$book['star']}"></span>
+              <span class="rating-average">9.0</span>
+              <span class="rating-amount">
+                <a target="_self" class="ratings-link" href="javascript:;">
+                  <span>305</span>人评价</a>）</span>
+              <span style="display:none;" itemtype="http://schema.org/AggregateRating" itemscope="itemscope" itemprop="aggregateRating">
+                <meta content="10" itemprop="bestRating">
+                <meta content="2" itemprop="worstRating">
+                <meta content="9.0" itemprop="ratingValue">
+                <meta content="305" itemprop="reviewCount"></span>
+            </div>
+            <div class="article-desc-brief">{$book['sub_content']|mb_substr=###,0,160,"utf-8"}...
+              <a href="javascript:;">（更多）</a></div>
+          </div>
+        </li>
+        </volist>
+        
+      </ul>
+    </div>
+     <div class="ft">
+      {$_page}
+    </div>  
+  </div>
+  </div>
+</block>
+
+<block name="js">
+<script>
+  $(".list-lined li").mouseover(function(event) {
+    var e = $(this);
+    e.css('cursor','pointer')
+    e.find(".article-actions").show();
+ });
+
+ $(".list-lined li").mouseout(function(event) {
+    var e = $(this);
+    e.css('cursor','pointer')
+    e.find(".article-actions").hide();
+ });
+</script>
+</block>

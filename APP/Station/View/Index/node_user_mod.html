@@ -1,0 +1,230 @@
+<extend name="pub/base" />
+<block name="title">
+	<title>无线网基站规划建设平台</title>
+</block>
+<block name="css">
+	<style type="text/css">
+	.main_right h3{margin-top:5px;margin-left: 5px;background-color: #61abea;color: #eee;font-size: 13px;
+					font-weight: 600;width: 100px;text-align: center; }
+	.right_div{width: 100%;	}
+	.right_div fieldset{margin:10px;}
+	.group_div,.group_div1{width: 90%; height: 35px;line-height: 35px;text-align: left;	
+					margin:0 auto 5px;}
+	.group_div label,.group_file label{width: 30%;	height: 30px;line-height: 30px;font-size: 12px;
+		            color: #666;text-align: left;	display: inline-block;	text-align: right;}
+	.group_div input,.group_div select{	width: 65%;	height: 25px;line-height: 25px;	display:  inline-block;
+					color: #666;font-size: 13px;font-weight: 500;text-indent: 5px;margin-top: 5px;
+					border:1px solid #666;}
+	#group5,#group6{display: none;}
+	.div_btn{width: 100%;height: 30px;line-height: 30px;text-align: center;	margin-top: 20px;}
+	.div_btn .sub_btn{font-size: 14px;color: #666;text-align: center;padding: 5px 20px;border:1px solid #666;}		
+	</style>
+</block>
+<block name="main_right">
+	<div class="main_right">
+	    <h3>节点人员添加</h3>
+	    <div class="right_div">
+	    <form id="theForm" action="{:U('Index/node_user_mod')}" method="post">
+	    <fieldset>
+	    	<legend>人员配置信息:</legend>
+	    	<div class="group">
+	    		<div class="group_div" id="group1">
+	    			<label>节点账号:</label>
+	    			<input type="text" name="node_login_code"  class="node_login_code" 
+	    			value="{$node['NODE_LOGIN_CODE']}" />
+	    		</div>
+	    		<div class="group_div" id="group2">
+	    			<label>节点名称:</label>
+	    			<select name="node_name">
+	    			    <option value="{$node['NODE_NAME']}">{$node['NODE_NAME']}</option>
+	    				<option value="">---请选择---</option>
+	    				<option value="1|片区联系人">片区联系人</option>
+	    				<option value="2|片区主管">片区主管</option>
+	    				<option value="3|规划审核1">规划审核1</option>
+	    				<option value="4|设计院县市联系人">设计院县市联系人</option>
+	    				<option value="5|设计院主管">设计院主管</option>
+	    				<option value="6|规划审核2">规划审核2</option>
+	    				<option value="7|市公司工程组">市公司工程组</option>
+	    				<option value="8|单验">单验</option>
+	    			</select>
+	    		</div>
+	    		<div class="group_div" id="group3">
+	    			<label>人员姓名:</label>
+	    			<input type="text" name="node_username" value="{$node['NODE_USERNAME']}"/>
+	    		</div>
+	    		<div class="group_div" id="group4">
+	    			<label>手机号码:</label>
+	    			<input type="text" name="bill_id" value="{$node['BILL_ID']}"/>
+	    		</div>
+	    		<div class="group_div" id="group5" >
+	    			<label>所属县市:</label>
+	    			<select name="county_code">
+	    			    <option value="{$node['COUNTY_CODE']}">{$node['COUNTY_CODE']}</option>
+	    				<option value="">---请选择---</option>
+	    				<option value="莲都">莲都</option>
+	    				<option value="缙云">缙云</option>
+	    				<option value="青田">青田</option>
+	    				<option value="云和">云和</option>
+	    				<option value="庆元">庆元</option>
+	    				<option value="景宁">景宁</option>
+	    				<option value="龙泉">龙泉</option>
+	    				<option value="松阳">松阳</option>
+	    				<option value="遂昌">遂昌</option>
+	    				<option value="南城">南城</option>	    				
+	    			</select>
+	    		</div>
+	    		<div class="group_div" id="group6">
+	    			<label>基站类型:</label>
+	    			<select name="net_type">
+	    			    <option value="{$node['NET_TYPE']}">{$node['NET_TYPE']}</option>
+	    				<option value="">---请选择---</option>
+	    				<option value="宏站">宏站</option>
+	    				<option value="室分">室分</option>
+	    				<option value="小微站">小微站</option>
+	    			</select>
+	    		</div>
+	    	</div>
+	    </fieldset>
+	    <input type="hidden" name="old_code" value="{$node['NODE_LOGIN_CODE']}"/>
+	    <input type="hidden" name="old_bill" value="{$node['BILL_ID']}">
+	    <div class="div_btn">
+	  		<input type="button" class="sub_btn"  value="提 交"/>
+	  	</div>
+	    </form>
+
+	    	
+	    </div>
+	</div>
+</block>
+<block name="js">
+	<script >
+		$(function(){
+			var node_user=[
+               '1|lxr_ld',
+               '1|lxr_nc',
+               '1|lxr_jy',
+               '1|lxr_sy',
+               '1|lxr_sc',
+               '1|lxr_yh',
+               '1|lxr_jn',
+               '1|lxr_lq',
+               '1|lxr_qy',
+               '1|lxr_qt',
+
+               '2|pianqu1',
+               '2|pianqu2',
+               '2|pianqu3',
+
+               '3|gh_cs',
+
+               '4|sjy_hz_ld',
+               '4|sjy_hz_nc',
+               '4|sjy_hz_jy',
+               '4|sjy_hz_sy',
+               '4|sjy_hz_sc',
+               '4|sjy_hz_yh',
+               '4|sjy_hz_jn',
+               '4|sjy_hz_lq',
+               '4|sjy_hz_qy',
+               '4|sjy_hz_qt',
+               '4|sjy_sf_ld',
+               '4|sjy_sf_nc',
+               '4|sjy_sf_jy',
+               '4|sjy_sf_sy',
+               '4|sjy_sf_sc',
+               '4|sjy_sf_yh',
+               '4|sjy_sf_jn',
+               '4|sjy_sf_lq',
+               '4|sjy_sf_qy',
+               '4|sjy_sf_qt',
+
+               '5|sjyzg_hz',
+               '5|sjyzg_sf',
+
+               '6|gh_fs',
+
+               '7|gc_hz',
+               '7|gc_sf',
+               '7|gc_xwz',
+
+               '8|danyan'
+
+			];
+
+			$(".node_login_code").autocomplete({
+		      source: node_user,
+		      messages: {
+              noResults:'',
+              results: function() {}        
+             }
+		    });
+
+		    $(document).click(function(event) {
+		        	$node_name=$("#group2 select[name='node_name']").val();
+		        	if($node_name=='片区联系人'||$node_name=='片区主管'||$node_name=='设计院县市联系人'){
+		        		$('#group5').css('display','block');
+		        	}else{
+		        		$('#group5').css('display','none');
+		        	}
+
+		        	if($node_name=='设计院县市联系人'||$node_name=='设计院主管'){
+		        		$('#group6').css('display','block');
+
+		        	}else{
+		        		$('#group6').css('display','none');
+		        	}
+		    });
+            
+            $('.sub_btn').click(function(event) {
+            	var flag=true;            
+            	$('.group_div input').each(function(){
+            		if($(this).val().isEmpty()){
+            			flag=false;
+				    	$(this).css('background-color','infobackground');
+				    };
+				    $(this).focus(function(event) {
+				    	$(this).css('background-color','');
+				    });
+				
+				});
+
+               $('select:visible').each(function(){
+				    if($(this).val().isEmpty()){
+				    	flag=false;
+				    	$(this).css('background-color','infobackground');
+				    };
+
+				    $(this).focus(function(event) {
+				    	$(this).css('background-color','');
+				    });
+				});
+
+              if(flag){
+              	layer.alert('确定要保存数据吗?',function(){
+              		 $('#theForm').submit();
+              	});
+              }else{
+                  layer.alert('请将数据填写完整!');
+              }
+                  
+
+            });
+
+
+            var county_name='{$node['COUNTY_CODE']}';
+
+            if(!(county_name.isEmpty())){
+                  $('#group5').css('display','block');
+            }
+
+            var net_name='{$node['NET_TYPE']}';
+
+            if(!(net_name.isEmpty())){
+                  $('#group6').css('display','block');
+            }
+            
+
+
+		});
+	</script>
+</block>

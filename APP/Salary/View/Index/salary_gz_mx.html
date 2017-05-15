@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>工资明细</title>
+		<link rel="stylesheet" href="__STATIC__/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__STATIC__/font-awesome4.2/css/font-awesome.min.css"> 
+      	<link rel="stylesheet" href="__STATIC__/font-awesome4.2/css/font-awesome-ie7.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+		<script src="__STATIC__/jquery-1.8.3.min.js"></script>	
+	
+		<style type="text/css">
+			
+		</style>				
+	</head>
+	<body>
+		<div class="content">
+			<div class="header">			    
+				<div class="header_img"></div>
+				<div class="header_title">工资项</div>
+			</div>
+			<div class="con_title">
+					<div class="daohang">{$list[0]['FAFANG_MONTH']}&nbsp;工资明细</div>	
+			</div>
+			<div class="main">
+				<div class="xiaoji">
+					<div class="xiaoji_f">小计</div>
+					<div class="xiaoji_l">{$list[0]['FAFANG_JX']}&nbsp;元</div>
+				</div>
+				<div class="mingxi">
+					<div class="mingxi_f">工资项</div>
+					<div class="jiben">
+						<div class="jiben_f">基本工资</div>
+						<div class="jiben_l">{$list[0]['FAFANG_JX']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>								
+				</div>				
+			</div>			
+		</div>				
+	</body>
+		<script >
+		$(function(){
+			$('.header_img').click(function(){
+            window.location="{:U('Index/salary_gongzi')}";  
+         });
+		});
+	</script>
+	
+</html>

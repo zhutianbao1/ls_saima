@@ -1,0 +1,26 @@
+<extend name="pub/msg_base"/>
+<block name="title">{$khjl['客户经理']}</block>
+<block name="css">
+	<link rel="stylesheet" href="__CSS__/hr.css">
+	<style type="text/css">
+		.p_main{background: white;height: 1000px;}
+		.user_info2_1 li{width: 234px !important;}
+	</style>
+</block>
+<block name="nav"></block>
+<block name="month"></block>
+<block name="body">
+<div class="model">
+	<div>
+		<div class="hr_info_title_l">
+			<span>个人首页</span>
+		</div>
+		<?php
+			if(empty($bill_id)){
+				$bill_id = $_SESSION['user_auth']['OPER_LOGIN_CODE'];
+			}
+		?>
+		{:W('Html/widget_xsjl_my',array($bill_id))}
+	</div>
+</div>
+</block>

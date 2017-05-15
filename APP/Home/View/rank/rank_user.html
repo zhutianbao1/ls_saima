@@ -1,0 +1,132 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">{$rankUser['USER_NAME']}-信息</block>
+
+<block name="css">
+	<style type="text/css">
+	
+	.model-list{line-height: 28px;margin-bottom:2px !important;}
+	.model-list li{position:relative;list-style: none;float: left;width:208px;padding-left: 4px;margin-left: 18px;font-weight: 600;margin-bottom: 4px;color: #000;font-size: 14px;}
+	.model-list li span{width:120px;padding-left: 4px;font-weight: 400;position: absolute;right:0px;font-size: 14px;}
+
+	.model-list .li{
+		position: relative;
+		margin-bottom: 2px;
+		padding-left:20px;
+		margin-left: -1px;
+		height:60px;
+		color: #172c45;
+		width: 214px;
+		border-bottom:solid 1px #ccc;
+
+		background: #f4f4f4;
+		font-size: 12px;
+	}
+	.model-list .li span{
+		position: absolute;
+		z-index: 100;
+		width: 213px;
+		left:0px;bottom: 0px;
+		height:35px;line-height: 35px;font-size: 16px;
+		padding-left:20px !important;
+		display: block;border-top:solid 0px #666ccc;
+		background: #fff;
+		color: red;
+	}
+
+	.headImg{border: 1px solid #ccc;
+    margin-left: 715px;
+    position: absolute;
+    top: 58px;
+    z-index: 999;}
+	.headTitle{position: absolute;left:0px;bottom: 0px;height:24px;line-height: 24px;text-align: center;width: 100%;font-weight: 600;color: tan;border-top: solid 1px #ccc;margin-left: -1px;}
+	</style>
+</block>
+
+
+<block name="ext">
+</block>
+
+
+<block name="body">
+<div style="background:#fff;">
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">{$rankUser['USER_NAME']}</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div class="model-con">
+			<div class="model-con-title">
+				<b>基础信息</b>
+			</div>
+
+			<div class="model-con-sub">
+				 <ul class="model-list">
+				 	<li class="li">县市:<span>{$rankUser['COUNTY_NAME']}</span></li>
+				 	<li class="li">职位:<span>{$rankUser['POS_NAME']}</span></li>
+				 	<li class="li">姓名:<span>{$rankUser['USER_NAME']}</span></li>
+				 </ul>
+				 <ul class="model-list clear">
+				 	
+				 	<li class="li">手机:<span>{$rankUser['BILL_ID']}</span></li>
+				 	<li class="li">月份<span>{$rankUser['RPT_MONTH']}</span></li>
+					<li class="li">总分<span>{$rankUser['AMOUNT']}</span></li>
+				</ul>
+				<ul class="model-list clear">
+					<if condition="($id lt 2000)"><li class="li">是否党员<span><?php $id=$dy['BILL_ID']; if($id==null){echo '否';}else{echo '是';}?></span></li>
+					<else/>
+					</if>
+				</ul>
+			</div>
+
+			<div class="headImg" style="width:144px;height:175px;padding:2px;">
+				<img src="__HEAD_IMG__{$rankUser['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" alt="{$rankUser['USER_NAME']}" width="100%" height="150px">
+			<div class="headTitle">
+				{$rankUser['POS_NAME']} - {$rankUser['USER_NAME']}
+			</div>	
+			<div class="mask"></div>
+			</div>
+		</div>
+
+		<div class="model-foot"></div>
+	</div>
+
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">考核细项</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div class="model-con">
+			<div class="model-con-title clear">
+				<b>赛马细项</b>
+			</div>
+			<div class="model-con-sub">
+				<ul class="model-list">
+				<?php 
+					$flag = false;
+					foreach ($infoHead as $k => $v) {
+						if($k=='I'){
+							$flag=true;
+						}
+						if(isset($v) && $flag && $k!='NUMROW'){
+							echo "<li class='li' title='".$v."/".$infoData[$k]."'>".$v."<span>".$infoData[$k]."</span></li>";	
+						}
+					}
+				?>
+				</ul>
+			</div>
+
+		</div>
+
+
+		<div class="model-foot"></div>
+
+	</div>
+	</div>
+</block>

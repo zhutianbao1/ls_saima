@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <title><block name="title"></block></title>
+
+  <link rel="stylesheet" href="__STATIC__/font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="__PUBLIC__/dagl/ack.css">
+  <style>
+  .navbar{width:100%;display:block;}
+  .titleName{width:150px;display:block;margin-left:auto;margin-right:auto;text-align:center;font-size:16px;font-weight:600;color:#fff;}
+  </style>
+  <block name="css"></block>
+
+  <!--[if lt IE 9]>
+    <script src="__STATIC__/html5shiv.min.js"></script>
+    <script src="__STATIC__/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+<block name="nav"></block>
+
+<div class="wrapper container-fluid">
+  <div class="content">
+    <block name="content"></block>
+  </div>
+  
+  <!--
+  <footer class="footer footer-fixed">
+    <div class="footer-inner">
+      <div class="footer-content">
+        兼容IE8+,IE7及以下版本对侧边导航没法高度自适应，因对:before和:after伪类不支持
+      </div>
+    </div>
+  </footer>
+  -->
+</div>
+<!--[if !IE]> -->
+<script type="text/javascript">
+  window.jQuery || document.write("<script src='__STATIC__/jquery-2.0.3.min.js'>"+"<"+"/script>");
+</script>
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+  window.jQuery || document.write("<script src='__STATIC__/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script src="__PUBLIC__/dagl/ack.js"></script>
+<block name="jsfile"></block>
+<script>
+$(function(){
+  $('.titleName').mouseover(function(){
+    $('.titleName').addClass('light-blue');
+  });
+  $('.titleName').mouseout(function(){
+    $('.titleName').removeClass('light-blue');
+  });
+});
+</script>
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+   name      : '员工资料库', //项目名称
+   title     : $(document).attr('title'), //当前页面名称
+   county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+   user_id   : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+   bill_id   : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+   user_name   : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+   url     : location.href, //当前访问地址
+   ext     : '',  //拓展信息  
+   bInfo       : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+<block name="js"></block>
+</body>
+</html>

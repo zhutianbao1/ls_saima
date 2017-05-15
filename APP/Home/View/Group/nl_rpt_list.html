@@ -1,0 +1,229 @@
+<if condition="$errMsg neq null">
+<div class="errMsg">
+    {$errMsg}
+</div>
+<else/>
+<?php
+$select_value = isset($_POST['countyName']) ? $_POST['countyName'] : '';
+$pro = isset($_POST['pro']) ? $_POST['pro'] : '';
+?>
+<div class="wrap query">
+<input id="initURL" type="hidden" value="{$initURL}"/>
+<form  action="?bill_id={$bill_id}&menuId=1" method="post">
+<table class="query-table">
+    <tr>
+        <td><span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span><input type="text" 
+        name="name" value="{$name}" class="text"></td>
+        <td><span>县&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市</span>
+        <select id="a" name="countyName" style="width: 140px;border: 1px solid #ccc;">
+            <option value="">请选择</option>
+            <option value="莲都" <?php echo $select_value == '莲都' ? 'selected' : '' ?>>莲都</option>
+            <option value="青田" <?php echo $select_value == '青田' ? 'selected' : '' ?>>青田</option>
+            <option value="景宁" <?php echo $select_value == '景宁' ? 'selected' : '' ?>>景宁</option>
+            <option value="缙云" <?php echo $select_value == '缙云' ? 'selected' : '' ?>>缙云</option>
+            <option value="遂昌" <?php echo $select_value == '遂昌' ? 'selected' : '' ?>>遂昌</option>
+            <option value="庆元" <?php echo $select_value == '庆元' ? 'selected' : '' ?>>庆元</option>
+            <option value="龙泉" <?php echo $select_value == '龙泉' ? 'selected' : '' ?>>龙泉</option>
+            <option value="松阳" <?php echo $select_value == '松阳' ? 'selected' : '' ?>>松阳</option>
+            <option value="云和" <?php echo $select_value == '云和' ? 'selected' : '' ?>>云和</option>
+            <option value="南城" <?php echo $select_value == '南城' ? 'selected' : '' ?>>南城</option>
+        </select></td>
+        <td><span>手机号码</span><input type="text" name="billId" value="{$billId}" class="text"></td>
+    </tr>
+    <tr>
+        <td><span>员工编号</span><input type="text" name="userId" value="{$userId}" class="text"></td>
+        <td><span>用工性质</span>
+        <select name="pro" style="width: 140px;border: 1px solid #ccc;">
+        <option value="">请选择</option>
+        <option value="A2" <?php echo $pro == 'A2' ? 'selected' : '' ?>>A2</option>
+        <option value="浙江文博" <?php echo $pro == '浙江文博' ? 'selected' : '' ?>>浙江文博</option>
+        <option value="雷博" <?php echo $pro == '雷博' ? 'selected' : '' ?>>雷博</option>
+        </select></td>
+        <td><span>最高学历</span><input type="text" name="xl" value="{$xl}" class="text"></td>
+    </tr>
+    <tr>
+        <td><span>入职时间</span><input type="text" name="dat" value="{$dat}" class="text">-<input type="text" name="dat1" value="{$dat1}" class="text"></td>
+        <td><span>岗位工龄</span><input type="text" name="age" value="{$age}" class="text">-<input type="text" name="age1" value="{$age1}" class="text"></td>
+        <td><input type="submit"  value="  查     询  " class="btn term" style="background:rgb(15,142,226);color:#fff;"></td>
+    </tr>
+</table>
+</form>
+
+<div class="xq">
+<table id="tableSort" class="rank" border="0px" cellspacing="0" cellpadding="1">
+    <thead class="piao">
+    <tr align="center" class="head">
+        <th rowspan="2" class="rank-title fixed" type="string" order="POS_NAME">姓名</th>
+        <th rowspan="2" class="rank-title fixed" type="string" order="COUNTY_NAME">县市</th>
+        <th rowspan="2" class="rank-title fixed" order="BILL_ID">手机号码</th>
+        <th rowspan="2" class="rank-title" type="number" order="USER_ID">员工编号</th>
+        <th rowspan="2" class="rank-title" type="string" order="用工性质">用工性质</th>
+        <th rowspan="2" class="rank-title" type="string" order="入职时间">入职时间</th>
+        <th rowspan="2" class="rank-title" type="number" order="岗位工龄">岗位工龄</th>
+        <th rowspan="2" class="rank-title" type="number" order="年龄">年龄</th>
+        <th rowspan="2" class="rank-title">最高学历</th>
+        <th rowspan="2" class="rank-title">入客户经理时间</th>  
+        <th rowspan="2" class="rank-title">2013年绩效</th>  
+        <th rowspan="2" class="rank-title">2014年绩效</th>   
+        <th rowspan="2" class="rank-title">2015年绩效</th> 
+        <th rowspan="2" class="rank-title">等级(职级) </th>  
+        <th rowspan="2" class="rank-title">现星级</th>  
+        <th rowspan="2" class="rank-title">工作经历</th>
+        <td colspan="7" class="rank-title">测评结果</td>
+        <td colspan="9" class="rank-title">业绩考核</td>
+        <td colspan="8" class="rank-title">应知应会</td>
+        <td colspan="15" class="rank-title">素质能力</td> 
+    </tr>
+
+    <tr class="head" align="center">   
+        <th class="rank-title">综合得分</th>    
+        <th class="rank-title">排名</th>  
+        <th class="rank-title">等级</th>  
+        <th class="rank-title">温馨提示</th>    
+        <th class="rank-title">业绩考核（70%）</th>   
+        <th class="rank-title">应知应会（20%）</th>   
+        <th class="rank-title">素质能力（10%）</th>   
+        <th class="rank-title">业绩综合总分</th>    
+        <th class="rank-title">业绩排名 </th> 
+        <th class="rank-title">新增产品收入</th>  
+        <th class="rank-title">集团统付收入</th>  
+        <th class="rank-title">4G终端销售</th>  
+        <th class="rank-title">政企专线</th>    
+        <th class="rank-title">宽带发展</th>   
+        <th class="rank-title">流量统付</th>   
+        <th class="rank-title">亲情网</th>
+        <th class="rank-title">应知综合得分</th>    
+        <th class="rank-title">应知排名</th>  
+        <th class="rank-title">产品业务</th>    
+        <th class="rank-title">客户管理</th>    
+        <th class="rank-title">通信技术</th>    
+        <th class="rank-title">市场敏感</th>    
+        <th class="rank-title">销售技能</th>    
+        <th class="rank-title">自我管理与沟通合作</th>  
+        <th class="rank-title">素质综合得分</th>    
+        <th class="rank-title">素质排名</th>  
+        <th class="rank-title">敬业负责</th>    
+        <th class="rank-title">结果导向</th>    
+        <th class="rank-title">计划与执行</th>   
+        <th class="rank-title">服务意识</th>    
+        <th class="rank-title">学习发展</th>    
+        <th class="rank-title">情绪管理</th>    
+        <th class="rank-title">风险意识</th>    
+        <th class="rank-title">需求沟通</th>    
+        <th class="rank-title">团队合作</th>    
+        <th class="rank-title">关系建维</th>    
+        <th class="rank-title">市场敏感</th>    
+        <th class="rank-title">客户服务</th>    
+        <th class="rank-title">销售能力</th>
+    </tr>
+    </thead>
+    <tbody>
+    <volist name="hrs" id="hr">
+    <tr align="center">
+        <td class="fixeds"><a href="{:U('group/nl_rpt')}?bill_id={$hr.BILL_ID}">{$hr.POS_NAME}</a></td>
+        <td class="fixeds">{$hr.COUNTY_NAME}</td>
+        <td class="fixeds">{$hr.BILL_ID}</td>
+        <td >{$hr.USER_ID}</td>
+        <td >{$hr.用工性质}</td>
+        <td >{$hr.入职时间|strtotime|date="Y-m-d",###}</td>
+        <td >{$hr.岗位工龄}</td>
+        <td >{$hr.年龄}</td>
+        <td >{$hr.最高学历}</td>
+        <td >{$hr.入客户经理时间|strtotime|date="Y-m-d",###}</td>
+        <td >{$hr.M2013年绩效}</td>
+        <td >{$hr.M2014年绩效}</td>
+        <td >{$hr.M2015年绩效}</td>
+        <td >{$hr.等级}</td>
+        <td >{$hr.现星级}</td>
+        <td align="left" title="{$hr.工作经历}"><div style="white-space:nowrap;width:12em;
+        overflow:hidden;text-overflow:ellipsis ">{$hr.工作经历}</div></td>
+        <td >{$hr.测评综合得分}</td>
+        <td >{$hr.测评排名}</td>
+        <td >{$hr.测评等级}</td>
+        <td >{$hr.温馨提示}</td>
+        <td >{$hr.业绩考核}</td>
+        <td >{$hr.应知应会}</td>
+        <td >{$hr.素质能力}</td>
+        <td >{$hr.业绩综合总分}</td>
+        <td >{$hr.业绩排名}</td>
+        <td >{$hr.新增产品收入}</td>
+        <td >{$hr.集团统付收入}</td>
+        <td >{$hr.终端销售}</td>
+        <td >{$hr.政企专线}</td>
+        <td >{$hr.宽带发展}</td>
+        <td >{$hr.流量统付}</td>
+        <td >{$hr.亲情网}</td>
+        <td >{$hr.应知应会综合得分}</td>
+        <td >{$hr.应知应会排名}</td>
+        <td >{$hr.产品业务}</td>
+        <td >{$hr.客户管理}</td>
+        <td >{$hr.通信技术}</td>
+        <td >{$hr.应知应会市场敏感}</td>
+        <td >{$hr.销售技能}</td>
+        <td >{$hr.自我管理和沟通合作}</td>
+        <td >{$hr.素质能力综合得分}</td>
+        <td >{$hr.素质能力排名}</td>
+        <td >{$hr.敬业负责}</td>
+        <td >{$hr.结果导向}</td>
+        <td >{$hr.计划与执行}</td>
+        <td >{$hr.服务意识}</td>
+        <td >{$hr.学习发展}</td>
+        <td >{$hr.情绪管理}</td>
+        <td >{$hr.风险意识}</td>
+        <td >{$hr.需求沟通}</td>
+        <td >{$hr.团队合作}</td>
+        <td >{$hr.关系建维}</td>
+        <td >{$hr.市场敏感}</td>
+        <td >{$hr.客户服务}</td>
+        <td >{$hr.销售能力}</td>
+    </tr>
+    </volist>
+    </tbody>
+</table>
+</div>
+{$_page}
+</div>
+</if>
+
+<script language="JavaScript" type="text/javascript" src="__STATIC__/jquery.tablesorter.min.js"></script>
+<style>
+    /*.piao{width:100%;border:solid 0px red;position: absolute;left:0px;top:0px;z-index: 9999;}*/
+</style>
+<script>
+//排序
+    $('#tableSort').tablesorter();
+    $(function(){   
+        $("th").each(function(index, el) {
+            var e = $(this),
+            order= e.attr('order');
+            if(order==null || order=='' || order==undefined){
+                e.css('cursor','default');
+            }
+        });
+
+       //var th  =$(".xq:eq(0)").html();
+        //var html ='<div class="piao">'+th+'</div>';
+        //$(".xq").append(html);
+        //$(".piao").width($("#tableSort").width());
+        //$(".piao > table > tbody > tr").hide();
+        //$(".piao > table > tbody > tr:eq(0)").find('td').height('0px').show();
+
+        // $(".xq:eq(0)").scroll(function(event) {
+        //     var e = $(this),
+        //         //top = e.scrollTop();
+        //     //$(".piao").css('top',top+'px');
+        // });
+    });
+
+    //排序
+    /*$("th").click(function(){
+        var e = $(this),
+            order= e.attr('order');
+        if(order==null || order=='' || order==undefined){
+            return;
+        }
+        var initURL = "{$initURL}";
+        initURL+="&order="+order;
+        location.href=initURL;
+    });*/
+</script>

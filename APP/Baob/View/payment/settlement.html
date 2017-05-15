@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>缴费卡结算</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/payment_three.css">
+	<style type="text/css"></style>
+	<OBJECT id="Client" width="0" height="0" classid="clsid:930C8A98-EC73-4C37-9E20-9F4E0A5F93C4" >
+		<param name="_Version" value="65536">
+		<param name="_ExtentX" value="2646">
+		<param name="_ExtentY" value="1323">
+		<param name="_StockProps" value="0">
+	</OBJECT> 
+</head>
+<body>
+<div class="content">
+	<div class="box">
+		<div class="header">
+			<h3>缴费卡结算</h3>
+		</div>
+		<div class="show">
+		    <form id="theForm" method="post" action="{:U('Payment/getRecord')}">
+		    <fieldset>
+					<legend>领取人验证:</legend>
+					<table class="table2">
+						<tr>
+							<td>验证卡:</td>
+							<td>
+								<div style="width:220px; ">
+									<input type="text" name="sim_card_code" id="sim_card_code" class="none" />
+								</div>
+								
+							</td>
+							<td class="tc">
+								<div style="width: 150px;">
+									<input type="button" name="" value="读 卡"  class="dk_btn" />
+								</div>
+								
+							</td>
+							<td>静态密码:</td>
+							<td>
+								<div style="width:220px; ">
+								<input type="text" name="" class="none"/>
+								</div>
+							</td>
+							<td class="tc">
+								<input type="button" value="查 询" class="cx_btn"/>
+							</td>
+						</tr>
+						<tr>
+							<td>验证发送号码:</td>
+							<td>
+								<input type="text" name="bill_id" id="bill_id" class="none only"/>
+							</td>
+							<td class="tl">
+								<input type="button"  value="获取验证码" class="yz_btn" />
+								<span  id="msg"></span>
+							</td>
+							<td>二次验证码:</td>
+							<td>
+								<input type="text" name="verfy_code" class="none" id="verfy_code" />
+							</td>
+							<td class="tc">
+								<input type="button" value="验 证" class="qr_btn"/>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+				<fieldset>
+					<legend>渠道信息:</legend>
+					<table class="table1">
+						<tr>
+							<td >工单编号;</td>
+							<td colspan="2">
+								<div style="width: 350px;">
+								<input type="text" name="item_id" id="item_id" value="{$item_id}" class="only none" />
+								</div>
+							</td>
+							<td>县市:</td>
+							<td colspan="2">
+								<div style="width: 350px;">
+								<input type="text" name="county_name" id="county_name" class="only none req"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>渠道名称:</td>
+							<td colspan="2">
+								<input type="text" name="org_name" id="org_name" class="only none req"/>
+							</td>
+							<td>渠道编号:</td>
+							<td colspan="2">
+								<input type="text" name="org_id" id="org_id" class="only none req"/>
+							</td>
+						</tr>
+						<tr>
+							<td>销售经理:</td>
+							<td colspan="2">
+								<input type="text" name="manager_name"  id="manager_name" class="only none req"/>
+							</td>
+							<td >渠道类型:</td>
+							<td colspan="2">
+								<input type="text" name="org_type" id="org_type" class="only none req"/>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+				
+				<fieldset>
+					<legend>领取人信息:</legend>
+					<table class="table3">
+					    <tr>
+							<td>联系号码:</td>
+							<td>
+								<input type="text" name="oper_phone" id="oper_phone" class="none req fr_bt"/>
+							</td>
+							<td>姓名:</td>
+							<td>
+								<input type="text" name="oper_name" id="oper_name" class="none req fr_bt"/>
+							</td>
+							<td>是否法人:</td>
+							<td>
+								<input type="text" name="sf_legal_person" id="sf_legal_person" class="only none" />
+							</td>
+						</tr>
+						<tr>
+							<td>身份证号:</td>
+							<td colspan="4">
+								<input type="text" name="oper_card" id="oper_card" class="none req"/>
+							</td>
+							<td class="tc">
+							<!--
+								<input type="button" class="fr_btn" value="查 询" />
+								-->
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+
+				<fieldset>
+					<legend>兑换方案:</legend>
+					<table class="table5">
+						<tr>
+						    <td>面值:</td>
+							<td>
+								<label><input type="checkbox" class="check" value="500" />500元</label>								
+							</td>
+							<td>
+								<label><input type="checkbox" class="check" value="300" />300元</label>								
+							</td>
+							<td>
+								<label><input type="checkbox" class="check" value="100" />100元</label>								
+							</td>
+							<td>
+								<label>
+									<input type="checkbox" class="check" value="50" checked="checked" disabled="disabled"/>50元
+								</label>								
+							</td>
+							<td>
+								<label>
+									<input type="checkbox" class="check" value="30" checked="checked" disabled="disabled"/>30元
+								</label>								
+							</td>
+							<td>
+								<label>
+									<input type="checkbox" class="check" value="20" checked="checked" disabled="disabled" />20元
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td>500元</td>
+							<td>
+								<input type="text" name="" id="price500" />
+							</td>
+							<td>300元</td>
+							<td>
+								<input type="text" name="" id="price300" />
+							</td>
+							<td>100元</td>
+							<td>
+								<input type="text" name="" id="price100" />
+							</td>
+							<td rowspan="2">
+								<input type="button"  value="生成方案" class="price_check">
+							</td>
+						</tr>
+						<tr>
+							<td>50元</td>
+							<td>
+								<input type="text" name="" id="price50" />
+							</td>
+							<td>30元</td>
+							<td>
+								<input type="text" name="" id="price30" />
+							</td>
+							<td>20元</td>
+							<td>
+								<input type="text" name="" id="price20" />
+							</td>
+						</tr>
+						
+					</table>
+				</fieldset>
+
+				<fieldset>
+					<legend>兑换信息:</legend>
+					<table class="table4">
+						<tr>
+							<td>实际可领取金额:</td>
+							<td>
+								<input type="text" name="actual_amount" id="actual_amount" class="only none"/>
+							</td>
+							<td>本次可兑换金额:</td>
+							<td>
+								<input type="text" name="exchange_amount" id="exchange_amount" class="only none"/>
+							</td>
+							<td>历史余额</td>
+							<td>
+								<input type="text" name="ls_small" id="ls_small" class="only none"/>
+							</td>
+						</tr>
+						<tr>
+							<td>本次兑换纸券张数:</td>
+							<td>
+								<input type="text" name="exchange_num" class="none only" id="exchange_num" />
+							</td>
+							<td>本次兑换纸券金额:</td>
+							<td>
+								<input type="text" name="" name="exchange_amount1" id="exchange_amount1" class="only none" />
+							</td>
+							<td>本次余额</td>
+							<td>
+								<input type="text" name="bc_small" id="bc_small" class="only none" />
+							</td>
+						</tr>
+						<tr>
+							<td>纸券序列号导入:</td>
+							<td> 
+								<input type="text" class="none"/>
+							</td>
+							<td class="tc">
+								<input type="button"  value="浏 览" class="ll_btn">
+							</td>
+							<td class="tc">
+							<a href="__PUBLIC__/Baob/files/pcardImport.xls">缴费卡导入模板</a>
+							<!--
+								<input type="button" name="" value="test" class="test_btn2" />
+								-->
+								
+							</td>
+							<td colspan="2">
+								<input type="text"  id="imp_amount" class="none only" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+				
+				<div class="btn_div">
+					<input type="button" name="" value="兑 换" class="sub_btn fl" />
+					<input type="button" name="" value="返 回" class="back_btn fr" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//方案生成
+		$('.price_check').click(function(){
+            var flag=true;
+			var sim_card=$('#sim_card_code').val();
+			var org_id=$('#org_id').val();
+			var item_id=$('#item_id').val();
+			if(sim_card.isEmpty()){
+				flag=false;
+				layer.alert('SIM卡号不能为空!');
+            }
+            if(org_id.isEmpty()){
+				flag=false;
+				layer.alert('渠道编号不能为空!');
+            }
+            if(item_id.isEmpty()){
+				flag=false;
+				layer.alert('工单编号不能为空!');
+            }
+			var check_arr=[];
+			$('.check').each(function(){
+        		if($(this).attr('checked')=="checked"){
+        			check_arr.push($(this).val());
+        		}
+        	});
+
+            if(flag){
+            	$('.price_check').val('查询中');
+            	$('.price_check').css('background-color','red');
+            	$('.price_check').attr('disabled',true);
+
+            	url="{:U('Payment/getPriceCase')}";
+				$.ajax({
+					url:url,
+					type:'post',
+					data:{sim_card:sim_card,org_id:org_id,check_arr:check_arr,item_id:item_id},
+					dataType:'json',
+					success:function(re){
+						$('.price_check').val('生成方案');
+						$('.price_check').css('background-color','');
+						$('.price_check').attr('disabled',false);
+						if(re.status=='1'){
+							$('#price500').val(re['500']);
+							$('#price300').val(re['300']);
+							$('#price100').val(re['100']);
+							$('#price50').val(re['50']);
+							$('#price30').val(re['30']);
+							$('#price20').val(re['20']);
+							$('#exchange_num').val(re['500']+re['300']+re['100']+re['50']+re['30']+re['20']);
+							layer.alert(re.msg);
+						}else{
+							layer.alert(re.info);
+						}
+					},
+					error:function(){
+						$('.price_check').val('生成方案');
+						$('.price_check').css('background-color','');
+						layer.alert('系统请求失败!');
+					}
+				});
+            }
+		});
+
+        //返回
+        $('.back_btn').click(function(){
+        	window.location="{:U('Login/payment_index')}";
+
+        });
+        //配置属性
+		$('.only').attr('readonly','readonly');
+		$('.only').css('background-color','#eee');
+		$('.none').css('border','none');
+
+        //读卡SIM卡
+		$('.dk_btn').click(function(){
+        	//$('#sim_card_code').val(Client.GetSIMIMSI());
+        	$('#sim_card_code').val(Client.GetSIMICCID());
+        	
+        	var sim_card_code=$('#sim_card_code').val();
+        	if(!sim_card_code.isEmpty()){
+        		url="{:U('Payment/getItemCount')}";
+        		$.ajax({
+                	url:url,
+                	type: "POST",
+				    data:{sim_card_code:sim_card_code} ,
+				    dataType:'json',
+				    success: function(re){
+				    	if(re.status!='0'){
+				    		layer.alert(re.msg);
+				    	}
+				    },
+					error:function(){
+						alert('系统请求失败!');
+					}
+                });
+        	}
+		});
+
+        //获取验证码
+		$('.yz_btn').click(function(){
+			var bill_id=$('#bill_id').val();
+			var org_id=$('#org_id').val();
+			var item_id=$('#item_id').val();
+			var sim_card_code=$('#sim_card_code').val();
+
+			flag=true;
+			if(bill_id.isEmpty()){
+				flag=false;
+				layer.alert('请输入手机号码!');
+			}
+			if(item_id.isEmpty()){
+				flag=false;
+				layer.alert('工单编号不能为空!');
+			}
+			if(org_id.isEmpty()){
+				flag=false;
+				layer.alert('渠道编号不能为空!');
+			}
+			if(sim_card_code.isEmpty()){
+				flag=false;
+				layer.alert('SIM卡号不能为空!');
+			}
+
+			if(flag){
+				this.disabled=true;
+                var self = this;
+                setTimeout(function(){self.disabled=false;}, 60*1000); 
+                showMsg(); 
+				url="{:U('Payment/getVerfy')}";
+                $.ajax({
+                	url:url,
+                	type: "POST",
+				    data:{bill_id:bill_id,item_id:item_id,org_id:org_id,sim_card_code:sim_card_code} ,
+				    dataType:'json',
+				    success: function(re){
+				    	if(re.status=='1'){				    		
+				    		layer.alert(re.msg);
+				    	}else{
+				    		layer.alert(re.msg);
+				    	}
+				    },
+					error:function(){
+						layer.alert('系统请求失败!');
+					}
+                });
+			}
+		});
+
+		//定时器
+		var timers;
+        function showMsg(){
+          var seconds = 60;
+          dsq=  setInterval(function(){
+            if (seconds > 0) {
+               seconds--;
+               $('#msg').html(''+seconds+' 秒');
+            }else {
+               $('#msg').html('');
+               clearInterval(timers);
+            }
+            }, 1000); 
+        }
+
+        //导入缴费卡序列号
+        
+		$('.ll_btn').click(function(){
+			layer.open({
+	            type: 2,
+	            title: '导入缴费卡序列号',
+	            area: ['900px', '600px'],
+	            content:"{:U('Payment/serial_import?item_id='.$item_id)}",
+	            btn: ['关闭'],           
+	            cancel: function(index, layero){            	
+	               layer.close();
+	            }
+        	});
+		});
+		
+
+        //查询渠道信息
+		$('.cx_btn').click(function(){
+			var sim_card_code=$('#sim_card_code').val();
+			flag=true;
+			if(sim_card_code.isEmpty()){
+				flag=false;
+				layer.alert('SIM卡号不能为空!');
+			}
+			if(flag){
+				url="{:U('Payment/getInfo')}";
+                $.ajax({
+                	url:url,
+                	type: "POST",
+				    data:{sim_card_code:sim_card_code} ,
+				    dataType:'json',
+				    success: function(re){
+					    if(re.status=='1'){
+					    	$('#county_name').val(re['info']['COUNTY_NAME']);
+					    	$('#county_branch').val(re['info']['COUNTY_NAME']);
+					    	$('#org_name').val(re['info']['ORG_NAME']);
+					    	$('#org_id').val(re['info']['ORG_ID']);
+					    	$('#manager_name').val(re['info']['MANAGER_NAME']);
+					    	$('#org_type').val(re['info']['ORG_TYPE']);
+                            $('#bill_id').val(re['info']['BOSS_PHONE']);
+					    }else{
+					    	layer.alert('未查询到该SIM卡对应的渠道信息!');
+					    }
+				    },
+				    error:function(){
+						layer.alert('系统请求失败!');
+					}
+	            });
+			}
+		});
+
+         //判断是否法人
+		$('.fr_bt').change(function(){
+			var org_id= $('#org_id').val();
+			var oper_phone=$('#oper_phone').val();
+			var oper_name=$('#oper_name').val();
+            flag=true;
+ 			if(org_id.isEmpty()){
+ 				flag=false;
+ 			}
+ 			if(oper_phone.isEmpty()){
+ 				flag=false;
+ 			}
+ 			if(oper_name.isEmpty()){
+ 				flag=false;
+ 			}
+ 			if(flag){
+ 				url="{:U('Payment/getFaren')}";
+				$.ajax({
+					url:url,
+					type:"POST",
+					data:{org_id:org_id,oper_phone:oper_phone,oper_name:oper_name},
+					dataType:'json',
+					success: function(re){
+						$('#sf_legal_person').val(re.result);
+					},
+					error:function(){
+						layer.alert('系统请求失败!');
+					}
+				});
+ 			} 			
+		});
+
+		//验证渠道信息
+		$('.qr_btn').click(function(){
+			var verfy_code=$('#verfy_code').val();
+			var item_id=$('#item_id').val();
+			var org_id=$('#org_id').val();
+			var sim_card_code=$('#sim_card_code').val();
+			var bill_id=$('#bill_id').val();
+
+			var flag=true;
+			if(verfy_code.isEmpty()){
+				flag=false;
+				layer.alert('验证码不能为空!');
+			}
+			if(item_id.isEmpty()){
+				flag=false;
+				layer.alert('工单号不能为空!');
+			}
+			if(org_id.isEmpty()){
+				flag=false;
+				layer.alert('渠道编号不能为空!');
+			}
+			if(sim_card_code.isEmpty()){
+				flag=false;
+				layer.alert('SIM卡不能为空!');
+			}
+			if(bill_id.isEmpty()){
+				flag=false;
+				layer.alert('手机不能为空!');
+			}
+			if(flag){
+				$('.qr_btn').val('验证中');
+				$('.qr_btn').css('background-color','red');
+				$('.qr_btn').attr('disabled',true);
+				url="{:U('Payment/getYanzheng')}";
+				$.ajax({
+					url:url,
+					type:"POST",
+					data:{sim_card_code:sim_card_code,bill_id:bill_id,org_id:org_id,verfy_code:verfy_code,item_id:item_id},
+					dataType:'json',
+					success: function(re){
+						$('.qr_btn').val('验证');
+						$('.qr_btn').css('background-color','');
+						$('.qr_btn').attr('disabled',false);
+						if(re.status=='1'){						
+							url="{:U('Payment/getAmount')}";
+							$.ajax({
+								url:url,
+								type:"POST",
+								data:{org_id:org_id},
+								dataType:'json',
+								success: function(re){
+									$('#actual_amount').val(re['totle']);
+		                            $('#exchange_amount').val(re['totle']);
+		                            $('#exchange_amount1').val(re['totle']);
+ 									$('#ls_small').val(re['balance']);
+		                            $('#bc_small').val(re['small']);
+		                            if(re['totle']=='0'){
+		                            	layer.alert('本渠道暂无可以领取的缴费卡金额!');
+		                            }else{
+		                            	layer.alert('验证通过!');
+		                            }	                          
+								}
+						    });					
+						}else if(re.status=='2'){
+							layer.alert('已经验证通过,如需重新验证请重新获得验证码!',function(index){
+								layer.close(index);
+							});
+						}else if(re.status=='3'){
+							layer.alert('未查询到对应的验证记录!',function(index){
+								layer.close(index);
+							});
+						}
+						else{
+							layer.alert('验证未通过!',function(index){
+								layer.close(index);
+							});
+						}
+					},
+					error:function(){
+						$('.qr_btn').val('验证');
+						$('.qr_btn').css('background-color','');
+						layer.alert('系统请求失败!');
+					}
+				});
+			}
+		});
+
+
+ 		//兑换
+		$('.sub_btn').click(function(){			
+			var  flag=true; 			
+			$('.req').each(function(){
+				if($(this).val().isEmpty()){
+					flag=false;
+					$(this).css('background-color','#ffed97');
+					layer.alert('请将数据填写完整!');
+				}
+			});
+			if($('#org_id').val().isEmpty()){
+				flag=false;
+				layer.alert('渠道编号不能为空!');
+			}
+			if($('#sim_card_code').val().isEmpty()){
+				flag=false;
+				layer.alert('SIM卡号不能为空!');
+			}
+			if($('#imp_amount').val().isEmpty()){
+				flag=false;
+				layer.alert('您未导入缴费卡清单列表!');
+			}		
+			if(flag){
+				var item_id=$('#item_id').val();
+				var actual_amount=$('#actual_amount').val();
+				var exchange_num=$('#exchange_num').val();
+				layer.confirm('是否确认兑换吗?',{icon:3,title:'提示'},function(index){
+					url="{:U('Payment/getCardAmount')}";
+					$.ajax({
+						url:url,
+						type:"POST",
+						data:{item_id:item_id,actual_amount:actual_amount,exchange_num:exchange_num},
+						dataType:'json',
+						success: function(re){
+							if(re.status=='1'){
+								$('#theForm').submit();
+							}else if(re.status=='00'){
+								layer.alert('您未导入缴费卡清单列表!');
+							}else if(re.status=='0'){
+								layer.confirm(re.info, {icon: 3, title:'提示'}, function(index){
+										url="{:U('Payment/delete_print_list')}";
+										$.ajax({
+											url:url,
+											type:'post',
+											data:{item_id:item_id},
+											dataType:'json',
+											success:function(re){
+												if(re.status=='1'){
+													layer.alert('数据已删除!请重新导入!');	
+												}else{
+													layer.alert('数据删除失败!');
+												}
+											},
+											error:function(){
+												layer.alert('系统请求失败');
+											}
+										});
+								  layer.close(index);
+								});
+							}else{
+								layer.alert('系统请求失败!');
+							}
+						},
+						error:function(){
+							layer.alert('系统请求失败!');
+						}
+					});
+					layer.close(index);
+				});
+			}
+		});
+
+		//必填项
+		$('.req').each(function(){
+			$(this).focus(function(){
+				$(this).css('background-color','');
+			});
+		});
+			
+      /**
+        $('.test_btn2').click(function(){
+        	url="{:U('Payment/getCardAmount')}";
+        	$.ajax({
+        		url:url,
+        		type:'post',
+        		dataType:'json',
+        		success:function(re){
+        			layer.alert(re);
+
+        		},
+        		error:function(){
+					layer.alert('系统请求失败');
+
+				}
+        	});
+        });
+       **/
+
+
+
+	});
+</script>
+</html>
+

@@ -1,0 +1,347 @@
+<extend name="tpl/base_book"/>
+
+<block name="css">
+<link rel="stylesheet" href="__CSS__/main.css">
+</block>
+<block name="body">
+<div class="main" itemscope="" itemtype="http://schema.org/Book" itemprop="mainEntity">
+  <article class="col col9 app-article left">
+    <div class="article-profile-section article-profile-primary" style="padding-bottom:0px;">
+      <div class="cover shadow-cover hide" style="width:140px;height:160px;">
+        <img  src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$book['img']}" alt="" itemprop="image"></div>
+      <div class="article-profile-bd">
+        <h1 itemprop="name" class="article-title">{$xinde['title']}</h1>
+        <div class="article-meta">
+          <p class="author">
+            <span class="label">作者:</span>
+            <span class="labeled-text">
+              <a class="author-item" href="javascript:;">
+              <?php 
+                $info = R('ls/get_oper_info',array($xinde['oper_id']));
+                echo $info['OPER_NAME'];
+              ?>
+              </a></span>
+            <span class="label">类别:</span>
+            <span class="labeled-text">
+              <span itemprop="genre">
+                <a href="javascript:;"><?php 
+                  $type  = R('para/attr_book_type',array($book['book_type']));
+                  echo $type;
+                ?></a>
+              </span>
+            <span class="label">发表日期:</span>
+            <span class="labeled-text">
+              <a href="javascript:;">
+                {$xinde['oper_date']|date='Y-m-d',###}
+              </a>
+            </span>
+          </p>
+        </div>
+        <div class="rating rating-light hide">
+          <span title="4.6" class="stars-context stars-45">
+            <span class="stars-active"></span>
+          </span>
+          <span class="score">9.2</span>
+          <span class="amount">|
+            <a href="/ebook/21856869/ratings">585人评价</a></span>
+        </div>
+      </div>
+    </div>
+   
+    <div class="article-profile-section article-profile-intros">
+      <div class="article-profile-intro-tabs hide">
+        <ul>
+          <li class="ark-tab-activated">心得内容</li>
+          <li>心得互动</li>
+          </ul>
+      </div>
+      <div class="article-profile-intro article-abstract collapse-context">
+        <div itemprop="description" data-max-lines="15" data-line-height="24" class="abstract-full collapse-content">
+          <div class="info">
+            <p>{$xinde['text']}</p>
+          </div>
+        </div>
+      </div>
+      <div class="article-profile-intro table-of-contents" style="display: none;">
+         <div class="info">
+            <p>{$book['description']}</p>
+          </div>
+      </div>
+    </div>
+
+    <h3>发表评论 
+
+          <span class="category" style="margin-left: 10px;
+          width: 80px;display: inline-block;text-align: center;background-color: #ccc;">
+          <a para="{$xinde['id']}"  href="javascript:;" class="zan" id="zan{$xinde['id']}"
+           style="display: block;" >
+          点赞({$xinde.zan})</a>
+          </span>
+
+    </h3>
+
+    <div>
+      <form action="{:U('index/book_xinde_pin')}" name="subForm" method="post">
+        <input type="hidden" name="xinde_id" value="{$xinde['id']}"/>
+        <textarea name="info" style="width:100%;height:100px;"></textarea>
+        <!--
+        <p style="margin-top: 5px;">
+          <label for="article_score">评分:</label> 
+          <select name="article_score" style="width: 120px; color: #666;font-size: 13px;">
+            <option value="0">---请选择---</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+         
+          <span style="font-size: 13px;color: #666;">请为此篇文章打分</span>
+        </p>
+        -->
+        <p><a href="javascript:;" class="btn pin">提交评论</a></p>
+      </form>
+    </div>
+  </article>
+
+  <aside class="col col4 right">
+    <div class="section hide">
+      <div class="hd tags-heading">
+        <h3>作品标签</h3></div>
+      <div class="bd">
+        <meta itemprop="keywords" content="摄影,趣味,风格,豆瓣,春季">
+        <ul class="tags">
+          <li>
+            <a href="/tag/%E6%91%84%E5%BD%B1/?cat=article">
+              <span class="tag-name">摄影</span>
+              <span class="tag-total">409</span></a>
+          </li>
+          <li>
+            <a href="/tag/%E8%B6%A3%E5%91%B3/?cat=article">
+              <span class="tag-name">趣味</span>
+              <span class="tag-total">53</span></a>
+          </li>
+          <li>
+            <a href="/tag/%E9%A3%8E%E6%A0%BC/?cat=article">
+              <span class="tag-name">风格</span>
+              <span class="tag-total">4</span></a>
+          </li>
+          <li>
+            <a href="/tag/%E8%B1%86%E7%93%A3/?cat=article">
+              <span class="tag-name">豆瓣</span>
+              <span class="tag-total">4</span></a>
+          </li>
+          <li>
+            <a href="/tag/%E6%98%A5%E5%AD%A3/?cat=article">
+              <span class="tag-name">春季</span>
+              <span class="tag-total">1</span></a>
+          </li>
+        </ul>
+      </div>
+    </div  >
+    <div class="section">
+      <div class="hd author-heading">
+        <h3>读者评论</h3></div>
+        <notempty name="pins">
+        <ul>
+        <volist name="pins" id="pin">
+        <li style="border-bottom:dashed 1px #eee;padding-bottom:2px;margin-bottom:10px;">
+          <a href="javascript:;" style="font-weight:bold;">
+              <?php 
+                $info = R('ls/get_oper_info',array($pin['oper_id']));
+                echo $info['OPER_NAME'];
+              ?>
+              </a>
+              &nbsp;&nbsp;<i style="font-size:11px;"> {$pin['oper_date']|date='Y-m-d H:i:s',###}</i>
+              <br>
+          {$pin['info']|mb_substr=###,0,50,"utf-8"}
+          <div class="pin_more hide">
+          {$pin['info']|mb_substr=###,50,500,"utf-8"}
+          </div>
+          <br><a href="javascript:;" class="info_all">全部>></a>
+        </li>
+        </volist>
+        </ul>
+        <else/>
+        暂无评论
+        </notempty>
+        <!--
+      <ul class="reader-actions hide">
+        <li class="reader-action">
+          <div class="action-user">
+            <a href="https://read.douban.com/people/85129568/" target="">
+              <div class="avatar avatar48 ">
+                <div class="inner">
+                  <img src="https://img3.doubanio.com/icon/up85129568-2.jpg" width="48px" height="48px" alt="惊宁"></div>
+              </div>
+            </a>
+          </div>
+          <div class="action-desc">
+            <a href="https://read.douban.com/people/85129568/" target="" class="">惊宁</a>
+            <div class="action-msg">
+              <span>16分钟前 读过</span>
+              <span title="4" class="rating-stars stars-small-context stars-small-4"></span>
+            </div>
+          </div>
+        </li>
+        <li class="reader-action">
+          <div class="action-user">
+            <a href="https://read.douban.com/people/147973021/" target="">
+              <div class="avatar avatar48 ">
+                <div class="inner">
+                  <img src="https://img3.doubanio.com/icon/up147973021-1.jpg" width="48px" height="48px" alt="怕水猫想吃鱼"></div>
+              </div>
+            </a>
+          </div>
+          <div class="action-desc">
+            <a href="https://read.douban.com/people/147973021/" target="" class="">怕水猫想吃鱼</a>
+            <div class="action-msg">
+              <span>20分钟前 购买</span></div>
+          </div>
+        </li>
+        <li class="reader-action">
+          <div class="action-user">
+            <a href="https://read.douban.com/people/147569607/" target="">
+              <div class="avatar avatar48 ">
+                <div class="inner">
+                  <img src="https://img3.doubanio.com/icon/up147569607-1.jpg" width="48px" height="48px" alt="我是旋姐姐"></div>
+              </div>
+            </a>
+          </div>
+          <div class="action-desc">
+            <a href="https://read.douban.com/people/147569607/" target="" class="">我是旋姐姐</a>
+            <div class="action-msg">
+              <span>47分钟前 购买</span></div>
+          </div>
+        </li>
+        <li class="reader-action">
+          <div class="action-user">
+            <a href="https://read.douban.com/people/fangcao118/" target="">
+              <div class="avatar avatar48 ">
+                <div class="inner">
+                  <img src="https://img3.doubanio.com/icon/u1554191-1.jpg" width="48px" height="48px" alt="芒果"></div>
+              </div>
+            </a>
+          </div>
+          <div class="action-desc">
+            <a href="https://read.douban.com/people/fangcao118/" target="" class="">芒果</a>
+            <div class="action-msg">
+              <span>48分钟前 购买</span></div>
+          </div>
+        </li>
+        <li class="reader-action">
+          <div class="action-user">
+            <a href="https://read.douban.com/people/120713613/" target="">
+              <div class="avatar avatar48 ">
+                <div class="inner">
+                  <img src="https://img1.doubanio.com/icon/user_normal.jpg" width="48px" height="48px" alt="歪歪"></div>
+              </div>
+            </a>
+          </div>
+          <div class="action-desc">
+            <a href="https://read.douban.com/people/120713613/" target="" class="">歪歪</a>
+            <div class="action-msg">
+              <span>1小时前 购买</span></div>
+          </div>
+        </li>
+        <li class="reader-action">
+          <div class="action-user">
+            <a href="https://read.douban.com/people/53966264/" target="">
+              <div class="avatar avatar48 ">
+                <div class="inner">
+                  <img src="https://img3.doubanio.com/icon/up53966264-3.jpg" width="48px" height="48px" alt="梦里浮生"></div>
+              </div>
+            </a>
+          </div>
+          <div class="action-desc">
+            <a href="https://read.douban.com/people/53966264/" target="" class="">梦里浮生</a>
+            <div class="action-msg">
+              <span>1小时前 购买</span></div>
+          </div>
+        </li>
+      </ul>
+      -->
+    </div  >
+  </aside>
+
+</div>
+</block>
+
+<block name="js">
+<script>
+	$(".article-profile-intro-tabs li").click(function(){
+		e = $(this),
+		i = e.index();
+		$(".article-profile-intro-tabs li").removeClass('ark-tab-activated');
+		e.addClass('ark-tab-activated');
+
+		$(".article-profile-intro").hide();
+		$(".article-profile-intro").eq(i).show();
+	});
+
+  //提交评论
+  $(".pin").click(function(){
+     var info = $("textarea[name=info]").val();
+     if(info.length<5){
+        layer.msg('评论信息不少于5个字符');
+        return;
+     }
+     if(info.length>=500){
+        layer.msg('评论信息不超过500个字符');
+        return;
+     }
+     subForm.submit();
+  });
+
+  //全部评论
+  $(".info_all").click(function(){
+    var e = $(this),
+        info_more = e.siblings('div'),
+        text = e.text();
+    if(text=='全部>>'){
+      e.text("隐藏<<");
+    }else{
+      e.text("全部>>");
+    }
+    info_more.fadeToggle('slow');
+  });
+
+
+
+ $(function(){
+    $('.zan').click(function(){
+      var xinde_id=$(this).attr('para');
+      var id='#zan'+xinde_id;
+       
+      //url="{:U('index/index_xinde_zan')}";
+
+         url = "{:U('index/index_xinde_zan')}";
+         $.ajax({
+         type:'post',
+         url:url,
+        // dataType:'json',
+         data:{xinde_id:xinde_id},
+         success:function(re){
+            if(re.msg=='点赞成功'){
+              layer.alert(re.msg,{icon: 1,time: 2000} );
+               $(id).html("点赞("+re.zan+")");  
+            }else{
+               layer.alert(re.msg,{icon: 2,time: 2000} );
+            }                       
+         },
+         error:function(){
+            layer.msg('系统错误，请稍后重试');
+         }
+      });
+    });
+    
+  });
+
+
+</script>
+</block>

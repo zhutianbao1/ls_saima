@@ -1,0 +1,119 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">会员列表</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css">
+.fl{ float: left; }
+.fr{ float: right; }
+.need_left{ width: 100px; border: 1px solid #ccc;  }
+.need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;
+                text-align: center; background-color: #eee; }
+.need_left ul{ width: 80px; margin-left: 20px; }
+.need_left ul li{ height: 25px;  line-height: 25px;}
+.need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+.need_left ul li a:hover{ background-color: #eee; color: #333; }
+.need_right{ width: 825px; border:1px solid #ccc; }
+.cur{background-color: #eee;border-right: 2px solid #ae807e;} 
+.curr{border-bottom: 1px solid red;}
+.show{margin:10px; border:1px solid #ccc;}
+.div_search{height: 30px;line-height: 30px;}
+.group_div{width: 300px;}
+.group_div label{width: 60px;display: inline-block;height: 30px; line-height: 30px;   
+    text-align: right; font-size: 13px; color: #666;}
+.group_div select{width: 200px; display: inline-block; height: 25px;
+    font-size: 13px; color: #666;}
+.search_div{margin-left: 10px;}
+.search{ font-size: 13px; color: #666; padding: 3px 15px; border:1px solid #666;
+    margin-bottom: 3px;}
+.show_content{ width: 100%;margin-top: 10px;}
+.show_content .group{ width: 100%;margin-top: 5px; }
+.show_content .group label{ height: 20px; line-height: 20px; width: 30%;display: inline-block;text-align: right;}
+.show_content .group input[type='text']{ border:1px solid #ccc;width: 60%;}
+.show .div_btn{width: 200px;margin: 20px auto; }
+.show .div_btn .sub_btn,.show .div_btn .res_btn{
+	padding: 3px 15px;border:1px solid #ccc;
+}
+</style>	
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">   
+  </div>
+</div>
+</block>
+
+<block name="main_right">
+<div class="need_left fl">
+{:W('Side/need_tab')}
+</div>
+
+<div class="need_right fr">
+    <div class="show_list">
+        {:W('Side/oper_tab')}
+    </div>
+    <div class="clear"></div>
+
+    <div class="show">
+        <form method="post" action="{:U('manager/manager_user_modify')}" id="theForm" >
+            <div class="show_content">
+	            <div class="group">
+	            	<label>所属部门:</label>
+	            	<input type="text" name="oper_city" value="{$list['oper_city']}">
+	            </div>
+	            <div class="group">
+	            	<label>会员姓名:</label>
+	            	<input type="text" name="oper_name" value="{$list['oper_name']}">
+	            </div>
+	            <div class="group">
+	            	<label>会员编号:</label>
+	            	<input type="text" name="oper_num" value="{$list['oper_num']}">
+	            </div>
+	            <div class="group">
+	            	<label>会员手机:</label>
+	            	<input type="text" name="oper_phone" value="{$list['oper_phone']}">
+	            </div>
+            </div>
+            <div class="div_btn">
+            	<input type="button" value="保 存" class="fl sub_btn" />
+            	<input type="reset" value="重 置" class="fr res_btn" />
+            </div> 
+            <div class="clear" style="height: 10px;"></div>   
+            <input type="hidden" name="id" value="{$list['id']}">  
+        </form>
+    </div>
+</div> 
+</block>
+
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+ <script type="text/javascript"> 
+ $(function(){
+ 	$('.sub_btn').click(function(){
+ 		layer.confirm('确定要保存数据吗?',function(){
+            $('#theForm').submit();
+        });
+
+ 	});
+
+ });  
+ </script>
+ 
+ 
+
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

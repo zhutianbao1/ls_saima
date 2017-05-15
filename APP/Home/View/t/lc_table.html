@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>月度酬金表</title>
+	<link rel="stylesheet" href="__CSS__/rank_style.css">
+</head>
+<body>
+<?php 
+$select_value = isset($_POST['countyName']) ? $_POST['countyName'] : '';
+$month = isset($_POST['month']) ? $_POST['month'] : '';
+?>
+	<div id="border">
+		<div class="query2" style="text-align: center;"><p>中国移动合作渠道月度酬金表</p></div>
+		<p style="background: #0f8ee2;padding-left: 10px;height: 25px; color: white;line-height: 25px;">查询条件</p>
+		<div class="query">
+			<form action="{:U('lc_table')}" method="post">
+				<span>月<span style="visibility: hidden;">月份</span>份：<select name="month" style="width: 134px;border: 1px solid #ccc;">
+                <option value="">请选择</option>
+                <option value="201604" <?php echo $month == '201604' ? 'selected' : '' ?>>201604</option>
+                <option value="201606" <?php echo $month == '201606' ? 'selected' : '' ?>>201606</option>
+            </select></span>
+				<span>县<span style="visibility: hidden;">月份</span>市：<select id="a" name="countyName" style="width: 134px;border: 1px solid #ccc;">
+                <option value="">请选择</option>
+                <option value="莲都" <?php echo $select_value == '莲都' ? 'selected' : '' ?>>莲都</option>
+                <option value="青田" <?php echo $select_value == '青田' ? 'selected' : '' ?>>青田</option>
+                <option value="景宁" <?php echo $select_value == '景宁' ? 'selected' : '' ?>>景宁</option>
+                <option value="缙云" <?php echo $select_value == '缙云' ? 'selected' : '' ?>>缙云</option>
+                <option value="遂昌" <?php echo $select_value == '遂昌' ? 'selected' : '' ?>>遂昌</option>
+                <option value="庆元" <?php echo $select_value == '庆元' ? 'selected' : '' ?>>庆元</option>
+                <option value="龙泉" <?php echo $select_value == '龙泉' ? 'selected' : '' ?>>龙泉</option>
+                <option value="松阳" <?php echo $select_value == '松阳' ? 'selected' : '' ?>>松阳</option>
+                <option value="云和" <?php echo $select_value == '云和' ? 'selected' : '' ?>>云和</option>
+                <option value="南城" <?php echo $select_value == '南城' ? 'selected' : '' ?>>南城</option>
+                <option value="丽水" <?php echo $select_value == '丽水' ? 'selected' : '' ?>>丽水</option>
+            </select></span>
+            	<span>渠道编号：<input type="text" name="org_id" value="{$org_id}" /></span><br/>
+				<span>销售经理：<input type="text" name="userName" value="{$userName}"/></span>
+				<span>渠道名称：<input type="text" name="org_name" value="{$org_name}"/></span>
+				<input type="submit" value="查询" style="width: 100px;margin-left: 16px;border: 0px;background: #0f8ee2;margin-top: 5px;color: #fff;height: 25px;" />
+			</form>
+		</div>
+		<table class="query1" cellpadding="0" cellspacing="0" border="0" width="1000px" align="center">
+			<tr class="top_row">
+				<td>渠道编号</td>
+				<td>渠道名称</td>
+				<td>县市</td>
+				<td>销售经理</td>
+				<td>酬金月份</td>
+				<td>酬金总额</td>
+				<td>操作</td>
+			</tr>
+			<volist name='t' id='m'>
+				<tr class="buttons">
+					<td>{$m.渠道编号}</td>
+					<td class="qd">{$m.渠道名称}</td>
+					<td>{$m.县市名称}</td>
+					<td>{$m.销售经理名称}</td>
+					<td>{$m.月份}</td>
+					<td><?php echo ($m["总酬金"]/1); ?></td>
+					<td><a href="{:U('finance')}?orgid={$m.渠道编号}&month={$m.月份}">查看详情</a></td>
+				</tr>
+			</volist>
+		</table>
+		{$_page}
+		<div id="foot"><a href="#">丽水移动分公司 - 业务支撑中心支持</a></div>
+	</div>
+</body>
+</html>

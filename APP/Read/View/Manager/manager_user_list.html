@@ -1,0 +1,140 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">会员列表</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css">
+.fl{ float: left; }
+.fr{ float: right; }
+.need_left{ width: 100px; border: 1px solid #ccc;  }
+.need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;
+                text-align: center; background-color: #eee; }
+.need_left ul{ width: 80px; margin-left: 20px; }
+.need_left ul li{ height: 25px;  line-height: 25px;}
+.need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+.need_left ul li a:hover{ background-color: #eee; color: #333; }
+.need_right{ width: 825px; border:1px solid #ccc; }
+.cur{background-color: #eee;border-right: 2px solid #ae807e;} 
+.curr{border-bottom: 1px solid red;}
+.show{margin:10px; border:1px solid #ccc;}
+.div_search{height: 30px;line-height: 30px;}
+.group_div{width: 220px;}
+.group_div label{width: 80px;display: inline-block;height: 30px; line-height: 30px;   
+    text-align: right; font-size: 13px; color: #666;}
+.group_div input{width: 110px;display: inline-block; height: 15px;
+    font-size: 13px; color: #666;}
+.group_div select{width: 110px; display: inline-block; height: 25px;
+    font-size: 13px; color: #666;}
+.search_div{margin-left: 10px;}
+.search{ font-size: 13px; color: #666; padding: 3px 15px; border:1px solid #666;
+    margin-bottom: 3px;}
+.show_content{ width: 100%;margin-top: 10px;}
+.show_content table{ width: 100%; border-collapse: collapse;}
+.show_content table tr{ height: 20px; line-height: 20px; text-align: center;}
+.show_content table tr td{ border:1px solid #ccc;}
+</style>	
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">   
+  </div>
+</div>
+</block>
+
+<block name="main_right">
+<div class="need_left fl">
+{:W('Side/need_tab')}
+</div>
+
+<div class="need_right fr">
+    <div class="show_list">
+        {:W('Side/oper_tab')}
+    </div>
+    <div class="clear"></div>
+
+    <div class="show">
+        <form method="post" action="{:U('manager/manager_user_list')}" >
+            <div class="div_search">
+                <div class="group_div fl">
+                    <label>县市:</label> 
+                    <select class="select1" name="county_name">
+                       
+                        <option value="市公司" {$county_name=='市公司'?selected:''}>市公司</option>
+                        <option value="莲都"   {$county_name=='莲都'?selected:''}>莲都</option>
+                        <option value="青田"   {$county_name=='青田'?selected:''}>青田</option>
+                        <option value="缙云"   {$county_name=='缙云'?selected:''}>缙云</option>
+                        <option value="龙泉"   {$county_name=='龙泉'?selected:''}>龙泉</option>
+                        <option value="遂昌"   {$county_name=='遂昌'?selected:''}>遂昌</option>
+                        <option value="松阳"   {$county_name=='松阳'?selected:''}>松阳</option>
+                        <option value="云和"   {$county_name=='云和'?selected:''}>云和</option>
+                        <option value="景宁"   {$county_name=='景宁'?selected:''}>景宁</option>
+                        <option value="庆元"   {$county_name=='庆元'?selected:''}>庆元</option>
+                        <option value="南城"   {$county_name=='南城'?selected:''}>南城</option>
+                    </select>
+                </div>
+
+                <div class="group_div fl">
+                    <label>员工姓名:</label> 
+                    <input type="text" name="oper_name" class="select1"/>
+                </div>
+
+                <div class="search_div fl">
+                    <input type="submit"  class="search" value="搜 索" />
+                </div>
+                <div class="clear"></div>
+            </div>
+
+
+            <div class="show_content">    
+                <table >
+                    <tr>     		 
+                        <td >部门</td>
+                        <td >姓名</td>
+                        <td >编号</td>
+                        <td >手机</td>
+                        <td>操作</td>
+                    </tr>
+                    <volist name="arrs" id="arr" >
+                    <tr>               
+                        <td  >{$arr.oper_city}</td>
+                        <td  >{$arr.oper_name}</td>
+                        <td  >{$arr.oper_num}</td>
+                        <td  >{$arr.oper_phone}</td>
+                        <td>
+                            <a href="{:U('Manager/manager_user_modify?id='.$arr['id'])}">修改</a>
+                            <a href="">删除</a>
+                        </td>
+                    </tr>                  
+                    </volist>         
+                </table>
+            </div>      
+        </form>
+        <div class="ft">
+            {$_page}
+        </div> 
+    </div>
+</div> 
+</block>
+
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+ <script type="text/javascript">  
+ </script> 
+ 
+
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发票信息录入</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Fpgl/style/invoice_add.css" />
+<script type="text/javascript" src="__PUBLIC__/Fpgl/js/invoice_add.js"></script>
+<link rel="shortcut icon" href="__PUBLIC__/Fpgl/favicon.ico" />
+</head>	
+<body>
+<div id="top">
+<h3>财务发票管理平台</h3>
+  <p><?php echo (session('user_auth.OA')."　".session('user_auth.DEPT'));?></p>
+</div>
+<ol>
+  <li><a href="{:U('Index')}" class="selected">发票信息列表</a></li>
+  <li><a href="{:U('Index/add')}">发票信息录入</a></li>
+</ol>
+ <div id="add">
+	<h2>发票信息录入</h2> 
+	 	<form name="add" action="{:U('invoice_add')}" method="post">
+	 	<input type="hidden" name="id" value="{$result['ID']}"/>
+	 	<dl>
+	 		<dd><span>发票编号　　</span><input class="text" type="text"  name="invoice_id" value="{$result['INVOICE_ID']}"/></dd>
+	 		<dd><span>发票金额　　</span><input class="text" type="text"  name="invoice_amount" value="{$result['INVOICE_ID']}"/></dd>
+	 		<dd><span>发票抬头单位</span><input class="text" type="text"  name="invoice_company" value="{$result['INVOICE_ID']}"/></dd>
+	 		<dd><span>发票内容名称</span><input class="text" type="text"  name="invoice_name" value="{$result['INVOICE_ID']}"/></dd>
+	 		<dd><span>发票内容用途</span><input class="text" type="text"  name="invoice_purpose" value="{$result['INVOICE_ID']}"/></dd>
+	 		<dd><input type="submit" class="submit" name="send" onclick=" return checkForm();" value="提交" /></dd>
+	 	</dl>
+	 	</form>
+</div>
+</body>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 	
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript" src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script> 	
+</html>

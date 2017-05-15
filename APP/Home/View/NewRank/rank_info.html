@@ -1,0 +1,339 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>{$user_front[0]['POS_NAME']}-详情</block>
+<block name='css'>
+	<style type="text/css">
+	.frame ul li{border-top: 1px solid #ccc;line-height: 30px;list-style-type: none;text-align: center;background: #eee}
+	.frame ul li ul li{background: #fafafa}
+	.frame ul li a{text-align: center;color: red;background: #fff;display: block;}
+	.frame ul li a:hover{color: #619DF2}
+	.td-data{width: 80px;height: 50px;}
+	</style>
+</block>
+<block name='body'>
+	<div class="body">
+		<div class="menu">
+			<ul>
+				<li><span class="m">月度赛马</span>
+					<ul>
+						<for start='0' end='0'>
+							<li><if condition="($i gt 9)">
+								<a id="2016{$i}" href="{:U('rank_info','month=2016'.$i.'&id='.$id)}">2016年{$i}月</a>
+								<else/>
+								<a id="20160{$i}" href="{:U('rank_info','month=20160'.$i.'&id='.$id)}">2016年{$i}月</a>
+							</if></li>
+						</for>
+						<li><a id="201701" href="{:U('rank_info','month=201701&id='.$id)}">2017年1月</a></li>
+						<li><a id="201702" href="{:U('rank_info','month=201702&id='.$id)}">2017年2月</a></li>
+					</ul>
+				</li>
+				<li><a id="201703" href="{:U('rank_info','month=201703&id='.$id)}">2017年3月</a></li>
+				<li><span class="m">历史年度</span>
+					<ul>
+						<li><a id="2016year" href="{:U('rank_year_info','month=2016year&id='.$id)}">2016年年度赛马</a></li>
+					</ul>
+				</li>
+				<li><a id="2017year" href="{:U('rank_year_info','month=2017year&id='.$id)}">2017年年度赛马</a></li>
+				<!-- <li><a href="#">年度千里马</a></li>
+				<li><a href="#">月度骏马</a></li>
+				<li><a href="#">月度黑马</a></li> -->
+			</ul>
+		</div>
+		<div style="margin-top:20px;">
+			<div style="width:720px;float:left" class="con">
+			<h2 class="rig-title">{$user_front[0]['POS_NAME']}-详情</h2>
+				<div class="table-title">
+					<ul>
+						<li style="list-style-type: none;">
+							<div class="td-data">&nbsp;</div><div class="td-data">姓名</div><div class="td-data">县市</div><div class="td-data"><if condition="(substr($month,4) eq 'year')">总积分<else/>得分</if></div><div class="td-data">排名</div><div class="td-data">点赞</div><div class="td-data">PK</div><div class="td-data">详情</div><if condition="(substr($month,4) eq 'year') or ($id gt 2000) or ($id eq 1022)"><else/><div class="td-data">是否关注</div></if>
+						</li>
+					</ul>
+				</div>
+				<div class="tables">
+					<ul class="td2">
+						<volist name='user_front' id='user'>
+							<li>
+								<div class="td-data"><img src="__HEAD_IMG__{$user['BILL_ID']}.jpg" width="50px" height="49px"></div>
+								<div class="td-data nor user_name" title="{$user['USER_NAME']}">{$user['USER_NAME']}</div>
+								<div class="td-data nor county_name">{$user['COUNTY_NAME']}</div>
+								<div class="td-data amount">{$user['AMOUNT']}</div>
+								<div class="td-data">第{$user['PM']}名</div>
+								<div class="td-data"><div class="img zan" param="{$user['BILL_ID']}"></div><span id="zan{$user['BILL_ID']}">{$user['CNT']|intval}</span></div>
+								<div class="td-data pk cursor">PK</div>
+								<div class="td-data info">
+									<if condition="(substr($month,4) eq 'year')">
+									<a class="cursor" target="_blank" href="{:U('newRank/rank_year_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>$month))}">个人详情</a>
+									<else/>
+									<a class="cursor" target="_blank" href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>$user['RPT_MONTH']))}">个人详情</a>
+									</if>
+								</div>
+								<if condition="(substr($month,4) eq 'year') or ($id gt 2000) or ($id eq 1022)"><else/><div class="td-data cursor" id="{$user['BILL_ID']}" style="color:#3287FF">关注</div></if>
+								<span class="bill_id hide">{$user['BILL_ID']}</span>
+							</li>
+						</volist>
+					</ul>
+				</div>
+				{$_page}
+			</div>
+
+			<div class="lef" style="width:250px;margin-left:30px;">
+				<div class="frame" style="margin-top:30px;">
+					<div class="frame-tit">其他条线</div>
+					<ul>
+						<li><span  class="inactive">个人条线</span>
+							<ul>
+								<li><span  class="inactive">县公司管理层</span>
+									<ul>
+									<volist name='con' id='cons'>
+										<if condition="($cons['SEC_TYPE'] eq '管理人员')"><li><a href="{$cons['ID']}">{$cons['NAME']}</a></li></if>
+									</volist>
+									</ul>
+								</li>
+								<li><span  class="inactive">市场条线</span>
+									<ul style="display:none">
+									<volist name='con' id='cons'>
+										<if condition="($cons['SEC_TYPE'] eq '市场人员')"><li><a href="{$cons['ID']}">{$cons['NAME']}</a></li></if>
+									</volist>
+									</ul>
+								</li>
+								<li><span  class="inactive">政企条线</span>
+									<ul style="display:none">
+									<volist name='con' id='cons'>
+										<if condition="($cons['SEC_TYPE'] eq '政企类')"><li><a href="{$cons['ID']}">{$cons['NAME']}</a></li></if>
+									</volist>
+									</ul>
+								</li>
+								<li><span  class="inactive">网络条线</span>
+									<ul style="display:none">
+									<volist name='con' id='cons'>
+										<if condition="($cons['SEC_TYPE'] eq '网络类')"><li><a href="{$cons['ID']}">{$cons['NAME']}</a></li></if>
+									</volist>
+									</ul>
+								</li>
+								<li><span  class="inactive">综合条线</span>
+									<ul style="display:none">
+									<volist name='con' id='cons'>
+										<if condition="($cons['SEC_TYPE'] eq '综合类')"><li><a href="{$cons['ID']}">{$cons['NAME']}</a></li></if>
+									</volist>
+									</ul>
+								</li>
+							</ul>
+						</li>
+
+						<li><span  class="inactive">团队条线</span>
+							<ul style="display:none">
+							<volist name='con' id='cons'>
+								<if condition="($cons['SEC_TYPE'] eq '县市团队')"><li><a href="{$cons['ID']}">{$cons['NAME']}</a></li></if>
+							</volist>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="pk-div hide">
+			<div class="pk-title">已选PK对象</div>
+			<div class="pkList" id="pkList"></div>
+
+			<!-- <div class="pk-user">
+				<img alt="选择" src="__HEAD_IMG__{$user_front[0]['BILL_ID']}.jpg" width="145px" height="165px" style="padding-left:1px">
+				<div class="mask"></div>
+				<div class="score">{$user_front[0]['USER_NAME']}-{$user_front[0]['COUNTY_NAME']}总分：{$user_front[0]['AMOUNT']}</div>
+				<div class="delete"><a href="javascript:;">取消</a></div>
+			</div>
+
+			<div class="pk-user">
+				<img alt="选择" src="__HEAD_IMG__{$user_front[0]['BILL_ID']}.jpg" width="145px" height="165px" style="padding-left:1px">
+				<div class="mask"></div>
+				<div class="score">{$user_front[0]['USER_NAME']}-{$user_front[0]['COUNTY_NAME']}总分：{$user_front[0]['AMOUNT']}</div>
+			</div> -->
+
+			<div class="pk-foot hide">
+				<input type="hidden" id="pk_id" value=""/>
+				<a href="javascript:;" class="begin-pk b-btn">开始PK</a>
+			</div>
+		</div>
+
+	</div>
+</block>
+<block name='js'>
+<script type="text/javascript">
+	$('.inactive').click(function(){
+		$(this).siblings('ul').slideToggle(100);
+	})
+	//点赞
+	$(".zan").click(function(){
+		var e = $(this),
+			bill_id = e.attr('param'),
+			id = '#zan'+bill_id,
+			zan= $(id).html();
+		var day_flag = $.cookie('day_flag');
+
+		//if(!(day_flag==true)){
+			var url = "{:U('newRank/rank_zan')}"+"?bill_id="+bill_id;
+			$.ajax({
+				type:'get',
+				url:url,
+				dataType:'json',
+				success:function(result){
+					if(result.flag){
+						layer.msg(result.msg,{icon:1});
+						$(id).html(parseInt(zan)+1);
+						$.cookie('day_flag', 1, {expires:1,path:'/'});
+					}else{
+						layer.msg(result.msg,{icon:2});
+					}
+				},
+				error:function(){
+					layer.msg('出现异常',{icon:3});
+				}
+			});
+		 // }else{
+		 // 	layer.msg('已经点过赞');
+		 // }
+	});
+
+	var pks = new Array();
+	var month="{$month}";
+	if(month.substr(4)=='year' || {$id}>2000 || {$id}==1022){
+		$(".td-data").css("width","90px");
+	}
+	$(".pk").click(function(){
+		if(month.substr(4)=='year'){
+			alert('暂无此功能');
+		}else{
+		var e = $(this);
+		var	rank_user=e.parent('li');
+		var img=rank_user.find('img').eq(0).attr("src");
+		var user_name=rank_user.find('.user_name').eq(0).html();
+		var county_name=rank_user.find('.county_name').eq(0).html();
+		var amount=rank_user.find('.amount').eq(0).html();
+		var bill_id=rank_user.find('.bill_id').eq(0).html();
+		var	pk_list=$("#pkList");
+		var pk_users = pk_list.find(".pk-user");
+		var	list_cnt=pk_users.length;
+
+		if(list_cnt>=2){
+			layer.msg('PK人数已经足够',{icon:2});
+		}else{
+			if($.inArray(bill_id,pks)==-1){
+				var html='';
+				html +='<div class="pk-user" id="'+bill_id+'">';
+				html +='<img src="'+img+'" width="145px" height="165px" style="padding-left:1px">';
+				html +='<div class="mask"></div>';
+				html +='<div class="score">'+user_name+'-'+county_name+'总分：'+amount+'</div>';
+				html +='<div class="delete"><a href="javascript:;">取消</a></div>';
+				html +='</div>';
+				pks[list_cnt]=bill_id;
+				pk_list.append(html);
+				if(list_cnt==1) $(".pk-foot").show();
+			}else{
+				layer.msg(user_name+' 已选择',{icon:2});
+			}
+		}
+		$("#pk_id").val(pks.join(','));
+		togglePk();}
+	});
+
+	$(".pk-user .delete").live('click',function(){
+		var e=$(this),
+			id=e.parent().attr('id'),
+			pk_div=e.parent();
+		pk_div.remove();
+		var index = pks.indexOf(id);  
+	    if (index > -1) {  
+	        pks.splice(index, 1);  
+	    }
+	    var	pk_list=$("#pkList");
+		var pk_users = pk_list.find(".pk-user");
+		var	list_cnt=pk_users.length;
+	    if(list_cnt<2){
+	    	$(".pk-foot").hide();
+	    }
+	    $("#pk_id").val(pks.join(','));
+	    togglePk();
+	})
+
+	function togglePk(){
+		var	pk_list=$("#pkList");
+		var pk_users = pk_list.find(".pk-user");
+		var	list_cnt=pk_users.length;
+		if(list_cnt>0){
+			$(".pk-div").fadeIn('slow');
+		}else{
+			$(".pk-div").fadeOut('slow');
+		}
+	}
+
+	$(".begin-pk").click(function(){
+		var pk_list=$("#pkList");
+		var pk_users = pk_list.find(".pk-user");
+		var	list_cnt=pk_users.length;
+		var bill_ids=$("#pk_id").val();
+		url="{:U('newRank/pk')}?bill_ids="+bill_ids+"&id={$id}&month={$month}";
+		window.open(url);
+	})
+</script>
+
+<script type="text/javascript">
+	$(function(){
+			var url="";
+			url="{:U('fouFL')}?id="+{$id};
+			$.ajax({
+				url:url,
+				type:'GET',
+				dataType:'json',
+				success:function(result){
+					$.each(result,function(index,el){
+						document.getElementById(el['FOLLOW_ID']).innerHTML='取消关注';
+					})
+				},
+				error:function(e){
+					alert('访问错误');
+				}
+			})
+
+			$("div").click(function(){
+				var bill_id=$(this).attr("id");
+				var a=document.getElementById(bill_id).innerHTML;
+				if(a=='取消关注'){
+					url="{:U('delFL')}?bill_id="+bill_id+"&id="+{$id};
+					$.ajax({
+						url:url,
+						type:'GET',
+						dataType:'json',
+						success:function(result){
+							if(result.flag){
+								layer.msg(result.msg,{icon:1});
+								document.getElementById(bill_id).innerHTML='关注';
+							}else{
+								layer.msg(result.msg,{icon:2});
+							}
+						},
+						error:function(e){
+							layer.msg('出现异常',{icon:3});
+						}
+					})
+				}else if(a=='关注'){
+					url="{:U('addFL')}?bill_id="+bill_id+"&id="+{$id};
+					$.ajax({
+						url:url,
+						type:'GET',
+						dataType:'json',
+						success:function(result){
+							if(result.flag){
+								layer.msg(result.msg,{icon:1});
+								document.getElementById(bill_id).innerHTML='取消关注';
+							}else{
+								layer.msg(result.msg,{icon:2});
+							}
+						},
+						error:function(e){
+							layer.msg('出现异常',{icon:3});
+						}
+					})
+				}
+			})
+		})
+</script>
+</block>

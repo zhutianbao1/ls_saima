@@ -1,0 +1,764 @@
+<extend name="pub/main_hr"/>
+
+<block name="title">
+<if condition="$errMsg neq null">
+	未获取信息
+<else/>
+{$hr['USER_NAME']} - 个人能力测评报告
+</if>
+</block>
+	
+<?php echo 'aaaaa';?>
+<block name="body">
+	<if condition="$errMsg neq null">
+		<div class="errMsg">
+			{$errMsg}
+		</div>
+	<else/>
+	<div id="hr_info">
+		<div>
+			<div class="hr_info_title">
+				<span>基本信息</span>
+			</div>
+			<div class="hr_info_content" style="height: 185px;">
+				<div class="model-con"><img src="__HEAD_IMG__{$hr['BILL_ID']}.jpg" height="150px" width="120px"></div>
+				<div class="model-cons">
+					<ul class="model-list">
+						<li class="li">姓名：<span>{$hr['USER_NAME']}</span></li>
+						<li class="li">县市：<span>{$hr['COUNTY_NAME']}</span></li>
+						<li class="li">岗位：<span>政企项目经理</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">员工编号：<span>{$hr['USER_ID']}</span></li>
+						<li class="li">用工性质：<span>{$hr['用工性质']}</span></li>
+						<li class="li">入职时间：<span><?php echo date ("Y-m-d",strtotime($hr['入职时间'])); ?></span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">入职项目经理时间：<span>{$hr.岗位入职时间|strtotime|date="Y-m-d",###}</span></li>
+						<li class="li">岗位工龄：<span>{$hr['岗位工龄']}</span></li>
+						<li class="li">年龄：<span>{$hr['年龄']}</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">最高学历：<span>{$hr['最高学历']}</span></li>
+						<li class="li">13年绩效：<span>{$hr['M2013年绩效']}</span></li>
+						<li class="li">14年绩效：<span>{$hr['M2014年绩效']}</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">15年绩效：<span>{$hr['M2015年绩效']}</span></li>
+					</ul>
+				</div>
+			</div>
+			<p>工作经历：<span>{$hr['工作经历']}</span></p>
+		</div>
+		<div>
+			<div class="hr_info_title">
+				<span>测评结果</span>
+			</div>
+			<div class="hr_info_content" style="height: 50px;">
+				<ul class="model-list">
+					<li class="ls">综合得分：<span class="col">{$hr['综合得分']}</span></li>
+					<li class="ls">全市排名：<span class="col">{$hr['排名']}</span></li>
+					<li class="ls">总人数：<span class="col">{$info[0]['A']}</span></li>
+				</ul>
+			</div>
+			<if condition="($hr['温馨提示'] eq '')"><else/><p class="col">温馨提示：<span class="col">{$hr['温馨提示']}</span></p></if>
+			
+			<div id="container1" class="line" style="width:700px;height:320px"></div>
+		</div>
+		<div>
+			<div class="hr_info_title">
+				<span>项目成果</span>
+			</div>
+			<div class="hr_info_content" style="height: 50px;">
+				<ul class="model-list">
+					<li class="ls">总分：<span class="col">40分</span></li>
+					<li class="ls">你的综合得分：<span class="col">{$hr['项目计划与成果']}</span></li>
+					<li class="ls">全市排名：<span class="col">{$hr['项目成果排名']}</span></li>
+					<li class="ls">总人数：<span class="col">{$info[0]['A']}</span></li>
+				</ul>
+			</div>
+			<p>你的优势是：<span>
+			<?php $yjys=''; ?>
+			<if condition="($hr['ICT项目收入'] gt 60)"><?php $yjys.='ICT项目收入'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['新增ICT项目收入'] gt 60)"><?php $yjys.='新增ICT项目收入'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['有效有价值项目商机的处理'] gt 60)"><?php $yjys.='有效有价值项目商机的处理'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['支撑需求提交'] gt 60)"><?php $yjys.='支撑需求提交'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['整体解决方案'] gt 60)"><?php $yjys.='整体解决方案'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['完成市公司项目立项'] gt 60)"><?php $yjys.='完成市公司项目立项'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['完成省公司项目立项'] gt 60)"><?php $yjys.='完成省公司项目立项'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['获得订单'] gt 60)"><?php $yjys.='获得订单'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<?php 
+				if($yjys<>''){
+					echo $yjys;
+				}else{
+					echo "暂无";
+				}
+			?><span class="note">(备注：60分以上即为优势)</span>
+			</span></p>
+			<p>你的弱势是：<span>
+			<?php $yjrs=''; ?>
+			<if condition="($hr['ICT项目收入'] lt 20)"><?php $yjrs.='ICT项目收入'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['新增ICT项目收入'] lt 20)"><?php $yjrs.='新增ICT项目收入'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['有效有价值项目商机的处理'] lt 20)"><?php $yjrs.='有效有价值项目商机的处理'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['支撑需求提交'] lt 20)"><?php $yjrs.='支撑需求提交'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['整体解决方案'] lt 20)"><?php $yjrs.='整体解决方案'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['完成市公司项目立项'] lt 20)"><?php $yjrs.='完成市公司项目立项'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['完成省公司项目立项'] lt 20)"><?php $yjrs.='完成省公司项目立项'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['获得订单'] lt 20)"><?php $yjrs.='获得订单'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<?php 
+				if($yjrs<>''){
+					echo $yjrs;
+				}else{
+					echo "暂无";
+				}
+			?><span class="note">(备注：20分以下即为劣势)</span>
+			</span></p>
+			<div id="container2" class="line" style="width:700px;height:320px"></div>
+		</div>
+		<div>
+			<div class="hr_info_title">
+				<span>素质考评</span>
+			</div>
+			<div class="hr_info_content" style="height: 50px;">
+				<ul class="model-list">
+					<li class="ls">总分：<span class="col">40分</span></li>
+					<li class="ls">你的综合得分：<span class="col">{$hr['素质考评']}</span></li>
+					<li class="ls">全市排名：<span class="col">{$hr['素质考评排名']}</span></li>
+					<li class="ls">总人数：<span class="col">{$info[0]['A']}</span></li>
+				</ul>
+			</div>
+			<p>你的优势是：<span>
+			<?php $szys=''; ?>
+			<if condition="($hr['敬业负责'] gt 6)"><?php $szys.='敬业负责'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['结果导向'] gt 6)"><?php $szys.='结果导向'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['计划与执行'] gt 6)"><?php $szys.='计划与执行'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['学习发展'] gt 6)"><?php $szys.='学习发展'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['风险意识'] gt 6)"><?php $szys.='风险意识'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['组织协调'] gt 6)"><?php $szys.='组织协调'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['团队合作'] gt 6)"><?php $szys.='团队合作'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['方案策划'] gt 6)"><?php $szys.='方案策划'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['项目管控'] gt 6)"><?php $szys.='项目管控'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['客户服务'] gt 6)"><?php $szys.='客户服务'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['销售能力'] gt 6)"><?php $szys.='销售能力'.'&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;'; ?><else/></if>
+			<?php 
+				if($szys<>''){
+					echo $szys;
+				}else{
+					echo "暂无";
+				}
+			?><span class="note">(备注：高于6分为优势)</span>
+			</span></p>
+			<p>你的弱势是：<span>
+			<?php $szrs=''; ?>
+			<if condition="($hr['敬业负责'] lt 4.5)"><?php $szrs.='敬业负责'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['结果导向'] lt 4.5)"><?php $szrs.='结果导向'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['计划与执行'] lt 4.5)"><?php $szrs.='计划与执行'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['学习发展'] lt 4.5)"><?php $szrs.='学习发展'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['风险意识'] lt 4.5)"><?php $szrs.='风险意识'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['组织协调'] lt 4.5)"><?php $szrs.='组织协调'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['团队合作'] lt 4.5)"><?php $szrs.='团队合作'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['方案策划'] lt 4.5)"><?php $szrs.='方案策划'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['项目管控'] lt 4.5)"><?php $szrs.='项目管控'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['客户服务'] lt 4.5)"><?php $szrs.='客户服务'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['销售能力'] lt 4.5)"><?php $szrs.='销售能力'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<?php 
+				if($szrs<>''){
+					echo $szrs;
+				}else{
+					echo "暂无";
+				}
+			?><span class="note">(备注：低于4.5分为劣势)</span>
+			</span></p>
+			<div id="container4" class="line" style="width:700px;height:320px"></div>
+		</div>
+		<div>
+			<div class="hr_info_title">
+				<span>知识结构</span>
+			</div>
+			<div class="hr_info_content" style="height: 50px;">
+				<ul class="model-list">
+					<li class="ls">总分：<span class="col">20分</span></li>
+					<li class="ls">你的综合得分：<span class="col">{$hr['知识结构']}</span></li>
+					<li class="ls">全市排名：<span class="col">{$hr['知识结构排名']}</span></li>
+					<li class="ls">总人数：<span class="col">{$info[0]['A']}</span></li>
+				</ul>
+			</div>
+			<p>你的优势是：<span>
+			<?php $yzys=''; ?>
+			<if condition="($hr['产品业务得分比']*1 gt 80)"><?php $yzys.='产品业务得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['通信技术得分比']*1 gt 80)"><?php $yzys.='通信技术得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['自我管理得分比']*1 gt 80)"><?php $yzys.='自我管理得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['组织协调得分比']*1 gt 80)"><?php $yzys.='组织协调得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['销售技能得分比']*1 gt 80)"><?php $yzys.='销售技能得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['方案策划得分比']*1 gt 80)"><?php $yzys.='方案策划得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['项目管控得分比']*1 gt 80)"><?php $yzys.='项目管控得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<?php 
+				if($yzys<>''){
+					echo $yzys;
+				}else{
+					echo "暂无";
+				}
+			?><span class="note">(备注：80%以上即为优势)</span>
+			</span></p>
+			<p>你的弱势是：<span>
+			<?php $yzrs=''; ?>
+			<if condition="($hr['产品业务得分比']*1 lt 60)"><?php $yzrs.='产品业务得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['通信技术得分比']*1 lt 60)"><?php $yzrs.='通信技术得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['自我管理得分比']*1 lt 60)"><?php $yzrs.='自我管理得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['组织协调得分比']*1 lt 60)"><?php $yzrs.='组织协调得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['销售技能得分比']*1 lt 60)"><?php $yzrs.='销售技能得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['方案策划得分比']*1 lt 60)"><?php $yzrs.='方案策划得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<if condition="($hr['项目管控得分比']*1 lt 60)"><?php $yzrs.='项目管控得分比'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'; ?><else/></if>
+			<?php 
+				if($yzrs<>''){
+					echo $yzrs;
+				}else{
+					echo "暂无";
+				}
+			?><span class="note">(备注：60%以下即为劣势)</span>
+			</span></p>
+			<div id="container3" class="line" style="width:700px;height:320px"></div>
+		</div>
+		<div>
+			<div class="hr_info_title">
+				<span>存在短板</span>
+			</div>
+			<div class="lines" style="min-width:400px;height:200px">
+				<table class="ran" border="0px" cellpadding="0" cellspacing="0">
+					<tr class="c">
+					<td class="tab">项目成果</td>
+					<td class="tab">素质考评</td>
+					<td class="tab">知识结构</td>
+					</tr>
+					<tr class="c">
+					<td>{$yjrs}&nbsp;</td>
+					<td>{$szrs}&nbsp;</td>
+					<td>{$yzrs}&nbsp;</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!-- <div style="margin-bottom: 50px;">
+			<div class="hr_info_title">
+				<span>短板培训</span>
+			</div>
+			<div style="min-width:400px;" id="c">
+				<table class="ran" border="0" cellspacing="0" cellpadding="1">
+					<tr class="c">
+						<td class="tab" style="height: 30px;">胜任力项</td>
+						<td class="tab">匹配课程</td>
+						<td class="tab">培训时间</td>
+						<td class="tab">选课</td>
+					</tr>
+					<volist name="cour" id="cours">
+						<tr class="c row">
+							<td>{$cours.短板}</td>
+							<td>{$cours.课程}</td>
+							<td>{$cours.培训时间}</td>
+							<td><if condition="($cours['EXPIRE_DATE']) gt sysdate"><a href="{:U('hr/hr_course')}?cid={$cours.课程编号}&bill_id={$hr['BILL_ID']}" target="_black">我要报名</a><else/>已过期</if></td>
+						</tr>
+					</volist>
+				</table>
+			</div>
+		</div> -->
+		<div style="margin-bottom: 50px;">
+			<div class="hr_info_title">
+				<span>通用培训</span>
+			</div>
+			<div style="min-width:400px;" id="c">
+				<table class="ran" border="0" cellspacing="0" cellpadding="1">
+					<tr class="c">
+						<td class="tab" style="height: 30px;">胜任力项</td>
+						<td class="tab">匹配课程</td>
+						<td class="tab">培训开始时间</td>
+						<td class="tab">培训结束时间</td>
+						<td class="tab">考试得分</td>
+						<td class="tab">选课</td>
+					</tr>
+					<volist name="ty_cour" id="cou">
+						 
+						<tr class="c">
+							<td>通用课程</td>
+							<td>{$cou.COURSE_NAME}</td>
+							<td>{$cou.START_TIME}</td>
+							<td>{$cou.END_TIME}</td>
+							<td>{$cou.EXAM_SCORE}&nbsp;</td>
+							<td>
+							<?php 
+								$url = "http://ls-webdev06.zj.chinamobile.com/uniflow/lsTaskManager/app_ls/chenhao8//LS_Training_plan_approval_process.db/baoming.jssp?open&queryStr=".$cou['APPLYID']."&deptName=".urlencode($hr['COUNTY_NAME'])."&userName=".urlencode($hr['POS_NAME'])."&userId=".$hr['USER_ID']."&charset=utf-8";
+								//$url = urlencode($url);
+							?>
+
+							<if condition="($cou['USERID']) eq null">
+								<a target="_blank" href="{$url}" class="baom">{$cou.情况}</a>			
+							<else/>
+							{$cou.情况}
+							</if></td>
+						</tr>
+					</volist>
+				</table>
+			</div>
+		</div> 
+		<!-- <div>
+			<div class="hr_info_title">
+				<span>培训记录</span>
+			</div>
+			<div style="min-width:400px;">
+				<div style="min-width:400px;height:190px; overflow:auto;">
+					<table class="ran" border="0" cellspacing="0" cellpadding="1">
+						<tr class="c">
+							<td class="tab" style="height: 30px;">县市</td>
+							<td class="tab">姓名</td>
+							<td class="tab">现岗位</td>
+							<td class="tab">已培课程名称</td>
+						</tr>
+						<volist name="train" id="tr">
+							<tr class="c">
+								<td>{$tr.COUNTY_NAME}</td>
+								<td>{$tr.USER_NAME}</td>
+								<td>{$tr.岗位}</td>
+								<td>{$tr.已培课程名称}</td>
+							</tr>
+						</volist>
+					</table>
+				</div>
+			</div>
+		</div> -->
+		<div>
+			<div class="hr_info_title">
+				<span>二次测评</span>
+			</div>
+			<div id="container5" class="line" style="width:700px;height:320px"></div>
+			<p style="font-size: 20px">(备注：二次测评未开始)</p>
+		</div> 
+	</div>
+	</if>
+</block>
+
+
+<block name="js">
+	<script type="text/javascript" src="__STATIC__/highcharts.js"></script>
+	<script type="text/javascript" src="__STATIC__/exporting.js"></script>
+	<script type="text/javascript" src="__STATIC__/highcharts-more.js"></script>
+	<script language="javascript" type="text/javascript"> 
+    var chart; 
+    $(document).ready(function () { 
+        chart = new Highcharts.Chart({ 
+            chart: { 
+                renderTo: 'container1', 
+                defaultSeriesType: 'bar', //图表类别，可取值有：line、spline、area、areaspline、bar、column等 
+                marginRight: 50, 
+                marginBottom: 25,
+                height:300,
+	            borderWidth: 10,
+				borderRadius: 10,
+				borderColor:'#f8f8f8'
+            }, 
+            colors: [
+                 '#fe7d7e',
+                 '#0476c5'
+             ],
+	        xAxis: {
+	            categories: ['项目成果','素质考评','知识结构'],
+                lineWidth: 1,
+             	lineColor: '#272727',
+                tickWidth: 1,
+                tickColor: '#272727'
+	        },
+	        yAxis: {
+                allowDecimals: false,
+                min: 0,
+                endOnTick: false,
+                gridLineWidth: 0,
+                lineWidth: 1,
+                lineColor: '#272727',
+                tickWidth: 1,
+                tickColor: '#272727',
+                tickPixelInterval: 70
+	        },
+	        plotOptions: {
+	        	series: {
+					pointWidth: 20
+				},
+	            bar: {
+	                dataLabels: {
+	                    enabled: true
+	                },
+	                enableMouseTracking:false
+	            }
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            floating: true,
+	            borderWidth: 0,
+	            backgroundColor:null, 
+	            itemMarginBottom: 10,
+	            shadow: false
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: '得分',
+	            data: [{$hr['项目计划与成果']},{$hr['素质考评']},{$hr['知识结构']}]
+	        }, {
+	            name: '权重',
+	            data: [40, 40, 20]
+	        }]
+	    });
+	});
+    </script> 
+
+	<script language="javascript" type="text/javascript"> 
+    var chart; 
+    $(document).ready(function () { 
+        chart = new Highcharts.Chart({ 
+	        chart: {
+	            renderTo: 'container2',
+	            polar: true,
+	            type: 'line',
+	            height:300,
+	            borderWidth: 10,
+				borderRadius: 10,
+				borderColor:'#f8f8f8',
+				plotBackgroundColor: null,
+				plotShadow: false,
+				plotBorderWidth: 0
+	        },
+
+	        colors: [
+	             '#a52a2a',
+	             '#0476c5'
+	         ],
+
+	        pane: {
+	            size: '80%'
+	        },
+
+	        xAxis: {
+	            categories: ['ICT项目收入','新增ICT项目收入','有效有价值项目商机的处理','支撑需求提交','整体解决方案','完成市公司项目立项','完成省公司项目立项','获得订单'],
+	            tickmarkPlacement: 'on',
+	            //gridLineWidth: 0,
+	            lineWidth:0
+	        },
+
+	        yAxis: {
+	            gridLineInterpolation: 'polygon',
+	            //gridLineWidth: 0.3,
+	            min: 0
+	        },
+
+	        plotOptions: {
+	            line: {
+	                dataLabels: {
+	                    enabled: false
+	                },
+	                enableMouseTracking:false,
+	                marker:{  
+	                enabled:false
+	            	}
+	            } 
+	        },
+
+	        legend: {
+	            verticalAlign: 'top',
+	            y: 7,
+	            enabled:false,
+	            itemStyle :{
+	            	color:'#d3d3d3'
+	            }
+	        },
+
+	        series: [{
+	            data: [{$hr['ICT项目收入']},{$hr['新增ICT项目收入']},{$hr['有效有价值项目商机的处理']},{$hr['支撑需求提交']},{$hr['整体解决方案']},
+	            {$hr['完成市公司项目立项']},{$hr['完成省公司项目立项']},{$hr['获得订单']}],
+	            pointPlacement: 'on'
+	        }]
+
+	    });
+	});
+    </script> 
+
+    <script language="javascript" type="text/javascript"> 
+    var chart; 
+    $(document).ready(function () { 
+        chart = new Highcharts.Chart({ 
+            chart: { 
+                renderTo: 'container3', 
+                defaultSeriesType: 'bar', //图表类别，可取值有：line、spline、area、areaspline、bar、column等 
+                marginRight: 50, 
+                marginBottom: 25,
+                height:300,
+                backgroundColor: {
+				linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+				stops: [
+					[0, 'rgb(96, 96, 96)'],
+					[1, 'rgb(16, 16, 16)']
+				]
+			},
+			borderWidth: 3,
+			borderRadius: 10,
+			borderColor:'#f8f8f8',
+			plotBackgroundColor: null,
+			plotShadow: false,
+			plotBorderWidth: 0
+            }, 
+            colors: [
+                 '#4980ce'
+             ],
+	        xAxis: {
+	            categories: ['产品业务', '通信技术','自我管理','组织协调','销售技能','方案策划','项目管控'],
+                lineWidth: 1,
+             	lineColor: '#272727',
+             	labels: {
+	                style: {
+	                    color: '#fafafa'
+	                }
+	            }
+	        },
+	        yAxis: [{
+                //allowDecimals: false,
+                min: 0,
+            	labels: {
+	                formatter: function() {
+	                    return +this.value +'.0%';
+	                },
+	                style: {
+                		color: '#fff'
+            		}
+	            } 
+	        }],
+	        plotOptions: {
+	        	series: {
+					pointWidth: 20
+				},
+	            bar: {
+	                dataLabels: {
+	                    enabled: true,
+	                    formatter: function() {
+	                    return +this.y +'%';
+	                	},
+	                	style: {
+                		color: '#fff'
+            			}
+	                },
+	                enableMouseTracking:false
+	            }
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            floating: true,
+	            borderWidth: 0,
+	            backgroundColor:null, 
+	            itemMarginBottom: 10,
+	            shadow: false,
+	            enabled:false
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: 'Year 1900',
+	            data: [{$hr['产品业务得分比']*1},{$hr['通信技术得分比']*1},{$hr['自我管理得分比']*1},{$hr['组织协调得分比']*1},{$hr['销售技能得分比']*1},{$hr['方案策划得分比']*1},{$hr['项目管控得分比']*1}]
+	        }]
+	    });
+	});
+    </script> 
+
+    <script language="javascript" type="text/javascript"> 
+    var chart; 
+    $(document).ready(function () { 
+    	chart = new Highcharts.Chart({ 
+	        chart:{
+	            renderTo: 'container4',
+	            polar: true,
+	            type: 'line',
+	            height:300,
+	            backgroundColor: {
+				linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+				stops: [
+					[0, 'rgb(96, 96, 96)'],
+					[1, 'rgb(16, 16, 16)']
+				]
+			},
+			borderWidth: 10,
+			borderRadius: 10,
+			borderColor:'#f8f8f8',
+			plotBackgroundColor: null,
+			plotShadow: false,
+			plotBorderWidth: 0
+	        },
+
+	        colors: [
+	             '#a52a2a',
+	             '#0476c5'
+	         ],
+
+	        pane: {
+	            size: '80%'
+	        },
+
+	        xAxis: {
+	            categories: ['敬业负责','结果导向','计划与执行','学习发展','风险意识','组织协调','团队合作','方案策划','项目管控','客户服务','销售能力'],
+	            tickmarkPlacement: 'on',
+	            gridLineWidth: 0.3,
+	            lineWidth:0,
+	            labels: {
+	                style: {
+	                    color: '#d3d3d3'
+	                }
+	            }
+	        },
+
+	        yAxis: {
+	            gridLineInterpolation: 'polygon',
+	            gridLineWidth: 0.3,
+	            min: 0,
+	            labels: {
+	                style: {
+	                    color: '#d3d3d3'
+	                }
+	            }
+	        },
+
+	        plotOptions: {
+	            line: {
+	                dataLabels: {
+	                    enabled: false
+	                },
+	                enableMouseTracking:false,
+	                marker:{  
+	                enabled:false
+	            	}
+	            } 
+	        },
+
+	        tooltip: {
+	            shared: true,
+	            pointFormat: '<span style="color:{series.color}">{series.name}: <b>${point.y:,.0f}</b><br/>'
+	        },
+
+	        legend: {
+	            verticalAlign: 'top',
+	            y: 7,
+	            enabled:false,
+	            itemStyle :{
+	            	color:'#d3d3d3'
+	            }
+	        },
+
+	        series: [{
+	            name: 'Allocated Budget',
+	            data: [{$hr['敬业负责']},{$hr['结果导向']},{$hr['计划与执行']},{$hr['学习发展']},{$hr['风险意识']},{$hr['组织协调']},{$hr['团队合作']},{$hr['方案策划']},
+	            {$hr['项目管控']},{$hr['客户服务']},{$hr['销售能力']}],
+	            pointPlacement: 'on'
+	        }]
+
+	    });
+	});
+    </script> 
+
+    <script language="javascript" type="text/javascript"> 
+    var chart; 
+    $(document).ready(function () { 
+        chart = new Highcharts.Chart({ 
+            chart: { 
+                renderTo: 'container5', 
+                defaultSeriesType: 'column', //图表类别有：line、spline、area、areaspline、bar、column等 
+                marginRight: 50, 
+                marginBottom: 25,
+                height:300,
+	            borderWidth: 10,
+				borderRadius: 10,
+				borderColor:'#f8f8f8'
+            }, 
+            colors: [
+                 '#fe7d7e',
+                 '#0476c5'
+             ],
+	        xAxis: {
+	            categories: ['项目成果','素质考评','知识结构'],
+                lineWidth: 1,
+             	lineColor: '#272727',
+                tickWidth: 1,
+                tickColor: '#272727'
+	        },
+	        yAxis: {
+                allowDecimals: false,
+                min: 0,
+                endOnTick: false,
+                gridLineWidth: 0,
+                lineWidth: 1,
+                lineColor: '#272727',
+                tickWidth: 1,
+                tickColor: '#272727',
+                tickPixelInterval: 70
+	        },
+	        plotOptions: {
+	        	series: {
+					pointWidth: 20
+				},
+	            column: {
+	                dataLabels: {
+	                    enabled: true
+	                },
+	                enableMouseTracking:true
+	            }
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            floating: true,
+	            borderWidth: 0,
+	            backgroundColor:null, 
+	            itemMarginBottom: 10,
+	            shadow: false
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: '得分',
+	            data: [{$hr['项目计划与成果']},{$hr['素质考评']},{$hr['知识结构']}]
+	        }, {
+	            name: '二次测试评分',
+	            data: [0, 0, 0]
+	        }]
+	    });
+	});
+    </script>
+
+	<script type="text/javascript">
+	$(function(){
+		var duanb="<?php echo str_replace(array("\r\n", "\r", "\n","&nbsp;"),"|",$yjrs."".$yzrs."".$szrs); ?>";
+		var arr = duanb.split('|||||');
+		$('#c .row').hide();
+		$('#c .row').each(function(index, el) {
+			var e=$(this),
+			td=e.find('td').eq(0),
+			html=$.trim(td.html());
+			for (var i = 0; i < arr.length; i++) {
+				var tmp=$.trim(arr[i]);
+				if(tmp.indexOf(html)>=0){
+					e.show();
+				}
+			}
+		});
+	});
+	</script>
+</block>

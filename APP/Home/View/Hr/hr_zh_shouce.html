@@ -1,0 +1,45 @@
+<extend name="pub/main_hr"/>
+	<block name="title">学习手册</block>
+	<block name="css">
+		<style type="text/css">
+			*{margin:0;padding: 0;}
+			p{line-height: 25px;}
+			#xg{width: 940px;margin: 0 auto;text-align: left; }
+			.aa{height: 40px; width: 138px;text-align: center; line-height: 40px;
+				list-style-type: none; }
+			.aa a{text-decoration: none; color: #000;display: block;}
+			.aa a:hover{background: #0F8EE2;display: block;color: #fff;}
+			.aa a.hover{background: #0F8EE2;display: block;color: #fff;}
+		</style>
+	</block>
+<block name="body">
+	<div id="xg" style="overflow: hidden;">
+		<div class="left">
+			<ul>   
+			    <li class="aa">   
+			    	<a class="hover" target="ss" href="{:U('hr_zh_shouce1')}" onclick="iframe()"><span>相关学习手册</span></a>
+			    </li>    
+			</ul>
+		</div> 
+		<iframe class="right" name="ss" style="width: 750px;height:500px;background-color: #fff;" frameborder="no" src="{:U('hr_zh_shouce1')}"></iframe>
+	</div>
+</block>
+<block name="js">
+	<script type="text/javascript">
+		function div() {
+			alert('暂无');
+		};
+
+	$(function(){
+		$('ul li').click(function(){
+			for(var i=0;i<$('ul li').size();i++){
+				if(this==$('ul li').get(i)){
+					$('ul li').eq(i).children('a').addClass('hover');
+				}else{
+					$('ul li').eq(i).children('a').removeClass('hover');
+				}
+			}
+		})			
+	})
+	</script>
+</block>

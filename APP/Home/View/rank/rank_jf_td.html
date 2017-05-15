@@ -1,0 +1,299 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">{$td[0]['团队']}-信息</block>
+
+	
+<block name="css">
+	<style type="text/css">
+	
+	.model-list{line-height: 28px;margin-bottom:2px !important;}
+	.model-list li{position:relative;list-style: none;float: left;width:208px;padding-left: 4px;margin-left: 18px;font-weight: 600;margin-bottom: 4px;color: #000;font-size: 14px;}
+	.model-list li span{width:120px;padding-left: 4px;font-weight: 400;position: absolute;right:0px;font-size: 14px;}
+
+	.model-list .li{
+		position: relative;
+		margin-bottom: 2px;
+		padding-left:20px;
+		margin-left: -1px;
+		height:60px;
+		color: #172c45;
+		width: 214px;
+		border-bottom:solid 1px #ccc;
+
+		background: #f4f4f4;
+		font-size: 12px;
+	}
+	.model-list .li span{
+		position: absolute;
+		z-index: 100;
+		width: 213px;
+		left:0px;bottom: 0px;
+		height:35px;line-height: 35px;font-size: 16px;
+		padding-left:20px !important;
+		display: block;border-top:solid 0px #666ccc;
+		background: #fff;
+		color: navy;
+	}
+
+	.headImg{border: 1px solid #ccc;
+    margin-left: 715px;
+    position: absolute;
+    top: 58px;}
+	.headTitle{position: absolute;left:0px;bottom: 0px;height:24px;line-height: 24px;text-align: center;width: 100%;font-weight: 600;color: tan;border-top: solid 1px #ccc;margin-left: -1px;}
+	.pcontainer{float:left;height:30px;line-height:30px;background:rgb(15, 142, 226);color:#fff;font-weight:600;text-align:center;width: 536px;margin-left: 12px;overflow: hidden;}
+	 
+	.float table tr td  {text-align: center;}
+	.model-foot,.model-foot1{position:absolute;left:200px;background:#ddd;padding:0px 10px 10px 10px;width:600px;border-radius:7px;z-index:999999;display: none;}
+	.close_btn{font-family:arial;font-size:30px;font-weight:700;color:#999;text-decoration:none;float:right;padding-right:4px;}
+	.mask{margin:0px;padding:0px;width:100%;height:100%;background:#333;position:fixed;z-index:9999;opacity:0.6;filter:alpha(opacity=60);top:0;left: 0;display: none;}
+	</style>
+</block>
+
+
+
+
+<block name="img">
+	<img style="margin-left:0px;width:959px;margin-bottom: -4px;" src="__IMG__/topjf.jpg">
+</block>
+<block name="nav"></block>
+<block name="month"><div style="margin-bottom: 10px;"></div></block>
+
+
+<block name="body">
+<div id="mask" class="mask"></div>
+<div style="background:#fff;">
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">{$td[0]['团队']}</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div class="model-con">
+			<div class="model-con-title">
+				<b>基础信息</b>
+			</div>
+
+			<div class="model-con-sub">
+				 <ul class="model-list">
+				 	<li class="li">单位:<span>{$td[0]['单位']}</span></li>
+				 	<li class="li">县市:<span>{$td[0]['县市']}</span></li>
+				 	<li class="li">团队名称:<span>{$td[0]['团队']}</span></li>
+				 </ul>
+				 <ul class="model-list clear">
+				 	
+				 	<li class="li">手机:<span>{$td[0]['BILL_ID']}</span></li>
+					<li class="li">总积分<span>{$td[0]['团队总积分']}</span></li>
+					<li class="li">排名<span>第{$td[0]['PM']}名</span></li>
+				</ul>
+				<ul class="model-list clear">
+					
+				</ul>
+			</div>
+
+			<div class="headImg" style="width:144px;height:175px;padding:2px;">
+				<img src="__HEAD_IMG__{$td[0]['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" alt="{$td[0]['团队']}" width="100%" height="150px">
+			<div class="headTitle">
+				{$td[0]['单位']} - {$td[0]['团队']}
+			</div>	
+			<div class="mask1"></div>
+			</div>
+		</div>
+
+		<div class="model-foot"></div>
+	</div>
+	<div class="model-foot1">
+	    <div >
+	        <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+	    </div>
+		<table style="width: 100%;padding-bottom: 10px;" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">分公司</td>
+				<td class="rank-title">团队名称</td>
+				<td class="rank-title">荣誉名称</td>
+				<td class="rank-title">级别</td>
+				<td class="rank-title">文件号</td>
+				<td class="rank-title">荣誉积分</td>
+			</tr>
+			<volist name="ryjf_td" id="xq">
+				<tr>
+					<td>{$xq.分公司}</td>
+					<td title="{$xq.团队名称}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$xq.团队名称}</div></td>
+					<td>{$xq.荣誉名称}</td>
+					<td>{$xq.级别}</td>
+					<td title="{$xq.文件号}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$xq.文件号}</div></td>
+					<td>{$xq.荣誉积分}</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+	<div class="model-foot">
+	    <div >
+	        <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+	    </div>
+		<table style="width: 100%;padding-bottom: 10px;" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">分公司</td>
+				<td class="rank-title">团队名称</td>
+				<td class="rank-title">荣誉名称</td>
+				<td class="rank-title">级别</td>
+				<td class="rank-title">文件号</td>
+				<td class="rank-title">竞赛积分</td>
+			</tr>
+			<volist name="ryjf_td1" id="xq">
+				<tr>
+					<td>{$xq.分公司}</td>
+					<td title="{$xq.团队名称}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$xq.团队名称}</div></td>
+					<td>{$xq.荣誉名称}</td>
+					<td>{$xq.级别}</td>
+					<td title="{$xq.文件号}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$xq.文件号}</div></td>
+					<td>{$xq.竞赛积分}</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">积分详情</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div style="padding:10px;height: 400px;">
+			<div class="float">
+				<table class="rank_line" border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td class="rank-title">月份</td>
+					<td class="rank-title">单位</td>
+					<td class="rank-title">县市</td>
+					<td class="rank-title">团队名称</td>
+					<td class="rank-title">手机号码</td>
+					<if condition="($td_det[0]['单位']) eq '市部门'">
+					<td class="rank-title">绩效积分</td>
+					<else/>
+					<td class="rank-title">全员赛马积分</td>
+					</if>
+					<td class="rank-title">竞赛积分</td>
+					<td class="rank-title">荣誉积分</td>
+					<td class="rank-title">创新积分</td>
+					<td class="rank-title">小计</td>
+				</tr>
+				<volist name="td_det" id="line">
+				<tr>
+					<td>{$line.月份}</td>
+					<td>{$line.单位}</td>
+					<td>{$line.县市}</td>
+					<td>{$line.团队}</td>
+					<td>{$line.BILL_ID}</td>
+					<td>{$line.全员赛马积分}</td>
+					<td><a class="example">{$line.竞赛积分}</a></td>
+					<td><a class="ryjf">{$line.荣誉积分}</a></td>
+					<td>{$line.创新积分}</td>
+					<td>{$line['全员赛马积分']+$line['竞赛积分']+$line['荣誉积分']+$line['创新积分']}</td>
+				</tr>
+				</volist>
+				<tr>
+					<td colspan="5">合计</td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($td_det);$i++){
+							$jf += $td_det[$i]['全员赛马积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($td_det);$i++){
+							$jf += $td_det[$i]['竞赛积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($td_det);$i++){
+							$jf += $td_det[$i]['荣誉积分'];
+						}
+						echo $jf;
+					?></td>
+					<td></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($td_det);$i++){
+							$jf += $td_det[$i]['全员赛马积分']+$td_det[$i]['竞赛积分']+$td_det[$i]['荣誉积分'];
+						}
+						echo $jf;
+					?></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+
+
+		<div class="model-foot"></div>
+	</div>
+	</div>
+</block>
+<block name="js">
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 	
+	<script type="text/javascript">
+	$(function () {
+		//弹出登录
+		$(".example").hover(function () {
+			$(this).stop().animate({
+				opacity: '1'
+			}, 600);
+		}, function () {
+			$(this).stop().animate({
+				opacity: '0.6'
+			}, 1000);
+		}).on('click', function () { 
+			$(".mask").css({ display: 'block' });
+			$(".model-foot").fadeIn("slow");
+			$(".model-foot1").fadeOut("fast");
+		});
+
+
+		$(".ryjf").hover(function () {
+			$(this).stop().animate({
+				opacity: '1'
+			}, 600);
+		}, function () {
+			$(this).stop().animate({
+				opacity: '0.6'
+			}, 1000);
+		}).on('click', function () { 
+			$(".mask").css({ display: 'block' });
+			$(".model-foot1").fadeIn("slow");
+			$(".model-foot").fadeOut("fast");
+		});
+		//关闭
+		$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
+			$(".model-foot").fadeOut("fast");
+			$(".model-foot1").fadeOut("fast");
+			$("#mask").css({ display: 'none' });
+		});
+
+	});
+	</script>
+
+	 <script type="text/javascript">
+	<!--1: 引入jquery -->
+	<!--2: 定义常规信息 -->
+	var logInfo = {
+		 name 		 : '成长积分平台', //项目名称
+		 title 		 : $(document).attr('title'), //当前页面名称
+		 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+		 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+		 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+		 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+		 url 		 : location.href, //当前访问地址
+		 ext 		 : '',  //拓展信息	
+		 bInfo 	     : ''   //浏览器信息
+	} 
+	</script>
+	<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+
+</block>
+

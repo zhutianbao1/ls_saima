@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$result['INVOICE_ID']}--发票核销</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Fpgl/style/invoice_verify.css" />
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+<!--<script type="text/javascript" src="__JS__/jquery.cookie.js"></script>-->
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Fpgl/js/invoice_verify.js"></script>
+<link rel="shortcut icon" href="__PUBLIC__/Fpgl/favicon.ico" />
+</head>	
+<body>
+<form method="post" action="">
+<h2>发票核销记录</h2>
+<table cellspacing="0">
+  <tr><th>发票编号</th><th>核销时间</th><th>核销金额</th><th>收款回单日期</th><th>操作</th></tr>
+  <if condition = "$writeoff[0] neq ''">
+  <volist name="writeoff" id="wo">
+  <tr>
+    <td>{$wo['INVOICE_ID']}</td>
+    <td>{$wo['WRITEOFF_DATE']}</td>
+    <td>{$wo['WRITEOFF_AMOUNT']}</td>
+    <td>{$wo['RECEIVE_DATE']}</td>
+    <td><a class="back" href="{:U('verify_back?id='.$wo['ID'].'&invoice_id='.$wo['INVOICE_ID'].'&amount='.$wo['WRITEOFF_AMOUNT'])}" onclick="return confirm('确定要撤回核销吗？')?true:false">撤回核销</a></td>
+  </tr>
+  </volist>
+  <else/>
+  <tr><td colspan="5">没有任何数据！</td></tr>
+  </if>
+</table>
+</form>
+<div id="page">{$_page}</div>
+
+ <div id="wrap">
+	<h2 class="wt">{$result['INVOICE_ID']}--发票核销</h2> 
+	 <div>
+	 	<form name="editForm" action="{:U('invoice_verify')}" method="post">
+	 	<dl class="info">
+	 		<dd><span>发票编号</span><input class="text" type="text"  name="invoice_id" readonly="readonly" value="{$result['INVOICE_ID']}"/></dd>
+	 		<dd><span>发票金额</span><input class="text" type="text"  name="invoice_amount" readonly="readonly" value="{$result['INVOICE_AMOUNT']}"/></dd>
+	 		<dd><span>已核销　</span><input class="text" type="text"  name="writeoff_amount" readonly="readonly" value="{$result['WRITEOFF_AMOUNT']}"/></dd>
+	 		<dd><span>收款日期</span><input class="date Wdate" type="text" onclick="WdatePicker()" name="receive_date"/></dd>
+	 		<dd><span>本次核销</span><input class="text" type="text"  name="amount" /></dd>
+	 		<dd><input type="submit" class="submit" name="send" onclick=" return checkForm();" value="提交" /></dd>
+	 	</dl>
+	 	</form>
+	 </div>
+</div>
+</body>
+</html>

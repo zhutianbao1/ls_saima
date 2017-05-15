@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		<block name="title">丽水移动员工读书会</block>
+	</title>
+	<link rel="stylesheet" href="__CSS__/comm.css">
+	<link rel="stylesheet" href="__CSS__/read.css">
+	<link rel="stylesheet" href="__CSS__/index.css">
+	<link rel="stylesheet" href="__CSS__/douban.css">
+	<block name="css"></block>
+	<!--[if IE]>
+		<link rel="stylesheet" href="__CSS__/read_ie.css">
+	<![endif]-->
+	
+	<style>
+	.login{
+		margin: 0 auto;
+    	width: 936px;
+    	padding:5px 0px;
+	}
+	.loginBtn{background:rgb(160,113,111);color: #fff;border:medium none;padding:5px 10px;}
+	.article-desc-brief *,.article-desc-brief p,.article-desc-brief p span {font-family: 12px/1.5 "Helvetica Neue",Helvetica,"Lucida Grande","Luxi Sans",Arial,"Hiragino Sans GB",STHeiti,"Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Micro Hei Mono","WenQuanYi Zen Hei","WenQuanYi Zen Hei Mono" !important,LiGothicMed;font-size: 12px !important;}
+	</style>
+</head>
+<body>
+
+<div id="wrap">
+
+	<div class="login hide">
+		<form action="{:U('index/login')}" name="loginForm" method="post">
+			手机号码：<input type="text" name="oper_login_code">
+			登录密码：<input type="password" name="oper_login_pass">
+			验证码：<input type="text" name="img_code" style="width:80px;">
+			<img title="看不清，换一张" style="cursor:pointer;" id="img_code" src="{:U('index/login')}" height="30px"/>
+			<input type="button" class="loginBtn" value="   登 录   ">
+			<span style="color:red;" id="errMsg"></span>
+		</form>
+	</div>	
+
+	<div class="top">
+		
+		<!-- LOG -->
+		<div class="top-info">
+			<div class="inner">
+				<h1 class="left title_county" style="color:rgb(160,113,111);">
+				<?php 
+					$cty = '市公司';
+			        foreach ($county_list as $key => $value) {
+			          if(session('COUNTY_CODE')==$key){
+			          	 $cty = $value;
+			          } 
+			        }
+			        echo $cty;
+			      ?>	
+				</h1>
+				<h1 class="left" style="color:rgb(160,113,111);">  . {$web_attrs['WEB_NAME']}</h1>
+				<form id="frm-search" action="{:U('index/book')}" name="theForm" method="post"><input id="input-query" type="text" name="kw" placeholder="作品 / 心得 / 阅读会" ><input id="btn-search" type="submit" value="搜索"></form>
+				<div  class="left" style="width:170px;position: relative;top: 10px;left: 50px;">
+                	本月浏览量:<span id="month_ydl"></span>
+                	总浏览量:<span id="total_ydl"></span>
+            	</div>				
+			</div>
+						
+		</div> 
+
+		<!-- LOG END -->
+		<!-- NAV -->
+		
+		<div class="nav" style="border:0px;">
+			<div class="inner" >
+				<ul class="nav-main items">
+					<volist name="navs" id="nav">
+						<li><a href="{:U($nav['link'])}"><span>{$nav['nav_name']}</span></a></li>
+					</volist>
+				</ul>
+
+				<select class="county_code hide">
+				<?php 
+			        foreach ($county_list as $key => $value) {
+			          if(session('COUNTY_CODE')==$key){
+			          	echo "<option value='".$key."' selected>".$value."</option>";
+			          }else{
+			          	echo "<option value='".$key."'>".$value."</option>";
+			          }
+			        }
+			      ?>
+				</select>					
+				<ul class="items items-minor user-info">
+					<if condition="$_SESSION['user_auth'] eq null">
+					<li><a class="show_login" href="javascript:;">登陆>></a></li>
+					<!-- <li><a href="">注册</a></li> -->
+					<else/>
+					<li><a class="" href="javascript:;">{$_SESSION['user_auth']['OA']}</a>
+					&nbsp;&nbsp;<a href="javascript:;" class="show_login">切换登录</a></li>
+					</if>
+				</ul>				
+			</div>
+
+		</div>
+		<!-- NAV END -->
+
+		<div class="nav hide" style="border-bottom:solid 0px #eee;background:#fffff9;">
+			<div class="inner">
+				<ul class="nav-main items">
+				       <?php 
+				        foreach ($county_list as $key => $value) {
+				         $curr = (session('COUNTY_CODE')==$key?"curr":"");
+				         echo "<li class='tab ".$curr."'><a  style='font-size:12px;' href='?cty=".$key."'>".$value."</a></li>";
+				        }
+				      ?>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- MAIN -->
+	<div class="main">
+		<block name="main_top"></block>
+		<div class="col col3">
+			<block name="main_left"></block>
+		</div>
+
+
+		<div class="col col10 right">
+			<block name="main_right"></block>
+		</div>
+		<!-- col10 END -->
+
+
+	<!-- 宣传图片 -->
+	<div class="ad-banner hide" style="margin:0 auto;">
+		<a href="/app/" title="豆瓣阅读 2.0 客户端"><img alt="豆瓣阅读 2.0 客户端" src="https://img3.doubanio.com/f/ark/007080bd02df01ad98779056cebc0808c27f785e/pics/ad/app-v2-banner@2x.png" height="90px" width="936px"></a>
+	</div>
+	<!-- 宣传图片END -->
+
+	</div>
+	<!-- MAIN END -->
+
+	<!-- FOOTER -->
+	<div class="footer hide">
+		<div class="inner" style="margin-top:10px; border-top:solid 1px #e7e7dc;padding:20px;">
+			 <a href="javascript:;">丽水移动业务支撑中心</a>
+		</div>
+	</div>
+	<!-- FOOTER END -->
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+
+<script>
+  var e ;
+  $(function(){
+  	var nav_index = $.cookie('nav_index');
+  	$(".nav-main li").eq(nav_index).addClass('on');
+  	$(".nav-main li").removeClass('on');
+
+
+  	$("img").each(function(i,e){
+	  	var tmpsrc = $(e).attr('tmpsrc'),
+	  		src    = $(e).attr('src');
+	  		$(e).attr('src',tmpsrc);
+	  	$(e).load(function() {
+	  		// console.info('成功 '+$(e).attr('tmpsrc'));
+	  		// $(e).attr('src',tmpsrc);
+	  	}).error(function() {
+	  		$(e).attr('src',src);
+	  	});
+	  });
+  });
+
+  $(".nav-main li").click(function(){
+  	e = $(this);
+  	index = e.index();
+  	$.cookie('nav_index',index);
+  });
+
+  $(".upload").click(function(){
+     open('http://10.78.1.85:9000/ranking/uploadFile.php?id=book_img');
+  });
+
+
+  $("td").mouseover(function(event) {
+		var e = $(this),
+			tds = e.siblings('td');
+		e.css('background','rgb(246,246,241)');
+		tds.css('background','rgb(246,246,241)');
+	});
+
+	$("td").mouseout(function(event) {
+		var e = $(this),
+			tds = e.siblings('td');
+		e.css('background','#fff');
+		tds.css('background','#fff');
+	});
+
+</script>
+
+<script type="text/javascript">
+	$(".county_code").change(function(){
+		var val = $(this).find('option:selected').val();
+		location.href="?cty="+val;
+	});
+
+	$("#img_code").click(function(){
+		$(this).attr('src',"{:U('index/login')}?random="+Math.random());
+	});
+
+	$(".show_login").click(function(){
+		$(".login").slideToggle('slow');
+	});
+
+	$(".loginBtn").click(function(){
+		var e = $(this),
+			oper_login_code = $("input[name=oper_login_code]").val(),
+			oper_login_pass = $("input[name=oper_login_pass]").val(),
+			img_code  = $("input[name=img_code]").val(),
+			error     = $("#errMsg");
+			error.html(''); 
+			if(oper_login_code.isEmpty() || oper_login_pass.isEmpty() || img_code.isEmpty()){
+			error.html('信息填写不完整');
+			return;
+		}
+		var url = "{:U('index/login')}";
+		$.ajax({
+			type:'post',
+			url:url,
+			data:{oper_login_code:oper_login_code,oper_login_pass:oper_login_pass,img_code:img_code},
+			dataType:'json',
+			success:function(re){				
+				if(re.success){
+					location.reload();					
+				}else{
+					error.html(re.msg);
+					$("#img_code").attr('src',"{:U('index/login')}?random="+Math.random());
+				}
+			},
+			error:function(){
+				error.html('登录异常');
+				$("#img_code").attr('src',"{:U('index/login')}?random="+Math.random());
+			}
+		});	
+	});
+</script>
+
+
+<script type="text/javascript">
+$(function(){
+	var url = "{:U('index/getMonth')}";
+    $.ajax({
+			type:'post',
+			url:url,			
+			dataType:'json',
+			success:function(data){ 
+			$("#month_ydl").html(data[0].ydl_numb);
+			}			
+		 });
+
+});
+$(function(){
+	var url = "{:U('index/getTotal')}";
+    $.ajax({
+			type:'post',
+			url:url,			
+			dataType:'json',
+			success:function(data){
+           $("#total_ydl").html(data[0].toatal_numb);			    
+			}			
+		 });
+});
+
+$(function(){
+	$('.nav-main').css('background-color','#C29394');
+	//$('.nav-main').css('background-color','#D9C6C5');	
+	$('.nav-main a').css({'color':'white','font-weight':'900'});
+});
+
+</script> 
+
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '读书会管理平台', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+
+
+<block name="js"></block>
+</body>
+</html>

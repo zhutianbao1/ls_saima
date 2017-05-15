@@ -1,0 +1,145 @@
+<extend name="./base"/>
+<block name='title'>考勤统计</block>
+<block name='login'>考勤统计</block>
+<block name='body'>
+<div class="a_mask" id="a_mask"></div>
+  <div>
+    <if condition="($tjGroup['全部'] neq 1)"><div class="queryGroup">
+      <form action="{:U('employee_kaoqin')}" method="post">
+       <if condition="($tjGroup['dept'] neq 1)"> <div class="font">
+          <label>县市：</label>
+          <select name="county_name">
+            <option value=""></option>
+                <option value="莲都" {$county_name=='莲都'?'selected':''}>莲都</option>
+                <option value="缙云" {$county_name=='缙云'?'selected':''}>缙云</option>
+                <option value="青田" {$county_name=='青田'?'selected':''}>青田</option>
+                <option value="云和" {$county_name=='云和'?'selected':''}>云和</option>
+                <option value="庆元" {$county_name=='庆元'?'selected':''}>庆元</option>
+                <option value="龙泉" {$county_name=='龙泉'?'selected':''}>龙泉</option>
+                <option value="遂昌" {$county_name=='遂昌'?'selected':''}>遂昌</option>
+                <option value="松阳" {$county_name=='松阳'?'selected':''}>松阳</option>
+                <option value="景宁" {$county_name=='景宁'?'selected':''}>景宁</option>
+                <option value="南城" {$county_name=='南城'?'selected':''}>南城</option>
+          </select>
+        </div></if>
+        <div class="font">
+          <label>请假人：</label>
+          <input type="text" name="name" value="{$name}">
+        </div>
+        <button class="btn">查询</button>
+      </form>
+    </div></if>
+    <div class="btnGroup">
+      <if condition="($btnGroup['全部'] eq 1)"><button class="btn add">申请请假</button></if>
+      <button class="btn see">查看</button>
+      <if condition="($btnGroup['全部'] eq 1)"><button class="btn modify">修改</button></if>
+      <if condition="($btnGroup['audit'] eq 1)"><button class="btn audit">审批</button></if>
+    </div>
+    <div style="overflow: auto;">
+      <table class="table" border="0" cellpadding="1" cellspacing="0" width="100%">
+        <tr>
+          <th class=""></th>
+          <th>请假人</th>
+          <th>县市</th>
+          <th>员工编号</th>
+          <th>入职时间</th>
+          <th>手机号码</th>
+          <th>请假人岗位</th>
+          <th>年休天数</th>
+          <th>已休假天数</th>
+          <th>剩余休假天数</th>
+          <th>本月请假天数</th>
+        </tr>
+        <volist name='user' id='el'>
+        <tr>
+          <td><input type="checkbox" name="line" param="{$el['USER_ID']}" param1="{$el['USER_NAME']}" style="width:13px"></td>
+          <td>{$el['USER_NAME']}</td>
+          <td>{$el['COUNTY_NAME']}</td>
+          <td>{$el['USER_ID']}</td>
+          <td>{$el['SERVICE_START']}</td>
+          <td>{$el['BILL_ID']}</td>
+          <td>{$el['DEPT']}</td>
+          <td>{$el['年休天数']}</td>
+          <td>{$el['已休假天数']}</td>
+          <td>{$el['剩余休假天数']}</td>
+          <td>{$el['本月请假天数']}</td>
+        </tr>
+        </volist>
+      </table>
+    </div>
+    {$_page}
+  </div>
+</block>
+<block name='js'>
+  <script type="text/javascript">
+    $(".add").click(function(){
+      var test="{$el[0]['剩余休假天数']}";
+      if(test>0){
+        window.open("{:U('index/employee_kaoqin_add')}");
+      }else{
+        window.open("{:U('index/employee_kaoqin_add','test=1')}");
+      }
+    });
+    function dge(){
+      var len = $("input[name='line']:checked").length;
+        if(len == 0){
+          alert("未选中编辑数据");
+          return false;
+        }
+        if(len > 1){
+          alert("同时只允许编辑一条记录");
+          return false;
+        }
+    }
+    $(".modify").click(function(){
+      var ab=dge();
+      if(ab!=false){
+        var user_id = $('input[name="line"]:checked').attr("param");
+        window.open("{:U('index/employee_kaoqin_add')}?user_id="+user_id+"");
+      }
+    });
+    $(".see").click(function(){
+      var ab=dge();
+      if(ab!=false){
+        var user_name = $('input[name="line"]:checked').attr("param1");
+        var user_id = $('input[name="line"]:checked').attr("param");
+        window.open("{:U('index/employee_see')}?user_name="+user_name+"&user_id="+user_id+"");
+      }
+    });
+    $(".audit").click(function(){
+      var ab=dge();
+      if(ab!=false){
+        var id = $('input[name="line"]:checked').attr("param");
+        var dept = $('input[name="line"]:checked').attr("param1");
+        var uname = $('input[name="line"]:checked').attr("param2");
+        $(".pl").fadeIn("slow");
+        $(".a_mask").css({ display: 'block' });
+        document.getElementById('dept').innerHTML=dept;
+        document.getElementById('name').innerHTML=uname;
+        $(".tj").click(function(){
+          var c={sp:$('input[name=sp]:checked').val(),content:$('#content').val(),id:id}
+          $.ajax({
+            type:'post',
+            url:"{:U('index/audit2')}",
+            dataType:'json',
+            data:c,
+            success:function(re){
+              alert(re.msg);
+              location.replace(location.href);
+            },
+            error:function(e){
+              
+            }
+          })
+        })
+      }
+    });
+
+    //关闭
+    $(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#fff' }) }).on('click', function () {
+      $(".pl").fadeOut("fast");
+      location.replace(location.href);
+      $("#a_mask").css({ display: 'none' });
+    }); 
+  </script>
+</block>

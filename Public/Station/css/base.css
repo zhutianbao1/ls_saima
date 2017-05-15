@@ -1,0 +1,139 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+/**
+body{
+	font-family:"Microsoft YaHei,Trebuchet MS", "Myriad Pro", Arial, sans-serif;
+	font-size:13px;
+	background-color: #eee;
+	color: #666;
+}
+**/
+
+body{
+	font-family:  "微软雅黑";
+	font-size: 13px;
+	color: #666;
+	
+}
+
+ul,li{
+	list-style-type: none;
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.contain{
+	width: 100%;
+	min-width: 1000px;
+	position: absolute;
+}
+		  .contain-top{
+		  	background-color: #eef5fb;
+		  	height: 35px;
+		  	width: 100%;
+		  	min-width: 1000px;
+		  }
+		  .top{
+		  	width: 1000px;
+		  	height: 35px;
+		  	margin: 0 auto;
+		  }
+		  .hiuser{
+            height: 35px;
+            line-height: 35px;
+            font-size: 13px;
+            color: #666;
+            float: left;
+            text-indent: 20px;
+		  }
+		  .links ul{
+		  	height: 35px;
+		  	line-height: 35px;
+		  	font-size: 14px;
+		  	color: #666;
+		  }
+		  .links  li{
+		  	float: right;
+		  	margin-right: 30px;		  	
+		  	padding: 0 10px;
+		  }
+		  .links  li a{
+		  	text-decoration: none;
+		  	color: #666;
+		  	display: block;
+		  }
+		  .links  li a:hover{
+		  	color: #ccc;
+		  }
+		  .container{
+		  	width:1000px;
+		  	margin:0 auto;
+		  	position:  relative;
+		  }
+		  .mian{
+		  	width: 100%;
+		  	position: absolute;
+		  }
+
+		  .left{
+		  	width: 150px;
+		  	background-color: #eee;
+		  	float: left;
+		  }
+		  .ui-accordion .ui-accordion-header{
+		  	font-weight: 600;
+		  }
+		  .ui-accordion .ui-accordion-content{
+		  	padding: 0 0 5px 30px;		  	
+		  }
+
+		  .left li {
+		  	height: 25px;
+		  	line-height: 25px;
+		  	margin-top: 5px;
+		  }
+		  .left li a{		  	
+		  	display: block;
+		  	font-size: 13px; 
+		  	font-weight: 500;
+		  	color: #666;
+		  }
+		  .left li a:hover{
+		  	background-color: #eee;		  	
+		  }
+		  .right{
+		  	width:840px;		  	
+		  	margin-right: 3px;
+		  	float: right;
+		  }
+
+		  .login{
+		  	width: 1000px;
+		  	height: 50px;
+		  	border:0px solid red;
+		  	margin:0 auto;
+		  	text-align: center;
+		  	line-height: 50px;
+		  }
+		 .login input{
+		  	display: inline-block;
+		  	height: 25px;
+		  	line-height: 25px;
+		  	margin-right: 30px;
+		  	border:1px solid #eee;
+		  	color: #666;
+		  	font-size: 13px;
+		  }
+		  .hide{
+		  	display: none;
+		  }
+
+		  .clear{clear:both;}
+		  .curr{
+		  	background-color: #eee;
+		  	border-right: 2px solid red;
+		  }

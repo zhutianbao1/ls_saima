@@ -1,0 +1,152 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">阅读会</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<link rel="stylesheet" href="__CSS__/my-rating.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+  </div>
+</div>
+</block>
+ 
+<block name="main_right">
+    <div class="data_table clear">
+        <style>
+            p{overflow: hidden;}
+            label{width:70px;text-align: right;display: inline-block;}
+            input ,select{height:30px;line-height: 30px;background: #fffff9;}
+            input[type=text]{width:420px;}
+            select{width:200px;padding-left: 30px;height:30px;line-height: 30px;}
+            textarea{width:550px;height:600px;background: #fffff9;}
+            em{color:red;font-size: 14px;font-weight: bold;}
+        </style>
+
+        <div class="section">
+            <form id="theForm" action="{:U('manager_meeting_edit')}" name="theForm" method="post">
+                <input type="hidden" name="id" value={$meeting['id']}>
+                <p>
+                    <label>书名：</label>
+                    <input type="hidden" name="book_id" value="{$book['id']}"  style="border:0px;">
+                    <input type="text" name="book_name" value="{$book['book_name']}" style="border:0px;">
+                </p>
+                <p>
+                    <label>标题：</label>
+                    <input type="text" name="title" value="{$meeting['title']}"><em>*</em><em>必须填写</em>
+                </p>
+                <p>
+                    <label>策划人：</label>
+                    <input type="text" name="meeting_planner" value="{$meeting['meeting_planner']}"/>
+                    <em>*</em><em>多人用英文,隔开</em>
+                </p>
+                
+                <p>
+                    <label>会议日期：</label>
+                    <input name="meet_date"  class="Wdate" type="text" size="12" onClick="WdatePicker()" value="{$meeting['meet_date']}">
+                </p>
+                <!--
+                <p><label>应到人数：</label>
+                <input type="text" name="ying" value="{$meeting['ying']}"></p>
+                <p><label>实到人数：</label>
+                <input type="text" name="shi" value="{$meeting['shi']}"></p>
+                 -->
+                <p>
+                    <label>现场图片：</label>
+                    <input type="text" id="book_img" name="img" readonly="" value="{$book['img']}"/>
+                    <a class="btn upload" href="javascript:;">上传</a>
+                </p>
+
+                <p>
+                    <label></label>
+                    <img id="imgbook_img" src="__ROOT__/{$book['img']}" tmpsrc="__ROOT__/{$meeting['img']}" dth="110px" height="164px"/>
+                </p>
+
+                <p>
+                    <label>图书简介：</label>
+                    <textarea  style="width:98%;height:200px;display:none;" name="description" id="" cols="30" rows="50">{$meeting['description']}</textarea>
+                    <em>*</em><em>必须填写</em>
+                </p>
+
+                <script id="editor0" type="text/plain" style="width:99%;height:200px;">{$meeting['description']}</script>
+                <br>
+                <p>
+                    <label>会议现场：</label>
+                </p>
+                <p class="hide">
+                <label>会议现场：</label>
+                <textarea  style="width:98%;height:200px;display:none;" name="content" id="" cols="30" rows="50">{$meeting['content']}</textarea>
+                <em>*</em><em>必须填写</em>
+                </p>
+                <script id="editor" type="text/plain" style="width:99%;height:500px;">{$meeting['content']}</script>
+                <br>
+                <p style="padding-left:70px;">
+                   <a style="padding:10px 35px;" href="javascript:;" class="btn btn_submit">保存</a>&nbsp;&nbsp;&nbsp;
+                   <a style="padding:10px 35px;background:#ddd;color:#000;" href="javascript:;" class="btn btn_reset">重置</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</block>
+
+<block name="js">
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文
+
+<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/lang/en/en.js"></script>-->
+<script src="__STATIC__/date/WdatePicker.js" language="javascript" type="text/javascript"></script>
+<script>
+var ue = UE.getEditor('editor');
+var ue0 = UE.getEditor('editor0');
+</script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script>
+ 
+$(function(){
+  $(".btn_submit").click(function(){
+    var ue = UE.getEditor('editor').getContent();
+    $("textarea[name=content]").val(ue);
+
+    var ue0 = UE.getEditor('editor0').getContent();
+    $("textarea[name=description]").val(ue0);
+
+    var title = $("input[name=title]").val(),
+        description=$("textarea[name=description]").val(),
+        content=$("textarea[name=content]").val(),
+        flag = true;
+        if(title.isEmpty()){
+          $("input[name=title]").css('background','infobackground');
+          $("input[name=title]").focus();
+          flag=false;
+        }
+        if(description.isEmpty()){
+          $("textarea[name=description]").css('background','infobackground');
+          $("textarea[name=description]").focus();
+          flag=false;
+        }
+        /**
+        if(content.isEmpty()){
+          $("textarea[name=content]").css('background','infobackground');
+          $("textarea[name=content]").focus();
+          flag=false;
+        }
+        **/
+        if(flag){
+          if(confirm('是否继续保存数据?')){
+            $("#theForm").submit();
+          }else{
+            return false;
+          }
+        }
+  });
+
+  $(".btn_reset").click(function(event) {
+    $("#theForm").reset();
+  });;
+});
+</script>
+</block>

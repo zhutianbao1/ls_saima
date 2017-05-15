@@ -1,0 +1,32 @@
+<extend name="pub/main_group"/>
+
+<block name="body">
+	  
+	<div class="model">
+		<div>
+			<div class="hr_info_title_l">
+				<span>优秀案例</span>
+			</div>
+			<div class="btns">
+				<form method="post" action="{:U('tool_ages')}" style="float: right;">
+					<input name="text" value="{$text}" class="text"/>
+					<input type="submit" value="查询" class="sub" />
+				</form>
+		        <form method="post" action="{:U('upload_file')}?divide=al" enctype="multipart/form-data" style="float:left;">
+		            <input type="file" name="file_exl" class="text" />
+		            <input type="submit" value="导入" class="sub" />
+		        </form>
+			</div>
+			<div class="left-tool">
+				<li style="text-align: center;">今日优秀案例＞＞</li>
+				<li style="text-align: center;">全部优秀案例＞＞</li>
+			</div>
+			<div class="load">
+				<volist name="file" id="gj">
+					<li><a class="tool" href="__PUBLIC__/images/tool/{$gj['FILE_NAME']}.{$gj['FILE_TYPE']}">{$gj['FILE_NAME']}</a><a href="{:U('delete_tool?fname='.$gj['FILE_NAME'].'&ftype='.$gj['FILE_TYPE'])}">删除</a></li>
+				</volist>
+			</div>
+		</div>
+	</div> 
+ 
+</block>

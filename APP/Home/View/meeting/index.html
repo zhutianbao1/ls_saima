@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>直销早会行事历管理平台</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px;font-size: 12px}
+		.meettable{empty-cells: show;border-collapse: collapse;margin: 0 auto;}
+		.meettable th,td{border: 1px solid #a9c6c9;}
+		.meettable tr{height: 30px;line-height: 30px;background: #c3dde0}
+		.title{width:100%;height:50px;background:#438EB9;color:white;text-align:center;line-height:50px;font-size: 16px;font-weight: bold;}
+		.btn {
+		  min-width:76px;
+		  margin-right:3px;
+		  padding-top: 6px;
+		  padding-bottom: 6px;
+		  font-size: 14px;
+		  color: #333;
+		  border: 1px solid transparent;
+		  border-color: #ccc;
+		  border-radius: 2px;
+		  background-color: #f5f5f5;
+		  margin-top: 12px
+		}
+    table th{
+      white-space: nowrap;
+    }
+    table td{
+      white-space: nowrap;
+    }
+	.a_mask{margin:0px;padding:0px;width:100%;height:100%;background:#333;position:fixed;z-index:9999;opacity:0.6;filter:alpha(opacity=60);top:0;left: 0;display: none;}
+	.pl{width: 500px; position: fixed;top:20%;left: 30%;display: none;z-index: 99999;}
+	.close_btn{font-family:arial;font-size:30px;font-weight:700;color:#999;text-decoration:none;float:right;right:4px;position: absolute;top:0px;}
+	.sj{margin-left: 20px;}
+	.sj a{display: block;width: 100px;background:#438EB9;color: #fff;margin:45px 0px;height: 30px;line-height: 30px;text-align: center;text-decoration: none;}
+	.sj span{margin-left: 8px;}
+	.sj p{height: 30px;line-height: 30px}
+	.sj p input{height: 25px;line-height: 25px;border: 1px solid #ccc}
+	.line1{border: 1px solid #eee;margin: 10px;}
+	.line1 span{display: block;float: left;line-height: 50px}
+	.line1 input,select{width: 150px;margin: 10px;height: 30px;line-height: 30px;border: 1px solid #eee;-moz-appearance:none;background: white;}
+	.line1 div{float: left;margin-left: 10px}
+
+	.think_page{top:10px;position: relative;}
+	.think_page .num,.next,.current,.prev,.first,.end,.rows{padding:5px 10px;border:solid 1px #619DF2;font-size: 12px;text-decoration: none;background: #c3dde0;color:#000;position: relative;}
+	.think_page .current{background: #438EB9;}
+	</style>
+</head>
+<body>
+	<div id="a_mask" class="a_mask"></div>
+	<div>
+		<div class="title">直销早会行事历管理平台</div>
+		<div>
+			<div class="line1">
+				<form class="form tjform" name="form1" action="{:U('meeting/index')}" method="post" style="float:left">
+				    <div class="dept">
+				      	<span>部门:</span>
+					    <select name="county_name" id="cn">
+					        <option value=""></option>
+					        <option value="莲都一">莲都一</option>
+					        <option value="莲都二">莲都二</option>
+					        <option value="缙云">缙云</option>
+					        <option value="青田">青田</option>
+					        <option value="云和">云和</option>
+					        <option value="庆元">庆元</option>
+					        <option value="龙泉">龙泉</option>
+					        <option value="遂昌">遂昌</option>
+					        <option value="松阳">松阳</option>
+					        <option value="景宁">景宁</option>
+					        <option value="南城">南城</option>
+					    </select>
+				    </div>
+
+				    <div class="user">
+				   		<span>早会时间:</span>
+				    	<input type='text' name='create_date' onClick="WdatePicker()" value="{$create_date}" />-<input type='text' name='ed_date' onClick="WdatePicker()" value="{$ed_date}"/>
+				    </div>
+				    <button class="btn query"/>查询</button>
+				</form>
+				<form class="drform" name="form2" method="post" action="{:U('meeting/file')}" enctype="multipart/form-data" style="text-align:right">
+					<a href="__PUBLIC__/images/31excel5.xls">导入格式模板下载</a>
+				    <input type="file" name="file_stu" style="width:200px;border:0" />
+					<button class="btn query1"/>导入</button>
+				</form>
+			</div>
+		</div>
+		<div>
+			<div class="btn-box">
+				<input type="button" class="btn add" value="添加早会"/>
+				<input type="button" class="btn feedback" value="反馈"/>
+				<input type="button" class="btn feedback1" value="反馈"/>
+			    <button class="btn exportexl"/>导出Excel</button>
+			</div>
+		</div>
+		<div style="overflow-y: hidden;overflow-x:scroll">
+			<table class="meettable" width="170%">
+				<tr>
+					<th rowspan="2"></th>
+					<th rowspan="2">部门</th>
+					<th rowspan="2">提交人</th>
+					<th colspan="13">早会内容</th>
+					<th colspan="7">分部早会反馈</th>
+					<th colspan="7">市公司抽查反馈</th>
+				</tr>
+				<tr>
+					<th>早会时间</th>
+					<th>主持人</th>
+					<th>问好、晨操</th>
+					<th>信息播报</th>
+					<th>轻松一刻</th>
+					<th>典范分享</th>
+					<th>专题学习内容</th>
+					<th>专题主讲人</th>
+					<th>政令宣导</th>
+					<th>成功欢呼</th>
+					<th>业务推动</th>
+					<th>本周重要事项提醒</th>
+					<th>其他事项</th>
+					<th>早会时间</th>
+					<th>后台参加人数</th>
+					<th>应到人数</th>
+					<th>实到人数</th>
+					<th>请假人数</th>
+					<th>早会内容和行事历是否一致</th>
+					<th>其他反馈</th>
+					<th>早会时间</th>
+					<th>后台参加人数</th>
+					<th>应到人数</th>
+					<th>实到人数</th>
+					<th>请假人数</th>
+					<th>早会内容和行事历是否一致</th>
+					<th>其他反馈</th>
+				</tr>
+				<volist name="user" id="user">
+					<tr>
+						<td><input type="checkbox" name="line" param="{$user.COUNTY_NAME}" param1="{$user.CREATE_DATE}"></td>
+						<td>{$user.COUNTY_NAME}</td>
+						<td>{$user.USER_NAME}</td>
+						<td>{$user.CREATE_DATE}</td>
+						<td>{$user.主持人}</td>
+						<td>{$user.晨操}</td>
+						<td>{$user.信息播报}</td>
+						<td>{$user.轻松一刻}</td>
+						<td>{$user.典范分享}</td>
+						<td>{$user.专题学习内容}</td>
+						<td>{$user.专题主讲人}</td>
+						<td>{$user.政令宣导}</td>
+						<td>{$user.成功欢呼}</td>
+						<td>{$user.业务推动}</td>
+						<td title="{$user.本周重要事项提醒}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis">{$user.本周重要事项提醒}</div></td>
+						<td>{$user.其他事项}</td>
+						<td>{$user.早会时间}</td>
+						<td>{$user.参加人数}</td>
+						<td>{$user.应到人数}</td>
+						<td>{$user.实到人数}</td>
+						<td>{$user.请假人数}</td>
+						<td>{$user.早会内容与行事历是否一致}</td>
+						<td>{$user.其他反馈}</td>
+						<td>{$user.早会时间1}</td>
+						<td>{$user.参加人数1}</td>
+						<td>{$user.应到人数1}</td>
+						<td>{$user.实到人数1}</td>
+						<td>{$user.请假人数1}</td>
+						<td>{$user.早会内容与行事历是否一致1}</td>
+						<td>{$user.其他反馈1}</td>
+					</tr>
+				</volist>
+			</table>
+		</div>
+		{$_page}
+
+		<div class="pl">
+			<fieldset style="border: 1px; background: #eee;">
+				<div style="height: 30px;line-height: 30px;background:#438EB9;color:#fff;padding-left: 10px;">反馈<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a></div>
+				<div class="sj">
+					<p>早会时间：<input type="text" name="home_date" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})">-
+					<input type="text" name="end_date" onClick="WdatePicker({dateFmt:'HH:mm'})"></p>
+					<p>后台人数：<input type="text" name="参加人数"></p>
+					<p>应到人数：<input type="text" name="应到人数"></p>
+					<p>实到人数：<input type="text" name="实到人数"></p>
+					<p>请假人数：<input type="text" name="请假人数"></p>
+					<p>早会内容和行事历是否一致：<input type="text" name="早会内容和行事历是否一致"></p>
+					其他反馈：
+					<p><textarea style="width: 90%;height: 80px;" id="feed" name="其他反馈"></textarea></p>
+					<span style="left: 200px;position: relative;top:15px"><a href="javascript:;" class="tj">提交</a></span>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript">
+county_name="{$county_name}";
+obj=document.getElementById("cn");
+for(i=0;i<obj.length;i++){
+	if(obj[i].value==county_name){
+		obj[i].selected=true;
+	}
+}
+//按钮按权限显示与隐藏
+	var create = "{$btnGroup['1']}";
+	if(create=='1'){
+	    $(".add").css("display","inline-block");
+	}else{
+	    $(".add").css("display","none");
+	}
+	var feedback = "{$btnGroup['2']}";
+	if(feedback=='1'){
+	    $(".feedback").css("display","inline-block");
+	}else{
+	    $(".feedback").css("display","none");
+	}
+	var feedback1 = "{$btnGroup['3']}";
+	if(feedback1=='1'){
+	    $(".feedback1").css("display","inline-block");
+	}else{
+	    $(".feedback1").css("display","none");
+	}
+	var exportexl = "{$btnGroup['4']}";
+	if(exportexl=='1'){
+	    $(".exportexl").css("display","inline-block");
+	}else{
+	    $(".exportexl").css("display","none");
+	}
+
+  	var tjform = "{$tjGroup['0']}";
+  	if(tjform == '1'){
+    	$(".tjform").css("display","block");
+    }else{
+    	$(".tjform").css("display","none");
+    }
+    var dept = "{$tjGroup['1']}";
+  	if(dept == '1'){
+    	$(".dept").css("display","inline-block");
+  	}else{
+    	$(".dept").css("display","none");
+  	}
+    var drform = "{$tjGroup['2']}";
+  	if(drform == '1'){
+    	$(".drform").css("display","block");
+    }else{
+    	$(".drform").css("visibility","hidden");
+    }
+//查询form提交
+	$(".query").click(function(){
+	    document.form1.submit();
+	});
+
+//导入form提交
+	$(".query1").click(function(){
+	    document.form2.submit();
+	});
+
+//添加按钮点击事件
+	$(".add").click(function(){
+		location.href="{:U('meeting/add')}";
+	})
+//改变表格中第2n行的颜色
+	$(document).ready(function(){
+		$(".meettable tr:nth-child(2n) td").css("background","#d4e3e5");
+	});
+//分部门的反馈点击事件
+	$(".feedback").click(function(){
+		var len = $("input[name='line']:checked").length;
+  		var param = $('input[name="line"]:checked').attr("param");
+  		var param1 = $('input[name="line"]:checked').attr("param1");
+  		var home_date="<?php echo date('Y-m-d');?>";
+		if(len == 0){
+  			alert("未选中编辑数据");
+  			return false;
+		}
+		if(param1>home_date){
+			alert("早会未开始");
+			return false;
+		}
+		if(len > 1){
+		    alert("同时只允许编辑一条记录");
+		    return false;
+		}else{
+      		if(param!=undefined && param1!=undefined && param!='' && param1!=''){
+          		$(".a_mask").css({ display: 'block' });
+				$(".pl").fadeIn("slow");
+				$(".tj").click(function(){
+					var c={home_date:$('input[name=home_date]').val(),end_date:$('input[name=end_date]').val(),参加人数:$('input[name=参加人数]').val(),应到人数:$('input[name=应到人数]').val(),实到人数:$('input[name=实到人数]').val(),请假人数:$('input[name=请假人数]').val(),早会内容和行事历是否一致:$('input[name=早会内容和行事历是否一致]').val(),feed:$('#feed').val(),county_name:param,create_date:param1}
+					$.ajax({
+						url:"{:U('meeting/feedback')}",
+						type:'post',
+						dataType:'json',
+						data:c,
+						success:function(re){
+							alert(re.msg);
+							location.replace(location.href);
+						},
+						error:function(e){
+
+						}
+					})
+				})
+      		}
+   		}
+	});
+
+//市部门的反馈点击事件
+	$(".feedback1").click(function(){
+		var len = $("input[name='line']:checked").length;
+  		var param = $('input[name="line"]:checked').attr("param");
+  		var param1 = $('input[name="line"]:checked').attr("param1");
+  		var home_date="<?php echo date('Y-m-d');?>";
+		if(len == 0){
+  			alert("未选中编辑数据");
+  			return false;
+		}
+		if(param1>home_date){
+			alert("早会未开始");
+			return false;
+		}
+		if(len > 1){
+		    alert("同时只允许编辑一条记录");
+		    return false;
+		}else{
+      		if(param!=undefined && param1!=undefined && param!='' && param1!=''){
+          		$(".a_mask").css({ display: 'block' });
+				$(".pl").fadeIn("slow");
+				$(".tj").click(function(){
+					var c={home_date:$('input[name=home_date]').val(),end_date:$('input[name=end_date]').val(),参加人数:$('input[name=参加人数]').val(),应到人数:$('input[name=应到人数]').val(),实到人数:$('input[name=实到人数]').val(),请假人数:$('input[name=请假人数]').val(),早会内容和行事历是否一致:$('input[name=早会内容和行事历是否一致]').val(),feed:$('#feed').val(),county_name:param,create_date:param1}
+					$.ajax({
+						url:"{:U('meeting/feedback1')}",
+						type:'post',
+						dataType:'json',
+						data:c,
+						success:function(re){
+							alert(re.msg);
+							location.replace(location.href);
+						},
+						error:function(e){
+
+						}
+					})
+				})
+      		}
+   		}
+	});
+//导出
+	$(".exportexl").click(function(){
+		location.href="{:U('meeting/exportxls')}?county_name="+county_name+"&create_date={$create_date}&ed_date={$ed_date}";
+    });
+
+//关闭弹窗
+	$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
+		$(".pl").fadeOut("fast");
+		location.replace(location.href);
+		$("#a_mask").css({ display: 'none' });
+	}); 
+</script>
+</html>

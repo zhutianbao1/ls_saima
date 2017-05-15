@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+      <title>员工薪酬查询</title>
+      <link rel="stylesheet"  href="__STATIC__/bootstrap/css/bootstrap.min.css">
+      <script src="__STATIC__/jquery-1.8.3.min.js"></script>
+      <script  src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+      <script src="__STATIC__/layer/layer.js"></script>
+      <link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+      <style type="text/css">
+       *{ margin: 0; padding: 0; } 
+        .search {width: 640px;height: 50px; margin: 0 auto;line-height: 50px;
+           background-color: #eee;text-align: center;
+        } 
+        .form-search label{letter-spacing: 2px; font-size: 14px;color: #666;} 
+      </style>
+</head>
+<body>      
+    <div class="container" style="width: 640px;">
+        <div class="header">               
+            <div class="header_img"></div>
+            <div class="header_title">薪酬信息</div>                      
+        </div>
+        <div class="search">              
+            <div class="form-search">
+                <label for="search_user_num">员工编号</label>
+                <input type="text" class="input-medium search-query" id="search_user_num">
+                <button type="submit" class="btn btn-info" id="search">搜索</button>
+            </div>
+        </div>
+    </div>   
+</body>
+<script type="text/javascript">
+$(function(){
+    $('#search').click(function() {
+        var search_user_num=$('#search_user_num').val();
+        if(!search_user_num){
+            layer.alert('请输入要查询的员工编号!');
+        }else{
+            url="{:U('Index/salary_user_search')}";
+            $.ajax({
+                type: "POST",
+                url: url, 
+                dataType:'json',
+                data: 'search_user_num='+search_user_num,
+                success: function(data){
+                    if(data=='1'){                
+                    window.location='http://10.78.1.85:9000/ranking/Salary/Index/salary_quanbu/search_user_num/'+search_user_num+'.html'; 
+                    }else{
+                    layer.alert(data);
+                    }              
+                }
+            });
+        }     
+    });
+
+    $('.header_img').click(function(event) {
+     window.location="{:U('Index/salary_index')}";
+    });
+
+});
+</script>
+</html>
+
+

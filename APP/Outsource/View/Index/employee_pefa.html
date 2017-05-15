@@ -1,0 +1,74 @@
+<extend name="./base"/>
+<block name='title'>绩效考核</block>
+<block name='login'>绩效考核</block>
+<block name='body'>
+  <div>
+    <div class="queryGroup">
+      <form action="{:U('employee_pefa')}" method="post">
+        <if condition="($tjGroup['dept'] neq 1)"><div class="font">
+          <label>县市：</label>
+          <select name="county_name">
+            <option value=""></option>
+                <option value="莲都" {$county_name=='莲都'?'selected':''}>莲都</option>
+                <option value="缙云" {$county_name=='缙云'?'selected':''}>缙云</option>
+                <option value="青田" {$county_name=='青田'?'selected':''}>青田</option>
+                <option value="云和" {$county_name=='云和'?'selected':''}>云和</option>
+                <option value="庆元" {$county_name=='庆元'?'selected':''}>庆元</option>
+                <option value="龙泉" {$county_name=='龙泉'?'selected':''}>龙泉</option>
+                <option value="遂昌" {$county_name=='遂昌'?'selected':''}>遂昌</option>
+                <option value="松阳" {$county_name=='松阳'?'selected':''}>松阳</option>
+                <option value="景宁" {$county_name=='景宁'?'selected':''}>景宁</option>
+                <option value="南城" {$county_name=='南城'?'selected':''}>南城</option>
+          </select>
+        </div></if>
+        <div class="font">
+          <label>用户姓名：</label>
+          <input type="text" name="name" value="{$name}">
+        </div>
+        <div class="font">
+          <label>员工编号：</label>
+          <input type="text" name="user_id" value="{$user_id}">
+        </div>
+        <button class="btn">查询</button>
+      </form>
+    </div>
+    <div class="btnGroup">
+      <!-- <button class="btn exportexl">导出Excel</button> -->
+    </div>
+    <div style="overflow: auto;">
+      <table class="table" border="0" cellpadding="1" cellspacing="0" width="100%">
+        <tr>
+          <th class=""></th>
+          <th style="">月份</th>
+          <th style="">县市</th>
+          <th class="">姓名</th>
+          <th style="">员工编号</th>
+          <th style="">县市考核分</th>
+          <th style="">县市考核加权后得分</th>
+          <th style="">赛马得分</th>
+          <th style="">考核总得分</th>
+          <th style="">绩效等级</th>
+          <th style="">备注</th>
+          <th style="">县市考核分上传记录人</th>
+        </tr>
+        <volist name="user" id="el">
+        <tr>
+          <td>{$i}</td>
+          <td>{$el['月份']}</td>
+          <td>{$el['COUNTY_NAME']}</td>
+          <td>{$el['USER_NAME']}</td>
+          <td>{$el['员工编号']}</td>
+          <td>{$el['县市考核分']}</td>
+          <td>{$el['县市考核加权后得分']}</td>
+          <td>{$el['赛马得分']}</td>
+          <td>{$el['考核总得分']}</td>
+          <td>{$el['绩效等级']}</td>
+          <td>{$el['备注']}</td>
+          <td>{$el['县市考核分上传记录人']}</td>
+        </tr>
+        </volist>
+      </table>
+    </div>
+    {$_page}
+  </div>
+</block>

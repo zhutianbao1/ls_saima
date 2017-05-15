@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>赛马考核指标</title>
+		<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+		<script src="__STATIC__/layer/layer.js"></script>
+		<style type="text/css">
+		.container{color: #666;	}
+		h3{text-align: center;color: #666;letter-spacing: 1px;}	
+		table{width: 120%;border-collapse: collapse;}	
+		table,td{margin: 0 auto;border: 1px solid #666;text-align: center;}
+		.td1{width: 60px;height:22px;}
+		.td2{width:60px;height: 22px;}
+		.td3{width: 60px;height: 22px;}        
+		td input{width: 98%;height: 20px;line-height: 20px;text-align: center;border: none;color: #666;}
+		.bor_non{border:none;background: #eee;}
+		.btn{width: 72px;height: 32px;margin: 20px auto;}
+		.sub_btn{color: #666;font-size: 14px;text-align: center;border:1px solid #666;padding: 5px 15px;}
+		</style>        
+	</head>
+	<body>
+
+	<div class="container">
+	    <h3>月度重点业务赛马考核导入表</h3>
+		<form action="{:U('Index/smltmb_dr')}" method="post" id="theForm">
+		<table >
+			<tr> 
+				<td rowspan="2" class="td1">月份</td>
+				<td rowspan="2" class="td1">县市</td>
+				<td colspan="4" >社会渠道2/3G客户购机直降+儿童腕表销量</td>
+				<td colspan="4" >宽带新增竣工量</td>
+				<td colspan="4" >有效放号量</td>
+				<td colspan="4" >咪咕爱看新增量(5M)</td>
+				<td colspan="4" >4G资费客户发展</td>
+				<td rowspan="2" style="width: 150px;">修改时间</td>
+				<td rowspan="2" >县市编号</td>
+			</tr>
+			<tr>
+				<td class="td2">县市目标</td>
+				<td class="td3">营业</td>
+				<td class="td3">社会渠道</td>
+				<td class="td3">直销部</td>
+				<td class="td2">县市目标</td>
+				<td class="td3">营业</td>
+				<td class="td3">社会渠道</td>
+				<td class="td3">直销部</td>
+				<td class="td2">县市目标</td>
+				<td class="td3">营业</td>
+				<td class="td3">社会渠道</td>
+				<td class="td3">直销部</td>
+				<td class="td2">县市目标</td>
+				<td class="td3">营业</td>
+				<td class="td3">社会渠道</td>
+				<td class="td3">直销部</td>
+				<td class="td2">县市目标</td>
+				<td class="td3">营业</td>
+				<td class="td3">社会渠道</td>
+				<td class="td3">直销部</td>
+			</tr>       
+		<volist name="lists" id="list">
+			<tr>
+				<td >
+					<input type="text" name="YF[]" value="{$list.MONTHS}" readonly="readonly" class="bor_non" />
+				</td>
+				<td >
+					<input type="text" name="XS[]" value="{$list.COUNTY_NAME}" readonly="readonly" class="bor_non county_name" />
+				</td>
+				<td>
+					<if condition="($zd_xl eq '1') and ($cur_date gt '23') ">
+						<input type="text" name="ZD_TG[]" value="{$list.ZD_TG}" />  
+					<else/>
+						<input type="text" name="ZD_TG[]" value="{$list.ZD_TG}"  readonly="readonly" class="bor_non" / >
+					</if>
+				</td>
+				 <if condition="($_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID']
+				                  or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID2']
+				                  or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '15168021899'
+				                  or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '18862243446' ) ">
+					<td>
+						<input type="text" name="YYA[]" value=" {$list.YYA}"/>               
+					</td>
+					<td>
+						<input type="text" name="SHA[]" value=" {$list.SHA}"/>
+					</td>
+					<td>
+						<input type="text" name="ZXA[]" value=" {$list.ZXA}"/>
+					</td>
+				 <else/>
+					<td>
+						<input type="text" name="YYA[]" value=" {$list.YYA}" readonly="readonly" class="bor_non"/>              
+					</td>
+					<td>
+						<input type="text" name="SHA[]" value=" {$list.SHA}" readonly="readonly" class="bor_non"/>
+					</td>
+					<td>
+						<input type="text" name="ZXA[]" value=" {$list.ZXA}" readonly="readonly" class="bor_non"/>
+					</td>
+				 </if>
+
+				<td>
+				    <if condition="($kd_xl eq '1' ) and ($cur_date gt '23') ">
+						<input type="text" name="KD_TG[]" value="{$list.KD_TG}"/> 
+					<else/>
+						<input type="text" name="KD_TG[]" value="{$list.KD_TG}" readonly="readonly" class="bor_non" /> 
+					</if>
+				</td>
+
+				<if condition="($_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID']
+				                 or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID2']
+				                or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '15168021899'
+				                or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '18862243446') ">
+					<td>
+					<input type="text" name="YYB[]" value=" {$list.YYB}"/>               
+					</td>
+					<td>
+					<input type="text" name="SHB[]" value=" {$list.SHB}"/>
+					</td>
+					<td>
+					<input type="text" name="ZXB[]" value=" {$list.ZXB}"/>
+					</td>
+
+				 <else/>
+					 <td>
+					<input type="text" name="YYB[]" value=" {$list.YYB}" readonly="readonly" class="bor_non"/>               
+					</td>
+					<td>
+					<input type="text" name="SHB[]" value=" {$list.SHB}" readonly="readonly" class="bor_non"/>
+					</td>
+					<td>
+					<input type="text" name="ZXB[]" value=" {$list.ZXB}" readonly="readonly" class="bor_non"/>
+					</td>
+				 </if>
+
+
+				<td>
+				 <if condition="($fh_xl eq '1') and ($cur_date gt '23') ">
+					<input type="text" name="FH_TG[]" value="{$list.FH_TG}"/>
+					<else/>
+				   <input type="text" name="FH_TG[]" value="{$list.FH_TG}"   readonly="readonly" class="bor_non"/>
+					</if>
+				</td>
+
+				<if condition="($_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID']
+				                 or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID2']
+				               or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '15168021899'
+				               or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '18862243446')  ">
+					<td>					
+					<input type="text" name="YYC[]" value=" {$list.YYC}"/>               
+					</td>
+					<td>
+					<input type="text" name="SHC[]" value=" {$list.SHC}"/>
+					</td>
+					<td>
+					<input type="text" name="ZXC[]" value=" {$list.ZXC}"/>
+					</td>
+				 <else/>
+				   <td>
+					<input type="text" name="YYC[]" value=" {$list.YYC}" readonly="readonly" class="bor_non"/>               
+					</td>
+					<td>
+					<input type="text" name="SHC[]" value=" {$list.SHC}" readonly="readonly" class="bor_non"/>
+					</td>
+					<td>
+					<input type="text" name="ZXC[]" value=" {$list.ZXC}" readonly="readonly" class="bor_non"/>
+					</td>
+				 </if>
+
+
+				<td>
+				 <if condition="($mg_xl eq '1')  and ($cur_date gt '23') ">
+					<input type="text" name="MG_TG[]" value="{$list.MG_TG}"/>
+					<else/>
+				   <input type="text" name="MG_TG[]" value="{$list.MG_TG}" 
+				   readonly="readonly" class="bor_non"/>
+					</if> 
+				</td>
+
+
+				<if condition="($_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID']
+				                or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID2']
+				                or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '15168021899'
+				                or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '18862243446')  ">
+					<td>
+					<input type="text" name="YYD[]" value=" {$list.YYD}"/>               
+					</td>
+					<td>
+					<input type="text" name="SHD[]" value=" {$list.SHD}"/>
+					</td>
+					<td>
+					<input type="text" name="ZXD[]" value=" {$list.ZXD}"/>
+					</td>
+
+				 <else/>
+					<td>
+					<input type="text" name="YYD[]" value="{$list.YYD}" readonly="readonly" class="bor_non"/>               
+					</td>
+					<td>
+					<input type="text" name="SHD[]" value="{$list.SHD}" readonly="readonly" class="bor_non"/>
+					</td>
+					<td>
+					<input type="text" name="ZXD[]" value="{$list.ZXD}" readonly="readonly" class="bor_non"/>
+					</td>
+				 </if>
+
+
+				<td>
+				    <if condition="($ll_xl eq '1') and ($cur_date gt '23') ">
+					 <input type="text" name="LL_TG[]" value="{$list.LL_TG}"/>
+					<else/>
+				    <input type="text" name="LL_TG[]" value="{$list.LL_TG}" 
+				   readonly="readonly" class="bor_non" />
+					</if>
+				</td>
+
+
+				<if condition="($_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID'] 
+				                 or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq $list['BILL_ID2']
+				               or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '15168021899'
+				               or $_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '18862243446') ">
+					<td>
+					<input type="text" name="YYE[]" value="{$list.YYE}"/>               
+					</td>
+					<td>
+					<input type="text" name="SHE[]" value="{$list.SHE}"/>
+					</td>
+					<td>
+					<input type="text" name="ZXE[]" value="{$list.ZXE}"/>
+					</td>
+
+				 <else/>
+				   <td>
+					<input type="text" name="YYE[]" value="{$list.YYE}" readonly="readonly" class="bor_non"/>               
+					</td>
+					<td> 
+					<input type="text" name="SHE[]" value="{$list.SHE}" readonly="readonly" class="bor_non"/>
+					</td>
+					<td>
+					<input type="text" name="ZXE[]" value="{$list.ZXE}" readonly="readonly" class="bor_non"/>
+					</td>
+				 </if>
+				 <td style="background: #eee;color: #666;font-size: 14px;">{$list.MODIFY_DATE}</td>
+				 <td >
+				 	<input type="text" name="county_code[]"  value="{$list.COUNTY_CODE}" readonly="true"
+				 	style="background: #eee;color: #666;font-size: 14px;"/>
+				 </td>
+			</tr>
+		</volist>
+		</table>
+		<if condition="($cur_date lt '05') or ($cur_date gt '23') ">
+			<if condition="$code eq '1'">
+				<div class="btn">
+				  <input type="button" value="提 交" class="sub_btn" />
+			      </div>
+			</if>
+		</if>
+	  </form>
+	   
+	</div> 
+		
+	</body>
+	<script >
+	$(function(){
+		$('.sub_btn').click(function() {
+			layer.open({
+				content:'你确定要保存数据吗?',
+				btn:['确定','取消'],
+				yes: function(index, layero){
+					layer.close(index);
+                 $('#theForm').submit();
+                }
+			});
+		});
+	});
+	</script>
+</html>

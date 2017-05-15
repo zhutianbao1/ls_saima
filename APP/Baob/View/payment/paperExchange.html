@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+
+ 	<OBJECT id="Client" width="0" height="0" classid="clsid:930C8A98-EC73-4C37-9E20-9F4E0A5F93C4" >
+	<param name="_Version" value="65536">
+	<param name="_ExtentX" value="2646">
+	<param name="_ExtentY" value="1323">
+	<param name="_StockProps" value="0">
+	</OBJECT>   
+ <body>
+              <fieldset>
+                <legend style="margin:5px;"><b>领取人验证：</b></legend>
+                <table border=0 cellspacing=1 cellpadding=1 id="lqr">
+                    <tr>
+                        <td bgcolor="#E3EBFE" style="width:20%;border-right:1px solid #a8c9df">
+                            验证卡：
+                        </td>
+                        <td bgcolor="#FFFFFF" style="width:30%;border-right:1px solid #a8c9df">
+                            <input  name="sim_card_code" id="sim_card_code"  style="background:#ccc;" size="17"/>
+                            <input type="button" id="btn_read_card" value="读卡" onclick="read_card()"/>
+                        </td>
+                        <td bgcolor="#E3EBFE" style="width:20%;border-right:1px solid #a8c9df">
+                            静态密码：
+                        </td>
+                        <td bgcolor="#FFFFFF" style="width:30%;border-right:1px solid #a8c9df">
+                            <input  name="password" id="password" type="password"  style="background:#ccc;" size="17"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#E3EBFE" style="width:20%;border-right:1px solid #a8c9df">
+                            二次验证码发送号码：
+                        </td>
+                        <td bgcolor="#FFFFFF" style="width:30%;border-right:1px solid #a8c9df">
+                            <input  name="verif_code_bill_id" id="verif_code_bill_id" readonly="true" style="background:#ccc;" size="17"/>
+                        </td>
+                        <td bgcolor="#E3EBFE" style="width:20%;border-right:1px solid #a8c9df">
+                            二次验证码：
+                        </td>
+                        <td bgcolor="#FFFFFF" style="width:30%;border-right:1px solid #a8c9df">
+                            <input  name="verif_code" id="verif_code" style="background:#ccc;" size="17"/>
+                            <input type="button" id="btn_verif_code" value="获取验证码" onclick="get_verif_code()"/>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+ </body>
+
+ <script >
+    function read_card(){
+        //$('#sim_card_code').val(Client.GetSIMIMSI());
+        document.getElementById("sim_card_code").value=Client.GetSIMIMSI();
+       // alert(Client.GetSIMIMSI());
+        //alert('xxxx');
+        //alert('xxxx');
+    }
+ </script>
+</html>

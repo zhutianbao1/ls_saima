@@ -1,0 +1,86 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>关注条线</block>
+<block name='css'>
+</block>
+<block name='body'>
+<div class="body">
+	<fieldset style="border:1px solid #ccc">
+    	<legend style="margin-left:20px;font-weight:bold">关注条线</legend>
+		<volist name="con" id="cons">
+			<div class="table2">
+				<div class="td"><span>{$cons['NAME']}</span><a id="{$cons['ID']}">关注</a></div>
+			</div>
+		</volist>
+    </fieldset>
+</div>
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$(function(){
+			var url="";
+			url="{:U('fouFL')}";
+			$.ajax({
+				url:url,
+				type:'GET',
+				dataType:'json',
+				success:function(result){
+					$.each(result,function(index,el){
+						document.getElementById(el['CONFIG_ID']).innerHTML='取消关注';
+						$("#"+el['CONFIG_ID']+"").css({"background":"#6BA1EE","color":"#fff"});
+						$("#"+el['CONFIG_ID']+"").prev().css("color","#fff");
+					})
+				},
+				error:function(e){
+					alert('访问错误');
+				}
+			})
+
+			$("a").click(function(){
+				var id=$(this).attr("id");
+				var a=document.getElementById(id).innerHTML;
+				if(a=='取消关注'){
+					url="{:U('delFL')}?id="+id;
+					$.ajax({
+						url:url,
+						type:'GET',
+						dataType:'json',
+						success:function(result){
+							if(result.flag){
+								layer.msg(result.msg,{icon:1});
+								document.getElementById(id).innerHTML='关注';
+								$("#"+id+"").css({"background":"transparent","color":"#344956"});
+								$("#"+id+"").prev().css("color","#344956");
+							}else{
+								layer.msg(result.msg,{icon:2});
+							}
+						},
+						error:function(e){
+							layer.msg('出现异常',{icon:3});
+						}
+					})
+				}else if(a=='关注'){
+					url="{:U('addFL')}?id="+id;
+					$.ajax({
+						url:url,
+						type:'GET',
+						dataType:'json',
+						success:function(result){
+							if(result.flag){
+								layer.msg(result.msg,{icon:1});
+								document.getElementById(id).innerHTML='取消关注';
+								$("#"+id+"").css({"background":"#6BA1EE","color":"#fff"});
+								$("#"+id+"").prev().css("color","#fff");
+							}else{
+								layer.msg(result.msg,{icon:2});
+							}
+						},
+						error:function(e){
+							layer.msg('出现异常',{icon:3});
+						}
+					})
+				}
+			})
+		})
+	</script>
+</block>
+

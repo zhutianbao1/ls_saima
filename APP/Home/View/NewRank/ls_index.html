@@ -1,0 +1,33 @@
+<style type="text/css">
+		.content-title{width: 100%;height: 25px;line-height: 25px;color: white;background: orange;margin-bottom: 5px;}
+		.content-mod div{width: 192px;border: 0px solid red;float: left;text-align: center; height: 300px;background-size: 100%;background-repeat: no-repeat;}
+		.content-mod .first{background-image: url('__IMG__/first.png');}
+		.content-mod .second{background-image: url('__IMG__/second.png');}
+		.content-mod .third{background-image: url('__IMG__/third.png');}
+		.content-mod img{width: 150px;height: 160px;margin-top: 70px;}
+		.content-mod span{display: block;width: 150px;height: 40px;background: white;margin: auto;border: 1px solid #ccc}
+</style>
+<volist name='con' id='cons'>
+	<div style="width:100%;overflow:hidden">
+		<div class="content-title">{$cons['NAME']}</div>
+		<volist name='user' id='users'>
+			<if condition="($cons['ID'] eq $users['CONFIG_ID'])">
+			<div class="content-mod">
+				<div class="
+				<?php 
+					if($users['RN']==1){
+						echo 'first';
+					}else if($users['RN']==2){
+						echo 'second';
+					}else if($users['RN']==3){
+						echo 'third';
+					}else{
+						echo '';
+					}
+				?>
+				 img"><img src="__HEAD_IMG__{$users['BILL_ID']}.jpg"><span>{$users['USER_NAME']}({$users['COUNTY_NAME']})</span></div>
+			</div>
+			</if>
+		</volist>
+	</div>
+</volist>

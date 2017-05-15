@@ -1,0 +1,113 @@
+<extend name="tmp"/>
+<block name="body">
+
+<form name="theForm" action="{:U('oper_list')}" method="post">
+<br>
+用户名<input type="text" size=10 class=text name="oper_name" value=""/>  
+帐号<input type="text" size=10   class=text  name="oper_login_code" value=""/>
+<input class="bottom" type="submit" value=" 查 找 "/>
+<input class="bottom" type="button" value=" 新 增 " onclick="add_oper()"/>
+</form>
+<br>
+
+<table  width="98%" border="0" cellspacing="1" cellpadding="0">  
+<tr> 
+<th>姓名</th>
+<th>帐号</th>
+<th>登陆次数</th>
+<th>部门</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+
+<volist name="opers" id="oper">
+<tr>
+   
+  <td>{$oper['OPER_NAME']}</td>
+  <td>{$oper['OPER_LOGIN_CODE']}</td>
+  <td>{$oper['OPER_VIEWS']}</td>
+  <td>{$oper['DEPT_NAME']}</td>
+  <td>{$oper['OPER_STATUS']}</td>
+  <td>
+    <a title="{$oper['OPER_NAME']}" class="action role" para="{$oper['OPER_ID']}" href="javascript:;">权限</a>
+    <a title="{$oper['OPER_NAME']}" class="action modify" para="{$oper['OPER_ID']}" href="javascript:;">修改</a>
+    <a title="{$oper['OPER_NAME']}" class="action delete" para="{$oper['OPER_ID']}" href="javascript:;">删除</a>
+  </td>
+</tr>
+</volist>
+</table> 
+{$_page}
+</block>
+ 
+
+<block name="js">
+<script type="text/javascript">
+  $(".action").click(function(){
+    var e = $(this),
+     para = e.attr('para');
+
+     if(e.hasClass('role')){
+        layer.load(2,{shade:[0.5,'#ccc']});
+        $.ajax({
+          type:'post',
+          url:"{:U('oper_role')}",
+          dataType:'json',
+          data:{id:para},
+          success:function(re){
+            closeAll();
+          },
+          error:function(){}
+        });
+     }
+
+     if(e.hasClass('modify')){
+        var title = e.attr('title');
+        var url= "{:U('oper_edit')}?id="+para;
+        var index = layer.open({
+          type:2,
+          title:'编辑-'+title,
+          shadeClose:false,
+          shade:0.2,
+          area:['600px','320px'],
+          offset:'100px',
+          content:url
+        });
+     }
+
+     if(e.hasClass('delete')){
+        layer.load(2,{shade:[0.5,'#ccc']});
+        $.ajax({
+          type:'post',
+          url:"{:U('oper_delete')}",
+          dataType:'json',
+          data:{id:para},
+          success:function(re){
+            if(re.success){
+              layer.msg('删除成功');  
+              e.parent().parent().remove();
+            }else{
+              layer.msg('删除失败');
+            }
+            closeAll();
+          },
+          error:function(){}
+        });
+     }
+  });
+
+
+  add_oper = function(){
+    var title = "新增用户";
+    var url= "{:U('oper_edit')}";
+    var index = layer.open({
+      type:2,
+      title:title,
+      shadeClose:false,
+      shade:0.2,
+      area:['600px','450px'],
+      offset:'100px',
+      content:url
+    });
+  }
+</script>
+</block> 

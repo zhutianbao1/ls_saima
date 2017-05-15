@@ -1,0 +1,76 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">会员管理</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css"> 
+.fl{ float: left; }
+.fr{ float: right; }
+.need_left{ width: 100px; border: 1px solid #ccc;  }
+.need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;
+                text-align: center; background-color: #eee; }
+.need_left ul{ width: 80px; margin-left: 20px; }
+.need_left ul li{ height: 25px;  line-height: 25px;}
+.need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+.need_left ul li a:hover{ background-color: #eee; color: #333; }
+.need_right{ width: 825px; border:1px solid #ccc; }
+
+.div_nav{border-bottom: 1px solid #eee;width: 100%;height: 30px;}
+.content{width: 100%;margin-top: 10px;}
+.content table{width: 100%; text-align: center;border-collapse: collapse;}
+.content table td{height:25px; line-height: 25px; border:1px solid #eee;font-size: 14px;
+                      color: #666;font-weight:500;}
+.cur{
+    background-color: #eee;border-right: 2px solid #ae807e;
+}                      
+</style>
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+  </div>
+</div>
+</block>
+ 
+<block name="main_right">
+<div class="need_left fl">
+  {:W('Side/need_tab')}
+</div>
+<div class="need_right fr"> 
+    <div class="div_nav">
+         {:W('Side/oper_tab')}
+    </div>
+    <div class="content">
+        <empty name='arrs'>
+           暂时没有要审核的数据!
+        <else/>
+            <div >
+                <table >
+                    <tr>
+                        <td>操作</td>
+                        <td>部门</td>
+                        <td>姓名</td>
+                        <td>编号</td>
+                        <td>手机</td>
+                    </tr>        
+                    <volist name="arrs" id="arr" >
+                    <tr>
+                        <td>
+                        <a href="{:U('Manager/manager_shenhe_xinxi?oper_num='.$arr['oper_num'])}?tabb=1">审核</a>
+                        </td>
+                        <td>{$arr.oper_city}</td>
+                        <td>{$arr.oper_name}</td>
+                        <td>{$arr.oper_num}</td>
+                        <td>{$arr.oper_phone}</td>
+                    </tr>                  
+                    </volist>         
+                </table>
+            </div>
+            <div class="ft">
+              {$_page}
+            </div> 
+        </empty> 
+    </div> 
+</div>
+</block>

@@ -1,0 +1,60 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">信息管理-新建</block>
+
+<block name="body">
+		<form action="{:U('msg/add')}?id={$id}" method="post">			
+		<input type="hidden" name="id" value="{$msg.ID}"/>
+		<div class="form" style="height:120px;line-height:40px;background: white;padding:20px;">
+			月份：<input value="{$msg.TAG}"  name="tag"  class="Wdate text" type=text size="12" onClick="WdatePicker({dateFmt:'yyyyMM'})">
+			条线：<select id="config_id" name="config_id" class="select" style="width:285px">
+			<?php echo R('Admin/Util/select',array($rank_configs,$config_id)); ?></select>
+			<br>
+			标题：<input value="{$msg.TITLE}" type="text" class="text" style="width:445px" name="title" /><br/>
+			管理人：<input value="{$msg.OPER_NAME}" type="text" name="oper_name" value="{$user_auth['OPER_NAME']}" class="text"/>
+			<!-- <a href="javascript:;"  class="save a-btn" style="position: absolute; height: 16px;line-height: 16px;">保存</a> -->
+			<input type="submit" value="保存" style="width: 80px;height: 30px;line-height: 30px;border: 0" />
+		</div>
+		<div class="editor">
+			<script id="container" name="msg" type="text/plain"  style="width:100%;height:500px;border:0">			 
+			{$msg.MSG}
+			</script>	
+
+		</div>
+		</form>
+</block>
+
+<block name="js">
+<!-- 配置文件 -->
+    <script type="text/javascript" src="__STATIC__/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__STATIC__/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript"> 
+	  var ue = UE.getEditor("container");
+
+	  var config_id=$("#config_id").val();
+
+	  /*$(".save").click(function(){
+	  		jQuery.support.cors = true;
+	 		$.ajax({
+	 			url:"{:U('msg_new')}?id="+config_id,
+	 			type:'post',
+	 			data:$("#theForm").serialize(),
+	 			dataType:'text',
+	 			success:function(j){
+	 				if(j==1){
+	 					layer.msg('保存成功',{icon:1});
+	 				}else{
+	 					layer.msg('保存失败',{icon:2});
+	 				}
+	 			},
+	 			error:function(e){
+	 				 layer.msg('保存异常',{icon:2});
+	 			}
+	 		});
+	 	});*/
+
+ 	</script>
+
+
+</block>

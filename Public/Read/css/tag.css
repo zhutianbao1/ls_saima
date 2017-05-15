@@ -1,0 +1,371 @@
+
+@font-face {
+    font-family: "arkitalic";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Georgia-Italic"), local("Georgia Italic");
+}
+@font-face {
+    font-family: "arkitalic";
+    font-style: normal;
+    font-weight: bold;
+    src: local("Georgia-BoldItalic"), local("Georgia Bold Italic");
+}
+@font-face {
+    font-family: "doucoin";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot") format("embedded-opentype"), url("/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff") format("woff"), url("/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf") format("truetype"), url("/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg") format("svg");
+}
+[data-icon]::before {
+    content: attr(data-icon);
+    font-family: "arkicons";
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: none;
+}
+@font-face {
+    font-family: "doucoin";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot") format("embedded-opentype"), url("/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff") format("woff"), url("/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf") format("truetype"), url("/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg") format("svg");
+}
+[data-icon]::before {
+    content: attr(data-icon);
+    font-family: "arkicons";
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: none;
+}
+@font-face {
+    font-family: "doucoin";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot") format("embedded-opentype"), url("/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff") format("woff"), url("/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf") format("truetype"), url("/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg") format("svg");
+}
+[data-icon]::before {
+    content: attr(data-icon);
+    font-family: "arkicons";
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: none;
+}
+.cart-link {
+    margin-left: 1px;
+}
+.btn-cart, .btn-cart:hover {
+    background: #edede3 none repeat scroll 0 0;
+    color: #999;
+    line-height: 1;
+    padding: 5px 12px;
+}
+.btn-cart i, .btn-cart:hover i {
+    margin-right: 5px;
+    vertical-align: -2px;
+}
+.cart-icon-only, .cart-icon-only:hover {
+    float: right;
+    padding: 5px !important;
+}
+.cart-icon-only i, .cart-icon-only:hover i {
+    margin: 0;
+}
+.icon-cart, .icon-cart-added {
+    background-image: url("/f/ark/251adc3a7b23ea755bc1862ef4cfb5325ad70385/pics/store/icon-cart.png");
+    background-position: left top;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 12px;
+    vertical-align: top;
+    width: 17px;
+}
+@media (min--moz-device-pixel-ratio: 1.3), not all, not all, not all, (min-resolution: 1.3dppx) {
+.icon-cart, .icon-cart-added {
+    background-image: url("/f/ark/5f9e5ee4f5d5a31753983c7c3fb834c5414dc27d/pics/store/icon-cart@2x.png");
+    background-size: 17px 24px;
+}
+}
+.icon-cart-added {
+    background-position: 0 -12px;
+}
+.add-to-cart, .add-to-cart:hover {
+    color: #825d5b;
+}
+.add-to-cart:hover {
+    background: #dbdbd4 none repeat scroll 0 0;
+}
+.ebook-list .action-buttons, .ebook-list .cart-icon-only, .ebook-list .cart-icon-only:hover {
+    display: inline-block;
+    float: none;
+}
+.ebook-list .btn-cart, .ebook-list .btn-cart:hover {
+    padding: 4px 12px;
+}
+.article-rating {
+    margin-top: 8px;
+}
+.article-rating, .list-rating {
+    color: #825d5b;
+    line-height: 18px;
+}
+.article-rating .rating-stars, .list-rating .rating-stars, .article-rating .rating-average, .list-rating .rating-average, .article-rating .rating-amount, .list-rating .rating-amount {
+    vertical-align: middle;
+}
+.article-rating .no-rating-amount, .list-rating .no-rating-amount {
+    color: #666;
+}
+.article-rating .no-rating-amount, .list-rating .no-rating-amount, .article-rating .rating-amount:first-child, .list-rating .rating-amount:first-child {
+    margin-left: -0.28em;
+}
+.title .label-category {
+    background: #ededed none repeat scroll 0 0;
+    color: #888;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1;
+    margin-left: 8px;
+    margin-top: -3px;
+    padding: 2px 3px;
+    vertical-align: middle;
+}
+.ebook-list {
+    margin-top: -15px;
+}
+.ebook-list .title, .ebook-list .article-desc-brief {
+    word-wrap: break-word;
+}
+.ebook-list .item {
+    border-color: #ddd;
+    margin-bottom: 0;
+    overflow: hidden;
+    padding: 15px 0;
+}
+.ebook-list .info {
+    overflow: hidden;
+}
+.ebook-list .info p {
+    font-size: 12px;
+    margin: 0;
+}
+.ebook-list .info .article-desc-brief {
+    margin-top: 10px;
+}
+.ebook-list .article-actions {
+    float: right;
+    margin-left: 20px;
+}
+.ebook-list .title {
+    color: #444;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.ebook-list .title a:hover {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    color: #825d5b;
+}
+.ebook-list .author-info {
+    margin-bottom: 5px;
+}
+.ebook-list .label, .ebook-list .labeled-text a, .ebook-list .labeled-text .plain {
+    margin-right: 5px;
+}
+.ebook-list .label-item {
+    margin-right: 10px;
+}
+.ebook-list .meta-item {
+    margin-left: 15px;
+}
+.ebook-list .cover, .ebook-list .cover img {
+    height: 134px;
+    width: 90px;
+}
+.ebook-list .type {
+    color: #999;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 26px;
+    margin-left: 6px;
+    vertical-align: top;
+}
+.ebook-list .article-actions {
+    float: right;
+}
+.ebook-list .book-tag {
+    background: #f8f8f8 none repeat scroll 0 0;
+    border: 1px solid #ededed;
+    color: #825d5b;
+    line-height: 24px;
+    padding: 0 6px;
+}
+.ebook-list .ratings-link {
+    color: #825d5b;
+}
+.ebook-list .ratings-link:hover {
+    background-color: #825d5b;
+    color: #fff;
+}
+.subscribe {
+    float: right;
+}
+.sub-number {
+    color: #afafaf;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.subscribed {
+    color: #b99594;
+    display: inline-block;
+    padding-bottom: 3px;
+}
+.btn-loading, .btn-loading:hover {
+    cursor: wait;
+}
+.column-list .title {
+    margin: 0;
+}
+.column-list .title a:hover {
+    background: #825d5b none repeat scroll 0 0;
+    color: #fff;
+}
+.column-list .author {
+    margin: 4px 0 2px;
+}
+.column-list .update-info {
+    color: #825d5b;
+    margin: 4px 0 2px;
+    padding-left: 16px;
+}
+.column-list .subscribe .btn {
+    margin-right: 5px;
+}
+.column-list .intro {
+    margin-top: 6px;
+}
+@font-face {
+    font-family: "doucoin";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot") format("embedded-opentype"), url("/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff") format("woff"), url("/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf") format("truetype"), url("/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg") format("svg");
+}
+[data-icon]::before {
+    content: attr(data-icon);
+    font-family: "arkicons";
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-transform: none;
+}
+.filter-tabs .tab {
+    display: inline;
+    margin-right: 10px;
+}
+.filter-tabs .tab a {
+    border-radius: 3px;
+    display: inline-block;
+    padding: 0 10px;
+}
+.filter-tabs .on {
+    background: #825d5b none repeat scroll 0 0;
+    color: #fff;
+}
+.page-title {
+    overflow: hidden;
+}
+.page-title h2, .page-title .alternative {
+    float: left;
+    line-height: 28px;
+    vertical-align: middle;
+}
+.page-title .alternative {
+    font-size: 14px;
+    margin-left: 1em;
+}
+.main article {
+    float: right;
+}
+.tag-list li {
+    font-size: 14px;
+    padding:5px 0px;
+    margin-bottom: 5px;
+    /*background:#f6f6f1 ;*/
+}
+.tag-list a {
+    border-radius: 3px;
+    padding: 3px 7px;
+}
+.random-tags h3 {
+    color: #666;
+}
+.main .the-tag-name {
+    color: #666;
+    font-size: 14px;
+}
+.main .the-tag-name .related-lnk {
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 8px;
+}
+.filter-tabs {
+    display: inline-block;
+}
+.filter-tabs a {
+    vertical-align: middle;
+}
+.filter-tabs .icon-checkbox {
+    margin-right: 0.3em;
+}
+.filter-type-tabs {
+   /*  border-right: 0px solid #999;
+    margin-right: 20px;
+    padding-right: 10px; */
+}
+div .tag-heading {
+    border-bottom: 1px solid #ddd;
+    color: #333;
+/*     margin-bottom: 18px;
+    padding-bottom: 12px; */
+}
+div .tag-heading p {
+    font-size: 12px;
+    margin: 12px 0 0;
+    padding-bottom: 31px;
+}
+div .tag-heading .hd-nav {
+    float: right;
+    margin-top: -21px;
+}
+div .tag-heading .agent-banner {
+    margin: 10px 0;
+}
+.category-fiction-tags {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 16px;
+}
+.category-type-tags {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 16px;
+}
+.icon-checkbox {
+    background-attachment: scroll, scroll;
+    background-clip: border-box, border-box;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: none, url("/f/ark/c03998145f0503ea26618c6680e3b48441e8e2e4/pics/store/icon-checkbox.svg");
+    background-origin: padding-box, padding-box;
+    background-position: 0 0%, 0 0;
+    background-repeat: repeat, no-repeat;
+    background-size: 13px auto;
+    display: inline-block;
+    height: 13px;
+    vertical-align: middle;
+    width: 13px;
+}
+.checked .icon-checkbox {
+    background-position: 0 -13px;
+}

@@ -1,0 +1,314 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">点赞评测详情-{$gr[0]['单位']}</block>
+
+
+<block name="css">
+	<style type="text/css">	
+	.rank-info{border:solid 0px rgb(0,129,204);padding:10px;padding-left:1px;background: #fff;}
+	.infos{clear:both;position: relative;overflow: hidden;}
+	.infos li{position: relative;width:160px;list-style: none;list-style-type: none;float:left;margin-left:20px;margin-bottom: 10px;border:solid 1px #ccc;background: #fbfdff;padding:3px;}
+	.infos .rank-user{position:relative;height:150px;width:100%;}
+	.rank-user .mask{z-index:9998;background: black none repeat scroll 0 0;
+				    bottom: 0;
+				    height:28px;
+				    left: 0;
+				    opacity: 0.6;
+				    filter:alpha(opacity=50);
+				    position: absolute;
+				    width: 100%;}
+	.rank-user .mask1{z-index:9998;background: black none repeat scroll 0 0;
+				    height:28px;
+				    left: 0;
+				    opacity: 0.6;
+				    filter:alpha(opacity=50);
+				    position: absolute;
+				    width: 100%;}
+	.rank-user .score{z-index:9999;position: absolute;font-size:12px;left: 10px;bottom: 0px;height:28px;line-height:28px;color:#fff;font-weight: 600;}
+	.infos .rank-action{position: absolute;left:50px;bottom:7px;}
+	.rank-action a{border:0px;color:rgb(42,52,61);background-color: #fbfdff;margin-left:0px;padding:5px 1px !important;letter-spacing: 1px;}
+	.rank-title{height:40px;line-height: 40px;font-size: 24px;font-weight: 600;background: rgb(0,129,204)}
+	.biaoti{border-bottom: 1px solid #ccc;
+		    height: 30px;
+		    line-height: 30px;
+		    margin-bottom: 10px;
+		    margin-left: 20px;
+		    margin-right: 9px;
+		    padding-left: 10px;}
+	.rank_pm{color: #fff;
+		    font-weight: 600;
+		    left: 10px;
+		    position: absolute;
+		    top: 10px;z-index:9999;}
+	.sj input{margin: 5px 0 0 20px;}
+	.sj a{display: block;width: 100px;background:#97D54E;color: #fff;margin:20px 0 30px;height: 30px;line-height: 30px;text-align: center;text-decoration: none;}
+	.sj span{margin-left: 8px;}
+	.pl,.pl2{width: 500px; position: fixed;top:25%;left: 30%;display: none;z-index: 99999999;}
+	.close_btn{font-family:arial;font-size:30px;font-weight:700;color:#999;text-decoration:none;float:right;right:4px;position: absolute;top:0px;}	
+	.a_mask{margin:0px;padding:0px;width:100%;height:100%;background:#333;position:fixed;z-index:9999;opacity:0.6;filter:alpha(opacity=60);top:0;left: 0;display: none;}
+	</style>
+</block>
+
+
+<block name="img">
+	<div style="background: #fff;  width: 960px;padding: 20px 0px;overflow: hidden;"><span style="font-size: 45px;margin-left: 200px;font-family:'华文彩云';">市公司人员服务支撑评测平台</span><span style="display: block;text-align: center;">眼睛对内 <span style="padding:0 50px;">价值对外</span> 服务一线</span></div>
+</block>
+<block name="nav"></block>
+	<block name="month"><div style="margin-bottom: 10px;"></div></block>
+<block name="body">
+<div id="a_mask" class="a_mask"></div>
+<div class="rank-info">
+		<div class="biaoti">
+			<div class="biaoti-left">详情-{$gr[0]['单位']}</div>
+		</div>
+		<div id="tiaojian">
+			<form action="{:U('index/rank_pc_info')}?id={$id}" method="post">
+				<table>
+					<tr>
+						<td><span>姓名</span><input type="text" name="user_name" value="{$user_name}" /></td>
+						<td><span>员工编号</span><input type="text" name="user_id" value="{$user_id}" /></td>
+						<td><input type="submit" value="查询" style="border: 0;line-height: 20px; width: 100px; background:rgb(15,142,226);color:#fff;"/></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<notempty name="gr">
+		<ul class="infos">
+			<volist name="gr" id="grs">
+			<li>
+				<div class="rank_pm">
+					第{$grs['PM']}名 
+				</div>
+				<div style="position: absolute;right: 3px;bottom:3px;z-index:9999;color: #fff;">
+					<if condition="($grs['CC'] neq null)"><img style="border: 0px;width:28px;height:28px;margin-bottom: -4px;" src="__IMG__/党徽.png">
+					<else/>
+					</if>
+				</div>
+				<div style="position: absolute;right: 54px;top:10px;z-index:9999;color: #fff;">
+					<div class="rank_good" id="cai{$grs['BILL_ID']}" style="margin-left: -12px;float: left;margin-top: -3px;">{$grs['CAI']|intval}
+					</div>
+					<a href="javascript:;" param="{$grs['BILL_ID']}" class="cai">
+					<span style="color: #fff;position: relative;top: -3px;padding:3px;font-weight: 600;">
+					<img title="吐槽" style="border: 0px; margin-left:0px;width:15px;height:15px;margin-bottom: -4px;" src="__IMG__/zan1.jpg"></span>
+					</a>
+				</div>
+				<div style="position: absolute;right: 4px;top:10px;z-index:9999;color: #fff;">
+					<div class="rank_good" id="zan{$grs['BILL_ID']}" style="margin-left: -12px;float: left;margin-top: -3px;">{$grs['ZAN']|intval}
+					</div>
+					<a href="javascript:;" param="{$grs['BILL_ID']}" class="zan">
+					<span style="color: #fff;position: relative;top: -3px;padding:3px;font-weight: 600;">
+					<img title="点赞" style="border: 0px; margin-left:0px;width:15px;height:15px;margin-bottom: -4px;" src="__IMG__/zan.jpg"></span>
+					</a>
+				</div>
+				<div class="rank-user">	
+				<a target="_blank" href="{:U('index/rank_pc_line?bill_id='.$grs['BILL_ID'])}?id={$id}" style="text-decoration: none;"> 
+					<div class="mask1"></div>
+					<img alt="{$grs.单位}-{$grs.姓名}" src="__HEAD_IMG__{$grs['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" width="100%" height="150px" style="border: 0px;" />
+					<div class="score" title="{$grs.单位}-{$grs.姓名}"><span class="user_name">{$grs.单位}-{$grs.姓名}</span>
+					</div>
+					<div class="mask"></div>
+				</a>
+				</div>
+			</li>
+			</volist>
+		</ul>
+		</notempty>
+</div>
+<!--点赞评论 -->
+<div class="pl">
+	<fieldset style="border: 1px; background: #eee;">
+		<div style="height: 30px;line-height: 30px;background:#97D54E;color:#fff;padding-left: 10px;">点赞评论<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a></div>
+		<div class="sj">
+			<input type="radio" name="dzan" value="服务支撑态度好" checked="checked" /><span>服务支撑态度好</span><br/>
+			<input type="radio" name="dzan" value="响应问题及时，解决问题有效"/><span>响应问题及时，解决问题有效</span><br/>
+			<input type="radio" name="dzan" value="首问责任落实到位，不推诿塞责"/><span>首问责任落实到位，不推诿塞责</span><br/>
+			<input type="radio" name="dzan" value="各类审批准确快速、时效高"/><span>各类审批准确快速、时效高</span><br/>
+			<input type="radio" name="dzan" value="布置工作清晰准确，有计划、有方法、有指导"/><span>布置工作清晰准确，有计划、有方法、有指导</span><br/>
+			<input type="radio" name="dzan" value="专业素质高，对本职工作内容掌握清晰准确，指导有力"/><span>专业素质高，对本职工作内容掌握清晰准确，指导有力</span><br/>
+			<input type="radio" name="dzan" value="工作认真细致，责任心强"/><span>工作认真细致，责任心强</span><br/>
+			<input type="radio" name="dzan" value="贴近基层一线，工作布署接地气，能够充分听取基层意见"/><span>贴近基层一线，工作布署接地气，能够充分听取基层意见</span><br/>
+			<input type="radio" name="dzan" value="1"/><span>个性化点赞</span>
+			<p style="margin-left: 45px;"><textarea style="width: 90%;height: 80px;" id="content" name="content"></textarea></p>
+			<span style="left: 200px;position: relative;"><a href="javascript:;" class="tj">提交</a></span>
+		</div>
+	</fieldset>
+</div>
+
+<!--吐槽评论 -->
+<div class="pl2">
+	<fieldset style="border: 1px; background: #eee;">
+		<div style="height: 30px;line-height: 30px;background:#97D54E;color:#fff;padding-left: 10px;">吐槽评论<a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a></div>
+		<div class="sj">
+			<input type="radio" name="tcao" value="服务支撑态度较差" checked="checked" /><span>服务支撑态度较差</span><br/>
+			<input type="radio" name="tcao" value="响应问题不够及时，问题没有得到有效解决"/><span>响应问题不够及时，问题没有得到有效解决</span><br/>
+			<input type="radio" name="tcao" value="首问责任落实不够到位，存在推诿塞责现象"/><span>首问责任落实不够到位，存在推诿塞责现象</span><br/>
+			<input type="radio" name="tcao" value="各类审批较慢、时效较低，退回原因说明不够清晰"/><span>各类审批较慢、时效较低，退回原因说明不够清晰</span><br/>
+			<input type="radio" name="tcao" value="布置工作较为粗放，缺乏方法和指导"/><span>布置工作较为粗放，缺乏方法和指导</span><br/>
+			<input type="radio" name="tcao" value="专业素质不高，对本职工作内容掌握不够清晰准确，指导模糊"/><span>专业素质不高，对本职工作内容掌握不够清晰准确，指导模糊</span><br/>
+			<input type="radio" name="tcao" value="工作不够认真细致，责任心较差"/><span>工作不够认真细致，责任心较差</span><br/>
+			<input type="radio" name="tcao" value="基层调研不足，听取基层意见不足，工作布署不够接地气"/><span>基层调研不足，听取基层意见不足，工作布署不够接地气</span><br/>
+			<input type="radio" name="tcao" value="2"/><span>个性化吐槽</span>
+			<p style="margin-left: 45px;"><textarea style="width: 90%;height: 80px;" id="content2" name="content2"></textarea></p>
+			<span style="left: 200px;position: relative;"><a href="javascript:;" class="tj2">提交</a></span>
+		</div>
+	</fieldset>
+</div>
+</block>
+<block name="js">	
+	<script type="text/javascript">
+	var ip="<?php echo $ip=get_client_ip();?>";
+		//点赞
+		$(".zan").click(function(){
+			var e = $(this),
+				bill_id = e.attr('param'),
+				id = '#zan'+bill_id,
+				zan= $(id).html();
+			var day_flag = $.cookie('day_flag');
+			if(!(day_flag==true)){
+				var url = "{:U('Index/rank_jf_zan')}"+"?bill_id="+bill_id;
+				$(".pl").fadeIn("slow");
+				$(".a_mask").css({ display: 'block' });
+				$(".tj").click(function(){
+				var obj=document.getElementsByName("dzan");
+				for(var i=0;i<obj.length;i++){
+					if(obj[i].checked){
+						if(obj[i].value==1){
+							var c=$("#content").val();
+						}
+						else{
+							var c=obj[i].value;
+						}
+						$.ajax({
+							type:'post',
+							url:"{:U('index/rank_jf_det')}"+"?bill_id="+bill_id,
+							dataType:'json',
+							data:{dzan:c},
+							success:function(re){
+								$(".pl").fadeOut("fast");
+								$("#a_mask").css({ display: 'none' });
+								if(re.success){
+									if(re.msg==1){
+										alert('你今天已经点赞过，请明天再来');
+									}
+									else{
+										$.ajax({
+											type:'get',
+											url:url,
+											dataType:'json',
+											success:function(result){
+												if(result.flag){
+													layer.msg(result.msg,{icon:1});
+													$(id).html(parseInt(zan)+1);
+													$.cookie('day_flag', 1, {expires:1,path:'/'});
+				 									location.replace(location.href);
+												}else{
+													layer.msg(result.msg,{icon:2});
+												}
+											},
+											error:function(){
+												layer.msg('出现异常',{icon:3});
+											}
+										});
+									}
+								}else{
+									alert('提交问题错误,请重试');
+									$("#content").focus();
+								}
+							}
+						});
+					}
+				}
+			});
+		 }else{
+		 	layer.msg('今日已经点过赞');
+		 }		
+		}); 
+
+
+		$(".cai").click(function(){
+			var e = $(this),
+				bill_id = e.attr('param'),
+				id = '#cai'+bill_id,
+				cai= $(id).html();
+			var day_flag1 = $.cookie('day_flag1');
+			if(!(day_flag1==true)){
+				var url = "{:U('Index/rank_jf_cai')}"+"?bill_id="+bill_id;
+				$(".pl2").fadeIn("slow");
+				$(".a_mask").css({ display: 'block' });
+				$(".tj2").click(function(){
+				var obj=document.getElementsByName("tcao");
+				for(var i=0;i<obj.length;i++){
+					if(obj[i].checked){
+						if(obj[i].value==2){
+							var c2=$("#content2").val();
+						}
+						else{
+							var c2=obj[i].value;
+						}
+						$.ajax({
+							type:'get',
+							url:"{:U('index/rank_jf_det')}"+"?bill_id="+bill_id,
+							dataType:'json',
+							data:{tcao:c2},
+							success:function(re){
+								$(".pl2").fadeOut("fast");
+								$("#a_mask").css({ display: 'none' });
+								if(re.success){
+									if(re.msg==1){
+										alert('你今天已经吐槽过，请明天再来');
+									}
+									else{
+										$.ajax({
+											type:'get',
+											url:url,
+											dataType:'json',
+											success:function(result){
+												if(result.flag){
+													layer.msg(result.msg,{icon:1});
+													$(id).html(parseInt(cai)+1);
+													$.cookie('day_flag1', 1, {expires:1,path:'/'});
+												}else{
+													layer.msg(result.msg,{icon:2});
+												}
+											},
+											error:function(){
+												layer.msg('出现异常',{icon:3});
+											}
+										});
+									}
+								}else{
+									alert('提交问题错误,请重试');
+									$("#content").focus();
+								}
+							}
+						});
+					}
+				}
+			});
+		 }else{
+		 	layer.msg('今日已经吐过槽');
+		 }
+	});
+
+
+		//关闭
+		$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
+			$(".pl").fadeOut("fast");
+			$(".pl2").fadeOut("fast");
+			 location.replace(location.href);
+			$("#mask").css({ display: 'none' });
+		}); 
+	</script>
+</block>
+
+
+<script type="text/javascript">
+	/*
+	if (ip.substring(0,5)=="10.78") {
+		if(parseInt(ip.substring(6,8))>=16 && parseInt(ip.substring(6,8))<=22 || parseInt(ip.substring(6,8))==35){
+			alert('您是市公司成员，不能给自己点赞');
+		}else{}				
+	}else{
+		alert('暂无权限');
+	}*/
+</script>

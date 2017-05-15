@@ -1,0 +1,131 @@
+<extend name="./base"/>
+<block name="title">直销员直销装备管理 | 县市装备统计表</block>
+<block name="css">
+<style>
+.container,.form1{
+  width:2000px;
+}
+.form-head{
+  text-align:left !important;
+}
+.exportTotal{
+  font-weight:normal;
+}
+.navbar{
+  height: 50px;
+}
+.container{
+  margin-top: 50px;
+  padding-top: 50px;
+}
+</style>
+</block>
+<block name="wrapper">
+<div class="wrapper">
+  <nav class="navbar pure-menu pure-menu-horizontal pure-menu-fixed" role="navigation">
+    <div class="horizontal-center">
+    <a href="{:U('index/index')}">直销员直销装备管理</a>
+    </div>
+    <div class="user-info"><?php echo session('user_auth.OA')?></div>
+  </nav>
+
+  <div class="container">
+    <form class="pure-form form1" action="{:U('Index/devGrl')}" method="post">
+      <div class="form-block">
+        <div class="form-head">
+          县市装备统计表&nbsp;&nbsp;<a class="pure-button exportTotal" href="{:U('Index/exportTotal')}">导出</a>
+        </div>
+      </div>
+    
+    <table class="pure-table pure-table-bordered">
+      <thead>
+        <tr>
+          <th>县市编号</th>
+          <th>县市名称</th>
+          <th>分离式身份证识别仪部门领取量</th>
+          <th>分离式身份证识别仪直销员领取量</th>
+          <th>分离式身份证识别仪部门报损量</th>
+          <th>分离式身份证识别仪库存量</th>
+          <th>蓝牙式身份证识别仪部门领取量</th>
+          <th>蓝牙式身份证识别仪直销员领取量</th>
+          <th>蓝牙式身份证识别仪部门报损量</th>
+          <th>蓝牙式身份证识别仪库存量</th>
+          <th>外场订制帐篷部门领取量</th>
+          <th>外场订制帐篷直销员领取量</th>
+          <th>外场订制帐篷部门报损量</th>
+          <th>外场订制帐篷库存量</th>
+          <th>外场订制桌子部门领取量</th>
+          <th>外场订制桌子直销员领取量</th>
+          <th>外场订制桌子部门报损量</th>
+          <th>外场订制桌子库存量</th>
+          <th>外场订制椅子部门领取量</th>
+          <th>外场订制椅子直销员领取量</th>
+          <th>外场订制椅子部门报损量</th>
+          <th>外场订制椅子库存量</th>
+          <th>外场营销资料袋部门领取量</th>
+          <th>外场营销资料袋直销员领取量</th>
+          <th>外场营销资料袋库存量</th>
+          <th>外场营销文件夹部门领取量</th>
+          <th>外场营销文件夹直销员领取量</th>
+          <th>外场营销文件夹库存量</th>
+          <th>外场T恤部门领取量</th>
+          <th>外场T恤直销员领取量</th>
+          <th>外场T恤库存量</th>
+          <th>外场马甲部门领取量</th>
+          <th>外场马甲直销员领取量</th>
+          <th>外场马甲库存量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="list">
+          <tr>
+            <td>{$list.COUNTY_CODE}</td>
+            <td>{$list.COUNTY_NAME}</td>
+            <td>{$list.分离式身份证识别仪部门领取量}</td>
+            <td>{$list.分离式身份证识别仪直销员领取量}</td>
+            <td>{$list.分离式身份证识别仪部门报损量}</td>
+            <td>{$list.分离式身份证识别仪库存量}</td>
+            <td>{$list.蓝牙式身份证识别仪部门领取量}</td>
+            <td>{$list.蓝牙式身份证识别仪直销员领取量}</td>
+            <td>{$list.蓝牙式身份证识别仪部门报损量}</td>
+            <td>{$list.蓝牙式身份证识别仪库存量}</td>
+            <td>{$list.外场订制帐篷部门领取量}</td>
+            <td>{$list.外场订制帐篷直销员领取量}</td>
+            <td>{$list.外场订制帐篷部门报损量}</td>
+            <td>{$list.外场订制帐篷库存量}</td>
+            <td>{$list.外场订制桌子部门领取量}</td>
+            <td>{$list.外场订制桌子直销员领取量}</td>
+            <td>{$list.外场订制桌子部门报损量}</td>
+            <td>{$list.外场订制桌子库存量}</td>
+            <td>{$list.外场订制椅子部门领取量}</td>
+            <td>{$list.外场订制椅子直销员领取量}</td>
+            <td>{$list.外场订制椅子部门报损量}</td>
+            <td>{$list.外场订制椅子库存量}</td>
+            <td>{$list.外场营销资料袋部门领取量}</td>
+            <td>{$list.外场营销资料袋直销员领取量}</td>
+            <td>{$list.外场营销资料袋库存量}</td>
+            <td>{$list.外场营销文件夹部门领取量}</td>
+            <td>{$list.外场营销文件夹直销员领取量}</td>
+            <td>{$list.外场营销文件夹库存量}</td>
+            <td>{$list.外场T恤部门领取量}</td>
+            <td>{$list.外场T恤直销员领取量}</td>
+            <td>{$list.外场T恤库存量}</td>
+            <td>{$list.外场马甲部门领取量}</td>
+            <td>{$list.外场马甲直销员领取量}</td>
+            <td>{$list.外场马甲库存量}</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    {$_page}
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  $(".devicefl").val("{$flag['devicefl']}");  
+});
+</script>
+</block>

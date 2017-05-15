@@ -1,0 +1,115 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 常规流程</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  .complain_type{width:735px;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="main-content">
+    <form id="theForm1" class="" action="{:U('Index/schedules')}" method="post">
+      <div class="form">
+        <div class="form-header">排班</div>
+
+        <div class="hidden">
+          <label>编号:</label>
+          <input class="readonly" type="text" name="id" value="{$schedule['ID']}"/>
+        </div>
+
+        <div>
+          <label>日期：<font color="#ff0000">*</font></label>
+          <input type="text" readonly="readonly" value="{$schedule['DAY']}"/>
+
+          <label>星期：<font color="#ff0000">*</font></label>
+          <input type="text" readonly="readonly" name="weekday" value="{$schedule['WEEKDAY']}"/>
+
+          <label>假日：<font color="#ff0000">*</font></label>
+          <input type="text" readonly="readonly" name="holiday" value="{$schedule['HOLIDAY']}"/>
+        </div>
+
+        <div>
+          <label>易亮：<font color="#ff0000">*</font></label>
+          <input type="text" name="p1" value="{$schedule['P1']}"/>
+
+          <label>蓝朱琳：<font color="#ff0000">*</font></label>
+          <input type="text" name="p2" value="{$schedule['P2']}"/>
+
+          <label>郑璐：<font color="#ff0000">*</font></label>
+          <input type="text" name="p3" value="{$schedule['P3']}"/>
+        </div>
+
+        <div>
+          <label>包慧珍：<font color="#ff0000">*</font></label>
+          <input type="text" name="p4" value="{$schedule['P4']}"/>
+
+          <label>陈晓芳：<font color="#ff0000">*</font></label>
+          <input type="text" name="p5" value="{$schedule['P5']}"/>
+
+          <label>金鑫：<font color="#ff0000">*</font></label>
+          <input type="text" name="p6" value="{$schedule['P6']}"/>
+        </div>
+
+        <div>
+          <label>注意事项：<font color="#ff0000">*</font></label>
+          <input type="text" class="text" name="pointer" value="{$schedule['POINTER']}"/>
+        </div>
+
+        <div class="btn-box">
+          <div class="btn-group">
+            <input type="button" class="btn tj" value="提交"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+
+  $(".tj").click(function(){
+    var complain_type = $("input[name='complain_type']").val();
+    if(complain_type==''){
+      alert("投诉类别不能为空");
+      return false;
+    }
+
+    var deal_way = $("textarea[name='deal_way']").val();
+    if(deal_way==''){
+      alert("处理流程不能为空");
+      return false;
+    }
+
+    var lime_light = $("textarea[name='lime_light']").val();
+    if(lime_light==''){
+      alert("特别注意点不能为空");
+      return false;
+    }
+
+    $(".tj").attr("disabled", true);
+    $("#theForm1").submit(); 
+  });
+});
+</script>
+</block>

@@ -1,0 +1,69 @@
+<extend name="Tpl/base"/>
+<block name="title">我的请假</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title" >
+  {:W('Side/user_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+<block name="main_left">
+  {:W('Side/vip_html')}
+</block>
+
+<block name="main_right">
+ <div class="hd lined">
+    <h3>我的请假<span class="help-tip"></span></h3>
+  </div>
+  <div>
+  <if  condition="$myqingjia neq null">
+    <table width="100%">
+    <tr height="22px">
+      <th style="background:#6e839a;color:#fff;">读书会</th>
+      <th style="background:#6e839a;color:#fff;">请假时间</th>
+      <th style="background:#6e839a;color:#fff;">进度</th>
+      <th style="background:#6e839a;color:#fff;">结果</th>  
+    </tr>
+    <volist name="myqingjia" id="myqingjia">
+    <tr>
+      <td>{$myqingjia['title']}</td>
+      <td>{$myqingjia['item_date']|date='Y-m-d',###}</td>
+      <td>
+        <if condition="$myqingjia['step'] eq 0 ">员工提出请假
+        <elseif  condition="$myqingjia['step'] eq 1 " />读书会管理员已审核
+        <elseif  condition="$myqingjia['step'] eq 2 " />公司培训管理员已审核
+        <elseif  condition="$myqingjia['step'] eq 3 " />总经理已审核
+        </if>      
+      </td>      
+      <td>
+        <if condition="$myqingjia['shenpi_result'] eq 0 ">待审核
+        <elseif condition="$myqingjia['shenpi_result'] eq 1 " />审核通过  
+        <elseif condition="$myqingjia['shenpi_result'] eq 2 " />审核未通过     
+        </if>
+      </td>     
+    </tr>
+    </volist>
+   </table>
+    <div class="ft">
+      {$_page}
+    </div>
+  <else/>
+   <p style="color: #666;letter-spacing: 1px; font-size: 13px;font-weight: 700;"> 
+  暂未获得到您关于阅读会请假的数据!</p>
+  </if>
+  
+ </div>
+  <br/>
+{:W('Side/haoshu')}
+</block>
+
+<block name="js">
+<script>
+
+</script>
+</block>

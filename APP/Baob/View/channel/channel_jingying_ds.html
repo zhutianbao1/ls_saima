@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>渠道经营者信息--对手</title>
+<link rel="stylesheet" href="__STATIC__/jquery-ui-10/css/base/jquery-ui-1.10.4.custom.min.css">
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/jquery-ui-10/js/jquery-ui-1.10.4.custom.min.js"> </script>
+<script src="__STATIC__/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/channel.css"/>
+<style type="text/css"> </style>
+</head> 
+<body>
+    <div class="contain">
+        <div class="main">
+            <h3>渠道经营者信息一览表</h3>    
+            <form id="theForm" action="{:U('Channel/channel_jingying_ds')}" method="post" >
+                <div class="search_div">
+                    <if condition="$_SESSION['channel']['USER_QX_NO'] eq '1' "> 
+                        <div class="search">
+                            <label for="county_name">渠道编号:</label>
+                            <input type="text" name="qu_id"  id="qu_id"/>
+                        </div>
+
+                        <div class="search">
+                            <label for="county_name">渠道名称:</label>
+                            <input type="text" name="qu_name"  id="qu_name" style="width: 200px;"/>
+                        </div>
+                        <div class="search" style="margin-left: 30px;"> 
+                            <input type="button"  value="搜索"  class="btn" />
+                        </div>
+
+                        <div class="search" style="margin-left: 30px;">
+                            <input type="reset"  value="重置"  class="rbtn" />
+                        </div>
+
+                        <div class="search" style="margin-left: 30px;">
+                            <input type="button"  value="导出"  class="dbtn" />
+                        </div>
+                    </if>
+
+                    <if condition="$_SESSION['channel']['USER_QX_NO'] eq '2' "> 
+                        <div class="search">
+                            <label for="county_name">渠道编号:</label>
+                            <input type="text" name="qu_id"  id="qu_id"/>
+                        </div>
+
+                        <div class="search">
+                            <label for="county_name">渠道名称:</label>
+                            <input type="text" name="qu_name"  id="qu_name" style="width: 200px;"/>
+                        </div>
+                        <div class="search">
+                            <label for="xiaoshou">销售经理:</label>
+                            <input type="text" name="xiaoshou"  id="xiaoshou"/>
+                        </div>
+                        <div class="search" style="margin-left: 30px;"> 
+                            <input type="button"  value="搜索"  class="btn" />
+                        </div>
+
+                        <div class="search" style="margin-left: 30px;">
+                            <input type="reset"  value="重置"  class="rbtn" />
+                        </div>
+
+                        <div class="search" style="margin-left: 30px;">
+                            <input type="button"  value="导出"  class="dbtn" />
+                        </div>
+                    </if>
+
+                    <if condition="$_SESSION['channel']['USER_QX_NO'] eq '3' "> 
+                        <div class="search">
+                            <label for="county_name">渠道编号:</label>
+                            <input type="text" name="qu_id"  id="qu_id"/>
+                        </div>
+
+                        <div class="search">
+                            <label for="county_name">渠道名称:</label>
+                            <input type="text" name="qu_name"  id="qu_name" style="width: 200px;"/>
+                        </div>
+
+                        <div class="search">
+                            <label for="xiaoshou">销售经理:</label>
+                            <input type="text" name="xiaoshou"  id="xiaoshou"/>
+                        </div>
+
+                        <div class="search">
+                            <label for="county_name">县市:</label>
+                            <input type="text" name="county_name"  id="county_name"/>
+                        </div>
+                        <div class="search">
+                            <label for="county_name">运营商:</label>
+                            <input type="text" name="yunys"  id="yunys"/>
+                        </div>
+                        <div class="search" style="margin-left: 30px;"> 
+                            <input type="button"  value="搜索"  class="btn" />
+                        </div>
+
+                        <div class="search" style="margin-left: 30px;">
+                            <input type="reset"  value="重置"  class="rbtn" />
+                        </div>
+
+                        <div class="search" style="margin-left: 30px;">
+                            <input type="button"  value="导出"  class="dbtn" />
+                        </div>
+                    </if>
+                </div>
+
+                <div class="info">
+                    <table>
+                        <tr>
+                            <th>操作</th>
+                            <th>渠道编号</th>
+                            <th>渠道中文名称</th>
+                            <th>三级级类型</th>
+                            <th>县市名称</th>
+                            <th>所属销售经理</th>
+                            <th>销售经理电话</th>
+                            <th>片区名称</th>
+                            <th>运营商</th>
+                            <th>渠道地址</th>
+                            <th>商圈名称</th>
+                            <th>乡镇街道名称</th>      
+                            <th>法人代表</th>
+                            <th>法人联系电话</th>
+                            <th>联系人</th>
+                            <th>联系电话</th>
+                            <th>经营面积</th>
+                            <th>门头间数</th>
+                            <th>创建时间</th>
+                            <th>禁用时间</th>
+                        </tr>
+                        <volist name="lists" id="list">
+                        <tr>
+                        <td style="width: 50px;text-align: center;" >
+                        <if condition="$_SESSION['channel']['USER_QX_NO'] eq  '1' or
+                                       $_SESSION['channel']['USER_QX_NO'] eq  '2' or 
+                                       $_SESSION['channel']['USER_QX_NO'] eq  '3'">
+                            <a href="{:U('Channel/channel_modify_ds?qd_id='.$list['渠道编号'])}">修改</a>
+                        </if>
+                        </td>
+                        <td>{$list['渠道编号']}</td>
+                        <td>{$list['渠道中文名称']}</td>
+                        <td>{$list['三级类型']}</td>
+                        <td>{$list['县市名称']}</td>
+                        <td>{$list['所属销售经理']}</td>
+                        <td>{$list['销售经理电话']}</td>
+                        <td>{$list['片区名称']}</td>        
+                        <td>{$list['运营商']}</td>
+                        <td>{$list['渠道地址']}</td>
+                        <td>{$list['商圈名称']}</td>
+                        <td>{$list['乡镇街道名称']}</td>       
+                        <td>{$list['法人代表']}</td>
+                        <td>{$list['法人联系电话']}</td>
+                        <td>{$list['联系人']}</td>
+                        <td>{$list['联系电话']}</td>
+                        <td>{$list['经营面积']}</td>
+                        <td>{$list['门头间数']}</td>
+                        <td>{$list['创建时间']}</td>
+                        <td>{$list['禁用时间']}</td>
+                        </tr>
+                        </volist>
+                    </table>
+                </div>
+            </form>
+            {$_page}
+        </div>
+    </div>
+</body>
+
+
+<script >
+    $(function(){
+        $('.btn').click(function(event) {
+            $('#theForm').submit();
+        });
+
+        $('#xiaoshou').val('{$xiaoshou}');
+        $('#county_name').val('{$county_name}');
+        $('#yunys').val('{$yunys}');
+        $('#qu_id').val('{$qu_id}');
+        $('#qu_name').val('{$qu_name}');
+
+
+        $('.dbtn').click(function(event) {     ;
+            window.location.href="{:U('Channel/channel_jy_exp_ds')}?xiaoshou={$xiaoshou}&county_name={$county_name}&qu_id={$qu_id}&qu_name={$qu_name}";
+        });
+
+        var xiaos=[            
+            <?php 
+            $xiao='';
+            for ( $i=0;$i<count($nodes); $i++) { 
+            if($i==count($nodes)-1){
+            $xiao .=('"'.$nodes[$i]['销售经理名称'].'"');
+            }else{
+            $xiao .= ('"'.$nodes[$i]['销售经理名称'].'"'.',');
+            }
+            }
+            echo $xiao;
+            ?>
+        ];
+
+        $("#xiaoshou").autocomplete({
+            source: xiaos,
+            messages: {
+                noResults:'',
+                results: function() {}        
+            }
+        });
+
+
+        var qus=[            
+            <?php 
+            $qu='';
+            for ( $i=0;$i<count($nodes2); $i++) { 
+            if($i==count($nodes2)-1){
+            $qu .=('"'.$nodes2[$i]['渠道中文名称'].'"');
+            }else{
+            $qu .= ('"'.$nodes2[$i]['渠道中文名称'].'"'.',');
+            }
+            }
+            echo $qu;
+            ?>
+        ];
+
+        $("#qu_name").autocomplete({
+            source: qus,
+            messages: {
+                noResults:'',
+                results: function() {}        
+            }
+        });
+
+    });
+</script>
+
+</html>
+

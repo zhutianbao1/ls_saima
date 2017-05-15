@@ -1,0 +1,201 @@
+<extend name="Tpl/base"/>
+<block name="title">书籍</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+
+</block>
+
+<block name="main_top">
+<div class="section">
+  <div class="hd tag-heading">
+    <h3>最新书籍</h3>
+    <div class="hd-nav">
+      <!-- <ul class="filter-tabs ">
+        <li class="tab">
+          <a href="?sort=top&amp;cat=article">热门</a></li>
+        <li class="tab on">
+          <a href="?sort=new&amp;cat=article">新上架</a></li>
+      </ul> -->
+
+    <ul class="filter-tabs filter-type-tabs">
+        <li class="tab ">
+          <?php $on = $cat=='all'?'on':'';  ?>
+          <a class='{$on}' href="?cat=all">全部</a></li>
+       <?php 
+        foreach ($book_types as $key => $value) {
+          $on = $cat==$key?'on':'';
+          echo "<li class='tab'><a class='".$on."' href='?cat=".$key."'>".$value."</a></li>";
+        }
+      ?>
+       <!--  <li class="tab on">
+          <a href="?sort=new&amp;cat=article">作品 (554)</a></li>
+        <li class="tab ">
+          <a href="?sort=new&amp;cat=book">图书 (322)</a></li>
+        <li class="tab ">
+          <a href="?sort=new&amp;cat=magazine">杂志 (939)</a></li> -->
+      </ul>
+    </div>
+  </div>
+  
+  <div class="data_table clear">
+    <div class="section">
+    
+    <div class="bd">
+        <div class="ft">
+            {$_page}<br>
+        </di>
+        <empty name="books">
+         暂无书籍信息,联系县市管理员 
+        <else/>
+        <ul class="list-lined ebook-list column-list">
+        <volist name="books" id="book">
+        <li class="item" style="border-bottom:dashed 1px #eee;clear:both;">
+          <div class="cover shadow-cover">
+            <a  class="pic" href="{:U('index/book_info?id='.$book['id'])}">
+              <img width="110px" height="164px" itemprop="image" alt="" src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$book['img']}"></a>
+          </div>
+          <div class="info">
+            <div class="article-actions hide">
+              <div class="action-buttons">
+                <!-- <span class="price-tag ">免费</span> -->
+                <a class="btn btn-icon "  href="{:U('index/xinde_edit?book_id='.$book['id'])}">添加心得</a>
+                <a class="btn btn-icon "  href="{:U('index/xinde?book_id='.$book['id'])}">书籍心得</a>
+                <if condition="$book['county_code'] eq $_SESSION['user_auth']['COUNTY_CODE']">
+                  <a class="btn btn-icon borrow" para="{$book['id']}" href="javascript:;">发起借阅</a>
+                </if>
+                </div>
+            </div>
+            <div class="title" style="font-size:14px;">
+              <a  href="{:U('index/book_info?id='.$book['id'])}">{$book['book_name']}</a></div>
+            <p class="">
+              <span class="label">作者</span>
+              <span class="labeled-text">
+                <a href="javascript:;" class="author-item">{$book['author']}</a></span>
+               <span class="label">类别</span>
+               <span itemprop="genre">
+               <a href="javascript:;" class="author-item"><?php 
+                $type  = R('para/attr_book_type',array($book['book_type']));
+                echo $type;
+              ?></a></span>
+  
+              &nbsp;&nbsp;
+              <span class="label">库存</span>
+              <span class="labeled-text">
+              <a href="javascript:;" class="author-item">{$book['store']|intval}</a>本</span>
+
+              <span class="label">借出</span>
+              <span class="labeled-text">
+              <a href="javascript:;" class="author-item">{$book['lend']|intval}</a>本</span>
+            </p>
+
+             
+            <div class="rating list-rating">
+             <!--  <span class="rating-stars stars-context stars-5}" title="{$book['star']}"></span> -->
+            <!--   <span class="rating-average">9.0</span> -->
+             <!--  <span class="rating-amount">
+                <a target="_self" class="ratings-link" href="javascript:;">
+                  <span>305</span>人评价</a>）</span> -->
+              <span style="display:none;" itemtype="http://schema.org/AggregateRating" itemscope="itemscope" itemprop="aggregateRating">
+                <meta content="10" itemprop="bestRating">
+                <meta content="2" itemprop="worstRating">
+                <meta content="9.0" itemprop="ratingValue">
+                <meta content="305" itemprop="reviewCount"></span>
+            </div>
+            <div class="article-desc-brief">{$book['sub_content']|mb_substr=###,0,160,"utf-8"}...
+              <a href="{:U('index/book_info?id='.$book['id'])}">（更多）</a></div>
+          </div>
+        </li>
+        </volist>
+        </ul>
+        </empty>
+    </div>
+    <div class="ft">
+        {$_page}
+    </div>
+  </div>
+  </div>
+</block>
+
+<block name="main_left">
+ <div class="col col3 tag-list hide">
+			  <div class="section">
+			    <ul class="list category-fiction-tags" style="border:0px;">
+			      <?php 
+		            foreach ($book_types as $key => $value) {
+		              echo "<li class=''><a href=''>".$value."</a></li>";
+		            }
+		          ?>
+			    </ul>
+			    <ul class="list category-type-tags hide">
+			      <li class="">
+			        <a href="/tag/%E7%AC%AC%E4%B8%89%E5%B1%8A%E5%BE%81%E6%96%87%E5%A4%A7%E8%B5%9B/">第三届征文大赛</a></li>
+			      <li class="">
+			        <a href="/tag/%E7%94%BB%E5%86%8C/">画册</a></li>
+			      <li class="">
+			        <a href="/tag/%E5%B0%8F%E8%AF%B4/">小说</a></li>
+			    </ul>
+			    <ul class="list hide">
+			      <li class="">
+			        <a href="/category/new">新上架</a></li>
+			      <li class="on">
+			        <a href="/category/free">免费</a></li>
+			      <li class="">
+			        <a href="/category/promotion">今日特价</a></li>
+			      <li class="">
+			        <a href="/category/gallery">画册</a></li>
+			    </ul>
+			  </div>
+			</div>
+</block>
+ 
+
+ <block name="js">
+ <script>
+ $(".borrow").click(function(){
+    var oper_login_code = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+    if(oper_login_code.isEmpty()){
+       layer.msg('未获取登录信息，请登录后操作');
+       return;
+    }
+    
+    if(confirm('申请借阅后，需要联系管理员领取书籍，时候继续借阅？')){
+        var e = $(this),
+          book_id = e.attr("para"),
+          url = "{:U('manager/manager_book_borrow')}";
+      $.ajax({
+         type:'post',
+         url:url,
+         dataType:'json',
+         data:{book_id:book_id},
+         success:function(re){
+            layer.msg(re.msg);
+         },
+         error:function(){
+            layer.msg('系统错误，请稍后重试');
+         }
+      });
+    }
+
+ });
+
+ $(".list-lined li").mouseover(function(event) {
+    var e = $(this);
+    e.css('cursor','pointer')
+    e.find(".article-actions").show();
+    e.css({
+      background:'#f6f6f1'
+    })
+ });
+
+ $(".list-lined li").mouseout(function(event) {
+    var e = $(this);
+    e.css('cursor','pointer')
+    e.find(".article-actions").hide();
+    e.css({
+      background:'#fffff9'
+    })
+ });
+
+ </script>
+ </block>

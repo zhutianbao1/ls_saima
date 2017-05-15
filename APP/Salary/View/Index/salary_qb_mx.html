@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+		                   user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>全部明细</title>
+		<link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+		<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+		<script   src="__STATIC__/highcharts.js"></script>	
+		<style type="text/css">	</style>				
+	</head>
+	<body>
+		<div class="content">
+			<div class="header">			    
+				<div class="header_img"></div>				        
+				<div class="header_title">全部</div>				
+			</div>
+			<div class="con_title">
+				<div class="daohang">
+			       <div>{$list[0]['FAFANG_MONTH']}&nbsp;全部明细</div>								
+				</div>
+			</div>
+
+			<div class="main">
+			    <div id='canvasDiv' >
+				</div>
+
+				<div class="mingxi">
+					<div class="mingxi_f">合计项</div>					
+					<div class="jiben">
+						<div class="jiben_f">应发合计</div>
+						<div class="jiben_l">{$list[0]['YINGFA_HJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">扣款合计</div>
+						<div class="jiben_l">{$list[0]['KK']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">实发合计</div>
+						<div class="jiben_l">{$list[0]['MONTH_SF']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="mingxi_f">工资项</div>
+					<div class="jiben">
+						<div class="jiben_f">基本工资</div>
+						<div class="jiben_l">{$list[0]['FAFANG_JX']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+
+ 					<div class="mingxi_f">奖金项</div>
+					<div class="jiben">
+						<div class="jiben_f">绩效奖金</div>
+						<div class="jiben_l">{$list[0]['JX_JJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">量化奖金</div>
+						<div class="jiben_l">{$list[0]['LIANGHUA_JJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">赛马</div>
+						<div class="jiben_l">{$list[0]['SAIMA_JJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">先进及劳动竞赛</div>
+						<div class="jiben_l">{$list[0]['XIANJIN_LAODONG']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">加班费</div>
+						<div class="jiben_l">{$list[0]['JIABAN']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">其他应发</div>
+						<div class="jiben_l">{$list[0]['QT_YF']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+
+
+  					<div class="mingxi_f">补贴项</div>
+					<div class="jiben">
+						<div class="jiben_f">水电补贴</div>
+						<div class="jiben_l">{$list[0]['SHUIDIAN_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">误餐补贴</div>
+						<div class="jiben_l">{$list[0]['WUCAN_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">话费补贴</div>
+						<div class="jiben_l">{$list[0]['HUAFEI_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>					
+					<div class="jiben">
+						<div class="jiben_f">住房津贴</div>
+						<div class="jiben_l">{$list[0]['ZHUFANG_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="mingxi_f">个人扣款项</div>
+					
+					<div class="jiben">
+						<div class="jiben_f">养老保险(个人)</div>
+						<div class="jiben_l">{$list[0]['GR_BX_YL']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">医疗保险(个人)</div>
+						<div class="jiben_l">{$list[0]['GR_BX_YILIAO']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">失业保险(个人)</div>
+						<div class="jiben_l">{$list[0]['GR_BX_SY']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>						
+					<div class="jiben">
+						<div class="jiben_f">公积金(个人)</div>
+						<div class="jiben_l">{$list[0]['GR_BX_GJJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">企业年金(个人)</div>
+						<div class="jiben_l">{$list[0]['GR_BX_NJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">个税</div>
+						<div class="jiben_l">{$list[0]['GESHUI']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">考勤扣款</div>
+						<div class="jiben_l">{$list[0]['KQ_KK']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">其他应扣</div>
+						<div class="jiben_l">{$list[0]['KQ_KK']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					<div class="mingxi_f">绩效</div>
+
+					<div class="jiben">
+						<div class="jiben_f">绩效奖金所属单位</div>
+						<div class="jiben_l">{$list[0]['JX_JJ_DEPT']}</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">团队绩效系数</div>
+						<div class="jiben_l">{$list[0]['TEAM_JX_XS']}</div>
+						<div class="jiben_c"></div>
+					</div>	
+					<div class="jiben">
+						<div class="jiben_f">个人绩效</div>
+						<div class="jiben_l">{$list[0]['GR_JX']}</div>
+						<div class="jiben_c"></div>
+					</div>					
+				</div>				
+			</div>			
+		</div>				
+	</body>
+		
+<script type="text/javascript">
+$(function () {
+    $('#canvasDiv').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '每月应发结构图',
+             style: {
+                       // color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                       "color":"#666","fontSize":"16px","fontWeight":"700"
+                    }
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>',
+            style: {
+                       // color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                       "color":"#666","fontSize":"11px","fontWeight":"500"
+                    }
+
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.2f} %',
+                    style: {
+                       // color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                       "color":"#666","fontSize":"11px","fontWeight":"500"
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: <?php echo '"'.$list[0]['USER_NAME'].'"'?>,
+            data: [
+                {name:'基本工资',y:<?php echo  $list[0]['FAFANG_JX']?>},
+                {name:'奖金',y:<?php echo $list[0]['JIANGJIN_HJ']?>},              
+                {name:'补贴',y:<?php echo $list[0]['BT_HJ']?>}
+
+            ]
+        }]
+    });
+});
+</script>
+<script >
+$(function(){
+	$('.header_img').click(function(event) {
+		 window.location="{:U('Index/salary_quanbu')}";
+	});
+});	
+</script>
+	
+</html>

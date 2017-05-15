@@ -1,0 +1,20 @@
+
+
+.subtitle{height: 30px;line-height: 30px;}
+.subtitle ul li{float: left;}
+.subtitle ul li a{padding: 0 15px;display: block;}
+.subtitle ul li a:hover{background-color: #eee;}
+.curr{background-color: #eee;}
+.show{margin-top: 5px;}
+.show table{width:100%;border-collapse: collapse;text-align: center;}
+.show table tr{height: 25px;line-height: 25px;}
+.show table tr:hover{background-color: #eee;}
+.show table tr td,.show table tr th{border:1px solid #666;}
+
+
+
+
+
+
+
+

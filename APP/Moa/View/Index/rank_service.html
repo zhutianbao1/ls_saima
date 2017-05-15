@@ -1,0 +1,116 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style type="text/css">
+  body{line-height: 35px;}
+  span{display:inline-block;width:100px;}
+  .fo{font-size: 1em;}
+  select{font-size: 1em;border: 1px solid #eee;}
+  input,select{font-size: 1em;border: 1px solid #eee;height:30px;line-height: 30px;width:9em;}
+</style>
+</block>
+    
+<block name="body">   
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>进驻营销登记</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+
+    <section class="sections fo">
+<?php 
+$fo=isset($_POST['mode']) ? $_POST['mode'] : '';
+$select_value = isset($_POST['countyName']) ? $_POST['countyName'] : '';
+?>
+      <span style="font-size:1em">姓名: </span><input id="name" type="text" name="user_name"  ><br>
+      <span style="font-size:1em">县市:</span><select id="count" name="countyName"  >
+        <option value="莲都" <?php echo $select_value == '莲都' ? 'selected' : '' ?>>莲都</option>
+        <option value="青田" <?php echo $select_value == '青田' ? 'selected' : '' ?>>青田</option>
+        <option value="景宁" <?php echo $select_value == '景宁' ? 'selected' : '' ?>>景宁</option>
+        <option value="缙云" <?php echo $select_value == '缙云' ? 'selected' : '' ?>>缙云</option>
+        <option value="遂昌" <?php echo $select_value == '遂昌' ? 'selected' : '' ?>>遂昌</option>
+        <option value="庆元" <?php echo $select_value == '庆元' ? 'selected' : '' ?>>庆元</option>
+        <option value="龙泉" <?php echo $select_value == '龙泉' ? 'selected' : '' ?>>龙泉</option>
+        <option value="松阳" <?php echo $select_value == '松阳' ? 'selected' : '' ?>>松阳</option>
+        <option value="云和" <?php echo $select_value == '云和' ? 'selected' : '' ?>>云和</option>
+        <option value="南城" <?php echo $select_value == '南城' ? 'selected' : '' ?>>南城</option>
+      </select><br/>
+      <span style="font-size:1em">类型:</span><select name="mode" id="mode"  >
+         <option value="万场服务进农村" <?php echo $fo == '万场服务进农村' ? 'selected' : '' ?>>万场服务进农村</option>
+         <option value="万场服务进社区" <?php echo $fo == '万场服务进社区' ? 'selected' : '' ?>>万场服务进社区</option>
+         <option value="万场服务进集团" <?php echo $fo == '万场服务进集团' ? 'selected' : '' ?>>万场服务进集团</option>
+       </select><br/>
+      <span style="font-size:1em">设摊数量:</span><input id="st" type="text" name="user_name"  ><br/>
+      <span style="font-size:1em">孝道机销量:</span><input id="xdj" type="text" name="user_name"  ><br/>
+      <span style="font-size:1em">终端销量:</span><input id="zd" type="text" name="user_name"  ><br/>
+      <span style="font-size:1em">2/3G迁移量:</span><input id="qyl" type="text" name="user_name"  ><br/>
+      <span style="font-size:1em">地址:</span><input id="address" type="text" name="address"  ><br/>
+      <span style="font-size:1em">图片:</span><input type="file" name="file_img"><font style="color:red;">*</font>
+      <input type="submit" name="" style="width:100%;height:2em;border: 0;background: #1FA5E4;color:#fff;margin-top:1em" id="btn">
+    </section>
+
+    <section class="sections list_con_2 info_con" style="margin-top:0px;">
+        <div class="img" style="text-align: center;margin-top:2%;"><div style="border:1px solid #eee;width:100%;color:#ccc;height:15em;line-height:15em;" >上传图片效果</div></div> 
+    </section>
+ 
+    <section class="sections list_con_2 hide"  >
+    </section> 
+
+
+</block>
+
+<block name="js">
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__STATIC__/LocalResizeIMG.js"></script>
+<script type="text/javascript" src="__STATIC__/mobileBUGFix.mini.js"></script>
+<script type="text/javascript">
+$('input:file').localResizeIMG({
+  width:300,
+  quality:0.8,
+  success:function(result){
+    var img = new Image();
+    img.src = result.base64;
+    $('.img').empty();
+    $('.img').append(img);
+    console.log(result);
+    $("#btn").click(function(){
+      var submitData={
+       user_name:document.getElementById('name').value,
+       countyName:document.getElementById('count').value,
+       tan:document.getElementById('st').value,
+       mode:document.getElementById('mode').value,
+       duan:document.getElementById('zd').value,
+       xdj:document.getElementById('xdj').value,
+       qyl:document.getElementById('qyl').value,
+       address:document.getElementById('address').value,
+       formFile:result.clearBase64,
+      };
+      if(submitData.user_name=='' || submitData.tan=='' || submitData.duan=='' || submitData.xdj=='' || submitData.qyl==''){
+        layer.msg('文本数据不能为空！');
+      }else{
+        if(isNaN(submitData.tan) || isNaN(submitData.duan) || isNaN(submitData.xdj) || isNaN(submitData.qyl)){
+          layer.msg('数据类型不正确，请检查');
+        }else{
+        $.ajax({  
+          url: "{:U('depn')}",  
+          type: "POST",  
+          data:submitData,  
+          dataType: "json",   
+          error: function(){  
+            layer.msg("Error loading PHP document");  
+          },  
+         success: function(re){ 
+            location.href="{:U('rank_market')}";
+            layer.msg(re.content);
+          }  
+        });
+        }
+      };
+    });
+  }
+});
+    </script>
+</block>

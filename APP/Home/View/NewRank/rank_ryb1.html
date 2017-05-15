@@ -1,0 +1,321 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>荣誉榜</block>
+<block name='css'>
+	<style type="text/css">
+		.td3 a{float: left;width: 248px;}
+		.body{background: #fff url("__IMG__/bg4.png") no-repeat;}
+		.score{position: relative;background: black;color: white;text-align: center;top: 67px;margin-left: 6px;width: 40%;height: 30px}
+	</style>
+</block>
+<block name='body'>
+	<div class="body">
+	<div style="height:119px"></div>
+	<!-- 千里马查询栏 -->
+	<div id="pgk" class="query">
+		<span>姓名</span><input type="text" id="qname">
+		<span>手机号码</span><input type="text" id="qid">
+		<input type="button" id="query_q" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		<div class="pgdn_k pg">下一页</div>
+		<div class="pgup_k pg">上一页</div>
+	</div>
+	<!-- 骏马查询栏 -->
+	<div id="pgx" class="query" style="display:none">
+		<span>姓名</span><input type="text" id="jname">
+		<span>手机号码</span><input type="text" id="jid">
+		<input type="button" id="query_j" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		<div class="pgdn_x pg">下一页</div>
+		<div class="pgup_x pg">上一页</div>
+	</div>
+	<!-- 黑马查询栏 -->
+	<div id="pgy" class="query" style="display:none">
+		<span>姓名</span><input type="text" id="hname">
+		<span>手机号码</span><input type="text" id="hid">
+		<input type="button" id="query_h" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		<div class="pgdn_y pg">下一页</div>
+		<div class="pgup_y pg">上一页</div>
+	</div>
+	<div class="btn"><span style="border-left:1px solid red" id="qlm" class="active">千里马</span><span style="border-left:1px solid #ccc;border-right:1px solid #ccc" id="jm">骏马</span><span style="border-right:1px solid red" id="hm">黑马</span></div>
+	<!-- 千里马显示栏 -->
+		<div id="demo_qlm" class="demo">
+			<div id="demo_qlm1" style="zoom:1">
+				<ul class="td3 demo_qlm1"></ul>
+			</div>
+		</div>
+	<!-- 骏马显示栏	 -->
+		<div id="demo_jm" class="demo" style="display:none">
+			<div id="demo_jm1" style="zoom:1">
+				<ul class="td3 demo_jm1"></ul>
+			</div>
+		</div>
+	<!-- 黑马显示栏 -->
+		<div id="demo_hm" class="demo" style="display:none">
+			<div id="demo_hm1" style="zoom:1">
+				<ul class="td3 demo_hm1"></ul>
+			</div>
+		</div>
+	<div style="background:red;height:10px"></div>
+	<div style="height:90px;"></div>
+	</div>
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$('.btn span').click(function(){
+			$('.btn span.active').removeClass('active');
+			$(this).addClass('active');
+		});
+		$("#hm").click(function(){
+			$('#pgy').show();
+			$('#pgx').hide();
+			$('#pgk').hide();
+		});
+		$("#jm").click(function(){
+			$('#pgy').hide();
+			$('#pgx').show();
+			$('#pgk').hide();
+		});
+		$("#qlm").click(function(){
+			$('#pgy').hide();
+			$('#pgx').hide();
+			$('#pgk').show();
+		});
+
+//千里马翻页
+		var pag=1;
+		var demo_qlm=document.getElementById("demo_qlm");
+		var $qlm = $("#demo_qlm1");
+		var num=0;
+		var time=0;
+		$('.pgdn_k').click(function(){
+			if(time==0){
+				time=1;
+				setTimeout(function () { time = 0 }, 300);
+				if(demo_qlm.scrollTop==num && $('.demo_qlm1 li').length>20){
+					$qlm.animate({"margin-top":'-='+505},"normal");
+					pag++;
+					num=++demo_qlm.scrollTop;
+				}else{
+					
+				}
+			}else{
+				alert('你的点击太频繁，请重新再试');
+			}
+		});
+		$('.pgup_k').click(function(){
+			if(pag==1){
+
+			}else{
+				$qlm.animate({"margin-top":'+='+505},"normal");
+				pag--;
+				demo_qlm.scrollTop=pag-1;
+				num=demo_qlm.scrollTop;
+			}
+		});	
+
+//骏马翻页
+		var pag2=1;
+		var demo_jm=document.getElementById("demo_jm");
+		var $jm = $("#demo_jm1");
+		var num2=0;
+		var time2=0;
+		$('.pgdn_x').click(function(){
+			if(time2==0){
+				time2=1;
+				setTimeout(function () { time2 = 0 }, 300);
+				if(demo_jm.scrollTop==num2 && $('.demo_jm1 li').length>20){
+					$jm.animate({"margin-top":'-='+510},"normal");
+					pag2++;
+					num2=++demo_jm.scrollTop;
+				}else{
+					
+				}
+			}else{
+				alert('你的点击太频繁，请重新再试');
+			}
+		});
+		$('.pgup_x').click(function(){
+			if(pag2==1){
+
+			}else{
+				$jm.animate({"margin-top":'+='+510},"normal");
+				pag2--;
+				demo_jm.scrollTop=pag2-1;
+				num2=demo_jm.scrollTop;
+			}
+		});
+
+//黑马翻页
+		var pag3=1;
+		var demo_hm=document.getElementById("demo_hm");
+		var $hm = $("#demo_hm1");
+		var num3=0;
+		var time3=0;
+		$('.pgdn_y').click(function(){
+			if(time3==0){
+				time3=1;
+				setTimeout(function () { time3 = 0 }, 300);
+				if(demo_hm.scrollTop==num3 && $('.demo_hm1 li').length>20){
+					$hm.animate({"margin-top":'-='+505},"normal");
+					pag3++;
+					num3=++demo_hm.scrollTop;
+				}else{
+					
+				}
+			}else{
+				alert('你的点击太频繁，请重新再试');
+			}
+		});
+		$('.pgup_y').click(function(){
+			if(pag3==1){
+
+			}else{
+				$hm.animate({"margin-top":'+='+505},"normal");
+				pag3--;
+				demo_hm.scrollTop=pag3-1;
+				num3=demo_hm.scrollTop;
+			}
+		});
+
+var query_q={};
+var query_j={};
+var query_h={};
+qlm(query_q);
+jm(query_j);
+hm(query_h);
+// 千里马添加查询
+$('#query_q').click(function(){
+	if(time3==0){
+		time3=1;
+		setTimeout(function () { time3 = 0 }, 4000);
+		query_q={
+			user_name:document.getElementById('qname').value,
+			bill_id:document.getElementById('qid').value
+		}
+		qlm(query_q);
+		$qlm.css({"margin-top":"0px"});
+		num=0;
+		pag=1;
+	}else{
+		alert('系统繁忙,请稍等');
+	}
+});
+// 骏马条件查询
+$('#query_j').click(function(){
+	if(time==0){
+		time=1;
+		setTimeout(function () { time = 0 }, 4000);
+		query_j={
+			user_name:document.getElementById('jname').value,
+			bill_id:document.getElementById('jid').value
+		}
+		jm(query_j);
+		$jm.css({"margin-top":"0px"});
+		num2=0;
+		pag2=1;
+	}else{
+		alert('系统繁忙,请稍等');
+	}
+});
+// 黑马条件查询
+$('#query_h').click(function(){
+	if(time2==0){
+		time2=1;
+		setTimeout(function () { time2 = 0 }, 4000);
+		query_h={
+			user_name:document.getElementById('hname').value,
+			bill_id:document.getElementById('hid').value
+		}
+		hm(query_h);
+		$hm.css({"margin-top":"0px"});
+		num3=0;
+		pag3=1;
+	}else{
+		alert('系统繁忙,请稍等');
+	}
+});
+		
+
+// 千里马数据加载
+function qlm(query){
+	$('.demo_qlm1').each(function(){
+		var e=$(this);
+		$.ajax({
+			type:'GET',
+			url:"{:U('NewRank/rank_ryb2')}",
+			dataType:'json',
+			data:query,
+			success:function(result){
+				var html='';
+				$.each(result.qlm,function(index,el){
+	                html += '<a href="{:U('newRank/rank_year_user_info')}?bill_id='+el['BILL_ID']+'&id='+el['CONFIG_ID']+'&month=2017year" target="_blank"><li style="border-right:1px solid #E5E4E9">';
+	                html += '<img class="aimg" src="__HEAD_IMG__'+el['BILL_ID']+'.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">';
+	                html += '<div class="td-data2 nor" title="'+el['COUNTY_NAME']+'/'+el['USER_NAME']+'">'+el['COUNTY_NAME']+'/'+el['USER_NAME']+'</div>';
+	                html += '<div class="td-data2 nor" title="'+el['POS_NAME']+'">'+el['POS_NAME']+'</div>';
+	                html += '<div class="td-data2">第'+el['RANK']+'名</div>';
+	                html += '<div class="td-data2" style="color:#979797">总积分：'+el['SCORE']+'</div>';
+	                html += '</li></a>';
+				});
+	        	e.html(html);
+			},
+			error:function(e){
+				alert('加载出错，请刷新');
+			}
+		});
+	});
+}
+// 骏马数据加载
+function jm(query){
+	$('.demo_jm1').each(function(){
+		var e=$(this);
+		$.ajax({
+			type:'GET',
+			url:"{:U('NewRank/rank_ryb2')}",
+			dataType:'json',
+			data:query,
+			success:function(result){
+				var html='';
+				$.each(result.jm,function(index,el){
+	                html += '<a href="{:U('newRank/rank_user_info')}?bill_id='+el['BILL_ID']+'&id='+el['CONFIG_ID']+'&month='+el['RPT_MONTH']+'" target="_blank"><li style="border-right:1px solid #E5E4E9">';
+	                html += '<img class="aimg" src="__HEAD_IMG__'+el['BILL_ID']+'.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">';
+	                html += '<div class="td-data2 nor" title="'+el['COUNTY_NAME']+'/'+el['USER_NAME']+'">'+el['COUNTY_NAME']+'/'+el['USER_NAME']+'</div>';
+	                html += '<div class="td-data2 nor" title="'+el['POS_NAME']+'">'+el['POS_NAME']+'</div>';
+	                html += '<div class="td-data2">第'+el['RANK']+'名</div>';
+	                html += '</li></a>';
+				});
+	        	e.html(html);
+			},
+			error:function(e){
+				alert('加载出错，请刷新');
+			}
+		});
+	});
+}
+// 黑马数据加载
+function hm(query){
+	$('.demo_hm1').each(function(){
+		var e=$(this);
+		$.ajax({
+			type:'GET',
+			url:"{:U('NewRank/rank_ryb2')}",
+			dataType:'json',
+			data:query,
+			success:function(result){
+				var html='';
+				$.each(result.hm,function(index,el){
+	                html += '<a href="{:U('newRank/rank_user_info')}?bill_id='+el['BILL_ID']+'&id='+el['CONFIG_ID']+'&month='+el['RPT_MONTH']+'" target="_blank"><li style="border-right:1px solid #E5E4E9">';
+	                html += '<img class="aimg" src="__HEAD_IMG__'+el['BILL_ID']+'.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">';
+	                html += '<div class="td-data2 nor" title="'+el['COUNTY_NAME']+'/'+el['USER_NAME']+'">'+el['COUNTY_NAME']+'/'+el['USER_NAME']+'</div>';
+	                html += '<div class="td-data2 nor" title="'+el['POS_NAME']+'">'+el['POS_NAME']+'</div>';
+	                html += '<div class="td-data2">第'+el['RANK']+'名</div>';
+	                html += '<div class="td-data2" style="color:#979797">排名提升:'+el['RANK_MINUS']+'</div>';
+	                html += '</li></a>';
+				});
+            	e.html(html);
+			},
+			error:function(e){
+				alert('加载出错，请刷新');
+			}
+		});
+	});
+}	
+	</script>
+</block>

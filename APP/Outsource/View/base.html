@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><block name='title'></block></title>
+  <link rel="stylesheet" href="__PUBLIC__/outsource/out.css">
+  <block name='css'></block>
+</head>
+<body>
+  <div class="login"><block name='login'></block><span style="position:relative;right:-35%;font-size:14px;font-family:'宋体'">当前用户：{$_SESSION['user_auth']['USER_NAME']}<a href="javascript:;" class="zhuxiao" style="margin-left:10px;color:red">注销</a></span></div>
+  <block name='body'></block>
+</body>
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript">
+  var name = "{$_SESSION['user_auth']['USER_NAME']}";
+  if(name==null || name==''){
+    window.opener = null;
+    if(window){
+       window.location.href="http://10.78.1.85:9000/ranking/Outsource/Index";
+    }
+  }
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".table tr:nth-child(2n) td").css("background","#c3dde0");
+  });
+
+  $(".zhuxiao").click(function(){
+    if(confirm('是否继续执行注销?')){
+      $.ajax({
+        type:'post',
+        url:"{:U('Base/loginOut')}",
+        dataType:'json',
+        success:function(re){
+          alert(re.msg);
+          if(re.success){
+            window.location.href="http://10.78.1.85:9000/ranking/Outsource/Index";
+          }
+        }
+      });
+    }
+  });
+</script>
+<block name='js'></block>
+</html>

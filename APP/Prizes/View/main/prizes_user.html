@@ -1,0 +1,40 @@
+<extend name='./base'/>
+<block name='title'>后台管理</block>
+<block name='css'>
+	<style type="text/css">
+		.btn{padding:5px 8px;width:90px;float: left;border: 1px solid #28A0FF;background:#C8EAFF;cursor:pointer}
+		.frames label{font-size: 14px;line-height: 40px}
+	</style>
+</block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<div style="width:100%;padding-bottom:20px">
+		<div style="border-bottom:0px solid #ddd;height:20px;line-height:20px;width:100%;padding-bottom:3px">
+			<form action="{:U('main/file')}" method="post" enctype="multipart/form-data" style="width:100%">
+				<input type="file" name="file_name" style="width:200px">
+				<input type="submit" value="导入" style="width:50px">
+			</form>
+		</div>
+		<table style="width:100%;" id="a" cellspacing="0" cellpadding="1" border="0px" class="rank">
+			<tr>
+				<th>姓名</th>
+				<th>联系方式</th>
+				<th>单位</th>
+				<th>奖项名称</th>
+			</tr>
+			<volist name='users' id='users'>
+			<tr class="{$type['id']}">
+				<td>{$users['user_name']}</td>
+				<td>{$users['bill_id']}</td>
+				<td>{$users['pos_name']}</td>
+				<td>{$users['prize_name']}</td>
+			</tr>
+			</volist>
+		</table>
+		{$_page}
+	</div>
+</block>
+<block name='bottom'></block>
+<block name='js'>
+</block>

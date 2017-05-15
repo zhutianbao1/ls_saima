@@ -1,0 +1,196 @@
+<!doctype html>
+<html data-dpr="1">
+<head>
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style type="text/css">
+	*{margin:0px;padding:0px;}
+	.term{font-size: 0.4rem;border:1px solid #ccc;height: 0.8rem;line-height: 0.8rem}
+	.mask{position: relative;z-index: 9998;bottom: 0.5rem;background: #000;opacity:0.7;filter:alpha(opacity=70);width: 100%;height: 0.5rem;line-height:0.5rem;}
+    .infos li{float: left;width: 3.2rem;margin-left: 0.1rem;list-style-type: none;}
+    .infos li a{color: #fff;font-size: 0.25rem;text-align: center;}
+    select{font-size: 0.3rem;}
+</style>
+</head>
+<body>
+<?php
+$id = isset($_POST['id']) ? $_POST['id'] : '';
+?>
+	<div class="viewport">
+        <div>
+        	<a href="{:U('android/index')}" style="position: absolute;z-index: 99999;"><img src="__IMG__/retreat.png" style="width: 1rem;height: 1rem;"></a>
+        	<div style="background: #0081CC;text-align: center;font-size: 0.6rem;height: 1rem;line-height: 1rem;color: #fff;">成长积分</div>
+        </div>
+        <form method="post" name="form1" action="{:U('android/ad_ing')}?id={$id}">
+        <div class="term">
+        	部门:
+        	<select name="id" onchange="Id()">
+                <volist name="pos_name" id="a">
+                	<option value="{$a['CONFIG_ID']}" <?php $value=$a['CONFIG_ID']; echo $id == $value ? 'selected' : '' ?>>{$a['单位']}</option>
+                </volist>
+            </select>
+        </div>
+        </form>
+
+        <div style="margin-top: 10px;">
+            <ul class="infos">
+                <volist name="gr" id="user">
+                    <li>
+                        <a href="">
+                            <img src="__HEAD_IMG__{$user['BILL_ID']}.jpg" style="width: 100%;height: 3rem">
+                            <div class="mask">{$user['姓名']}  总积分：{$user['个人总积分']}
+                            	<if condition="($user['CC'] neq null)">
+									<div style="position: absolute;right: 0.4rem;bottom:0px;z-index:9999;color: #fff;">
+									<img style="border:0px;width:0.5rem;height:0.5rem;margin-bottom:-0.15rem;" src="__IMG__/党徽.png">
+									</div>
+								<esle/>
+								</if>
+							</div>
+                        </a>
+                    </li>
+                </volist>
+                <volist name="td" id="users">
+                    <li>
+                        <a href="">
+                            <img src="__HEAD_IMG__{$users['BILL_ID']}.jpg" width="100%" height="150px">
+                            <div class="mask">{$users['团队']}  总积分：{$users['团队总积分']}</div>
+                        </a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+	</div>
+</body>
+
+<script type="text/javascript">
+    function Id(){
+        document.all.form1.submit();
+    }
+</script>
+
+
+<script type="text/javascript">
+    ;(function(win, lib) {
+    var doc = win.document;
+    var docEl = doc.documentElement;
+    var metaEl = doc.querySelector('meta[name="viewport"]');
+    var flexibleEl = doc.querySelector('meta[name="flexible"]');
+    var dpr = 0;
+    var scale = 0;
+    var tid;
+    var flexible = lib.flexible || (lib.flexible = {});
+    
+    if (metaEl) {
+        console.warn('将根据已有的meta标签来设置缩放比例');
+        var match = metaEl.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
+        if (match) {
+            scale = parseFloat(match[1]);
+            dpr = parseInt(1 / scale);
+        }
+    } else if (flexibleEl) {
+        var content = flexibleEl.getAttribute('content');
+        if (content) {
+            var initialDpr = content.match(/initial\-dpr=([\d\.]+)/);
+            var maximumDpr = content.match(/maximum\-dpr=([\d\.]+)/);
+            if (initialDpr) {
+                dpr = parseFloat(initialDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));    
+            }
+            if (maximumDpr) {
+                dpr = parseFloat(maximumDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));    
+            }
+        }
+    }
+
+    if (!dpr && !scale) {
+        var isAndroid = win.navigator.appVersion.match(/android/gi);
+        var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+        var devicePixelRatio = win.devicePixelRatio;
+        if (isIPhone) {
+            // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+            if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {                
+                dpr = 3;
+            } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)){
+                dpr = 2;
+            } else {
+                dpr = 1;
+            }
+        } else {
+            // 其他设备下，仍旧使用1倍的方案
+            dpr = 1;
+        }
+        scale = 1 / dpr;
+    }
+
+    docEl.setAttribute('data-dpr', dpr);
+    if (!metaEl) {
+        metaEl = doc.createElement('meta');
+        metaEl.setAttribute('name', 'viewport');
+        metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        if (docEl.firstElementChild) {
+            docEl.firstElementChild.appendChild(metaEl);
+        } else {
+            var wrap = doc.createElement('div');
+            wrap.appendChild(metaEl);
+            doc.write(wrap.innerHTML);
+        }
+    }
+
+    function refreshRem(){
+        var width = docEl.getBoundingClientRect().width;
+        /*if (width / dpr > 540) {
+            width = 540 * dpr;
+        }*/
+        var rem = width / 10;
+        docEl.style.fontSize = rem + 'px';
+        flexible.rem = win.rem = rem;
+    }
+
+    win.addEventListener('resize', function() {
+        clearTimeout(tid);
+        tid = setTimeout(refreshRem, 300);
+    }, false);
+    win.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+            clearTimeout(tid);
+            tid = setTimeout(refreshRem, 300);
+        }
+    }, false);
+
+    if (doc.readyState === 'complete') {
+        doc.body.style.fontSize = 12 * dpr + 'px';
+    } else {
+        doc.addEventListener('DOMContentLoaded', function(e) {
+            doc.body.style.fontSize = 12 * dpr + 'px';
+        }, false);
+    }
+    
+
+    refreshRem();
+
+    flexible.dpr = win.dpr = dpr;
+    flexible.refreshRem = refreshRem;
+    flexible.rem2px = function(d) {
+        var val = parseFloat(d) * this.rem;
+        if (typeof d === 'string' && d.match(/rem$/)) {
+            val += 'px';
+        }
+        return val;
+    }
+    flexible.px2rem = function(d) {
+        var val = parseFloat(d) / this.rem;
+        if (typeof d === 'string' && d.match(/px$/)) {
+            val += 'rem';
+        }
+        return val;
+    }
+
+})(window, window['lib'] || (window['lib'] = {}));
+</script>
+</html>

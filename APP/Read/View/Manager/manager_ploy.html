@@ -1,0 +1,88 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">读者活动</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+ 
+
+<block name="main_right">
+  <div class="query_div">
+    <form action="" name="theForm" method="post">
+      <ul>
+        <!-- <li>条件1：<input type="text" name=""></li>
+        <li>条件2：<input type="text" name=""></li>
+        <li>条件3：<input type="text" name=""></li>
+        <li>条件4：<input type="text" name=""></li> -->
+        <li><a class="btn" href="javascript:;"> 查询 </a>
+            <a class="btn" href="{:U('manager/manager_ploy_edit')}"> 添加 </a></li>
+      </ul>
+    </form>
+  </div>
+
+  <div class="data_table clear">
+    <div class="section">
+    
+    <div class="bd">
+      <ul class="list-lined ebook-list column-list">
+        
+        <notempty name="ploys">
+          <volist name="ploys" id="py">
+          <li class="item">
+            <div class="info">
+              <div class="article-actions">
+                <div class="action-buttons">
+                  <!-- <span class="price-tag ">免费</span> -->
+                  <a class="btn btn-icon "  href="{:U('manager/manager_ploy_edit?id='.$py['id'])}">编辑</a>
+                  <a class="btn btn-icon "  href="{:U('manager/manager_ploy_delete?id='.$py['id'])}">取消</a>
+                  </div>
+              </div>
+              <div class="title">
+                <a  href="{:U('index/ploy_info?id='.$py['id'])}">{$py['title']}</a></div>
+              <div class="article-desc-brief">{$py['content']|mb_substr=###,0,160,"utf-8"}...
+                <a href="{:U('index/ploy_info?id='.$py['id'])}">（更多）</a></div>
+            </div>
+          </li>
+          </volist>
+        <else/>
+          <li>&nbsp;&nbsp;&nbsp;暂无任何数据</li>
+        </notempty>
+
+        
+      </ul>
+    </div>
+    <!-- <div class="ft">
+      <div class="pagination">
+        <ul>
+          <li class="prev">&lt;&nbsp;前页</li>
+          <li>
+            <a class="active" href="#">1</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=20">2</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=40">3</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=60">4</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=80">5</a></li>
+          <li>...</li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=520">27</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=540">28</a></li>
+          <li class="next">
+            <a href="?cat=article&amp;sort=new&amp;start=20">后页&nbsp;&gt;</a></li>
+        </ul>
+      </div>
+    </div> -->
+  </div>
+  </div>
+</block>

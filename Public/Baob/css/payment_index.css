@@ -1,0 +1,14 @@
+*{margin: 0;padding: 0;color: #666;font-size: 14px;font-family: "Microsoft Yahe,微软雅黑"}
+a{text-decoration: none;}
+.tc{text-align: center;}
+.content{width:100%; min-width: 960px;}
+.box{width: 960px;margin: 0 auto;border:0px solid red;	height: 650px;}
+.box .header{height: 40px;width: 100%;background-color: #eee;line-height: 40px;position: relative;}
+.box .header h3{text-align: center;height: 40px;line-height: 40px;letter-spacing: 1px; font-size: 20px;}
+.box .header .a_doc{position: absolute;left: 800px;top:0;font-weight: 600;}
+.box .header .a_doc:hover{color: red;}
+.box .main{width: 100%;margin-top: -3px;}
+.box .main .group{width: 308px;height: 200px;float: left;border:1px solid #ccc;margin: 3px 5px;text-align: center;line-height: 200px;}
+.box .main .group a{display: block;}
+.box .main .group a:hover{background-color: #eee;}
+.oper_info{position: absolute;left: 10px;top: 0;color: red;font-size: 14px;}

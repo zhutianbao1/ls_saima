@@ -1,0 +1,37 @@
+body{background-color: #efeff4;}
+
+.ban{height:120px;border-bottom: 1px #d8d8dc solid; background:url(../images/ban_img.png) top center no-repeat; background-size: 100%; background-color: #1e8cf7;}
+
+.index_con{height:120px; background-color: #fff; margin-top:0px;}
+.icon_box{float:left;}
+.icon_box img{width:100%;}
+
+.con_box h3{font-size: 0.8em; color:#333;}
+.con_box p{color:#989898; font-size:0.7em;}
+.index_con{border-top:1px #d8d8dc solid; border-bottom:1px #d8d8dc solid;}
+.index_con .icon_box{height:54px; width:54px; padding:30px 10px 30px 10px;}
+.index_con .con_box{padding-top: 35px}
+
+.index_con2{margin-top:20px; background-color: #fff;position: relative;}
+.index_con2 .icon_box{height:40px; width:40px; padding:15px 5px 15px 10px;}
+.index_con2 .con_box{padding-top: 15px}
+.index_con2 .bd-r{height:70px; width:1px; float:right; background: #d8d8dc;}
+.index_con2 li{float:left; width:49%; height:70px;border-bottom: 1px #d8d8dc solid;}
+.index_con2 .con_title{position: absolute;top:-18px;left:10px;font-size:0.7em;font-weight: 600px;}
+
+.footer{position: fixed; bottom: 0; width:100%; height:50px; background-color: #f6f9fb; border-top: 1px #d8d8dc solid;}
+.footer li{width:50%; float:left; height:46px; line-height:46px; text-align: center;}
+.footer li a{display: block;}
+.footer li.active{border-bottom: 4px #0d86ff solid;}
+.footer li.active a{color:#0d86ff;}
+
+@media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone4/4s */
+    .index_con2 .con_box{padding-top:13px}
+    .con_box h3{font-size:1em;}
+    .con_box p{font-size:0.75em;}
+}
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5 */
+    .index_con2 .con_box{padding-top:15px}
+    .con_box h3{font-size:1em;}
+    .con_box p{font-size:0.75em;}
+}

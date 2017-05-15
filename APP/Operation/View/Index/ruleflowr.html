@@ -1,0 +1,98 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 常规流程</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  .complain_type{width:735px;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="main-content">
+    <form id="theForm1" class="" action="{:U('Index/ruleflows')}" method="post">
+      <div class="hidden">
+        <label>编号:</label>
+        <input class="readonly" type="text" name="id" value="{$ruleflow['ID']}"/>
+        <label>记录人:</label>
+        <input class="readonly" type="text" name="recorder" value="{$ruleflow['RECORDER']}"/>
+      </div>
+      
+      <div class="form">
+        <div class="form-header">常规流程</div>
+        <div>
+          <label>投诉类别：<font color="#ff0000">*</font></label>
+          <input type="text" class="complain_type" name="complain_type" value="{$ruleflow['COMPLAIN_TYPE']}"/>
+        </div>
+
+        <div>
+          <label>处理流程：<font color="#ff0000">*</font></label>
+          <textarea name="deal_way">{$ruleflow['DEAL_WAY']}</textarea>
+        </div>
+
+        <div>
+          <label>特别注意点：<font color="#ff0000">*</font></label>
+          <textarea name="lime_light">{$ruleflow['LIME_LIGHT']}</textarea>
+        </div>
+
+        <div>
+          <label>备注：</label>
+          <textarea name="remark">{$ruleflow['REMARK']}</textarea>
+        </div>
+
+        <div class="btn-box">
+          <div class="btn-group">
+            <input type="button" class="btn tj" value="提交"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+
+  $(".tj").click(function(){
+    var complain_type = $("input[name='complain_type']").val();
+    if(complain_type==''){
+      alert("投诉类别不能为空");
+      return false;
+    }
+
+    var deal_way = $("textarea[name='deal_way']").val();
+    if(deal_way==''){
+      alert("处理流程不能为空");
+      return false;
+    }
+
+    var lime_light = $("textarea[name='lime_light']").val();
+    if(lime_light==''){
+      alert("特别注意点不能为空");
+      return false;
+    }
+
+    $(".tj").attr("disabled", true);
+    $("#theForm1").submit(); 
+  });
+});
+</script>
+</block>

@@ -1,0 +1,261 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">{$lines[0]['USER_NAME']}-信息</block>
+
+	
+<block name="css">
+	<script type="text/javascript" src="__STATIC__/jquery-1.5.1.js"></script>
+	<script type="text/javascript" src="__STATIC__/highcharts.js"></script>
+	<script type="text/javascript" src="__STATIC__/exporting.js"></script>
+	<script language="javascript" type="text/javascript"> 
+    var chart; 
+    $(document).ready(function () { 
+        chart = new Highcharts.Chart({ 
+            chart: { 
+                renderTo: 'container', 
+                defaultSeriesType: 'line', //图表类别，可取值有：line、spline、area、areaspline、bar、column等 
+                marginRight: 50, 
+                marginBottom: 25,
+                height:300
+            }, 
+            xAxis: { 
+                categories: [<?php 
+                		$x_num='';
+                		for ($i=0; $i <count($year) ; $i++) { 
+                			if($i<(count($year)-1)){
+                				$x_num .=$year[$i]['RPT_MONTH'].',';
+                			}else{
+                				$x_num .=$year[$i]['RPT_MONTH'];
+                			}
+                		}
+                		echo $x_num;
+                 ?>]//设置x轴的标题 
+            },  
+            yAxis: [{
+            	labels: {
+		                formatter: function() {
+		                    return '第'+this.value +'名';
+		                },
+		                style: {
+                    		color: '#000'
+                		}
+		            }, 
+                tickPositions: [<?php 
+                		$max=$year[0]['同岗位排名'];
+					 	for ($i=0; $i <count($year) ; $i++) { 
+					 	 	if($max<$year[$i]['同岗位排名']){
+					 	 		$max=$year[$i]['同岗位排名'];
+					 	 	}
+					 	 } 
+
+                		$y_num='';
+                	for ($i=0; $i < count($year) ; $i++) { 
+                		if($i<(count($year)-1)){
+                			$y_num .=  $year[$i]['同岗位排名'].'|';
+                		}else{
+                			$y_num .=  $year[$i]['同岗位排名'];
+                		}
+                	} 
+                		$b='';
+                		$y_nums=explode('|', $y_num);
+                		sort($y_nums);
+                		for ($j=count($y_nums)-1; $j >=0 ; $j--) {
+                			if($j>0){
+                				$b .= $y_nums[$j].',';
+                			} else{
+                				$b .= $y_nums[$j];
+                			}
+                		}
+                			echo $b;
+                 ?>]
+            }], 
+            tooltip: {
+            	backgroundColor:'#E6E8FA',
+                valueSuffix: '名',
+            	valuePrefix: '第'
+            },
+            plotOptions: { 
+                line: { 
+                    dataLabels: { 
+                        enabled: false //显示每条曲线每个节点的数据项的值 
+                    },
+                    enableMouseTracking: true 
+                } 
+            }, 
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            borderWidth: 0
+	        },
+            series: [{ 
+                name: "<?php 
+                	$year[0]['USER_NAME']=str_replace("\n","",$year[0]['USER_NAME']);
+                	echo $year[0]['USER_NAME'];
+                ?>", //每条线的名称 
+                data: [
+                	<?php 
+                	$nums = '';
+                	for ($i=0; $i < count($year) ; $i++) { 
+                		if($i<(count($year)-1)){
+                			$nums .=  $year[$i]['同岗位排名'].',';
+                		}else{
+                			$nums .=  $year[$i]['同岗位排名'];
+                		}
+                	} 
+                	echo $nums;
+                	?> ]
+                //每条线的数据 
+            }] 
+        }); 
+
+    }); 
+    </script> 
+	<style type="text/css">
+	
+	.model-list{line-height: 28px;margin-bottom:2px !important;}
+	.model-list li{position:relative;list-style: none;float: left;width:208px;padding-left: 4px;margin-left: 18px;font-weight: 600;margin-bottom: 4px;color: #000;font-size: 14px;}
+	.model-list li span{width:120px;padding-left: 4px;font-weight: 400;position: absolute;right:0px;font-size: 14px;}
+
+	.model-list .li{
+		position: relative;
+		margin-bottom: 2px;
+		padding-left:20px;
+		margin-left: -1px;
+		height:60px;
+		color: #172c45;
+		width: 214px;
+		border-bottom:solid 1px #ccc;
+
+		background: #f4f4f4;
+		font-size: 12px;
+	}
+	.model-list .li span{
+		position: absolute;
+		z-index: 100;
+		width: 213px;
+		left:0px;bottom: 0px;
+		height:35px;line-height: 35px;font-size: 16px;
+		padding-left:20px !important;
+		display: block;border-top:solid 0px #666ccc;
+		background: #fff;
+		color: navy;
+	}
+
+	.headImg{border: 1px solid #ccc;
+    margin-left: 715px;
+    position: absolute;
+    top: 58px;
+    z-index: 999;}
+	.headTitle{position: absolute;left:0px;bottom: 0px;height:24px;line-height: 24px;text-align: center;width: 100%;font-weight: 600;color: tan;border-top: solid 1px #ccc;margin-left: -1px;}
+	.pcontainer{float:left;height:30px;line-height:30px;background:rgb(15, 142, 226);color:#fff;font-weight:600;text-align:center;width: 536px;margin-left: 12px;overflow: hidden;}
+	 
+	.float2  {
+	    border-color:rgb(15, 142, 226);
+	    border-image: none;
+	    border-style: none solid solid;
+	    border-width: 0 1px 1px;
+	    overflow: hidden;
+	    width: 534px;
+	    margin-left: 12px;
+	}
+	</style>
+</block>
+
+
+
+<block name="ext">
+</block>
+
+<block name="month"><div class="month-head"></div></block>
+
+<block name="body">
+<div style="background:#fff;">
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">{$lines[0]['USER_NAME']}</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div class="model-con">
+			<div class="model-con-title">
+				<b>基础信息</b>
+			</div>
+
+			<div class="model-con-sub">
+				 <ul class="model-list">
+				 	<li class="li">县市:<span>{$lines[0]['COUNTY_NAME']}</span></li>
+				 	<li class="li">职位:<span>{$year[0]['POS_NAME']}</span></li>
+				 	<li class="li">姓名:<span>{$lines[0]['USER_NAME']}</span></li>
+				 </ul>
+				 <ul class="model-list clear">
+				 	
+				 	<li class="li">手机:<span>{$lines[0]['BILL_ID']}</span></li>
+				 	<li class="li">年份<span>2016</span></li>
+					<li class="li">总积分<span>{$lines[0]['AMOUNT']}</span></li>
+				</ul>
+				<ul class="model-list clear">
+					<if condition="($id lt 2000)"><li class="li">是否党员<span><?php $id=$dy['BILL_ID']; if($id==null){echo '否';}else{echo '是';}?></span></li>
+					<else/>
+					</if>
+				</ul>
+			</div>
+
+			<div class="headImg" style="width:144px;height:175px;padding:2px;">
+				<img src="__HEAD_IMG__{$lines[0]['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'" alt="{$lines[0]['USER_NAME']}" width="100%" height="150px">
+			<div class="headTitle">
+				{$year[0]['POS_NAME']} - {$lines[0]['USER_NAME']}
+			</div>	
+			<div class="mask"></div>
+			</div>
+		</div>
+
+		<div class="model-foot"></div>
+	</div>
+
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">历史排名</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div class="model-cons">
+			<div class="float">
+				<table class="rank_line" border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td class="rank-title">月份</td>
+					<!-- <td class="rank-title">编号</td>
+					<td class="rank-title">县市</td> -->
+					<td class="rank-title">姓名</td>
+					<td class="rank-title">手机</td>
+					<td class="rank-title">积分</td>
+					<td class="rank-title">排名</td>
+				</tr>
+				<volist name="year" id="year">
+				<tr>
+					<td>{$year.RPT_MONTH}</td>
+					<!-- <td>{$line.CONFIG_ID}</td>
+					<td>{$line.COUNTY_NAME}</td> -->
+					<td>{$year.USER_NAME}</td>
+					<td>{$year.BILL_ID}</td>
+					<td>{$year.全员赛马积分}</td>
+					<td>{$year.同岗位排名}</td>
+				</tr>
+				</volist>
+				</table>
+			</div>
+			<div>
+				<div class="pcontainer">{$lines[0]['USER_NAME']} 历史排名情况</div>
+				<div id="container" class="float2"></div>
+			</div>
+		</div>
+
+
+		<div class="model-foot"></div>
+	</div>
+	</div>
+</block>

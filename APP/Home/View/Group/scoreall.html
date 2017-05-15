@@ -1,0 +1,18 @@
+<extend name="pub/main_group"/>
+
+<block name="body">
+	<div class="model">
+		<div>
+			<div class="hr_info_title_l">
+				<span>科目成绩汇总表</span>
+			</div>
+			<?php 
+				if(empty($bill_id)){
+					$bill_id = $_SESSION['user_auth']['OPER_LOGIN_CODE'];
+				}
+			?>
+			{:W('Html/scoreall_rpt',array($bill_id))}
+		</div>
+	</div> 
+ 
+</block>

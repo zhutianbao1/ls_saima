@@ -1,0 +1,207 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style type="text/css">
+  .dl{width:100%;}
+  .dt dt{font-size: 0.7em}
+  .dd dd{font-size: 0.7em}
+  .times{font-size: 0.8em;width: 100%;background:#EDF6FD }
+  .times input,.times select{font-size: 1em;border: 1px solid #eee;height:30px;line-height: 30px;}
+  .data{width: 100%;clear: both;padding-bottom: 5px;padding-top:5px;overflow: hidden;padding-left: 5px;}
+  .data div{font-size: 0.7em;}
+  .leixin{width:64%;}
+  .shijian{width:35%;}
+  .didian{width:64%;}
+  .fuze{width:35%;}
+  .cun{width:100%;}
+  .clear{clear:both;}
+  .load{color: #ccc;text-align: center;height: 3em;line-height: 3em}
+</style>
+</block>
+    
+<block name="body">   
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>服务计划查询</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header> 
+
+    <section class="sections list_con_2">
+    <div class="times">
+      <span>开始时间: </span><input id="homeDate" type="date" value="<?php echo date('Y-m-d',time())?>"/><br>
+      <span>结束时间: </span><input id="endDate" type="date" value="<?php echo date('Y-m-d',time())?>"/><br>
+      <span style="font-size:1em">计划类型: </span><select name="plan_type" id="mode"  >
+         <option value="">全部</option>
+         <option value="千场服务进农村"  >千场服务进农村</option>
+         <option value="千场服务进社区" >千场服务进社区</option>
+         <option value="千场服务进集团"  >千场服务进集团</option>
+         <option value="千家互联网村建设"  >千家互联网村建设</option>
+       </select>
+      <input id="btn" type="button" name="" value="查询" style="width:5em;background:#1FA5E4;color:#fff;">
+    </div>
+    <div class="mon" id="mon"></div>
+    <div class="load" id="load"></div>
+    <div id="sum" style="display:none"></div>
+    </section>
+</block>
+
+<block name="js">
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+var btnDate={};
+var num=0;
+seach(btnDate,num);
+function seach(btnDate,num){
+var url="{:U('plan_querys')}"+"?nm="+num;
+$.ajax({
+  url:url,
+  type:'POST',
+  dataType:'json',
+  data:btnDate,
+  success:function(result){
+     var html='';
+     $.each(result, function(index, el) {
+        html+='<div class="data">';
+        html+='<div class="fl leixin">'+el['PLAN_TYPE']+'</div><div class="fr shijian">'+el['PLAN_DATE']+'</div> ';
+        html+='<div class="clear fl didian">'+el['ADDRESS']+'</div><div class="fr fuze">'+el['MAN']+'</div> ';
+        html+='<div class="clear fl cun">'+el['COUNTY']+'</div></p>';
+        html+='</div>';
+    });
+      $('#mon').append(html);
+      $(".mon .data:odd").css('background','rgb(237,246,253)');
+      if(result.length==0){
+          layer.msg('未找到任何数据');
+      }
+  }
+});
+
+$.ajax({
+    url:url,
+    type:'GET',
+    dataType:'json',
+    data:btnDate,
+    success:function(re){
+      $.each(re,function(index,el){
+        document.getElementById("sum").innerHTML=Math.ceil(el['SUM']/10);
+      });
+      if(re[0]['SUM']==0){
+        document.getElementById('load').innerHTML='';
+      }
+      else if(re[0]['SUM']<10){
+        document.getElementById('load').innerHTML='没有更多数据';
+      }else{
+        if(num<1){
+          document.getElementById('load').innerHTML='点击加载更多';
+        }
+      }
+    },
+    error:function(e){
+
+    }
+  }); 
+}
+
+$('#load').click(function(){
+    ++num;
+    var count=document.getElementById("sum").innerHTML;
+    if(num+1>=count){
+      document.getElementById('load').innerHTML='没有更多数据';
+    }else{
+    seach(btnDate,num);
+      document.getElementById('load').innerHTML='点击加载更多';
+    }
+});
+
+$('#btn').click(function(){
+  $('#mon').html('');
+   btnDate={
+    homeDate:$("#homeDate").val(),
+    endDate:$("#endDate").val(),
+    plan_type:$("select[name=plan_type]").val()
+  }
+  seach(btnDate,0);
+});
+</script>
+<!-- <script type="text/javascript">
+var btnDate={};
+var num=1;
+seach(btnDate);
+
+function seach(btnDate){
+  $(".mon").each(function() {
+      var e = $(this);
+      var url="{:U('plan_querys')}";
+      e.html('');
+      $.ajax({
+          url: url,
+          type: 'POST',
+          dataType: 'json',
+          data:btnDate,
+          success:function(result){
+              var html='';
+              $.each(result, function(index, el) {
+                  html+='<div class="data">';
+                  html+='<div class="fl leixin">'+el['PLAN_TYPE']+'</div><div class="fr shijian">'+el['PLAN_DATE']+'</div> ';
+                  html+='<div class="clear fl didian">'+el['ADDRESS']+'</div><div class="fr fuze">'+el['MAN']+'</div> ';
+                  html+='<div class="clear fl cun">'+el['COUNTY']+'</div></p>';
+                  html+='</div>';
+              });
+              e.html(html);
+              $(".mon .data:odd").css('background','rgb(237,246,253)');
+              if(result.length==0){
+                  layer.msg('未找到任何数据');
+              }
+          },
+          error:function(e) {
+          }
+      });
+
+      $.ajax({
+        url:url,
+        type:'GET',
+        dataType:'json',
+        data:btnDate,
+        success:function(re){
+          $.each(re,function(index,el){
+            document.getElementById("sum").innerHTML=Math.ceil(el['SUM']/10);
+          });
+          if(re[0]['SUM']==0){
+            document.getElementById('load').innerHTML='';
+          }
+          else if(re[0]['SUM']<10){
+            document.getElementById('load').innerHTML='没有更多数据';
+          }
+        },
+        error:function(e){
+
+        }
+      });  
+  });
+}
+
+$('#load').click(function(){
+    ++num;
+    seach(btnDate,num);
+    var count=document.getElementById("sum").innerHTML;
+    if(num>=count){
+      document.getElementById('load').innerHTML='没有更多数据';
+    }
+});
+
+
+$('#btn').click(function(){
+   btnDate={
+    homeDate:$("#homeDate").val(),
+    endDate:$("#endDate").val(),
+    plan_type:$("select[name=plan_type]").val()
+  }
+  seach(btnDate,1);
+});
+
+ 
+</script> -->
+</block>

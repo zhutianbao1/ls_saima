@@ -1,0 +1,90 @@
+<extend name="Tpl/base"/>
+<block name="title">我推荐的书籍</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title" >
+  {:W('Side/user_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+<block name="main_left">
+  {:W('Side/vip_html')}
+</block>
+
+<block name="main_right">
+ <div class="hd lined">
+ <h3>书籍推荐
+      <span class="help-tip"></span></h3>
+</div>
+<div>
+<if  condition="$mytuijs neq null">
+<table width="100%">
+  <tr height="22px">
+  <th style="background:#6e839a;color:#fff;">书籍</th>
+  <th style="background:#6e839a;color:#fff;">作者</th>
+  <th style="background:#6e839a;color:#fff;">推荐时间</th>
+  <th style="background:#6e839a;color:#fff;">状态</th>
+  <!--
+  <th style="background:#6e839a;color:#fff;">操作</th>  
+  -->
+  </tr>
+  <volist name="mytuijs" id="mytuijs">
+  <tr>
+    <td>{$mytuijs['book_name']}</td>
+    <td>{$mytuijs['book_auth']}</td>
+    <td>{$mytuijs['book_date']|date='Y-m-d',###}</td>
+    <td>
+      <if condition="$mytuijs['status'] eq 0 ">待审核
+      <elseif condition="$mytuijs['status'] eq 1 " />审核采纳
+      <else />审核未采纳
+      </if>
+    </td> 
+    <!-- 
+    <td>
+      <a href="{:U('index/xinde_edit?book_id='.$xinde['book_id'].'&id='.$xinde['id'])}">编辑</a>&nbsp;
+      <a href="javascript:;" para="{$xinde['id']}" class="del_xinde">删除</a>
+    </td>
+    -->    
+  </tr>
+  </volist>
+</table>
+<div class="ft">
+   {$_page}
+</div>
+<else/>
+  <p style="color: #666;letter-spacing: 1px; font-size: 13px;font-weight: 700;"> 
+  暂未获得到您关于书籍推荐的数据!点击此处
+  <a href="{:U('Index/book_tuijian')}" style="font-size: 18px;font-weight: bold;">好书分享</a>
+  分享你喜欢的好书给其他人把!
+  </p>
+</if>
+
+</div>
+
+<br/>
+
+{:W('Side/haoshu')}
+</block>
+
+<block name="js">
+<script>
+/**
+  $(".list-lined li").mouseover(function(event) {
+    var e = $(this);
+    e.css('cursor','pointer')
+    e.find(".article-actions").show();
+ });
+
+ $(".list-lined li").mouseout(function(event) {
+    var e = $(this);
+    e.css('cursor','pointer')
+    e.find(".article-actions").hide();
+ });
+ **/
+</script>
+</block>

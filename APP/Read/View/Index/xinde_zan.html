@@ -1,0 +1,160 @@
+<extend name="Tpl/base"/>
+<block name="title">读书心得</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css">
+    .alink_div{width: 100%;height: 30px; margin-bottom: 20px;margin-top: -20px;   }
+    .alink_div ul{width: 50%;margin: 0 auto;height: 30px;line-height: 30px;}
+    .alink_div ul li{float: left;}
+    .alink_div ul li a{display: block;padding: 0 28px;}
+</style>
+</block>
+
+<block name="main_top">
+    <div class="hd tag-heading">
+        <h3>最新心得</h3>
+        <div class="hd-nav">
+            <ul class="filter-tabs filter-type-tabs">
+            <li class="tab ">
+                <?php $on = $cat=='all'?'on':'';  ?>
+                <a class='{$on}' href="?cat=all">全部</a>
+            </li>
+                <?php 
+                foreach ($book_types as $key => $value) {
+                $on = $cat==$key?'on':'';
+                echo "<li class='tab'><a class='".$on."' href='?cat=".$key."'>".$value."</a></li>";
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bd">
+        <div class="ft">
+            {$_page}<br>
+        </div>
+        <empty name="xindes">
+            暂无心得信息，请联系管理员
+        <else/>
+            <div class="alink_div">
+                <ul>
+                    <li><a href="{:U('Index/xinde_zan?cat=1')}">中层班</a></li>
+                    <li><a href="{:U('Index/xinde_zan?cat=2')}">综合班</a></li>
+                    <li><a href="{:U('Index/xinde_zan?cat=3')}">市场班</a></li>
+                    <li><a href="{:U('Index/xinde_zan?cat=4')}">政企班</a></li>
+                    <li><a href="{:U('Index/xinde_zan?cat=5')}">网络班</a></li>
+                </ul>
+            </div>
+            <ul class="list-lined ebook-list column-list">
+                <volist name="xindes" id="xin">
+                    <li class="item" style="border-bottom:dashed 1px #eee;clear:both;">
+                        <div class="cover shadow-cover" style="height:140px;width:85px;">
+                            <a class="pic" href="/ranking/Read/index/book_info/id/5.html">
+                                <img width="100%" height="100%" itemprop="image" alt="" 
+                                        src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$xin['img']}">
+                            </a>
+                        </div>
+                        <div class="info" >
+                            <div class="title" style="margin-top: 7px;">
+                                <h4 >
+                                    <a href="{:U('index/book_xinde?id='.$xin['id'])}">{$xin['title']}</a>
+                                </h4>
+                            </div>
+                            <p class="">
+                                <span class="">
+                                    <span class="label">作者：
+                                        <a href="javascript:;" class="author-item">
+                                            <?php 
+                                            $info = R('ls/get_oper_info',array($xin['oper_id']));
+                                            echo $info['OPER_NAME'];
+                                            ?>
+                                        </a>
+                                    </span>
+                                </span>
+                                    &nbsp;&nbsp;&nbsp;
+                                <span class="category">
+                                    <span class="label">类别：<a href="javascript:;">学习</a></span>
+                                </span>
+                                <span class="category">
+                                    <a para="{$xin['id']}"  href="javascript:;" class="zan" id="zan{$xin['id']}">
+                                    点赞({$xin.zan})</a>
+                                </span>
+                                <!--
+                                <volist name="art_scores" id="art_score">
+                                <if  condition="$art_score['art_id'] eq $xin['id'] "> 
+                                <span class="category" style="margin-left: 10px;">最高评分:
+                                <a href="javascript:;">{$art_score['max_score']}</a>
+                                </span>
+                                <span class="category" style="margin-left: 10px;">最低评分:
+                                <a href="javascript:;">{$art_score['min_score']}</a>
+                                </span>
+                                </if>
+                                </volist>
+                                -->
+                            </p>
+                            <div class="article-desc-brief">{$xin['text']|mb_substr=###,0,200,'utf-8'}...
+                                <a  href="{:U('index/book_xinde?id='.$xin['id'])}">（更多）</a>
+                            </div>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+        </empty>
+    </div>
+
+    <div class="ft">
+        <div class="pagination">
+            {$_page}
+        </div>
+    </div>
+</block>
+
+
+<block name="js">
+<script type="text/javascript">
+    $(".ebook-list li").mouseover(function(event) {
+        var e = $(this);
+        e.css('cursor','pointer')
+        e.css({background:'#f6f6f1'})
+    });
+
+    $(".ebook-list li").mouseout(function(event) {
+        var e = $(this);
+        e.css('cursor','pointer')
+        e.css({ background:'#fffff9'})
+    });
+
+    /**
+    $(function(){
+        $('.zan').click(function(){
+            var xinde_id=$(this).attr('para');
+            var id='#zan'+xinde_id;
+
+            //url="{:U('index/index_xinde_zan')}";
+
+            url = "{:U('index/index_xinde_zan')}";
+            $.ajax({
+                type:'post',
+                url:url,
+                // dataType:'json',
+                data:{xinde_id:xinde_id},
+                success:function(re){
+                    if(re.msg=='点赞成功'){
+                        layer.alert(re.msg,{icon: 1,time: 2000} );
+                        $(id).html("点赞("+re.zan+")");  
+                    }else{
+                        layer.alert(re.msg,{icon: 2,time: 2000} );
+                    }                       
+                },
+                error:function(){
+                    layer.msg('系统错误，请稍后重试');
+                }
+            });
+        });
+
+    });
+    **/
+</script>
+</block>
+

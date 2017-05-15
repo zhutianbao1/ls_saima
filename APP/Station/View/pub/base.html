@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<block name="title"><title>无线网基站规划建设平台</title></block>		
+		<link rel="stylesheet"  
+		    href="__STATIC__/jquery-ui-10/css/base/jquery-ui-1.10.4.custom.min.css">
+		<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+		<script src="__STATIC__/jquery.cookie.js"></script>
+		<script src="__STATIC__/jquery-ui-10/js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script src="__STATIC__/layer/layer.js"></script>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/base.css"/>
+		<style type="text/css">		  
+		</style>  
+		<block name="css"></block>      
+	</head>
+	<body>
+		<div class="login hide">
+			<form  name="loginForm"   method="post">
+				平台账号：<input type="text" name="oper_login_code">
+				手机号码：<input type="text" name="bill_id">
+				<input type="button" class="loginBtn" value="   登 录   ">
+				<span style="color:red;" id="errMsg"></span>
+			</form>
+		</div>
+
+	    <div class="contain">
+	        <div class="contain-top">	        
+		      	<div class="top">
+		      		<div class="hiuser">欢迎:&nbsp;{$_SESSION['node']['NODE_USERNAME']}:&nbsp;
+		      		                 {$_SESSION['node']['BILL_ID']};
+		      						当前节点编号为:&nbsp;{$_SESSION['node']['NODE_NO']};
+		      						当前节点名称为:&nbsp;{$_SESSION['node']['NODE_NAME']}
+		      		</div>
+		      		<div class="links">
+		      			<ul>
+		      			    <li><a href="javascript:;" class="logbtn">登录</a></li>
+		      			    <li><a href="javascript:;" class="logout">注销</a></li>
+		      			    <!--
+		      			    <li>
+		      			    <if condition="$_SESSION['node']['NODE_NO'] eq '1' ">
+		      			       <a href="{:U('Index/station_application')}">流程申请</a>	      			      
+		      			    </if>
+		      			    </li>
+		      			    <li>
+		      			    	<a href="{:U('Index/index')}">待办事项</a>
+		      			    </li>
+		      			    -->
+		      			</ul>
+		      		</div>
+		      	</div>
+	        </div>
+		    <div class="container">	
+		        <div class="mian">
+		        	<div class="left">
+                        <block name="main_left">
+                        {:W('Side/side_tabs')}
+                        <!--
+				  		<div id="accordion">
+				  			<h3>我的工作台</h3>
+				  			<div>
+				  				<ul>
+				  				    <li>
+				  				    	<a href="{:U('Index/index')}">待办事项</a>
+				  				    </li>
+				  				    <if condition="$_SESSION['node']['NODE_NO'] eq '1' ">
+				  				    <li>		  				    	
+			      			            <a href="{:U('Index/station_application')}">流程申请</a>
+				  				    </li>
+				  				    </if>
+				  				    <li>
+				  				    	<a href="{:U('Index/flows_track')}">流程跟踪</a>
+				  				    </li>
+				  				    <li>
+				  				    	<a href="{:U('Index/node_config')}">配置节点</a>
+				  				    </li>
+				  				    <li>
+				  				    	<a href="{:U('Index/node_user_add')}">添加节点</a>
+				  				    </li>
+				  				    <li>
+				  				    	<a href="{:U('Index/item_type')}">修改标签</a>
+				  				    </li>
+
+				  				    <li>
+				  				    	<a href="{:U('Index/item_del')}">删除工单</a>
+				  				    </li>
+				  				</ul>
+				  			</div>
+				  		</div>
+				  		-->
+				  		</block>
+
+			  	    </div>
+			  	    <div class="right">
+			  			<block name="main_right"></block>
+			  	    </div>
+			  	   
+		        </div>
+		    </div>
+	    </div>
+	</body>
+	<script >
+	$(function(){		
+		$('#accordion').accordion();
+		$('.logbtn').click(function(event) {
+			$('.hide').css('display','block');
+		});	
+       
+        $('.loginBtn').click(function(event) {
+        	var  oper_login_code=$("input[name=oper_login_code]").val();
+        	var  bill_id=$("input[name=bill_id]").val();
+        	var  error     = $("#errMsg");
+        	error.html(''); 
+        	if(oper_login_code.isEmpty() || bill_id.isEmpty() ){
+				error.html('信息填写不完整');
+				return;
+		    }
+		    var url = "{:U('Index/login')}";
+			$.ajax({
+				type:'post',
+				url:url,
+				data:{oper_login_code:oper_login_code,bill_id:bill_id},
+				dataType:'json',
+				success:function(re){
+					if(re.success){						
+						window.location.href="{:U('Index/index')}";
+						location.reload();					
+					}else{
+						error.html(re.msg);
+					}
+				},
+				error:function(){
+					error.html('登录异常');
+				}
+			});
+        });
+
+        $('.logout').click(function(event) {
+        	layer.confirm('你确定要退出当前账号吗?', {icon: 3, title:'提示'}, function(index){
+        		url="{:U('Index/logout')}";
+			    $.ajax({
+				  	url: url,
+				  	type: 'POST',
+				  	//dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+				  	//data: {param1: 'value1'},
+				  	success:function(re){
+				  		if(re=='1'){
+                          layer.alert('注销成功!',{icon: 1,time:3000},function(){
+                          	location.reload();
+                          });
+				  		}else{
+				  			layer.alert('注销失败!');
+				  		}
+				  	},
+				  	error:function(){
+	                 layer.alert('系统请求失败!');
+				  	} 
+			  });
+			  layer.close(index);
+			});
+        });
+
+        $('.readonly').attr("readonly","readonly");
+
+	});
+	</script>
+	<block name="js">
+		
+	</block>
+</html>

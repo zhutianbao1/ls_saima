@@ -1,0 +1,279 @@
+<extend name="./base"/>
+<block name="title">直销员直销装备管理 | 修改借还装备</block>
+<block name="css">
+<style>
+.countyCode,.deviceName,.deviceType,.dealType{
+  width:167px;
+}
+.pure-button{
+  margin-top:12px;
+}
+.pure-button.save{
+  margin-left:12px;
+}
+.Wdate{
+  height:29px !important;
+}
+.a_mask{
+  margin:0;padding:0;width:100%;height:100%;
+  background:#333;
+  position:fixed;z-index:1;
+  opacity:0.6;filter:alpha(opacity=60);
+  top:0;left: 0;display: none;
+}
+.queryUser{
+  display: none;
+  width: 618px;
+  height:400px;
+  position: fixed;
+  top:60px;
+  left: 50%;
+  margin-left:-309px;
+  z-index: 1;
+  overflow-y: auto;
+  background-color:#fff;
+}
+.queryUser table tr:hover td{
+  cursor:pointer;
+  background-color:#cbe8f7;
+}
+.queryTitle{
+  height:30px;line-height:30px;
+  background:#97d54e;color:#fff;padding-left:10px;
+}
+.close_btn {
+  position:absolute;
+  right:10px;
+  color:#999;
+  font-size:28px;
+  font-weight:600;
+}
+.close_btn:hover{
+  color:#f00;
+  cursor:pointer;
+}
+.haveCard,.backCard{
+  width:175px;
+}
+.navbar{
+  height: 50px;
+}
+.container{
+  margin-top: 50px;
+  padding-top: 50px;
+}
+</style>
+</block>
+<block name="wrapper">
+<div class="wrapper wrapper-default">
+  <nav class="navbar pure-menu pure-menu-horizontal pure-menu-fixed" role="navigation">
+    <div class="horizontal-center">
+      <a href="{:U('index/index')}">直销员直销装备管理</a>
+    </div>
+    <div class="user-info"><?php echo session('user_auth.OA');?></div>
+  </nav>
+
+  <div class="container">
+    <div class="queryUser">
+        <div class="queryTitle">
+          县市直销清单<span style="color:#f00">(共{$ulist | count}人)</span>
+          <span class="close_btn">×</span>
+        </div>
+        <table class="pure-table pure-table-bordered userList">
+          <tr>
+            <thead>
+              <th>序号</th><th>工号</th><th>姓名</th><th>手机号</th><th>入职时间</th>
+              <th>职级</th><th>推荐人</th><th>所属组</th><th>在职状态</th>
+            </thead>
+          </tr>
+          <volist name="ulist" id="user">
+          <tr>
+            <td>{$i}</td>
+            <td>{$user.EMPLOYEE_ID}</td>
+            <td>{$user.EMPLOYEE_NAME}</td>
+            <td>{$user.PHONE}</td>
+            <td>{$user.RU_DATE}</td>
+            <td>{$user.POSITION}</td>
+            <td>{$user.COMMEND}</td>
+            <td>{$user.GROUP_ID}</td>
+            <td>{$user.FORMAL}</td>
+            <td style="display:none">{$user.HAVE_CARD}</td>
+          </tr>
+          </volist>
+        </table>
+    </div>
+    <form class="pure-form form1" action="{:U('index/grsave')}" method="post">
+      <div class="form-block">    
+        <div>
+          <label>编号:</label>
+          <input readonly="readonly" type="text" name="id" value="{$devgr['ID']}"/>
+          <label>行:</label>
+          <input readonly="readonly" type="text" name="xh" value="{$devgr['XH']}"/>
+          <label>县市:</label>
+          <select class="countyCode" name="county_code">
+            <option value=""></option>
+            <option value="5781" {$devgr[COUNTY_CODE]=='5781'?'selected':''}>莲都一部</option>
+            <option value="57812" {$devgr[COUNTY_CODE]=='57812'?'selected':''}>莲都二部</option>
+            <option value="5782" {$devgr[COUNTY_CODE]=='5782'?'selected':''}>缙云</option>
+            <option value="5783" {$devgr[COUNTY_CODE]=='5783'?'selected':''}>青田</option>
+            <option value="5784" {$devgr[COUNTY_CODE]=='5784'?'selected':''}>云和</option>
+            <option value="5785" {$devgr[COUNTY_CODE]=='5785'?'selected':''}>庆元</option>
+            <option value="5786" {$devgr[COUNTY_CODE]=='5786'?'selected':''}>龙泉</option>
+            <option value="5787" {$devgr[COUNTY_CODE]=='5787'?'selected':''}>遂昌</option>
+            <option value="5788" {$devgr[COUNTY_CODE]=='5788'?'selected':''}>松阳</option>
+            <option value="5789" {$devgr[COUNTY_CODE]=='5789'?'selected':''}>景宁</option>
+            <option value="578B" {$devgr[COUNTY_CODE]=='578B'?'selected':''}>南城</option>
+          </select>
+        </div>
+
+        <div>
+          <label>直销员工号:</label>
+          <input type="text" name="employee_id" readonly="readonly" value="{$devgr['EMPLOYEE_ID']}"/>
+
+          <label>直销员姓名:</label>
+          <input type="text" class="employee_name" readonly="readonly" value="{$devgr['EMPLOYEE_NAME']}"/>
+
+          <label>直销员手机号:</label>
+          <input type="text" class="phone" readonly="readonly" value="{$devgr['PHONE']}"/>
+        </div>
+
+        <div>
+          <label>装备名称:</label>
+          <select class="deviceName" name="device_name">
+            <option value=""></option>"
+            <option value="身份证识别仪" {$devgr[DEVICE_NAME]=='身份证识别仪'?'selected':''}>身份证识别仪</option>
+            <option value="外场订制帐篷" {$devgr[DEVICE_NAME]=='外场订制帐篷'?'selected':''}>外场订制帐篷</option>
+            <option value="外场订制桌子" {$devgr[DEVICE_NAME]=='外场订制桌子'?'selected':''}>外场订制桌子</option>
+            <option value="外场订制椅子" {$devgr[DEVICE_NAME]=='外场订制椅子'?'selected':''}>外场订制椅子</option>
+            <option value="外场营销资料袋" {$devgr[DEVICE_NAME]=='外场营销资料袋'?'selected':''}>外场营销资料袋</option>
+            <option value="外场营销文件夹" {$devgr[DEVICE_NAME]=='外场营销文件夹'?'selected':''}>外场营销文件夹</option>
+            <option value="外场T恤" {$devgr[DEVICE_NAME]=='外场T恤'?'selected':''}>外场T恤</option>
+            <option value="外场马甲" {$devgr[DEVICE_NAME]=='外场马甲'?'selected':''}>外场马甲</option>
+          </select>
+
+          <label>设备类型:</label>
+          <select class="deviceType" name="device_type">
+            <option value="0"></option>
+            <option value="分离式" {$devgr[DEVICE_TYPE]=='分离式'?'selected':''}>分离式</option>
+            <option value="蓝牙式" {$devgr[DEVICE_TYPE]=='蓝牙式'?'selected':''}>蓝牙式</option>
+          </select>
+
+          <label>押金:</label>
+          <input type="text" name="deposit" value="{$devgr['DEPOSIT']}"/>
+        </div>
+
+        <div>
+          <label>领取数量:</label>
+          <input type="text" name="num" value="{$devgr['NUM']}"/>
+          <label>领取时间:</label>
+          <input type="text" name="get_time" value="{$devgr['GET_TIME']}" class="Wdate" onClick="WdatePicker()"/>
+          <label>归还时间:</label>
+          <input type="text" name="return_time" value="{$devgr['RETURN_TIME']}" class="Wdate" onClick="WdatePicker()"/>
+        </div>
+
+        <div>
+          <input class="pure-button save" type="submit" value="保存"/>
+          <input class="pure-button" type="reset" value="重置"/>
+          <input class="pure-button getP" type="button" value="选直销员"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+  $(".countyCode").attr("disabled",true);
+  var deviceName = $(".deviceName").val();
+  if(deviceName == '身份证识别仪' || deviceName == '外场订制帐篷' || deviceName == '外场订制桌子' || deviceName == '外场订制椅子'){
+    $("input[name='num']").attr("readOnly","readOnly");
+  }
+  
+  $(".getP").click(function(){
+    $(".a_mask").css({display:'block'});
+    $(".queryUser").fadeIn("slow");
+  });
+  
+  $(".userList td").click(function(){
+    var e = $(this).parent();
+    var td = e.find("td");
+    $("input[name='employee_id']").val(td.eq(1).text());
+    $(".employee_name").val(td.eq(2).text());
+    $(".phone").val(td.eq(3).text());
+    
+    $(".a_mask").css({display:'none'});
+    $(".queryUser").fadeOut("fast");
+  });
+
+  $(".close_btn").click(function(){
+    $(".a_mask").css({display:'none'});
+    $(".queryUser").fadeOut("fast");
+  });
+
+  $(".save").click(function(){
+    var countyCode = $(".countyCode").val();
+    if(countyCode == ''){
+      alert("县市不能为空");
+      return false;
+    }
+
+    var deviceName = $(".deviceName").val();
+    if(deviceName == ''){
+      alert("设备名称不能为空");
+      return false;
+    }
+    
+    var deviceType = $(".deviceType").val();
+    if(deviceName == '身份证识别仪' && deviceType == '0'){
+      alert("身份证识别仪必须有设备类型");
+      return false;
+    }else if(deviceName != '身份证识别仪' && deviceType != '0'){
+      alert("非身份证识别仪无设备类型");
+      return false;
+    }
+
+    var deposit = $("input[name='deposit']").val();
+    var num = $("input[name='num']").val();
+    var getTime = $("input[name='get_time']").val();
+    if(getTime == ''){
+      alert("领取时间不能为空");
+      return false;
+    }
+
+    if(deviceName == '身份证识别仪' || deviceName == '外场订制帐篷' || deviceName == '外场订制桌子' || deviceName == '外场订制椅子'){
+      deposit = parseInt(deposit);
+      if(deposit == 0 || isNaN(deposit)){
+        alert(deviceName + "的押金必填");
+        return false;
+      }
+    }else{
+      if(deposit != ''){
+        alert(deviceName + "不需要押金");
+        return false;
+      }
+
+      num = parseInt(num);
+      if(num == 0 || isNaN(num)){
+        alert(deviceName + "领取数量不能为空");
+        return false;
+      }
+
+      var returnTime = $("input[name='return_time']").val();
+      if(returnTime != ""){
+        alert("不须归还物品不用填归还时间");
+        return false;
+      }
+    }
+
+    $(".pure-button").attr("disabled",true);
+    $(".countyCode").attr("disabled",false);
+    $(".form1").submit();
+
+  });
+});
+
+</script>
+</block>

@@ -1,0 +1,140 @@
+<extend name="./base"/>
+<block name='title'>{$errMsg}</block>
+<block name='css'>
+	<style type="text/css">
+		.font1 label{margin-top: 20px}
+		.btn{margin-left: 40%}
+	</style>
+</block>
+<block name='login'>{$errMsg}</block>
+<block name='body'>
+	<div>
+		<div class="queryGroup1">
+			<form action="{:U('index/employee_train_re')}" method="post" id="form1" style="display:none">
+				<div class="font1">
+					<label>申请月份：</label>
+					<input type='text' name='rpt_month' onClick="WdatePicker({dateFmt:'yyyyMM'})" value="" />
+					<label>员工编号：</label>
+					<input type="text" name="user_id" value="">
+					<label>姓名：</label>
+					<input type="text" name="user_name" value="" readonly>
+					<label>县市：</label>
+					<select name="county_name">
+				        <option value=""></option>
+				        <option value="莲都" {$da['COUNTY_NAME']=='莲都'?'selected':''}>莲都</option>
+				        <option value="缙云" {$da['COUNTY_NAME']=='缙云'?'selected':''}>缙云</option>
+				        <option value="青田" {$da['COUNTY_NAME']=='青田'?'selected':''}>青田</option>
+				        <option value="云和" {$da['COUNTY_NAME']=='云和'?'selected':''}>云和</option>
+				        <option value="庆元" {$da['COUNTY_NAME']=='庆元'?'selected':''}>庆元</option>
+				        <option value="龙泉" {$da['COUNTY_NAME']=='龙泉'?'selected':''}>龙泉</option>
+				        <option value="遂昌" {$da['COUNTY_NAME']=='遂昌'?'selected':''}>遂昌</option>
+				        <option value="松阳" {$da['COUNTY_NAME']=='松阳'?'selected':''}>松阳</option>
+				        <option value="景宁" {$da['COUNTY_NAME']=='景宁'?'selected':''}>景宁</option>
+				        <option value="南城" {$da['COUNTY_NAME']=='南城'?'selected':''}>南城</option>
+					</select>
+					<label>性别：</label>
+					<select name="sex">
+				        <option value=""></option>
+				        <option value="男" {$da['SEX']=='男'?'selected':''}>男</option>
+				        <option value="女" {$da['SEX']=='女'?'selected':''}>女</option>
+					</select>
+					<label>联系方式：</label>
+					<input type="text" name="bill_id" value="" readonly>
+				</div>
+				<div class="font1">
+					<label>报道时间：</label>
+					<input type='text' name='报道时间' onClick="WdatePicker()" value="" />
+					<label>报道当日是否住宿：</label>
+					<select name="报道当日是否住宿">
+				        <option value="是" {$da['INCOME']=='是'?'selected':''}>是</option>
+				        <option value="否" {$da['INCOME']=='否'?'selected':''}>否</option>
+					</select>
+					<label>培训期间统一安排食住：</label>
+					<select name="培训期间统一安排食住">
+				        <option value="住">住</option>
+				        <option value="食">食</option>
+				        <option value="食住">食住</option>
+					</select>
+					<label>最后一天用餐安排：</label>
+					<select name="最后一天用餐安排">
+				        <option value="午餐">午餐</option>
+				        <option value="晚餐">晚餐</option>
+				        <option value="午晚餐">午晚餐</option>
+				        <option value="不需要">不需要</option>
+					</select>
+					<label>培训性质：</label>
+					<input type="text" name="培训性质" value="">
+					<label>培训名称：</label>
+					<input type="text" name="培训名称" value="">
+				</div>
+				<button class="btn">保存</button>
+			</form>
+
+			<form action="{:U('index/employee_train_re?id='.$da['ID'].'&ids=1.1')}" method="post" id="form2" style="display:none">
+				<div class="font1">
+					<label>申请部门：</label>
+					<input type="text" name="apply_dept" value="{$da['APPLY_DEPT']}">
+					<label>申请时间：</label>
+					<input type='text' name='create_date' onClick="WdatePicker()" value="{$da['CREATE_DATE']}" />
+					<label>申请人：</label>
+					<input type="text" name="user_name" value="{$da['USER_NAME']}">
+					<label>申请理由：</label>
+					<input type="text" name="apply_ren" value="{$da['APPLY_REN']}">
+					<label>需求岗位：</label>
+					<input type="text" name="pos_name" value="{$da['POS_NAME']}">
+				</div>
+				<div class="font1">
+					<label>人数：</label>
+					<input type='text' name='apply_num' value="{$da['APPLY_NUM']}" />
+					<label>性别：</label>
+					<select name="sex">
+				        <option value="没要求" {$da['SEX']=='没要求'?'selected':''}>没要求</option>
+				        <option value="男" {$da['SEX']=='男'?'selected':''}>男</option>
+				        <option value="女" {$da['SEX']=='女'?'selected':''}>女</option>
+					</select>
+					<label>年龄：</label>
+					<input type='text' name='age' value="{$da['AGE']}" />
+					<label>学历：</label>
+					<input type='text' name='edu_degree' value="{$da['EDU_DEGREE']}" />
+					<label>能力要求：</label>
+					<input type="text" name="abily" value="{$da['ABILY']}">
+				</div>
+				<div class="font1" style="width:96%">
+					<label>备注：</label>
+					<textarea style="width: 60%;height: 140px;" name="opinion" value="{$da['OPINION']}"></textarea>
+				</div>
+				<button class="btn">保存</button>
+			</form>
+		</div>
+	</div>
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$("input[name='user_id']").blur(function(){
+			url="{:U('employee_train_res')}";
+			user_id=$('input[name=user_id]').val();
+			$.ajax({
+				url:url,
+				type:'post',
+				dataType:'json',
+				data:"user_id="+user_id,
+				success:function(re){
+					if(re==null){
+						alert("员工编号输入错误或该员工已离职！");
+						return false;
+					}
+					$("input[name='bill_id']").val(re[0]['BILL_ID']);
+					$("input[name='user_name']").val(re[0]['USER_NAME']);
+					$("select[name='sex']").val(re[0]['SEX']);
+					$("select[name='county_name']").val(re[0]['COUNTY_NAME']);
+				}
+			})
+		})
+		var id="{$ids}";
+		if(id>0){
+			$("#form2").css("display","block");
+		}else{
+			$("#form1").css("display","block");
+		}
+	</script>
+</block>

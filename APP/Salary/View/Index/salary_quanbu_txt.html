@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+                       user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>条形图</title>
+		
+		<script   src="__STATIC__/jquery-1.8.3.min.js"></script>		
+		<script   src="__STATIC__/highcharts.js"></script>
+		<script src="__STATIC__/layer/layer.js"></script>	
+         
+        <link rel="stylesheet" href="__PUBLIC__/Salary/css/index.css">
+        <link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">  
+
+		<style type="text/css">	
+		.leiji_left{float: left;width: 50%;border-right: 1px solid lavender;}
+		.leiji_right{float: right;width: 48%;}
+		.lj1{ text-align: center;height: 30px;line-height: 30px;}
+		.lj2{ text-align: center; font-size: 40px;height: 50px;line-height: 50px;
+			                    letter-spacing:3px;color: #ffa244;}
+		#xian{ display: none;width: 180px;height:32px;margin: 0 auto;margin-top: 10px; }
+		#se{ width:100%;height: 30px;font-size: 16px; line-height: 30px;}	
+        .title>div>span{ display: block;width: 150px;height: 40px;line-height: 40px;
+        	           float: left;text-align: center; }
+        .title>div>i{width: 40px;height: 40px;line-height: 40px;display: block;float: left; }
+		</style>				
+	</head>
+	<body>
+		<div class="content">
+			<div class="header">
+                <div class="header_img"></div>
+                <div class="header_title">累计收入</div>
+			</div>
+			<div class="main">
+                <div class="main_title" >
+                    <form id="theForm" method="POST" action="{:U('Index/salary_quanbu_txt')}">
+                        <div class="main_search">
+                            <if condition="$sel_data eq '' ">近12个月
+                            <elseif condition="$sel_data eq '3' "/>近三个月
+                            <elseif condition="$sel_data eq '6' "/>近六个月
+                            <elseif condition="$sel_data eq '9' "/>近九个月
+                            <elseif condition="$sel_data eq '2016' "/>2016年
+                            <elseif condition="$sel_data eq '2017' "/>2017年
+                            </if>
+                        </div>
+                        <div class="search_data" >
+                            <select class="data" name="sel_data">
+                                <option value="3">近三个月</option>
+                                <option value="6">近六个月</option>
+                                <option value="9">近九个月</option>
+                                <option value="2016">2016年</option>
+                                <option value="2017">2017年</option>                            
+                            </select>
+                        </div>
+                    </form>                       
+                </div>
+
+				<div class="leiji">
+				    <div class="leiji_left">
+						<div class="lj1" >累计收入(应发/元)</div>								
+						<div class="lj2" >&yen;{$list1[0]['YINGFA_HJ']}</div>
+					</div>
+					<div class="leiji_right">
+						<div class="lj1" >累计收入(实发/元)</div>								
+						<div class="lj2" >&yen;{$list1[0]['MONTH_SF']}</div>
+					</div>
+					<div style="clear: both;"></div>
+				</div>				
+				<div class="txt">
+					<div id='canvasDiv' ></div>					
+				</div>				
+			</div>
+			<div id="xian" >
+				<select id="se" >
+					<option value="3">近三个月</option>
+					<option value="6">近六个月</option>
+					<option value="9">近九个月</option>
+					<option value="2016">2016年</option>	
+					<option value="2017">2017年</option>						
+				</select>
+			</div>		
+		</div>				
+	</body>
+
+<script type="text/javascript">	
+$(function () {
+    $('#canvasDiv').highcharts({
+        chart: {
+            type: 'column'
+        },
+         title: {
+            text: '年度各月收入(元)'
+        },
+       
+       xAxis: {
+            categories: [
+                <?php 
+                    $x_num='';
+                    for ($i=count($list)-1; $i>=0; $i--) { 
+                        if($i==0){
+                            $x_num .=substr($list[$i]['FAFANG_MONTH'],5); 
+                        }else{
+                            $x_num .= substr($list[$i]['FAFANG_MONTH'],5).',';
+                        }
+                    }
+                    echo $x_num;
+            ?>
+            ]
+        },
+
+
+        yAxis: {
+           min:0,
+            title:{text:'(元)'
+            }
+        },
+      
+
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table style="width:100px;color:#666;">',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.2f} 元</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+
+
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+         series: [{
+            name: '应发',
+            data: [<?php 
+                    $z_num='';
+                    for ($i=count($list)-1;$i>=0;$i--) { 
+                        if($i==0){
+                            $z_num .=$list[$i]['YINGFA_HJ'];                                
+                        }else{
+                            $z_num .=$list[$i]['YINGFA_HJ'].',';
+                        }
+                    }
+                    echo $z_num;
+                ?>],
+                    dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.2f}', // one decimal
+                    y: 1, // 10 pixels down from the top
+                    style: {
+                        fontSize: '11px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+
+            }, {
+                name: '实发',
+                data: [ <?php 
+                            $z_num='';
+                            for ($i=count($list)-1;$i>=0;$i--) { 
+                                if($i==0){
+                                    $z_num .=$list[$i]['MONTH_SF'];                             
+                                }else{
+                                    $z_num .=$list[$i]['MONTH_SF'].',';
+                                }
+                            }
+                            echo $z_num;
+                        ?>],
+                        dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    format: '{point.y:.2f}', // one decimal
+                    y: 1, // 10 pixels down from the top
+                    style: {
+                        fontSize: '11px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+        }]
+    });
+
+
+
+
+
+});	
+</script>
+<script type="text/javascript">
+		$(function(){
+            $(".header_img").click(function(event) {
+                window.location="{:U('Index/salary_index')}";
+            });
+
+            /**
+
+		$('#sele').click(function(){
+			 layer.open({
+				  title:'请选择您要查询的时间',	
+				  type: 1,
+				  area: ['250px', '150px'],
+				  shadeClose: true, //点击遮罩关闭
+				  content:$('#xian'), 
+				  btn:['确认', '取消'],
+				    yes: function(index,layero){
+				    //获得选择结果
+				   	var xuanze=$("#se").val();
+				   	//把选择结果显示在页面上
+				    $("#time").html(xuanze);
+				   //window.location="{:U('Salary/salary_quanbu_txt')}?xuanze="+xuanze;  
+            window.location='http://10.78.1.85:9000/ranking/Salary/Index/salary_quanbu_txt/xuanze/'+xuanze+'.html';  
+                    // location.href="{:U('Salary/salary_quanbu_txt/xuanze/"+xuanze+"')}";
+        
+			         //关闭弹窗            
+				    layer.close(index);				   	
+				   }
+			});				  
+		});
+             **/
+
+        $('.main_search').click(function(){
+            layer.open({
+                  title:'请选择您要查询的时间',   
+                  type: 1,
+                  area: ['250px', '160px'],
+                  shadeClose: true, //点击遮罩关闭
+                  content:$('.search_data'), 
+                  btn:['确认', '取消'],
+                    yes: function(index,layero){
+                      $('#theForm').submit();  
+                    layer.close(index);                 
+                }
+            });
+        });
+	});
+</script>
+
+
+</html>

@@ -1,0 +1,292 @@
+<extend name="pub/tpl"/>
+<block name="title">丽水MOA</block>
+<block name="css">
+   <link rel="stylesheet" 
+          href="__STATIC__/jquery-ui-10/development-bundle/themes/base/jquery-ui.css" />  
+   <link rel="stylesheet"  
+        href="__STATIC__/datetimepickerjq/jquery.datetimepicker.css"/>
+
+    <style type="text/css">
+        .con_title{width: 100%;color: #666;text-align: center;
+        }
+        .fieldset{width: 100%; margin-top: 5px;
+        }
+        .fieldset label{width: 33%;height: 30px;line-height: 30px;
+         display: inline-block;text-align: center;color: #666;font-size: 16px;
+        }
+        .fieldset input,.fieldset select{width: 60%;height: 30px;line-height: 30px;
+          border: 1px solid #ccc;border-radius: 4px;font-size: 16px;color: #666;text-align: left;
+        }        
+        .fieldset1{width: 100%; margin-top: 5px; height: 100px;
+        }
+        .fieldset1 label{width: 33%;display: inline-block;text-align: center;
+          color: #666;height: 100px;vertical-align: top;font-size: 16px;color: #666;
+        }
+        .fieldset1 textarea{width: 60%;height: 100px;border: 1px solid #ccc;
+         border-radius: 4px;font-size: 16px;color: #666;
+        }
+        .fieldset2{
+          width: 200px;margin: 20px auto;
+        }
+        .fieldset2 .btn_time{
+          height:30px;width: 200px;letter-spacing: 2px;font-size: 16px;color: #666;
+        }
+        .btn{
+          width: 200px;height: 30px;margin: 20px auto;text-align: center;
+        }
+        .sub_btn,.res_btn{
+          width: 70px; height:30px;letter-spacing: 5px;
+          font-size: 16px;color: #666;font-weight: 500;
+        }
+        .sub_btn{float: left;
+        }
+        .res_btn{float: right;
+        }
+        .leave_time2{
+          display: none;
+        }
+
+        
+    </style>
+</block>
+<block name="body">
+<div class="ban hide"></div>  
+    <header class="header">
+        <a class="left_btn btn_back" ></a>
+        <h2>考勤审批</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+    <div style="margin-top:80px;"/>
+    <section class="index_con2">       
+      <div class="con_title">考勤审批申请单(开发中)</div>
+      <div class="form_div">
+         <form id="theForm" > 
+            <p class="fieldset">
+               <label >申请人</label>
+               <input type="text" name="applicant"  
+                     value="{$list['EMPL_NAME']}|{$list['EMPL_OA']}" readonly=true />
+            </p>
+            <p class="fieldset">
+               <label >申请人部门</label>
+               <input type="text" name="applicate_department" value="{$list['DEPT_NO']}" />
+            </p>
+            
+            <p class="fieldset">
+               <label >申请人电话</label>
+               <input type="text" name="applicant_mobile" value="{$list['BILL_ID']}"  />
+            </p>
+            <p class="fieldset">
+               <label >申请日期</label>
+               <input type="text" name="applicate_date"  value="<?php echo date('Y-m-d');?>" />
+            </p>            
+
+            <p class="fieldset">
+               <label >请假人姓名</label>
+               <input type="text" name="leave_name"  value="{$list['EMPL_NAME']}" />
+            </p>
+            <p class="fieldset">
+               <label >请假人姓名|OA</label>
+               <input type="text" name="leave_full_name" value="{$list['EMPL_NAME']}|{$list['EMPL_OA']}" readonly=true/>
+            </p>
+
+            <p class="fieldset">
+               <label >请假人电话</label>
+               <input type="text" name="leave_phone" value="{$list['BILL_ID']}"  />
+            </p>
+
+            <p class="fieldset">
+               <label >请假人职位</label>
+               <input type="text" name="leave_position" value="{$list['EMPL_POSITION']}"  />
+            </p>
+            <p class="fieldset">
+               <label >原考勤审批工单</label>
+               <input type="text" name="pre_approver_id"  class="req" />
+            </p>
+            <p class="fieldset">
+               <label >休假类型</label>
+               <select name="leave_type" class="req">
+                  <option value=''>请选择</option>
+                  <option value='1'>年休假</option>
+                  <option value='2'>婚假</option>
+                  <option value='3'>产假</option>                  
+                  <option value='4'>护理假</option>
+                  <option value='5'>病假</option>
+                  <option value='6'>事假</option>
+                  <option value='7'>探亲假</option>
+                  <option value='8'>丧假</option>
+                  <option value='9'>旷工</option>
+                  <option value='10'>销假</option>
+                  <option value='11'>2016年休假</option>
+                  <option value='12'>调休</option>
+                  <option value='13'>外出报备</option>
+                  <option value='14'>哺乳假</option>
+               </select>
+            </p>
+            <p class="fieldset">
+               <label >外出类型</label>
+               <select name="outdoor_work" class="req">
+                  <option value=''>请选择</option>
+                  <option value='走访客户'>走访客户</option>
+                  <option value='业务联系'>业务联系</option>
+                  <option value='户外作业'>户外作业</option>                  
+                  <option value='其他'>其他</option>                 
+               </select>
+            </p>
+            <p class="fieldset">
+               <label >休假天数</label>
+               <input type="text" name="leave_days"  class="req" />
+            </p>
+            <p class="fieldset">
+               <label >休假开始日期</label>
+               <input type="text" name="start_time"  class="datetimepicker req"  />
+            </p>
+            <p class="fieldset">
+               <label >休假结束日期</label>
+               <input type="text" name="end_time"  class="datetimepicker req"  />
+            </p>
+            <div class="leave_time2">
+              <p class="fieldset">
+                 <label >休假开始日期2</label>
+                 <input type="text" name="start_time_2"  class="datetimepicker" />
+              </p>
+              <p class="fieldset">
+                 <label >休假结束日期2</label>
+                 <input type="text" name="end_time_2"   class="datetimepicker" />
+              </p>
+            </div>
+
+            <p class="fieldset">
+               <label >上午哺乳开始时间</label>
+               <input type="text" name="am_start_time"  class="datetimepicker" />
+            </p>
+
+            <p class="fieldset">
+               <label >上午哺乳结束时间</label>
+               <input type="text" name="am_end_time"  class="datetimepicker" />
+            </p>
+
+            <p class="fieldset">
+               <label >下午哺乳结束时间</label>
+               <input type="text" name="pm_start_time" class="datetimepicker"  />
+            </p>
+
+            <p class="fieldset">
+               <label >下午哺乳结束时间</label>
+               <input type="text" name="pm_end_time"  class="datetimepicker" />
+            </p>
+
+            <p class="fieldset">
+               <label >县公司分管领导|OA</label>
+               <input type="text" name="county_vice_manager"  id="county_vice_manager" class="req" />
+            </p>
+
+            <p class="fieldset1">
+               <label>请假原因</label>
+               <textarea name="leave_reason" class="req"></textarea>
+            </p>
+         
+            <p class="fieldset2">
+               <input type="button"  class="btn_time" value="点击添加更多休假时间"/>
+            </p>
+            <p class="btn">
+              <input type="button"  class="sub_btn"   value="提交"/> 
+              <input type="reset"   class="res_btn"   value="重置"/>
+            </p>            
+            
+         </form>           
+      </div>        
+      <div class="cb"></div>
+    </section>   
+</block>
+<block name="js">
+ <script src="__STATIC__/jquery-ui-10/js/jquery-1.10.2.js"></script>
+ <script src="__STATIC__/jquery-ui-10/js/jquery-ui-1.10.4.custom.js"></script>
+ <script src="__STATIC__/datetimepickerjq/jquery.datetimepicker.js"></script>
+
+ <script type="text/javascript">
+   $(function(){ 
+    var i=1;  
+    $('.btn_time').click(function() { 
+      if(i%2==1){
+         $('.leave_time2').css('display','block');
+      }else{
+          $('.leave_time2').css('display','');
+      }
+         i++;      
+    });
+   });
+  
+   $(function(){
+      $('.sub_btn').click(function() {
+         var flag=true;
+
+      $(".req").each(function(){
+         if($(this).val().isEmpty()){
+            $(this).css('background-Color','infobackground');
+            flag=false;
+          };
+      });
+      
+      if(flag==true){
+          layer.open({    
+            content: '确定要提交申请吗?',        
+            resize: false,
+            btn: ['确定', '取消'],
+            yes: function(index,layero){              
+              url="{:U('index/convenient_flow_kaoqin')}";         
+              $.ajax({
+                 type: "POST",
+                 url: url,                
+                 data:$("#theForm").serializeArray(),
+                 success: function(data){
+                  layer.alert(data);
+                  },
+                  error:function(){
+                   layer.alert('系统请求出错!');
+                  }
+                 });   
+              layer.close(index);         
+            },
+            cancel:function(index){
+              layer.close(index);
+            }
+          });
+      }else{
+         layer.alert('请将数据填写完整!');
+         return false;   
+      }
+      });
+   });
+
+
+  $(function(){  
+  //自动补全 
+    var availableTags = [
+     <?php 
+        $x_num='';
+          for ( $i=0;$i<count($lists); $i++) { 
+              if($i==count($lists)-1){
+                  $x_num .=('"'.$lists[$i]['EMPL_NAME'].'|'.$lists[$i]['EMPL_OA'].'"');
+              }else{
+                  $x_num .= ('"'.$lists[$i]['EMPL_NAME'].'|'.$lists[$i]['EMPL_OA'].'"'.',');
+              }
+          }
+          echo $x_num;
+    ?>
+    ];
+    $("#county_vice_manager").autocomplete({
+      source: availableTags
+    });
+  });
+
+   //日期插件
+  $(function(){
+         $('.datetimepicker').datetimepicker({
+         format: 'Y-m-d H:i:s',
+         step:5,
+         lang:'ch' 
+    }); 
+  });
+  </script>
+</block>
+ 

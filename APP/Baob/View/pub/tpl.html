@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>市场部报表</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/payment_style.css"/>
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/payment_six.css"/>
+    <style type="text/css"> </style>
+    <block name="css"></block>
+</head>
+<body>
+<div>
+    <div class="content">
+        <div class="box">
+            <div class="header">
+                <input type="button"  class="back_btn" value="返 回" />
+                <a class="title">市场部报表</a>
+            </div>
+            <div class="main">
+                <div class="subtitle">
+                    {:W('Side/top_tabs')}
+                </div>
+                <div class="show">
+                    <block name='main_show'>
+                    </block>
+                </div>
+            </div>
+        </div>
+    </div>      
+</div>
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<block name="js"></block>
+</html>

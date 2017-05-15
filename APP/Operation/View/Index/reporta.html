@@ -1,0 +1,455 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 首页</block>
+<block name="css">
+  <style>
+    .sidebar{
+      width:140px;
+    }
+    .sidebar + .main-content{
+      margin-left:140px;
+      overflow: hidden;
+      zoom: 1;
+    }
+    .rowTable{
+      position:relative;
+      overflow: hidden;
+      zoom: 1;
+    }
+    .rowTable .altrowstable{
+      /*position:relative;
+      top:0;
+      left:0;*/
+      display:inline-block;
+      float:left;
+    }
+    .altrowstable .caption{
+      font-size:14px;
+      font-weight:600;
+      text-align:left;
+    }
+    .altrowstable .caption:hover{
+      cursor:pointer;
+    }
+    .altrowstable th{
+      background-color:yellow;
+      color:#000;
+    }
+    .form-content input,.form-content .btn{
+      margin-top:15px;
+    }
+  </style>
+</block>
+
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="sidebar">
+    <ul class="sidemenu">
+      <li><a href="{:U('Index/index')}" style="color:#f00">汇总报表</a></li>
+      <li><a href="{:U('Index/cdeali')}">投诉处理记录表</a></li>
+      <li><a href="{:U('Index/faulti')}">故障处理记录表</a></li>
+      <li><a href="{:U('Index/onlinei')}">上线类</a></li>
+      <li><a href="{:U('Index/repositoryi')}">知识库</a></li>
+      <li><a href="{:U('Index/ruleflowi')}">常规流程</a></li>
+      <li><a href="{:U('Index/schedulei')}">排班表</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <form class="form tjform" name="form1" action="{:U('Index/index')}" method="post">
+      <div>
+        <label>日期：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="day"/>
+        <button class="btn query"/>查询</button>
+      </div>
+    </form>
+
+    <div class="rowTable">
+    <table class="altrowstable">
+      <caption id="dayCounty" class="caption">日县市工单量：</caption>
+      <tr>
+        <th style="width:45px">日期</th><th>县市</th>
+        <th style="width:40px">日工单总量</th><th style="width:45px">日县市工单</th>
+        <th style="width:38px">日县市占比</th>
+      </tr>
+      <volist name="dayCounty" id="dc">
+      <tr>
+        <td>{$dc['CREATE_DATE']}</td><td>{$dc['COUNTY_NAME']}</td>
+        <td>{$dc['TOTAL_NUM']}</td><td>{$dc['NUM']}</td><td>{$dc['PER']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="weekCounty" class="caption">周县市工单量：</caption>
+      <tr>
+        <th style="width:45px">周一</th><th style="width:45px">周日</th>
+        <th style="width:40px">县市</th><th style="width:30px">周工单总量</th>
+        <th style="width:30px">周县市工单</th><th style="width:40px">周县市占比</th>
+      </tr>
+      <volist name="weekCounty" id="wc">
+      <tr>
+        <td>{$wc['START_DATE']}</td><td>{$wc['END_DATE']}</td><td>{$wc['COUNTY_NAME']}</td>
+        <td>{$wc['TOTAL_NUM']}</td><td>{$wc['NUM']}</td><td>{$wc['PER']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="monthCounty" class="caption">月县市工单量：</caption>
+      <tr>
+        <th style="width:45px">年月</th><th style="width:30px">县市</th>
+        <th style="width:39px">月工单总量</th><th style="width:40px">月县市工单</th>
+        <th style="width:40px">月县市占比</th><th style="width:35px">上月工单总量</th>
+        <th style="width:30px">上月县市</th><th style="width:30px">上月县市占比</th>
+        <th style="width:30px">月差</th>
+      </tr>
+      <volist name="monthCounty" id="mc">
+      <tr>
+        <td>{$mc['CURR_MONTH']}</td><td>{$mc['COUNTY_NAME']}</td>
+        <td>{$mc['TOTAL_NUM']}</td><td>{$mc['NUM']}</td>
+        <td>{$mc['PER']}</td><td>{$mc['TOTAL_NUM1']}</td>
+        <td>{$mc['NUM1']}</td><td>{$mc['PER1']}</td><td>{$mc['GAP']}</td>
+      </tr>
+      </volist>
+    </table>
+    </div>
+
+	<div class="rowTable">    
+    <table class="altrowstable">
+      <caption id="dayBusiType" class="caption">日业务分类工单量：</caption>
+      <tr>
+        <th style="width:45px">日期</th><th style="width:42px">业务分类</th>
+        <th style="width:30px">日工单总量</th><th style="width:39px">日业务分类工单</th>
+        <th style="width:39px">日业务分类占比</th>
+      </tr>
+      <volist name="dayBusiType" id="dbt">
+      <tr>
+        <td>{$dbt['CREATE_DATE']}</td><td>{$dbt['BUSI_TYPE']}</td>
+        <td>{$dbt['TOTAL_NUM']}</td><td>{$dbt['NUM']}</td>
+        <td>{$dbt['PER']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="weekBusi" class="caption">周业务分类工单量：</caption>
+      <tr>
+        <th style="width:45px">周一</th><th style="width:45px">周日</th>
+        <th style="width:32px">业务分类</th><th style="width:30px">周工单总量</th>
+        <th style="width:39px">周业务分类工单</th>
+        <th style="width:39px">周业务分类占比</th>
+      </tr>
+      <volist name="weekBusiType" id="wbt">
+      <tr>
+        <td>{$wbt['START_DATE']}</td><td>{$wbt['END_DATE']}</td><td>{$wbt['BUSI_TYPE']}</td><td>{$wbt['TOTAL_NUM']}</td>
+        <td>{$wbt['NUM']}</td><td>{$wbt['PER']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="monthBusi" class="caption">月业务分类工单量：</caption>
+      <tr>
+        <th style="width:45px">年月</th>
+        <th style="width:36px">业务分类</th><th style="width:29px">月工单总量</th><th style="width:36px">月业务分类</th><th style="width:39px">月业务分类占比</th>
+        <th style="width:32px">上月工单总量</th><th style="width:32px">上月业务分类</th>
+        <th style="width:40px">上月业务分类占比</th><th style="width:30px">月差</th>
+      </tr>
+      <volist name="monthBusiType" id="mbt">
+      <tr>
+        <td>{$mbt['CURR_MONTH']}</td><td>{$mbt['BUSI_TYPE']}</td><td>{$mbt['TOTAL_NUM']}</td>
+        <td>{$mbt['NUM']}</td><td>{$mbt['PER']}</td>
+        <td>{$mbt['TOTAL_NUM1']}</td><td>{$mbt['NUM1']}</td>
+        <td>{$mbt['PER1']}</td><td>{$mbt['GAP']}</td>
+      </tr>
+      </volist>
+    </table>
+    </div>
+
+    <div class="rowTable">
+    <table class="altrowstable">
+      <caption id="dayComeFrom" class="caption">日投诉来源工单量：</caption>
+      <tr>
+        <th style="width:45px">日期</th><th style="width:35px">投诉来源</th>
+        <th style="width:35px">日工单总量</th><th style="width:40px">日投诉来源工单</th><th style="width:40px">日投诉来源占比</th>
+      </tr>
+      <volist name="dayComeFrom" id="dcf">
+      <tr>
+        <td>{$dcf['CREATE_DATE']}</td><td>{$dcf['COME_FROM']}</td>
+        <td>{$dcf['TOTAL_NUM']}</td><td>{$dcf['NUM']}</td>
+        <td>{$dcf['PER']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="weekCome" class="caption">周投诉来源工单量：</caption>
+      <tr>
+        <th style="width:45px">周一</th><th style="width:45px">周日</th>
+        <th style="width:32px">投诉来源</th><th style="width:30px">周工单总量</th>
+        <th style="width:39px">周投诉来源工单</th>
+        <th style="width:39px">周投诉来源占比</th>
+      </tr>
+      <volist name="weekComeFrom" id="wcf">
+      <tr>
+        <td>{$wcf['START_DATE']}</td><td>{$wcf['END_DATE']}</td>
+        <td>{$wcf['COME_FROM']}</td><td>{$wcf['TOTAL_NUM']}</td>
+        <td>{$wcf['NUM']}</td><td>{$wcf['PER']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="monthCome" class="caption">月投诉来源工单量：</caption>
+      <tr>
+        <th style="width:45px">年月</th><th style="width:36px">投诉来源</th>
+        <th style="width:30px">月工单总量</th><th style="width:31px">月投诉来源</th><th style="width:39px">月投诉来源占比</th>
+        <th style="width:30px">上月工单总量</th>
+        <th style="width:39px">上月投诉来源量</th><th style="width:39px">上月投诉来源占比</th>
+        <th style="width:30px">月差</th>
+      </tr>
+      <volist name="monthComeFrom" id="mcf">
+      <tr>
+        <td>{$mcf['CURR_MONTH']}</td>
+        <td>{$mcf['COME_FROM']}</td><td>{$mcf['TOTAL_NUM']}</td>
+        <td>{$mcf['NUM']}</td><td>{$mcf['PER']}</td>
+        <td>{$mcf['TOTAL_NUM1']}</td><td>{$mcf['NUM1']}</td>
+        <td>{$mcf['PER1']}</td><td>{$mcf['GAP']}</td>
+      </tr>
+      </volist>
+    </table>
+    </div>
+
+    <form class="form2" name="form2" action="{:U('Index/index')}" method="post">
+      <div class="form-content">
+        <label>开始日期：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="day1"/>
+
+        <label>结束日期：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="day2"/>
+        <button class="btn query"/>查询</button>
+      </div>
+    </form>
+
+    <div class="rowTable">
+    <table class="altrowstable">
+      <caption id="btwCounty" class="caption">阶段县市工单量：</caption>
+      <tr>
+        <th style="width:53px">开始日期</th><th style="width:53px">结束日期</th>
+        <th style="width:35px">县市</th><th style="width:40px">工单量</th>
+      </tr>
+      <volist name="dayBtwCounty" id="dbc">
+      <tr>
+        <td>{$dbc['START_DATE']}</td><td>{$dbc['END_DATE']}</td>
+        <td>{$dbc['COUNTY_NAME']}</td><td>{$dbc['NUM']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="btwBusi" class="caption">阶段业务类型工单量：</caption>
+      <tr>
+        <th style="width:53px">开始日期</th><th style="width:53px">结束日期</th>
+        <th style="width:53px">业务分类</th><th style="width:40px">工单量</th>
+
+      </tr>
+      <volist name="dayBtwBusiType" id="dbbt">
+      <tr>
+        <td>{$dbbt['START_DATE']}</td><td>{$dbbt['END_DATE']}</td>
+        <td>{$dbbt['BUSI_TYPE']}</td><td>{$dbbt['NUM']}</td>
+      </tr>
+      </volist>
+    </table>
+
+    <table class="altrowstable">
+      <caption id="btwCome" class="caption">阶段投诉来源工单量：</caption>
+      <tr>
+        <th style="width:53px">开始日期</th><th style="width:53px">结束日期</th>
+        <th style="width:85px">投诉来源</th><th style="width:40px">工单量</th>
+      </tr>
+      <volist name="dayBtwComeFrom" id="dbcf">
+      <tr>
+        <td>{$dbcf['START_DATE']}</td><td>{$dbcf['END_DATE']}</td>
+        <td>{$dbcf['COME_FROM']}</td><td>{$dbcf['NUM']}</td>
+      </tr>
+      </volist>
+    </table>
+    </div>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+  $(function(){
+    $("input[name='day']").val("{$day}");
+    $("input[name='day1']").val("{$day1}");
+    $("input[name='day2']").val("{$day2}");
+  	$("#dayCounty").click(function(){
+  	  var day = getDayFormat();
+  	  location.href="{:U('Index/dayCountyExcel')}?day="+day;
+  	});
+
+  	$("#dayBusiType").click(function(){
+  	  var day = getDayFormat();
+  	  location.href="{:U('Index/dayBusiExcel')}?day="+day;
+  	});
+
+  	$("#dayComeFrom").click(function(){
+  	  var day = getDayFormat();
+  	  location.href="{:U('Index/dayComeExcel')}?day="+day;
+  	});
+
+  	$("#weekCounty").click(function(){
+  	  var date = getMondayAndSunday();
+  	  date = date.split(',');
+  	  location.href="{:U('Index/weekCountyExcel')}?startDate="+date[0]+"&endDate="+date[1];
+  	});
+
+  	$("#weekBusi").click(function(){
+  	  var date = getMondayAndSunday();
+  	  date = date.split(',');
+  	  location.href="{:U('Index/weekBusiExcel')}?startDate="+date[0]+"&endDate="+date[1];
+  	});
+
+  	$("#weekCome").click(function(){
+  	  var date = getMondayAndSunday();
+  	  date = date.split(',');
+  	  location.href="{:U('Index/weekComeExcel')}?startDate="+date[0]+"&endDate="+date[1];
+  	});
+
+    $("#monthCounty").click(function(){
+      var month = getMonth();
+      location.href="{:U('Index/monthCountyExcel')}?month="+month;
+    });
+
+    $("#monthBusi").click(function(){
+      var month = getMonth();
+      location.href="{:U('Index/monthBusiExcel')}?month="+month;
+    });
+
+    $("#monthCome").click(function(){
+      var month = getMonth();
+      location.href="{:U('Index/monthComeExcel')}?month="+month;
+    });
+
+    $("#btwCounty").click(function(){
+      var btwDate = getBtwDay();
+      location.href="{:U('Index/btwCountyExcel')}?day1="+btwDate[0]+'&day2='+btwDate[1];
+    });
+
+    $("#btwBusi").click(function(){
+      var btwDate = getBtwDay();
+      location.href="{:U('Index/btwBusiExcel')}?day1="+btwDate[0]+'&day2='+btwDate[1];
+    });
+
+    $("#btwCome").click(function(){
+      var btwDate = getBtwDay();
+      location.href="{:U('Index/btwComeExcel')}?day1="+btwDate[0]+'&day2='+btwDate[1];
+    });
+  });
+
+  function getBtwDay(){
+    var btwDate = [];
+    var day1 = $("input[name='day1']").val();
+    var day2 = $("input[name='day2']").val();
+    if(day1 !='' && day2 !=''){
+      day1 = day1.replace(/-/g,'');
+      day2 = day2.replace(/-/g,'');
+    }else if(day1 !='' && day2 ==''){
+      var date = new Date();
+      var yf = date.getMonth()<9?('0'+date.getMonth()+1):(date.getMonth()+1);
+      day1 = ''+date.getFullYear()+yf+date.getDate();
+    }else if(day1 =='' && day2 !=''){
+      var date = new Date();
+      var yf = date.getMonth()<9?('0'+date.getMonth()+1):(date.getMonth()+1);
+      day2 = ''+date.getFullYear()+yf+date.getDate();
+    }
+    btwDate.push(day1);
+    btwDate.push(day2);
+    /*
+    if(day1==''){
+      var date = new Date();
+      var yf = date.getMonth()<9?('0'+date.getMonth()+1):(date.getMonth()+1);
+      day1 = ''+date.getFullYear()+yf+date.getDate();
+    }else{
+      day1 = day1.replace(/-/g,'');
+    }
+    btwDate.push(day1);
+
+    if(day2==''){
+      var date = new Date();
+      var yf = date.getMonth()<9?('0'+date.getMonth()+1):(date.getMonth()+1);
+      day2 = ''+date.getFullYear()+yf+date.getDate();
+    }else{
+      day2 = day2.replace(/-/g,'');
+    }
+    */
+    
+    return btwDate;
+  }
+
+  function getMonth(){
+    var day = $("input[name='day']").val();
+    if(day == ''){
+      var date = new Date();
+      var yf = date.getMonth()<9?('0'+date.getMonth()+1):(date.getMonth()+1);
+      day = ''+date.getFullYear()+yf;
+    }else{
+      day = day.replace(/-/g,'').substr(0,6);
+    }
+    return day;
+  }
+
+  function getMondayAndSunday(){
+  	var day = $("input[name='day']").val();
+    var startDate = '';
+    var endDate = '';
+    if(day == ''){
+      var date = new Date();
+  	  var time = date.getTime();
+  	  var weekDay = date.getDay()==0?7:date.getDay();
+  	  startDate = new Date(time-(weekDay-1)*86400000);
+      endDate = new Date(time-(weekDay-7)*86400000);
+    }else{
+  	  day = new Date(day);
+  	  var weekDay = day.getDay()==0?7:day.getDay();
+  	  startDate = new Date(day.getTime()-(weekDay-1)*86400000);
+  	  endDate = new Date(day.getTime()-(weekDay-7)*86400000);
+    }
+    startDate = formatDate(startDate);
+    endDate = formatDate(endDate);
+    return startDate+','+endDate;
+  }
+
+  function getDayFormat(){
+  	var day = $("input[name='day']").val();
+	if(day == ''){
+	  var date = new Date();
+	  var yf = date.getMonth()<9?('0'+date.getMonth()+1):(date.getMonth()+1);
+	  var ts = date.getDate()<10?('0'+date.getDate()):date.getDate();
+	  	day = '' + date.getFullYear() + yf + ts;
+	}else{
+	  day = day.replace(/-/g,'');
+	}
+	return day;
+  }
+
+  function formatDate(day){
+  	var yf = day.getMonth()<9?('0'+day.getMonth()+1):(day.getMonth()+1);
+	  var ts = day.getDate()<10?('0'+day.getDate()):day.getDate();
+	  day = '' + day.getFullYear() + yf + ts;
+	  return day;
+  }
+</script>
+</block>

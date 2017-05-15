@@ -1,0 +1,329 @@
+<extend name="Tpl/base"/>
+<block name="title">会员申请</block>
+<block name="css">
+	<style type="text/css">	
+		*{ padding: 0;margin: 0;}
+		.show_div{width:90%;margin:10px auto;color: #666;}
+		.show_div table{width:99%;border:1px solid #ccc;border-collapse:collapse;}
+		.show_div table th{font-size:24px;text-align: center;letter-spacing: 1px;}
+		.show_div table td{border: 1px solid #ccc;border-collapse: collapse;font-size: 16px;}
+		.left_td{width:10%;text-align: right;	}
+		.right_td{width:30%;}
+		.show_div table td label{font-size: 16px;letter-spacing: 1px;		}
+		.input1{width:97%;height:30px;font-size:16px;border:none;		}
+		.select1{width:99%;height: 98%;border:none; 		}
+		textarea{width: 99%;		}
+		.xuzhi_div{height:150px;overflow-y:auto;		}
+		.xuzhi_div h4{text-indent: 10px;font-size: 20px;letter-spacing: 1px;margin: 0;padding: 0;		}
+		.xuzhi_div p{margin: 0;padding: 0;text-indent: 10px;		}
+		.xuzhi_div h5{text-indent: 20px;margin: 0;padding: 0;		}
+		.xuzhi_div ol{margin-left: 40px;		}
+		.sub_btn,.res_btn{width:70px;height:30px;margin-top:20px;letter-spacing: 5px;font-size: 16px;		}
+	</style>	
+</block>
+<block name="main_top">
+	<div  class="show_div" >
+		<form method="post" action="{:U('index/rank_user_add')}" id="theForm" >
+			<table >
+			<tr>
+				<th colspan="4" >丽水移动"知行·喜阅"员工读书会报名表</th>				
+			</tr>
+			<tr>
+				<td class="left_td">姓名</td>
+				<td class="right_td">
+					<input name="oper_name" id="oper_name" class="input1" />					
+				</td>
+				<td class="left_td" >性别</td>
+				<td class="right_td">
+				    &nbsp;&nbsp;&nbsp;
+					<input type="radio" name="oper_gender"  value="男" />
+					<label>男</label>
+					&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="oper_gender"  value="女" />
+					<label>女</label>
+				</td>				
+			</tr>
+			<tr>
+				<td class="left_td" >出生年月</td>
+				<td class="right_td">
+					<input  type="text" name="oper_birth" id="oper_birth" class="input1" 
+                  onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  />
+				</td>
+				<td class="left_td" >联系电话</td>
+				<td class="right_td">
+					<input name="oper_phone" id="oper_phone" class="input1"  />
+				</td>				
+			</tr>
+			<tr>
+				<td class="left_td" >部门</td>
+				<td class="right_td">
+					<select class="select1"  name="oper_city" id="oper_city" >
+						<option value="">----请选择----</option>
+						<if condition="$oper_city eq 5780">
+							<option value="党委办公室(党群工作部)">党委办公室(党群工作部)
+							</option>
+							<option value="纪检监察室">纪检监察室</option>
+							<option value="人力资源部">人力资源部</option>
+							<option value="市场经营部">市场经营部</option>
+							<option value="政企客户部">政企客户部</option>
+							<option value="工程建设部">工程建设部</option>
+							<option value="网络部">网络部</option>
+							<option value="综合部">综合部</option>
+							<option value="财务部">财务部</option>
+							<option value="工会">工会</option>
+            			<else/>
+							<option value="莲都">莲都</option>
+							<option value="青田">青田</option>
+							<option value="龙泉">龙泉</option>
+							<option value="遂昌">遂昌</option>
+							<option value="松阳">松阳</option>
+							<option value="云和">云和</option>
+							<option value="景宁">景宁</option>
+							<option value="庆元">庆元</option>
+							<option value="南城">南城</option>
+						</if>
+					</select>
+				</td>
+				<td class="left_td" >员工编号</td>
+				<td class="right_td">
+					<input name="oper_num" id="oper_num"  class="input1"/>
+				</td>				
+			</tr>
+			<tr>
+				<td class="left_td" >毕业院校</td>
+				<td class="right_td">
+					<input name="oper_school" id="oper_school" class="input1" />						 
+				</td>
+				<td class="left_td" >专业</td>
+				<td class="right_td">
+					<input name="oper_prof" id="oper_prof" class="input1" />
+				</td>				
+			</tr>
+			<tr>
+				<td colspan="4"><label>您喜欢读哪些类型的书籍?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea rows="3" name="oper_text1"  id="oper_text1" class="text2"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><label>你对参加员工读书会的目的是?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea  rows="3" name="oper_text2" id="oper_text2" class="text2"></textarea>			
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><label>您有哪些兴趣爱好?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea  rows="3"  name="oper_hobby" id="oper_hobby" ></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><label>您读过的哪些好书可以为会员推荐?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea  rows="3" name="oper_text4" id="oper_text4" ></textarea>	
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" >
+					<div class="xuzhi_div">	
+						<h4>会员须知:</h4>
+						<p>热爱读书,有志于提高本人的读书水平,同时愿意为他人推荐好书以
+							及分享自己心得体会的在册员工,都可申请成为读书会会员.
+						</p>
+						<h5>(一)会员的权力:</h5>
+							<ol>
+								<li>
+								1.参加读书会的会议.活动,参加读书会发展的讨论,
+								对读书会的工作提出意见和倡议.
+								</li>
+								<li>
+								2.分享读书的经验,优先获取读书会最新资讯,享受读书会的有关服务.
+								</li>
+								<li>
+								3.优先享有读书会对学习成果的推荐.</li>
+								<li>
+								4.优先参加公司举办的相关学习培训.
+								</li>
+								<li>
+								5.在读书会内有表决权,选举权和被选举权,有批评权,建议权和监督权.
+								</li>
+							</ol>
+						<h5>(二)会员的义务:</h5>
+							<ol>
+								<li>
+								1.读书会会员要多读书,读好书,自觉保持和养成良好的读书习惯.
+								每天坚持阅读10分钟以上,精读一本当月推荐书,并推荐给两位以上非会员.
+								</li>
+								<li>
+								2.主动和他人分享阅读经验.自入会之日起,
+								每季度至少参加一次读书交流活动或提交一篇读书体会.
+								</li>
+								<li>
+								3. 读书会会员要自觉遵守读书会章程,能认真执行读书会的每一项决议和倡导,积极参与读书会的各项活动.
+								</li>
+								<li>
+								4.维护读书会的荣誉,宣传读书会的宗旨,发展读书会的新会员.
+								</li>
+								<li>
+								5.自觉遵守国家的法律法规,自觉遵守社会公德,
+								认真履行好个人承担的工作学习任务和社会责任.
+								</li>
+							</ol>
+						<h5>(三)积分规则:</h5>
+							<ol>
+								<li>
+								1.读书会会员参与所在单位组织的月度读书会活动并分享读书心得
+								  或看完月度推荐书籍并提交心得,得5分.							
+								</li>
+								<li>
+								2.阅读每月必读推荐书籍之外的书籍并提交心得的或参加读书会并
+								  分享读书心得的,得3分.						
+								</li>
+								<li>
+								3.参与月度读书会活动主持、策划、讲课,每人额外得5分,
+									每期活动主持策划最多不超过2人.						
+								</li>
+								<li>
+								4.员工推荐书籍采纳为公司推荐书籍的,得2分.						
+								</li>
+							</ol>	
+					</div>					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" name="check1" id="check1" />
+				<label>请阅读上面的会员须知,并同意!</label>						
+				</td>
+			</tr>				
+			</table>
+			<input type="button"  id="sub" value="提交" class="sub_btn" disabled=true />
+			<input type="reset" value="重 置" class="res_btn"/>				
+		</form>
+	</div>
+
+
+	<a href="{:U('Ls/testtest')}">ssssss</a>
+</block>
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript">
+   $(function(){
+   	$("#sub").click(function(){
+   	   var flag=true; 
+		   $(":input[class='input1']").each(function(){
+		    if($(this).val().isEmpty()){
+		    	$(this).css('background-Color','infobackground');
+		    	flag=false;
+		    };
+		   });
+		   $(":input[class='text2']").each(function(){
+		    if($(this).val().isEmpty()){
+		    	$(this).css('background-Color','infobackground');
+		    	flag=false;
+		    };
+		   });
+         //验证性别
+		   if ($(":radio:checked").length == 1){ 			
+				flag=true;
+			}else{		
+				flag=false;
+			}
+			//部门验证
+			if($("#oper_city").val().isEmpty()){    		
+    			$("#oper_city").css('background','infobackground');          
+             flag=false;
+    		}else{
+    			flag=true;
+    		}
+    		//验证手机号
+    		if(!$("#oper_phone").val().isEmpty()){		      
+	        	if(!(/^1[34578]\d{9}$/.test($("#oper_phone").val()))){ 
+	        	   flag=false;            	 
+               $("#oper_phone").css("backgroundColor","infobackground");              
+               layer.alert('请输入有效的手机号码!');
+	         }      
+   	 	}
+   	 	//验证编号
+   	 	url = "{:U('index/rank_user_add_check')}";      
+	      if(!$("#oper_num").val().isEmpty()){
+	       	if($("#oper_num").val().length==8){
+	       	 	$.ajax({
+		            type:'post',
+		            url:url,
+		            async: false,
+		            dataType:'json',
+		            data:{oper_num2:$("#oper_num").val()},
+		            success:function(msg){
+		            	if(msg[0]['num']==0){
+	                        flag=true;	            		
+		            	}else if(msg[0]['num']>0){		            		
+		            		flag=false;
+		            		$("#oper_num").css("backgroundColor","infobackground");
+		            		layer.alert("该编号已存在!");
+		            	}
+		            }
+		       });       	 	 
+	       	}else{	       	 	
+	       	 	flag=false;
+	       	 	$("#oper_num").css("backgroundColor","infobackground");
+	            layer.alert("请输入8位有效编号!");
+	         }
+	      }
+      if(flag==true){ 
+         if(confirm('是否继续保存数据?')){
+             $("#theForm").submit();
+         }else{
+          	return false;
+         }         	
+      }
+     });
+   }); 
+</script>
+ <script type="text/javascript">        
+	$(function(){
+		$(".input1,.text2,.select1").focus(function(){        	 
+			$(this).css('background',''); 
+		});
+   });
+	$(function(){
+	 	$('#check1').click(function() {
+	 		if ($("#check1").is(":checked")){		   
+            $("#sub").removeAttr("disabled");			
+				$("#check1").val("是");	
+			}else{			
+				$("#sub").attr("disabled", true);		
+			}
+	 	});
+	});
+	$(function(){
+     	$('.input1').css('border','none');
+     	$('textarea').css('border','none');
+   });
+ </script> 
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

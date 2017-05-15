@@ -1,0 +1,97 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">心得管理</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+ 
+
+<block name="main_right">
+  <div class="query_div hide">
+    <form action="" name="theForm" method="post">
+      <ul>
+        <li>条件1：<input type="text" name=""></li>
+        <li>条件2：<input type="text" name=""></li>
+        <li>条件3：<input type="text" name=""></li>
+        <li>条件4：<input type="text" name=""></li>
+        <li><a class="btn" href="javascript:;"> 查询 </a>&nbsp;
+        <!-- <a class="btn" href="{:U('manager/manager_xinde_edit')}"> 添加心得 </a></li> -->
+      </ul>
+    </form>
+  </div>
+
+  <div class="data_table clear">
+     {$_page}
+    <div class="section">
+    <div class="bd">
+      <ul class="list-lined ebook-list column-list">
+        <volist name="xindes" id="xin">
+          <li class="item">
+            <!-- <div class="cover shadow-cover" style="height:156px;width:100px;">
+              <a class="pic" href="/ranking/Read/index/book_info/id/5.html">
+                <img width="100%" height="100%" itemprop="image" alt="" src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$xin['img']}"></a>
+            </div> -->
+            
+            <div class="info">
+              <div class="article-actions">
+                <div class="action-buttons">
+                  <!-- <span class="price-tag ">免费</span> -->
+                  <!--
+                  <a class="btn btn-icon "  href="{:U('manager/manager_xinde_edit?book_id='.$xin['book_id'].'&id='.$xin['id'])}">管理</a>
+                  -->
+                   <a class="btn btn-icon "  
+                  href="{:U('manager/manager_xinde_shenhe?book_id='.$xin['book_id'].'&id='.$xin['id'].'&shenhe='.$xin['shenhe'])}">
+                  管理</a>
+                  <a class="btn btn-icon "  href="javascript:;">屏蔽</a>
+                  </div>
+              </div>
+              <div class="title" style="font-size:15px;">
+                <a href="{:U('index/book_xinde?id='.$xin['id'])}">{$xin['title']}</a></div>
+              <p class="">
+                <span class="">
+                  <span class="label">作者</span>
+                  <span class="labeled-text">
+                    <a href="javascript:;" class="author-item">
+                    <?php 
+                    $info = R('ls/get_oper_info',array($xin['oper_id']));
+                     echo $info['OPER_NAME'];
+                    ?>
+                    </a>
+                    </span>
+                   <span class="label">类别</span>
+                   <span itemprop="genre">
+                   <a href="javascript:;" class="author-item">学习</a></span>
+                    <span class="label">审核状态</span>
+                   <span itemprop="genre">                  
+                     <if condition="$xin['shenhe'] eq 0 ">                        
+                        <a href="javascript:;" class="author-item">待审核</a>
+                     <elseif condition="$xin['shenhe'] eq 1 " /> 
+                        <a href="javascript:;" class="author-item">审核通过</a>
+                     <else/>
+                        <a href="javascript:;" class="author-item">审核未通过</a>                    
+                     </if>                     
+                   </span>
+                </span>
+              </p>
+              
+              <div class="article-desc-brief">{$xin['text']|mb_substr=###,0,200,'utf-8'}...
+                <a  href="{:U('index/book_xinde?id='.$xin['id'])}">（更多）</a></div>
+            </div>
+          </li>
+        </volist>
+      </ul>
+    </div>
+    <div class="ft">
+      {$_page}
+    </div>
+  </div>
+  </div>
+</block>

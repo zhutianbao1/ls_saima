@@ -1,0 +1,101 @@
+<extend name='./prize_base'/>
+<block name='title'>领奖记录</block>
+<block name='css'>
+	<style type="text/css">
+		.fs{margin-top:5px;height: 100px}
+		.prize_title span{width:200px;display:block;float:left;text-align:center;margin-top:15px;color:#1488F4;font-weight:bold;}
+		.fs span{width:200px;display:block;float:left;text-align:center;word-break:break-all;border-top:1px solid #A5C4E8;}
+		.fs .align{padding-top: 30px}
+	</style>
+</block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<if condition="($user['bill_id'] eq null)">
+	<div class="con"></div>
+	<else/>
+	<div style="border-bottom:1px solid #eee;padding:10px 20px">
+		姓名：<input type="text" name="user_name" style="width:150px">
+		<input type="submit" value="查询" onclick="querys()" style="width:100px">
+	</div>
+	<div class="con1"></div>
+	</if>
+</block>
+<block name='bottom'></block>
+<block name='js'>
+	<script type="text/javascript">
+	var bill_id="{$_SESSION['user_auth']['BILL_ID']}";
+		$(function(){
+			$('.con').each(function(){
+				var e=$(this);
+				var url="{:U('rept_record')}";
+				$.ajax({
+					url:url,
+					type:"POST",
+					dataType:"json",
+					success:function(result){
+						var html='';
+							html+='<div class="prize_title" style="height:30px"><span>奖品名称</span><span>奖品图片</span><span>奖品描述</span><span>领取数量</span><span>领奖时间</span></div>';
+						$.each(result,function(index,el){
+							html+='<div class="fs">';
+							html+='<span class="align">'+el['prizes_name']+'</span>';
+							html+='<span><img src="__IMG__/'+el['prizes_img']+'" style="width:100px;"/></span>';
+							html+='<span class="align">'+el['prizes_desc']+'</span>';
+							html+='<span class="align">1</span>';
+							html+='<span class="align">'+el['create_date']+'</span>';
+							html+='</div>';
+						});
+						e.html(html);
+					},
+					error:function(e){
+						console.error(e);
+					}
+				})
+			})
+		});
+	</script>
+
+	<script type="text/javascript">
+	var bill_id="{$_SESSION['user_auth']['BILL_ID']}";
+	var data={}
+		ajax(data);
+		function querys(){
+			var user_name=$("input[name=user_name]").val();
+			data={user_name:user_name};
+			ajax(data);
+		}
+
+		function ajax(data){
+			$(function(){
+				$('.con1').each(function(){
+					var e=$(this);
+					var url="{:U('rept_record1')}";
+					$.ajax({
+						url:url,
+						type:"POST",
+						dataType:"json",
+						data:data,
+						success:function(result){
+							var html='';
+								html+='<div class="prize_title" style="height:30px"><span>奖品名称</span><span>奖品图片</span><span>领奖人姓名</span><span>领奖人联系方式</span><span>领奖时间</span></div>';
+							$.each(result,function(index,el){
+								html+='<div class="fs">';
+								html+='<span class="align">'+el['prizes_name']+'</span>';
+								html+='<span><img src="__IMG__/'+el['prizes_img']+'" style="width:100px;"/></span>';
+								html+='<span class="align">'+el['user_name']+'</span>';
+								html+='<span class="align">'+el['bill_id']+'</span>';
+								html+='<span class="align">'+el['create_date']+'</span>';
+								html+='</div>';
+							});
+							e.html(html);
+						},
+						error:function(e){
+							console.error(e);
+						}
+					})
+				})
+			});
+		}
+	</script>
+</block>
+ 

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>财务发票管理平台</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Fpgl/style/index.css" />
+  <script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/Fpgl/js/index.js"></script>
+  <link rel="shortcut icon" href="__PUBLIC__/Fpgl/favicon.ico" />
+  <script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+   name      : '财务发票管理平台', //项目名称
+   title     : $(document).attr('title'), //当前页面名称
+   county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+   user_id   : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+   bill_id   : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+   user_name   : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+   url     : location.href, //当前访问地址
+   ext     : '',  //拓展信息  
+   bInfo       : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+</head>
+<body id="main">
+<div id="top">
+<h3>财务发票管理平台</h3>
+  <p><?php echo (session('user_auth.OA')."　".session('user_auth.DEPT'));?></p>
+</div>
+<ol>
+  <li><a href="{:U('Index')}" class="selected">发票信息列表</a></li>
+  <li><a href="{:U('Index/add')}">发票信息录入</a></li>
+  <li><form class="search" action="{:U('Index')}" method="post">
+  <span>发票编号</span><input type="text" name="id" />
+  <span>发票状态</span><select name="status">
+    <option value="">请选择</option>
+    <option value="">全部</option>
+    <option value="1">正常</option>
+    <option value="2">退回</option>
+    <option value="3">作废</option>
+    <option value="4">核销中</option>
+    <option value="5">已核销</option>
+  </select>
+  <input type="submit" class="submit" name="send" value="查询" />
+  </form></li>
+</ol>
+
+<form method="post" action="">
+<h2>发票信息列表</h2>
+<table cellspacing="0">
+  <tr><th>发票编号</th><th>开票人员</th><th>部门</th><th>发票金额</th><th>发票抬头单位</th><th>发票内容名称</th><th>发票内容用途</th><th>发票状态</th><th>操作</th></tr>
+  <if condition = "$invoice_list[0] neq ''">
+  <volist name="invoice_list" id="il">
+  <tr>
+    <td>{$il['INVOICE_ID']}</script></td>
+    <td>{$il['EMPL_NAME']}</td>
+    <td>{$il['EMPL_DEPT']}</td>
+    <td>{$il['INVOICE_AMOUNT']}</td>
+    <td>{$il['INVOICE_COMPANY']}</td>
+    <td>{$il['INVOICE_NAME']}</td>
+    <td>{$il['INVOICE_PURPOSE']}</td>
+    <td>{$il['INVOICE_STATUS']}</td>
+    <!--<td><a class="back" href="{:U('invoice_back?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}">退回</a> | <a class="cancel" href="{:U('invoice_cancel?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}">作废</a> | <a class="verify" href="javascript:;" para="{$il['INVOICE_ID']}" status="{$il['STATUS']}">核销</a></td>-->
+    <td><a class="back" href="{:U('invoice_back?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}">退回</a> | <a class="cancel" href="{:U('invoice_cancel?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}">作废</a> | <a class="verify" href="{:U('invoice_edit?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}">核销</a></td>
+  </tr>
+  </volist>
+  <else/>
+  <tr><td colspan="9">没有任何数据！</td></tr>
+  </if>
+</table>
+</form>
+<div id="page">{$_page}</div>
+</body>
+<script>
+// $(".verify").click(function(){
+//   var e = $(this);
+//   var id = e.attr('para');
+//   var status = e.attr('status');
+//   if(status == 2 || status == 3 || status == 5){
+//     alert("当前发票状态无法进行此操作！");
+//     return false;
+//   }else{
+//     var url = "{:U('Index/invoice_edit')}?id="+id+"&status="+status;
+//     var win = window.parent.layer.open({
+//       type:2,
+//       title:id+" - 发票核销",
+//       shadeClose:true,
+//       shade:0.2,
+//       area:['550px','360px'],
+//       content:url,
+//       end:function(){
+//         location.reload();
+//       }
+//     }); 
+//   }
+// });
+</script>
+</html>

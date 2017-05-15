@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+		                    user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>补贴明细</title>
+		<script src="__STATIC__/jquery-1.8.3.min.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+		<style type="text/css">	
+					
+		</style>			
+	</head>
+	<body>
+		<div class="content">
+			<div class="header">
+				<div class="header_img"></div>
+				<div class="header_title">补贴项</div> 
+			</div>	
+			<div class="con_title">
+					<div class="daohang">{$list[0]['FAFANG_MONTH']}&nbsp;补贴明细</div>
+			</div>			
+			<div class="main">
+				<div class="xiaoji">
+					<div class="xiaoji_f">小计</div>
+					<div class="xiaoji_l">{$list[0]['BUTIE']}&nbsp;元</div>
+				</div>
+				<div class="mingxi">
+					<div class="mingxi_f">补贴项</div>
+					<div class="jiben">
+						<div class="jiben_f">水电补贴</div>
+						<div class="jiben_l">{$list[0]['SHUIDIAN_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>						
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">误餐补贴</div>
+						<div class="jiben_l">{$list[0]['WUCAN_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>						
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">话费补贴</div>
+						<div class="jiben_l">{$list[0]['HUAFEI_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>						
+					</div>
+					<div class="jiben">
+						<div class="jiben_f">住房补贴</div>
+						<div class="jiben_l">{$list[0]['ZHUFANG_BT']}&nbsp;元</div>
+						<div class="jiben_c"></div>						
+					</div>
+													
+				</div>				
+			</div>		
+	</body>
+	<script >
+		$(function(){
+			$('.header_img').click(function(){
+            window.location="{:U('Index/salary_butie')}";  
+         });
+		});
+	</script>
+</html>

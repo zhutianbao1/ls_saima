@@ -1,0 +1,63 @@
+<if condition="$info eq '1' "> 
+    <ul class="tabb_menu">
+		<li class="{$tabb==1?'cur':''}">
+			<a href="{:U('Index/salary_index')}?tabb=1">
+			<img src="__PUBLIC__/Salary/images/user_salary/shouye.png" />
+			<p>首页</p>
+			</a>
+		</li>
+		<li class="{$tabb==2?'cur':''}">
+			<a href="{:U('Index/salary_data_import')}?tabb=2" >     
+			<img src="__PUBLIC__/Salary/images/user_salary/daoru.png" />       
+			<p>导入</p>
+			</a>
+		</li>
+		<li class="{$tabb==3?'cur':''}">
+			<a href="{:U('Index/salary_quanbu')}?tabb=3&tab=1">
+			<img src="__PUBLIC__/Salary/images/user_salary/shouru.png" />
+			<p>收入</p>
+			</a>
+		</li>
+
+		<li class="{$tabb==4?'cur':''}">
+			<a href="{:U('Index/salary_user_search')}?tabb=4" >       
+			<img src="__PUBLIC__/Salary/images/user_salary/search.png" />      
+			<p>查询</p>
+			</a>
+		</li>
+
+		<li class="{$tabb==5?'cur':''}">
+			<a href="{:U('Index/salary_list')}?tabb=5" >       
+			<img src="__PUBLIC__/Salary/images/user_salary/guanli.png" />      
+			<p>管理</p>
+			</a>
+		</li>
+		<li class="{$tabb==6?'cur':''}">
+			<a href="{:U('Index/salary_jiben')}?tabb=6">                           
+			<img src="__PUBLIC__/Salary/images/user_salary/jiben.png" />		
+			<p>基本</p>
+			</a>
+		</li>
+	</ul>
+<else/>
+    <ul class="tabb_menu2">
+		<li class="{$tabb==1?'cur':''}">
+			<a href="{:U('Index/salary_index')}?tabb=1">
+			<img src="__PUBLIC__/Salary/images/user_salary/shouye.png" />
+			<p>首页</p>
+			</a>
+		</li>
+		<li class="{$tabb==3?'cur':''}">
+			<a href="{:U('Index/salary_quanbu')}?tabb=3&tab=1">
+			<img src="__PUBLIC__/Salary/images/user_salary/shouru.png" />
+			<p>收入</p>
+			</a>
+		</li>
+		<li class="{$tabb==6?'cur':''}">
+			<a href="{:U('Index/salary_jiben')}?tabb=6">                           
+			<img src="__PUBLIC__/Salary/images/user_salary/jiben.png" />		
+			<p>基本</p>
+			</a>
+		</li>
+	</ul>
+</if>

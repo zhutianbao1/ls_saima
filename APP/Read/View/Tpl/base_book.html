@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		<block name="title">丽水移动员工读书会</block>
+	</title>
+	<link rel="stylesheet" href="__CSS__/comm.css">
+	<link rel="stylesheet" href="__CSS__/read.css">
+	<link rel="stylesheet" href="__CSS__/index2.css">
+	<link rel="stylesheet" href="__CSS__/douban.css">
+	<block name="css"></block>
+	<!--[if IE]>
+		<link rel="stylesheet" href="__CSS__/read_ie.css">
+	<![endif]-->
+	
+</head>
+<body>
+<div id="wrap">
+	<div class="top">
+		<!-- LOG -->
+		<div class="top-info">
+			<div class="inner">
+				<h1 class="left">{$web_attrs['WEB_NAME']}</h1>
+				<form id="frm-search" action="#" name="theForm" method="post"><input id="input-query" type="text" name="kw" placeholder="作品 / 作者 / 心得 / 阅读会" ><input id="btn-search" type="submit" value="搜索"></form>
+			</div>
+		</div>
+		<!-- LOG END -->
+
+		<!-- NAV -->
+		<div class="nav">
+			<div class="inner">
+				<ul class="nav-main items">
+					<volist name="navs" id="nav">
+						<li><a href="{:U($nav['link'])}"><span>{$nav['nav_name']}</span></a></li>
+					</volist>
+				</ul>
+
+				<select class="county_code">
+				<?php 
+			        foreach ($county_list as $key => $value) {
+			          if(session('COUNTY_CODE')==$key){
+			          	echo "<option value='".$key."' selected>".$value."</option>";
+			          }else{
+			          	echo "<option value='".$key."'>".$value."</option>";
+			          }
+			        }
+			      ?>
+				</select>
+
+				<ul class="items items-minor user-info">
+					<if condition="$_SESSION['user_auth'] eq null">
+					<li><a href="">登陆</a></li>
+					<li><a href="">注册</a></li>
+					<else/>
+					<li><a href="">{$_SESSION['user_auth']['OA']}</a></li>
+					</if>
+				</ul>
+			</div>
+		</div>
+		<!-- NAV END -->
+
+		<div class="nav hide" style="border-bottom:solid 0px #eee;background:#fffff9;">
+			<div class="inner">
+				<ul class="nav-main items">
+				       <?php 
+				        foreach ($county_list as $key => $value) {
+				         $curr = (session('COUNTY_CODE')==$key?"curr":"");
+				         echo "<li class='tab ".$curr."'><a  style='font-size:12px;' href='?cty=".$key."'>".$value."</a></li>";
+				        }
+				      ?>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- MAIN -->
+	<div class="main">
+
+	<block name="body"></block>
+
+
+	<!-- 宣传图片 -->
+	<div class="ad-banner hide" style="margin:0 auto;">
+		<a href="/app/" title="豆瓣阅读 2.0 客户端"><img alt="豆瓣阅读 2.0 客户端" src="https://img3.doubanio.com/f/ark/007080bd02df01ad98779056cebc0808c27f785e/pics/ad/app-v2-banner@2x.png" height="90px" width="936px"></a>
+	</div>
+	<!-- 宣传图片END -->
+
+	</div>
+	<!-- MAIN END -->
+
+	<!-- FOOTER -->
+	<div class="footer hide">
+		<div class="inner" style="margin-top:10px; border-top:solid 1px #e7e7dc;padding:20px;">
+			 <a href="javascript:;">丽水移动业务支撑中心</a>
+		</div>
+	</div>
+	<!-- FOOTER END -->
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+
+<script>
+  var e ;
+  $(function(){
+  	var nav_index = $.cookie('nav_index');
+  	$(".nav-main li").eq(nav_index).addClass('on');
+  	$(".nav-main li").removeClass('on');
+
+  	$("img").each(function(i,e){
+	  	var tmpsrc = $(e).attr('tmpsrc'),
+	  		src    = $(e).attr('src');
+	  		$(e).attr('src',tmpsrc);
+	  	$(e).load(function() {
+	  		// console.info('成功 '+$(e).attr('tmpsrc'));
+	  		// $(e).attr('src',tmpsrc);
+	  	}).error(function() {
+	  		$(e).attr('src',src);
+	  	});
+	  });
+  	
+  });
+
+  $(".nav-main li").click(function(){
+  	e = $(this);
+  	index = e.index();
+  	$.cookie('nav_index',index);
+  });
+</script>
+
+<script type="text/javascript">
+	$(".county_code").change(function(){
+		var val = $(this).find('option:selected').val();
+		location.href="?cty="+val;
+	});
+</script>
+
+<block name="js"></block>
+</body>
+</html>

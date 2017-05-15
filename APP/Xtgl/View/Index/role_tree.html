@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>权限菜单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+<link rel="stylesheet" href="__PUBLIC__/comm.css">
+<link rel="stylesheet" href="__PUBLIC__/global.css"> 
+<link rel="stylesheet" href="__PUBLIC__/form/js/menuDtree.css"> 
+<style>
+.node{color:#000000 !important;}
+ .left_tree{font-size: 12px;width:100%;height:100%;overflow:auto;padding-left:10px;padding-top:10px;border-right:solid 1px #535353;}	
+ .save_btn{position: fixed;bottom:0px;right:0px;}
+</style>
+<script type="text/javascript">var imgSrc = "__PUBLIC__/Form/css/images";</script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Form/js/menuDtree.js"></script>
+</head>
+<body style="background:rgb(219,239,249);">
+<form name="theForm" action="{:U('role_tree')}" method="post" style="margin:0px">
+<script type="text/javascript">
+	d = new dTree('d');
+	d.add(10,-1,"菜单","javascript:void(-1);","菜单","","","",false);
+	<?php 
+		foreach ($menuList as $key => $m) {
+			$checked = "";
+			foreach ($role_menus as $key => $rm) {
+				if($m['MENU_ID']==$rm['RM_MENU_ID']){
+					$checked="checked";
+				}
+			}
+			$link = "menu_edit('".$m['MENU_ID']."','".$m['MENU_NAME']."')";
+			 echo "d.add(".$m['MENU_ID'].",".$m['MENU_PARENT_ID'].",\"".$m['MENU_NAME']."\",\"javascript:void(-1);\",\"".$m['MENU_NAME']."\",\"mainFrame\",\"\",\"\",false,\"".$checked."\");"; 
+		}
+	?>
+	document.write(d);
+</script>
+
+<div class="save_btn">
+	<input type="hidden" name="role_id" value="{$role_id}" />
+	<input type="submit" value=" 保 存 " class="bottom" />	
+</div>
+</form>
+
+<script type="text/javascript"> 
+	$(function(){
+ 
+		//1、获取元素
+ 
+		//2、下级复选框全部同步当前复选框状态
+ 
+		//3、上级复选框同步当前复选框状态
+ 
+		$(".dTreeNode").each(function(){
+ 
+			var e = $(this), //当前对象
+				ck= e.find("input[type=checkbox]").eq(0), //当前层下复选框
+				listDiv=e.next(), //class=clip  当前层 子层
+				parentNode=e.parent().parent().prev();  //class=dTreeNode 当前对象对应的上级复选框所在层
+ 
+				if(ck!=null){
+					ck.click(function(){
+						var s = $(this);		
+						//子菜单全部跟随当前对象状态											 
+						if(listDiv.hasClass("clip")){	 
+							if(s.attr("checked")){
+								listDiv.find("input[type=checkbox]").attr("checked","true");	
+							}else{
+								listDiv.find("input[type=checkbox]").removeAttr("checked");
+							}
+						}	
+ 
+					 	//父级菜单跟随
+					 	var pnode = e.parent().prev(); 	
+					 	if(pnode!=null){
+					 		if(pnode.hasClass("dTreeNode")){					 			
+					 			if(s.attr("checked")){
+									pnode.find("input[type=checkbox]").attr("checked","true");	
+								}
+					 		}					 		
+					 	}								
+					});
+				}
+ 
+		});
+ 
+	});
+</script>
+
+</html>

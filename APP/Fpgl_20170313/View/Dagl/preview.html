@@ -1,0 +1,410 @@
+<extend name="./base"/>
+
+<block name="title">中层廉政档案</block>
+<block name="css">
+  <style>
+    body{background-color: #efefef;}
+	.form{
+	  width:920px;margin-left:auto;margin-right:auto;
+	  background-color:#fff;border: 1px solid #ddd;
+	}
+	table{font-size:14px;margin-left:10px}
+    .basic-info td{font-size:14px;width:170px;}
+	td.label{width:140px;}
+	.bigtext{width:780px;}
+	.audit-table{font-size:12px;}
+  </style>
+</block>
+
+<block name="nav">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">中层干部廉政档案</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+</block>
+
+<block name="content">
+<div class="form bform">
+  <table class="basic-info">
+    <thead>
+	  <tr>
+	  <th colspan="6">中层干部人员基本情况</th>
+	  </tr>
+	</thead>
+	<tbody>
+    <tr>
+	  <td class="label">姓名:</td><td>{$da['USER_NAME']}</td>
+	  <td class="label">编号id:</td><td>{$da['ID']}</td>
+	  <td class="label">档案年份:</td><td>{$da['YEAR']}</td>
+	  <!--<td class="label">用户编号:</td><td>{$da['USER_ID']}</td>-->
+	</tr>
+	
+	<tr>
+	  <td class="label">单  位（部门）：</td><td>{$da['DEPT']}</td>
+      <td class="label">职务：</td><td>{$da['CURR_JOB']}</td>
+	  <td class="label">政治面貌：</td><td>{$da['POLITICAL']}</td>
+	</tr>
+	
+	<tr>
+	  <td class="label">参加工作时间：</td><td>{$da['HIREDATE']}</td>
+      <td class="label">任现职时间：</td><td>{$da['CURR_WORKTIME']}</td>
+      <td class="label">入党时间：</td><td>{$da['PARTY_TIME']}</td>
+	</tr>
+	
+	<tr>
+	  <td class="label">学  历：</td><td>{$da['EDU_DEGREE']}</td>
+	  <td class="label">出生年月：</td><td>{$da['BIRTH']}</td>
+	  <td class="label">性  别：</td><td>{$da['SEX']}</td>
+	</tr>
+	
+	<tr>
+	  <td class="label">民  族：</td><td>{$da['NATION']}</td>
+      <td class="label">婚姻状况：</td><td>{$da['MARITAL']}</td>
+	  <td></td><td></td>
+	</tr>
+	
+	<tr>
+	  <td class="label">家庭住址：</td><td colspan="5">{$da['FAMILY_ADDRESS']}</td>
+	</tr>
+	
+	<tr>
+	  <td class="label">分管业务范围：</td><td colspan="5">{$da['BUSI_SCOPE']}</td>
+	</tr>
+	</tbody>
+  </table>
+  
+  <table>
+	<thead>
+	  <tr>
+	  <th colspan="6">
+	  本人兼职情况（指在经济实体、社会团体等单位中兼职或兼职取酬）
+	  </th>
+	  </tr>
+	  <tr>
+	  <th style="width:35px">序号</th><th style="width:175px">起止时间</th>
+	  <th style="width:100px">职务</th><th style="width:200px">单位</th>
+	  <th style="width:55px">单位性质</th><th style="width:243px">取酬情况</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <for start="0" end="count($plur['start_time'])">
+      <tr class="{$i}">
+        <td class="xh">{$i+1}</td>
+        <td>{$plur['start_time'][$i]}--{$plur['end_time'][$i]}</td>
+        <td>{$plur['job'][$i]}</td>
+        <td>{$plur['company'][$i]}</td>
+        <td>{$plur['nature'][$i]}</td>
+        <td>{$plur['reward'][$i]}</td>
+      </tr>
+      </for>
+	</tbody>
+  </table>
+ 
+  <table>
+    <head>
+	  <tr>
+	    <th colspan="6">配偶、子女及其配偶从业情况</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+	    <th style="width:75px">姓名</th>
+	    <th style="width:120px">与填表人关系</th>
+        <th style="width:320px;">工作单位</th>
+        <th style="width:150px;">单位性质</th>
+        <th style="width:120px;">职务</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<for start="0" end="count($fami['family_name'])">
+    <tr>
+      <td>{$i+1}</td>
+      <td>{$fami['family_name'][$i]}</td>
+      <td>{$fami['relation'][$i]}</td>
+      <td>{$fami['work_com'][$i]}</td>
+      <td>{$fami['com_pro'][$i]}</td>
+      <td>{$fami['position'][$i]}</td>
+    </tr>  
+    </for>
+	</tbody>
+  </table>
+  
+  <table>
+	<thead>
+	  <tr><th colspan="2">党风廉政有关制度和“八项规定”精神执行情况</th></tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <td class="label">“三重一大”制度执行情况</td><td class="bigtext">{$da['INSTI31']}</td>
+	  </tr>
+	  
+	  <tr>
+	    <td class="label">职务消费管理办法执行情况：</td><td  class="bigtext">{$da['JOB_FEE']}</td>
+	  </tr>
+	  
+	  <tr>
+	    <td class="label">浙江公司廉洁从业“十不准”执行情况：</td><td class="bigtext">{$da['INSTI10']}</td>
+	  </tr>
+	  
+	  <tr>
+	    <td class="label">集团公司“五个不准”、“两个禁止”执行情况：</td><td class="bigtext">{$da['INSTI52']}</td>
+	  </tr>
+	  
+	  <tr>
+	    <td class="label">中央“八项规定”“六项禁令”、反“四风”执行情况：</td><td class="bigtext">{$da['INSTI864']}</td>
+	  </tr>
+	</tbody>
+  </table>
+  
+  <table>
+	<thead>
+	  <tr><th colspan="2">年度落实“两个责任”的情况</th></tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <td class="label">反腐倡廉教育开展情况：</td><td class="bigtext">{$da['EDU_RATE']}</td>
+	  </tr>
+	  
+	  <tr>
+	    <td class="label">主体责任书和监督责任书签订情况：</td><td class="bigtext">{$da['DUTY_STATE']}</td>
+	  </tr>
+	  
+	  <tr>
+	    <td class="label">嵌入式廉洁风险防控建设组织落实情况：</td><td class="bigtext">{$da['BUILD_PROGRESS']}</td>
+	  </tr>
+	  
+	  <tr>
+	    <td class="label">任前廉洁谈话、提醒谈话、诫勉谈话及约谈制度执行情况：</td><td class="bigtext">{$da['INSTI']}</td>
+	  </tr>
+	</tbody>
+  </table> 
+  
+  <table>
+    <head>
+	  <tr>
+	    <th colspan="6">操办婚丧嫁娶有关事宜情况</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+	    <th style="width:300px">操办事项</th>
+	    <th style="width:277px">办理地点</th>
+        <th style="width:70px;">办理时间</th>
+        <th style="width:55px;">参加人数</th>
+        <th style="width:70px;">收受礼金金额</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<for start="0" end="count($event['item'])">
+    <tr>
+      <td>{$i+1}</td>
+      <td>{$event['item'][$i]}</td>
+      <td>{$event['bladdress'][$i]}</td>
+      <td>{$event['bltime'][$i]}</td>
+      <td>{$event['join_num'][$i]}</td>
+      <td>{$event['money'][$i]}</td>
+    </tr>  
+    </for>
+	</tbody>
+  </table>
+  
+  <table>
+    <head>
+	  <tr>
+	    <th colspan="5">礼金、礼品上交情况</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+	    <th style="width:100px">上交时间</th>
+	    <th style="width:520px">名称</th>
+        <th style="width:100px;">数量</th>
+        <th style="width:70px;">总价值</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<for start="0" end="count($subm['submit_time'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>{$subm['submit_time'][$i]}</td>
+      <td>{$subm['goods'][$i]}</td>
+      <td>{$subm['sums'][$i]}</td>
+      <td>{$subm['total_value'][$i]}</td>
+    </tr>  
+    </for>
+	</tbody>
+  </table>
+
+  <table>
+    <head>
+	  <tr>
+	    <th colspan="5">参加廉洁教育情况</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+	    <th style="width:70px">时间</th>
+	    <th style="width:270px">地点</th>
+        <th style="width:270px;">教育活动</th>
+        <th style="width:180px;">组织单位</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<for start="0" end="count($edu['edu_time'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>{$edu['edu_time'][$i]}</td>
+      <td>{$edu['edu_address'][$i]}</td>
+      <td>{$edu['edu_active'][$i]}</td>
+      <td>{$edu['edu_com'][$i]}</td>
+    </tr>  
+    </for>
+	</tbody>
+  </table>
+  
+  <table>
+	<thead>
+	  <tr><th colspan="4">年度述职述廉情况</th></tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <td >时间</td><td>{$da['INTRO_TIME']}</td>
+		<td>地点</td><td>{$da['ADDRESS']}</td>
+	  </tr>
+	  <tr>
+	    <td class="label">主要内容</td><td colspan="3" class="bigtext">{$da['MAIN_CONTENT']}</td>
+	  </tr>
+	  <tr>
+	    <td class="label">意见和建议：</td><td colspan="3" class="bigtext">{$da['SUGGESTION']}</td>
+	  </tr>
+	</tbody>
+  </table>
+
+  <table>
+    <head>
+	  <tr>
+	    <th colspan="6">市公司党委、纪委任职、提醒、诫勉等廉政谈话情况</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+	    <th style="width:75px">时间</th>
+	    <th style="width:240px">地点</th>
+        <th style="width:70px;">谈话性质</th>
+        <th style="width:150px;">谈话人及职务</th>
+        <th style="width:240px;">主要谈话内容</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<for start="0" end="count($talk['talk_time'])">
+    <tr>
+      <td>{$i+1}</td>
+      <td>{$talk['talk_time'][$i]}</td>
+      <td>{$talk['talk_address'][$i]}</td>
+      <td>{$talk['talk_nature'][$i]}</td>
+      <td>{$talk['talker'][$i]}</td>
+      <td>{$talk['talk_content'][$i]}</td>
+    </tr>  
+    </for>
+	</tbody>
+  </table>
+  
+  <table>
+    <head>
+	  <tr>
+	    <th colspan="6">信访举报情况</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+	    <th style="width:120px">信访举报编号</th>
+	    <th style="width:70px">时间</th>
+	    <th style="width:120px">形式</th>
+	    <th style="width:323px;">反映问题</th>
+	    <th style="width:150px">核查结果</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<for start="0" end="count($peti['petition_id'])">
+    <tr>
+      <td >{$i+1}</td>
+      <td>{$peti['petition_id'][$i]}</td>
+      <td>{$peti['peti_time'][$i]}</td>
+      <td>{$peti['peti_form'][$i]}</td>
+      <td>{$peti['reflect'][$i]}</td>
+      <td>{$peti['peti_result'][$i]}</td>
+    </tr>  
+    </for>
+	</tbody>
+  </table>
+  
+  <table>
+    <head>
+	  <tr>
+	    <th colspan="6">违法违规违纪处理情况</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+	    <th style="width:240px">主要问题</th>
+	    <th style="width:70px">处理时间</th>
+	    <th style="width:240px">处理单位</th>
+	    <th style="width:247px">处理情况</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<for start="0" end="count($deal['deal_problem'])">
+    <tr>
+      <td>{$i+1}</td>
+      <td>{$deal['deal_problem'][$i]}</td>
+      <td>{$deal['deal_time'][$i]}</td>
+      <td>{$deal['deal_com'][$i]}</td>
+      <td>{$deal['deal_situa'][$i]}</td>
+    </tr>  
+    </for>
+	</tbody>
+  </table>
+  
+  <table>
+	<thead>
+	  <tr><th colspan="2">年度落实“两个责任”的情况</th></tr>
+	</thead>
+	<tbody>
+	  <tr>
+	    <td class="label">公司纪委审核意见：</td><td class="bigtext">{$da['OPINION']}</td>
+	  </tr>
+	</tbody>
+  </table>
+
+  <table class="audit-table">
+    <head>
+	  <tr>
+	    <th colspan="8">流程审批记录</th>
+	  </tr>
+	  <tr>
+	    <th style="width:35px">序号</th>
+        <th>上一节点</th>
+        <th>上一处理人</th>
+        <th>操作</th>
+        <th style="width:226px">处理意见</th>
+        <th>处理时间</th>
+        <th>当前节点</th>
+        <th>当前处理人</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<volist name="frlist" id="fl">
+    <tr>
+      <td>{$i}</td>
+      <td>{$fl['LAST_NODE']}</td>
+      <td>{$fl['LAST_OPER']}</td>
+      <td>{$fl['OPER']}</td>
+      <td>{$fl['OPINION']}</td>
+      <td>{$fl['DEAL_TIME']}</td>
+      <td>{$fl['CURR_NODE']}</td>
+      <td>{$fl['CURR_OPER']}</td>
+    </tr>
+    </volist>
+	</tbody>
+  </table>
+</div>
+
+</block>
+

@@ -1,0 +1,55 @@
+html,body{
+margin:0px;padding:0px;
+color: #444;
+font: 12px/1.5 "Helvetica Neue",Helvetica,"Lucida Grande","Luxi Sans",Arial,"Hiragino Sans GB",STHeiti,"Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Micro Hei Mono","WenQuanYi Zen Hei","WenQuanYi Zen Hei Mono",LiGothicMed;
+}
+ 
+.top{
+	background: #f6f6f1 none repeat scroll 0 0;
+    margin-bottom: 20px;
+    padding-top: 21px;
+}
+.main, .inner {
+    margin: 0 auto;
+    width: 936px;
+}
+
+.border{border:solid 1px red;}
+.noborder{border:0px;}
+.section{
+     
+}
+
+.a-btn{display:block;margin-right:530px;padding:3px 10px;background: rgb(160, 113, 111);color:#fff;font-size:14px;font-weight:600;}
+
+.county_code{border: 1px solid #ccc;
+    float: right;
+    height: 25px;
+    line-height: 25px;
+    margin-left: 30px;}
+
+.footer{clear: both;content: '';width: 936px;margin: 0 auto;}
+
+/*查询条件 和数据列表 table */
+.query_div{padding: 5px;overflow: hidden;background: #f6f6f1;margin-bottom:15px;}
+.query_div ul li{list-style: none;list-style-type: none;}
+.query_div li{float:left;width:220px;position: relative;margin:2px 2px 2px 0px;color:#825d5b;font-size: 14px;}
+.query_div li input[type=text]{width:70%;height:12px;line-height: 12px;border:solid 1px #ddd;background:#fffff9;}
+.zbtn input{padding:0px 10px;background:#825d5b;color: #fff;border:0px;}
+.zbtn:hover input{background:#fff;color:#825d5b;}
+.data_table{}
+.data_table table{}
+.data_table th , td{background: #fffff9 ;padding:2px;border-bottom: solid 1px #ddd;height:30px;line-height: 30px;}
+.data_table table th{color: #825d5b;font-weight: bold;background: #f6f6f1;padding-left: 5px;}
+
+/*翻页*/
+.think_page{margin-top:10px;text-align: left;padding:10px;}
+.think_page .num,.next,.current,.prev,.first,.end{color:#825d5b;padding:5px 10px;font-size: 12px;text-decoration: none;position: relative;}
+.num:hover{background: #825d5b;color:#fff;border-width: 0px;}
+.think_page .current{background: #825d5b;color:#fff;border-width: 0px;}
+
+.tab-menu{}
+.tab-menu li{margin-right: 20px;float:left;}
+.tab-menu li a{display:block;font-size:14px; font-weight:bold;color:#666;padding:2px 10px;}
+.tab-menu li a:hover{color:#fff; }
+.tab-menu .curr a{color:#fff;background: #825d5b;}

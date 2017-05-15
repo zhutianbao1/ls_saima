@@ -1,0 +1,65 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">信息管理-首页</block>
+<block name="month"></block>
+<block name="body">
+<?php
+$id = isset($_POST['month']) ? $_POST['month'] : '';
+?>
+	<div style="height:40px;line-height:40px;background: #eee;float: left;width: 20%;">
+		<a href="{:U('msg_new')}" class="a-btn">新建</a>
+		{$user_auth['OPER_NAME']}
+	</div>
+	<div style="float: left; position: relative;background: #eee;width: 80%;line-height: 40px;">
+		<form method="post" name="form1" action="{:U('index')}">
+	        <div>
+	        	月份:
+	        	<select name="month" onchange="Id()" style="width: 200px;border: 1px solid #ccc;height: 25px; ">
+	                	<option value="" style="font-size: 20px;">————全部————</option>
+	                <volist name="tag" id="a">
+	                	<option style="font-size: 20px;" value="{$a['TAG']}" <?php $value=$a['TAG']; echo $id == $value ? 'selected' : '' ?>>{$a['TAG']}</option>
+	                </volist>
+	            </select>
+	        </div>
+		</form>
+	</div>
+	<div>
+		<table class="rank" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">编号</td>
+				<td class="rank-title">分类</td>
+				<td class="rank-title">月份</td>
+				<td class="rank-title">标题</td>
+				<td class="rank-title">创建人</td>
+				<td class="rank-title">创建时间</td>
+				<td class="rank-title">最近修改时间</td>
+				<td class="rank-title">状态</td>
+				<td class="rank-title">操作</td>
+			</tr>
+			<volist name="msgs" id="msg">
+			<tr>
+				<td >{$msg.CONFIG_ID}&nbsp;&nbsp;</td>
+				<td >{$msg.NAME}</td>
+				<td >{$msg.TAG}</td>
+				<td >{$msg.TITLE}</td>
+				<td >{$msg.OPER_NAME}</td>
+				<td >{$msg.CREATE_DATE|strtotime|date="Y-m-d",###}</td>
+				<td >{$msg.MODIFY_DATE|strtotime|date="Y-m-d",###}</td>
+				<td >{$msg.STATUS}</td>
+				<td>
+					<a target="_blank" href="{:U('msg_priview?id='.$msg['ID'])}">预览</a>
+					<a target="_blank" href="{:U('msg_new')}?id={$msg.ID}" target="blank">编辑</a>
+					<a href="{:U('msg_delete?id='.$msg['ID'])}">删除</a>
+				</td>
+			</tr>
+			</volist>
+		</table>
+		{$_page}
+	</div>
+
+	<script type="text/javascript">
+	    function Id(){
+	        document.all.form1.submit();
+	    }
+	</script>
+</block>

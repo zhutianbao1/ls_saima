@@ -1,0 +1,247 @@
+<extend name="./base_employee"/>
+
+<block name="title">员工基本信息录入</block>
+<block name="css">
+  <style>
+    .altrowstable{
+  	  empty-cells:show; 
+      border-collapse: collapse;
+      margin:0 auto;
+    }
+    table th{
+      white-space: nowrap;
+    }
+    table td{
+      white-space: nowrap;
+    }
+  </style>
+</block>
+
+<block name="nav">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">员工基本信息录入</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+</block>
+
+<block name="content">
+<form class="form tjform" name="form1" action="{:U('Employee/index')}" method="post">
+  <div>
+    <div class="tj dept">
+      <label>部门:</label>
+      <select name="dept">
+        <option value=""></option>
+        <option value="市场经营部">市场经营部</option>
+        <option value="政企客户部">政企客户部</option>
+        <option value="网络部">网络部</option>
+        <option value="工程建设部">工程建设部</option>
+        <option value="综合部">综合部</option>
+        <option value="财务部">财务部</option>
+        <option value="人力资源部">人力资源部</option>
+        <option value="纪检监察室">纪检监察室</option>
+        <option value="党委办公室（党群工作部）">党委办公室（党群工作部）</option>
+        <option value="工会">工会</option>
+        <option value="莲都">莲都</option>
+        <option value="缙云">缙云</option>
+        <option value="青田">青田</option>
+        <option value="云和">云和</option>
+        <option value="庆元">庆元</option>
+        <option value="龙泉">龙泉</option>
+        <option value="遂昌">遂昌</option>
+        <option value="松阳">松阳</option>
+        <option value="景宁">景宁</option>
+        <option value="南城">南城</option>
+      </select>
+    </div>
+
+    <div class="tj user">
+    <label>用户姓名:</label>
+    <input type="text" name="user_name" value=""/>
+    </div>
+    <div class="tj sta">
+    <label>审批状态:</label>
+    <select name="deal_status">
+      <option value="0"></option>
+      <option value="1">待办理</option>
+      <option value="2">已办理</option>
+    </select>
+    </div>
+    <button class="btn query"/>查询</button>
+  </div>
+</form>
+
+<div class="btn-box">
+  <button class="btn add"/>录入人员信息</button>
+  <button class="btn modify"/>修改</button>
+  <button class="btn audit"/>审批</button>
+  <button class="btn preview"/>查看</button>
+  <button class="btn exportexl"/>导出Excel</button>
+</div>
+
+
+<table class="altrowstable">
+  <div style="font-size:14px;font-weight:600">待办事项：</div>
+  <tr>
+    <th style="width:25px"></th><th style="width:28px">编号</th>
+    <th style="width:40px">工号</th><th style="width:30px">申请人</th>
+    <th style="width:65px">联系电话</th><th style="width:45px">部门</th>
+    <th style="width:105px">申请时间</th><th style="width:115px">身份证号</th>
+    <th style="width:98px">签发单位</th><th style="width:31px">政治面貌</th>
+    <th style="width:60px">全日制最高学历</th><th style="width:140px">毕业院校</th>
+    <th style="width:70px">专业</th><th style="width:60px">非全日制最高学历</th>
+    <th style="width:140px">毕业院校</th><th style="width:70px">专业</th>
+    <th style="width:60px">当前节点</th>
+  </tr>
+  <volist name="employeeList" id="el">
+  <tr>
+    <td><input type="checkbox" name="line" param="{$el['OA']}" param1="{$el['TB_STATUS']}">{$i}</td><td>{$el['ID']}</td><td>{$el['USERID']}</td><td>{$el['USER_NAME']}</td><td>{$el['BILL_ID']}</td><td>{$el['DEPT']}</td><td>{$el['CREATE_TIME']}</td><td>{$el['ID_CARD']}</td><td>{$el['CARD_UNIT']}</td><td>{$el['POLITICAL_STATUS']}</td><td>{$el['BACHELOR_DEGREE']}</td><td>{$el['SCHOOL']}</td><td>{$el['MAJOR']}</td><td>{$el['EDU_DEGREE']}</td><td>{$el['EDU_SCHOOL']}</td><td>{$el['EDU_MAJOR']}</td><td>{$el['TB_STATUS']}</td>
+  </tr>
+  </volist>
+</table>
+{$_page}
+
+<block name="jsfile">
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  $(".tj").css("display","inline-block");
+  var tjform = "{$tjGroup['0']}";
+  if(tjform == '1'){
+    $(".tjform").css("display","block");
+  }else{
+    $(".tjform").css("display","none");
+  }
+  var dept = "{$tjGroup['1']}";
+  if(dept == '1'){
+    $(".dept").css("display","inline-block");
+  }else{
+    $(".dept").css("display","none");
+  }
+  var sta = "{$tjGroup['2']}";
+  if(sta == '1'){
+    $(".sta").css("display","inline-block");
+  }else{
+    $(".sta").css("display","none");
+  }
+
+  var auditStatus = "{$deal_status}";
+  $("select[name='deal_status']").val(auditStatus);//选中审批状态
+  //查询页面操作的按钮组（角色权限控制）
+  var create = "{$btnGroup['1']}";
+  if(create=='1'){
+    $(".add").css("display","inline-block");
+  }else{
+    $(".add").css("display","none");
+  }
+  var modify = "{$btnGroup['2']}";
+  if(modify=='1'){
+    $(".modify").css("display","inline-block");
+  }else{
+    $(".modify").css("display","none");
+  }
+  var audit = "{$btnGroup['3']}";
+  if(audit=='1'){
+    $(".audit").css("display","inline-block");
+  }else{
+    $(".audit").css("display","none");
+  }
+  var preview = "{$btnGroup['4']}";
+  if(preview=='1'){
+    $(".preview").css("display","inline-block");
+  }else{
+    $(".preview").css("display","none");
+  }
+  var exportexl = "{$btnGroup['5']}";
+  if(exportexl=='1'){
+    $(".exportexl").css("display","inline-block");
+  }else{
+    $(".exportexl").css("display","none");
+  }
+
+  $(".query").click(function(){
+    document.form1.submit();
+  });
+
+  /* 审批状态是 空值 和 已办理 无 创建个人档案、修改、审批按钮;
+   * 必须放在上面角色控制按钮的下面，否则无法控制
+   */
+  if(auditStatus==''){
+    $("input[name='line']").css("display","none");
+  }
+
+  $(".add").click(function(){
+    var id = "{$el['ID']}";
+    location.href="{:U('Employee/add')}";
+  });
+
+  $(".modify").click(function(){
+    var len = $("input[name='line']:checked").length;
+    if(len == 0){
+      alert("未选中编辑数据");
+      return false;
+    }if(len > 1){
+      alert("同时只允许编辑一条记录");
+      return false;
+    }else{
+      var oa="<?=session('user_auth.OA')?>";
+      var param = $('input[name="line"]:checked').attr("param");
+
+      if(param!=undefined && param!=''){
+        if(oa != param){
+          alert('他人的工单，请"审批"');
+        }else{
+          location.href="{:U('Employee/update')}?oa="+param;
+        }
+      }
+    }
+  });
+
+  $(".audit").click(function(){
+    var len = $("input[name='line']:checked").length;
+    if(len == 0){
+      alert("未选中编辑数据");
+      return false;
+    }if(len > 1){
+      alert("同时只允许编辑一条记录");
+      return false;
+    }else{
+      var oa="<?=session('user_auth.OA')?>";
+      var param = $('input[name="line"]:checked').attr("param");
+      var param1 = $('input[name="line"]:checked').attr("param1");
+      if(param!=undefined && param1!=undefined && param!='' && param1!=''){
+        if(oa==param && param1=='拟稿'){
+          alert('当前工单处于拟稿状态，请"修改"');
+        }else{
+          location.href="{:U('Employee/update')}?oa="+param;
+        }
+      }
+    }
+  });
+
+  $(".preview").click(function(){
+    var len = $("input[name='line']:checked").length;
+    if(len == 0){
+      alert("未选中须查看数据");
+      return false;
+    }if(len > 1){
+      alert("同时只允许查看一条记录");
+      return false;
+    }else{
+      var param = $('input[name="line"]:checked').attr("param");
+      location.href="{:U('Employee/preview')}?oa="+param;
+    }
+  });
+
+  $(".exportexl").click(function(){
+    location.href="{:U('Employee/exportxls')}";
+  });
+});
+
+</script>
+</block>

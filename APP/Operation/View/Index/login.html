@@ -1,0 +1,49 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 登录</block>
+<block name="css">
+<style>
+  .msgtip{
+    color:#f00;
+    font-size:12px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<form class="loginForm" action="{:U('Operation/base/login')}" method="post">
+    <div class="form-header">丽水日常运维管理平台</div>
+    <div>
+    <label for="login-code">用户名</label>
+    <input type="text" name="loginCode" id="login-code">
+    </div>
+    <div>
+    <label for="login-pwd">密码</label>
+    <input type="password" name="loginPwd" id="login-pwd"/>
+    </div>
+    <button type="submit" class="btn submit">登录</button>
+    <div class="msgtip"></div>
+</form>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  $(".submit").click(function(){
+    var loginCode = $("#login-code");
+    var loginPwd = $("#login-pwd");
+    var msgtip = $(".msgtip");
+    if(loginCode.val()==''){
+      msgtip.html("用户名不能为空");
+      loginCode.focus();
+      return false;
+    }
+    if(loginPwd.val()==''){
+      msgtip.html("密码不能为空");
+      loginPwd.focus();
+      return false;
+    }
+
+    $(".loginForm").submit();
+  });
+});
+</script>
+</block>

@@ -1,0 +1,180 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 首页</block>
+<block name="css">
+
+</block>
+
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="sidebar">
+    <ul class="sidemenu">
+      <li><a href="{:U('Index/index')}">汇总报表</a></li>
+      <li><a href="{:U('Index/cdeali')}">投诉处理记录表</a></li>
+      <li><a href="{:U('Index/faulti')}" style="color:#f00">故障处理记录表</a></li>
+      <li><a href="{:U('Index/onlinei')}">上线类</a></li>
+      <li><a href="{:U('Index/repositoryi')}">知识库</a></li>
+      <li><a href="{:U('Index/ruleflowi')}">常规流程</a></li>
+      <li><a href="{:U('Index/schedulei')}">排班表</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <form class="form tjform" name="form1" action="{:U('Index/faulti')}" method="post">
+      <div>
+        <label>故障系统：</label>
+        <select name="fault_system">
+          <option value=""></option>
+          <option value="0">CRM</option>
+          <option value="1">渠道</option>
+          <option value="2">其他</option>
+        </select>
+
+        <label>报障方式：</label>
+        <select name="notify_way">
+          <option value=""></option>
+          <option value="0">邮件</option>
+          <option value="1">电话</option>
+          <option value="2">故障单</option>
+          <option value="3">故障群</option>
+        </select>
+
+        <label>是否发故障单：</label>
+        <select name="has_post">
+          <option value=""></option>
+          <option value="0">否</option>
+          <option value="1">是</option>
+        </select>
+      </div>
+
+      <div>
+        <label>影响范围：</label>
+        <input type="text" name="effect_scope"/>
+
+        <label>故障描述：</label>
+        <input type="text" name="describ"/>
+      
+        <label>故障原因：</label>
+        <input type="text" name="happen_reason"/>
+      </div>
+
+      <div>
+        <label>解决方案：</label>
+        <input type="text" name="solution"/>
+
+        <label>时间>=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="start_time"/>
+
+        <label>时间<=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="end_time"/>
+        <button class="btn query"/>查询</button>
+        <button  class="btn"  type="reset">重置</button>
+      </div>
+    </form>
+
+    <div class="btn-box">
+      <button class="btn faulta"/>新增</button>
+      <button class="btn faultu"/>修改</button>
+      <button class="btn faultd"/>删除</button>
+      <button class="btn faultq"/>查看</button>
+    </div>
+
+    <table class="altrowstable">
+      <div style="font-size:14px;font-weight:600">故障处理记录清单：</div>
+      <tr>
+        <th style="width:25px"></th><th style="width:40px">时间</th>
+        <th style="width:40px">故障系统</th><th style="width:40px">报障方式</th>
+        <th style="width:69px">是否发故障单</th><th style="width:62px">故障发生时间</th>
+        <th style="width:62px">报障时间</th><th style="width:62px">故障处理时间</th>
+        <th style="width:40px">影响范围</th><th style="width:160px">故障描述</th>
+        <th style="width:160px">故障原因</th><th>解决方案</th>
+        <th style="width:66px">记录人</th>
+      </tr>
+      <volist name="faultlist" id="fl">
+      <tr>
+        <td><input type="checkbox" name="id" value="{$fl['ID']}" param="{$i}"/>{$i}</td>
+        <td>{$fl['LR_TIME']}</td><td>{$fl['FAULT_SYSTEM']}</td><td>{$fl['NOTIFY_WAY']}</td>
+        <td>{$fl['HAS_POST']}</td><td>{$fl['HAPPEN_TIME']}</td><td>{$fl['NOTIFY_TIME']}</td>
+        <td>{$fl['DEAL_TIME']}</td><td>{$fl['EFFECT_SCOPE']}</td>
+        <td>{$fl['DESCRIB']}</td><td>{$fl['HAPPEN_REASON']}</td><td>{$fl['SOLUTION']}</td>
+        <td>{$fl['OPER_NAME']}</td>
+      </tr>
+      </volist>
+    </table>
+    {$_page}
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+   $("input[name='start_time']").val("{$start_time}");
+   $("input[name='end_time']").val("{$end_time}");
+
+  $(".faulta").click(function(){
+    window.location.href="{:U('Index/faulta')}";
+  });
+
+  $(".faultu").click(function(){
+    //故障处理记录表(修改)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/faultu')}?id="+param[0];
+    }
+  });
+
+  $(".faultd").click(function(){
+    //故障处理记录表(删除)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      if(confirm("确认删除第"+param[1]+"行？")){
+        window.location.href="{:U('Index/faultd')}?id="+param[0];
+      }
+      
+    }
+  });
+  
+  $(".faultq").click(function(){
+    //故障处理记录表(查看)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/faultq')}?id="+param[0];
+    }
+  });
+
+  function selectRowid(){
+    var chk_value =[];//定义一个数组
+    var param = '';
+    $("input[name='id']:checked").each(function(){
+      chk_value.push($(this).val());
+      param = $(this).attr("param");
+    });
+    
+    if(chk_value.length>1){
+      alert("不能同时编辑多条记录");
+      return;
+    }else if(chk_value.length==0){
+      alert("请选择对应记录");
+      return;
+    }
+
+    return chk_value + '&' + param;
+  }
+});
+  
+
+</script>
+</block>

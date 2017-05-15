@@ -1,0 +1,78 @@
+<extend name="pub/main_group"/>
+
+<block name="css">
+<style type="text/css">
+	.ul-list{overflow: auto;}
+	.ul-list li{float:left;height:150px;width: 160px;margin:2px;border:solid 1px grey;background: rgb(245, 248, 252);border-radius:2px;}
+	.ul-list .group_name{height:30px;background: infobackground;margin-left: 0px;padding:2px 5px;}
+</style>
+</block>
+<block name="body">
+	<div class="model">
+		<div>
+			<div class="hr_info_title_l">
+				<span>名下集团</span>
+			</div>
+			
+
+			<if condition="$errMsg neq null">
+			<div class="errMsg">
+			    {$errMsg}
+			</div>
+			<else/>
+			<?php
+			$select_value = isset($_POST['county_code']) ? $_POST['county_code'] : '';
+			?>
+			<div style="background:#eee;padding-top:10px;">
+			<form  action="?bill_id={$bill_id}&menuId=1" method="post">
+			<input type="hidden" name="bill_id" value="{$bill_id}" />
+			<table class="query-table" style="width:100%;">
+			    <tr>
+			        <td><span>县&nbsp;&nbsp;市</span>
+			        <select id="a" name="county_code" style="width: 140px;border: 1px solid #ccc;">
+			            <option value="">请选择</option>
+			            <option value="5781" <?php echo $select_value == '5781' ? 'selected' : '' ?>>莲都</option>
+			            <option value="5782" <?php echo $select_value == '5782' ? 'selected' : '' ?>>缙云</option>
+			            <option value="5783" <?php echo $select_value == '5783' ? 'selected' : '' ?>>青田</option>
+			            <option value="5784" <?php echo $select_value == '5784' ? 'selected' : '' ?>>云和</option>
+			            <option value="5785" <?php echo $select_value == '5785' ? 'selected' : '' ?>>庆元</option>
+			            <option value="5786" <?php echo $select_value == '5786' ? 'selected' : '' ?>>龙泉</option>
+			            <option value="5787" <?php echo $select_value == '5787' ? 'selected' : '' ?>>遂昌</option>
+			            <option value="5788" <?php echo $select_value == '5788' ? 'selected' : '' ?>>松阳</option>
+			            <option value="5789" <?php echo $select_value == '5789' ? 'selected' : '' ?>>景宁</option>
+			            <option value="578B" <?php echo $select_value == '578B' ? 'selected' : '' ?>>南城</option>
+			        </select></td>
+			        <td><span>客户经理</span><input type="text" name="staff_name" value="{$staff_name}" class="text"></td>
+			        <td><span>客户经理手机</span><input type="text" name="manger_bill" value="{$billId}" class="text"></td>
+			        <td><span>集团编号</span><input type="text" name="group_id" value="{$group_id}" class="text"></td>
+			    </tr>
+			    <tr>
+			        <td><span>集团名称</span><input type="text" name="group_name" value="{$group_name}" class="text"></td>
+			        <td colspan="4" style="text-align:right;padding-right:50px;"><input type="submit"  value="  查     询  " class="term" style="height:25px;line-height:25px;background:rgb(15,142,226);color:#fff;"></td>
+			    </tr>
+			</table>
+			</form>
+
+			<div class="model" style="background:#fff;">
+			 <ul class="ul-list">
+			 	<volist name="groups" id="g">
+			 	<li>
+			 		<p class="group_name" title="集团名称">{$g['CUST_NAME']}</p>
+			 		<p title="集团编号">{$g['GROUP_ID']}</p>
+			 		<p title="所在县市">{$g['COUNTY_NAME']}&nbsp;({$g['CHNL_REGION_TYPE']})</p>
+			 		<p title="集团领导">{$g['LEGAL_CUST_NAME']}</p>
+			 		<p title="客户经理">{$g['STAFF_NAME']} - {$g['BILL_ID']}</p>
+			 	</li>
+			 	</volist>
+			 </ul>
+
+			 {$_page}
+			 
+			</div>
+			</div>
+			</if>
+		</div>
+	</div> 
+ 
+</block>
+ 

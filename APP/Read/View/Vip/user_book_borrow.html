@@ -1,0 +1,70 @@
+<extend name="Tpl/base"/>
+<block name="title">我借阅的书籍</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title" >
+  {:W('Side/user_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+<block name="main_left">
+  {:W('Side/vip_html')}
+</block>
+
+
+<block name="main_right">
+<div class="hd lined">
+  <h3>我借阅的书籍
+    <span class="help-tip"></span></h3>
+</div>
+
+<div>
+<if  condition="$myborrows neq null">
+<table width="100%">
+    <tr height="22px">
+    <th style="background:#6e839a;color:#fff;">书籍</th>
+    <th style="background:#6e839a;color:#fff;">借阅时间</th>
+    <th style="background:#6e839a;color:#fff;">借阅状态</th>
+    </tr>
+    <volist name="myborrows" id="myborrow">
+    <tr>
+      <td>{$myborrow['book_name']}</td>
+      <td>{$myborrow['borrow_date']|date='Y-m-d H:m',###}</td>
+      <td>
+        <?php 
+            if($myborrow['status']==0){
+              echo '已还书';
+            }else if($myborrow['status']==1){
+              echo '<font color=blue>取书中..</font>';
+            }else if($myborrow['status']==2){
+              echo '<font color=red>已取书</font>';
+            }
+        ?>
+      </td>
+    </tr>
+    </volist>
+  </table>
+  <div class="ft">
+      {$_page}
+  </div>
+<else/>
+  <p style="color: #666;letter-spacing: 1px; font-size: 13px;font-weight: 700;"> 
+  暂未获得到您关于书籍借阅的数据!点击此处
+  <a href="{:U('Index/library')}" style="font-size: 18px;font-weight: bold;">我要借阅</a>
+  去图书馆发现你喜欢的好书吧!</p>
+  </if >
+</div>
+    
+{:W('Side/haoshu')}
+</block>
+
+<block name="js">
+<script>
+
+</script>
+</block>

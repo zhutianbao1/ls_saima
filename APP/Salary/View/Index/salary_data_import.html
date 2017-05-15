@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>薪酬明细数据导入</title>
+	<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+		                        user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+		<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+	<style type="text/css">
+	    body{width: 640px;	margin: 0 auto;}
+		content{width:100%;margin: 0 auto;}
+	    .show_data {margin-top:20px;} 
+	    .show_data .group{height: 30px; line-height: 30px;font-size: 14px; color: #666;margin-bottom: 5px; }
+	    .show_data .group label{width: 20%;	height: 30px; line-height: 30px; display: inline-block;text-align: right; }
+	    .show_data .group a{padding: 5px 10px;color: #666; }
+	    .show_data .group a:hover{background-color: #FFA244;color: #FFF; }
+	    .show_data .group input{display: inline-block;height: 27px; line-height: 27px;width: 70%;border:1px solid #666;}
+        .btn_div{height: 30px;line-height: 30px;text-align: center;    }
+        .btn_div .sub_btn{font-size: 14px; color: #666;	padding: 3px 15px;border:1px solid #666;}
+	</style>
+</head>
+<body>
+    <div class="content">
+		<div class="header">			    
+			<div class="header_img"></div>
+			<div class="header_title">数据导入</div>			
+		</div>
+		<div class="show_data">
+			<fieldset>
+				<legend>数据导入:</legend>
+				<form  method="post" action="{:U('Index/file')}"  enctype="multipart/form-data">
+				    <div class="group">
+				    	<label>模板下载:</label>
+				    	<a href="__PUBLIC__/files/salary_mx.xlsx">下载模板</a>
+				    </div>
+				    <div class="group">
+				    	<label>请选择文件:</label>
+				    	<input type="file" name="file_stu" class="wenjan"/>
+				    </div>
+				    <div class="btn_div">
+				    	<input type="submit" value="导 入"  class="sub_btn"/>
+				    </div>
+				</form>
+			</fieldset>
+	    </div>
+    </div>
+</body>
+<script >
+	$(function(){
+		$(".header_img").click(function(event) {
+			window.location="{:U('Index/salary_index')}";
+		});
+	});
+</script>
+</html>
+
+
+
+
+
+

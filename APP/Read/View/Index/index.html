@@ -1,0 +1,315 @@
+<extend name="Tpl/base"/>
+<block name="title">丽水移动员工读书会</block>
+<block name="css">
+  <style type="text/css">
+    .xs_hei{height: 650px;}
+    .xs_hei>div>div{height:600px;}
+    .xs_div{width: 132px;height: 290px;float: left;margin: 5px 4px 0 2px;border: 1px solid #A5C4E8;}   
+    .xs_img{height:140px;width:100%;}
+    .xs_name_zan{height: 20px;line-height: 20px;position: relative;background-color: #BFC0E7;}
+    .xs_name{display: block;width: 65px;font-size: 12px;text-align: center;height: 20px;
+            line-height: 20px;font-weight: 700;color: #666;position: absolute;left: 0;top: 0;}
+    .xs_zan{position: absolute;left: 67px;top: 0;font-size: 10px;display: block;width: 45px;
+                    height: 20px;line-height: 20px;font-weight: 700;color: #666;text-align:center;}
+    .xs_title{font-size:13px;height:60px;overflow: hidden;}
+    .xs_date{color: #ccc; display: block;height: 20px;font-size: 14px; text-align: center;}
+    .xs_more{ width: 100%;height: 20px;line-height: 20px;text-align: center;}
+    .xs_more>a{display: block; font-size: 14px;color: #666;letter-spacing: 1px;}
+    .xs_more>a:hover{color: #eee;}
+    .xinde_cat{ width: 100%;}
+    .xinde_cat div{ border:1px solid #ccc;float: left;width:120px;margin-right: 10px;
+                    text-align: center; font-size: 14px; color: #666; }
+    .xinde_cat div a{ display: block;}
+  </style>
+</block>
+
+<block name="main_left">
+	{:W('Side/html')}
+</block>
+
+
+<block name="main_right">
+	<!-- <div>
+		<slide-show>
+		<div class="slide-screen">
+			<a href="javascript:;"><img width="696px" height="205px" src="__UPLOAD__/{$web_attrs['WEB_BANNER']}"></a>
+		</div>
+		<br>
+		<div class="slide-action hide"><div class="slide-btns"><a href="#" class="prev"></a><a href="#" class="next"></a></div><ol class="slide-controls"><li><a data-index="1" href="#" class=""></a></li><li><a data-index="2" href="#" class=""></a></li><li><a data-index="3" href="#" class=""></a></li><li><a data-index="4" href="#" class=""></a></li><li><a data-index="5" href="#" class="active"></a></li><li><a data-index="6" href="#" class=""></a></li></ol></div>
+		</slide-show>
+	</div> --> 
+
+
+  {:W('Book/index_book')}
+  <br>
+  {:W('Side/xinde_category')}
+  
+  {:W('Meeting/other_county_meeting1')} 
+
+  {:W('Meeting/index_meeting')}
+  
+  {:W('Xinde/index_xinde')}
+  <br> 
+  
+  {:W('Side/haoshu')}
+  <br>
+
+  
+
+
+  <!--
+
+  <a href="{:U('Index/xinde_zan')}">心得点赞</a>
+  
+ --> 
+
+</block>
+<!-- col10 END -->
+
+<block name="js">
+<script>
+
+$(".view_more").click(function(){
+  var e = $("#book_desc");
+  var title = $("#book_desc").attr('para');
+  var html = $("#book_desc").html();
+  //e.prev().hide();
+  e.slideToggle('slow');
+  // layer.open({
+  //             type: 1,
+  //             title: title+'  简介',
+  //             shadeClose: true,
+  //             shade: 0.1,
+  //             area: ['700px', '50%'],
+  //             content: html //iframe的url
+  //           });
+});
+
+$(".baoming").click(function(){
+    var oper_login_code = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+    if(oper_login_code.isEmpty()){
+       layer.msg('未获取登录信息，请登录后操作');
+       return;
+    }
+    
+    if(confirm('提交报名后将以读书会召开具体安排事项为准，是否继续报名？')){
+        var e = $(this),
+          meeting_id = e.attr("para"),
+          url = "{:U('manager/manager_meeting_bao')}";
+      $.ajax({
+         type:'post',
+         url:url,
+         dataType:'json',
+         data:{meeting_id:meeting_id},
+         success:function(re){
+            layer.msg(re.msg);
+            if(re.msg=='发起报名成功,请联系读书会管理员'){
+               $.ajax({
+                type:'post',
+                url:"{:U('index/rank_meeting_bao_yb')}",
+                //url:"{:U('Book/index_book')}",
+                dataType:'json',
+                data:{meeting_id:meeting_id},
+                success:function(data){ 
+                    var s="";  
+                    s+="<li style='list-style-type:none;'>";
+                    s+=data[0].bao_oper_name+"&nbsp;&nbsp;";
+                    s+=data[0].bao_oper+"&nbsp;&nbsp;";
+                    s+=data[0].bao_date+"&nbsp;&nbsp;已报名"+"</li>";
+                    $("#bm_list").before(s);  
+                 //document.getElementById("bm_list").innerHTML+=s;             
+                }
+             });
+            }           
+         },
+         error:function(){
+            layer.msg('系统错误，请稍后重试');
+         }
+      });
+    }
+
+ });
+
+var cml = 0; 	//当前 margin-left:0px;
+var index = 1;  //当前显示第1个ul 标签
+$('.slide-prev , .slide-next').click(function () {
+ 	slider($(this));
+});
+
+
+var st = null;
+slider  = function (obj){
+
+  // clearTimeout(st);
+
+  var e = obj;
+  if(e.hasClass('disabled')){
+    return false;
+  }
+
+  var div = e.siblings('.carousel:eq(0)').find(".slide-list:eq(0)"),
+  ml = div.css('marginLeft'),
+  mr = div.css('margin-right'),
+  cnt = div.find('ul').length,
+  wth = 700,
+  max = cnt * wth;
+ 
+  // console.info('max :' + max);
+  // console.info('ml :' + cml);
+  // console.info('wth+ml :' + (wth + cml));
+  // console.info(e.hasClass('slide-prev'));
+  
+  if (e.hasClass('slide-prev')) {
+    if (0 > cml) {
+      div.animate({
+        'margin-left': (cml + 696) + 'px'
+      },1500);
+    }
+    cml = cml+696;
+    e.siblings('.slide-next').removeClass('disabled');
+    index--;
+  }
+  
+  if (e.hasClass('slide-next')) {
+    if (max > (wth + cml)) {
+      div.animate({
+        'margin-left': (cml - 696) + 'px'
+      },1500);
+    }
+    cml = cml-696;
+    e.siblings('.slide-prev').removeClass('disabled');  
+    index++;
+  }
+  
+  if(index==1){
+    e.parent().children(".slide-prev").addClass('disabled');
+  }
+  if(index==cnt){
+    e.parent().children(".slide-next").addClass('disabled');
+  }
+
+  // st = setTimeout('sliderTimer()',5000);
+}
+
+// st = setTimeout('sliderTimer()',5000);
+
+//定时滚动
+sliderTimer = function(){
+  if($(".bd > .slide-prev").hasClass('disabled')){
+    $(".bd > .slide-next").click();
+  }else{
+    $(".bd > .slide-prev").click();
+  }
+ //st = setTimeout('sliderTimer()',5000);
+}
+
+</script>
+
+
+
+<script >
+  $(function(){
+    $('.xs_prev').click(function(){
+        $(".auto_scoll").animate({marginLeft:''},1000);
+    });
+    $('.xs_next').click(function(){        
+        $(".auto_scoll").animate({marginLeft:'-700px'},1000);     
+    });
+  });
+
+  $(function(){
+    $('.xs_name').mouseover(function(event){
+      var e=$(this);      
+       e.css({'color':'white','cursor':'hand','background-color':'#825d5b'});
+    }).mouseout(function(event) {
+      var e=$(this);
+      e.css({'background-color':'','color':'#666'});
+    });
+
+    $('.xs_name').click(function(event) {
+       var e=$(this);
+       var county_code=e.val();      
+       window.location="{:U('index/meeting')}?county_code="+county_code;      
+    });
+
+    $('.more_link').click(function(event) {
+       var county_code=$(this).attr('para');             
+       window.location="{:U('index/meeting')}?county_code="+county_code;      
+    });
+  });
+
+  $(function(){
+    $('.xs_title').css('font-size','13px');
+    $('.xs_info').css('height','100px');
+  });
+
+  $(function(){
+    $('.xs_zan').mouseover(function(event){
+      var e=$(this);      
+       e.css({'color':'white','cursor':'hand','background-color':'#825d5b'});
+    }).mouseout(function(event) {
+      var e=$(this);
+      e.css({'background-color':'','color':'#666'});
+    });
+
+    $('.xs_zan').click(function(event) {
+      var e=$(this);
+      var county_code=e.attr('para');
+      url="{:U('index/county_zan_chaxun')}";
+      var id="#xs_zan"+county_code;
+      $.ajax({
+        url:url,
+        type:'POST',        
+        data:{county_code:county_code},
+        success:function(data){
+          if(data.status=='1'){
+            layer.alert(data.msg,{icon:4,time:2000});
+          }else if(data.status=='0'){
+            url="{:U('index/county_zan_add')}";
+            $.ajax({
+              url:url,
+              type:'POST',              
+              data:{county_code:county_code},
+              success:function(data){
+                if(data.status=='1'){                  
+                  layer.alert(data.msg,{icon:1,time:2000});
+                  $(id).html("赞("+data.zan_num+")");
+                }else if(data.status=='2'){
+                  layer.alert(data.msg,{icon:2,time:2000});
+                }
+              },
+              error:function() {
+                layer.alert('系统请求出错!',{icon:2,time:2000});
+              }  
+            });
+          }else{
+            layer.alert('请求出错!',{icon:2,time:2000});
+          }          
+        },
+        error:function() {
+         layer.alert('系统请求出错!',{icon:2,time:2000});
+        }       
+      });
+    });
+  });
+  
+  $(function(){
+    $(".xs_div:empty").each(function(){
+        var county_name=$(this).attr('para');       
+        $(this).append("<div style='width:110px;margin:10px auto 0;'>"+
+        "<img src='__PUBLIC__/Read/images/cry1.png' /></div>");       
+        $(this).append("<div style='padding:0 10px 0 10px;font-size:13px;font-weight:300;color:#666;'>"
+          +county_name+"还未开展过读书会哦!</div>");
+    });
+  });
+
+  $(function(){
+    $('.baoming').css('background-color','#C29394');
+     //$('.baoming').css('background-color','#D9C6C5');
+  });
+</script>
+
+
+
+
+</block>

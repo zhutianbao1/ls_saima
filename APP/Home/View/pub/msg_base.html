@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">	 
+	<title>
+	<block name="title"></block>
+	</title>
+	<link rel="stylesheet" href="__CSS__/rank_style.css">
+	<style type="text/css">
+	body{background: #fff url("__PUBLIC__/images/bg1.png") no-repeat fixed 0 0;}
+	/*
+	url("http://10.78.1.85/lishui/images/abc2.jpg") repeat fixed 0 0
+	.nav-div{position:relative;height:80px;margin-bottom: 10px;border-bottom: dashed 0px #686868;}
+	.nav{clear:both;position: absolute;left:10px;bottom:0px;}
+	.nav li{list-style: none;list-style-type: none;float:left;}
+	.nav li a{letter-spacing: 3px;font-size: 16px;font-family: "Microsoft YaHei";text-decoration: none;display: block;padding:8px 25px;color:#686868;font-weight: 600;}
+	.nav li a:hover{background: #686868;color:#fff;}
+	.nav .curr a{border-top: solid 1px #686868;color:#fff;}
+	*/
+
+	.nav-div-left {position:fixed;width:150px;left:40px;top:100px;display: none;}
+	.nav-div-left .nav{clear:both;position: absolute;left:10px;top:0px;}
+	.nav-div-left .nav li{list-style: none;list-style-type: none;margin-bottom: 3px;}
+	.nav-div-left .nav li a{letter-spacing: 5px;font-size: 16px;font-family: "Microsoft YaHei";text-decoration: none;display: block;width:150px;height:40px;line-height:40px;text-align:center;color:#686868;font-weight: 600;background: #686868;color:#fff;opacity: 0.6;}
+	.nav-div-left .nav li a:hover{background: #fff;color:#000;}
+	.nav-div-left .nav .curr a{border-bottom: solid 0px #686868;color:#fff;}
+
+	</style>
+
+	<style>
+	<!--
+	.title1{ }
+	.title1 ul {width:310px;overflow:hidden;border:solid 0px red;}
+	.title1 ul li {list-style:none;list-style-type:none;}
+	.title1 li {width:120px;color: rgb(15, 142, 226);font-family: "Microsoft YaHei",SimHei;font-size:18px;font-weight:bold;float:left;padding-top:2px;padding-left:10px;}
+	.title1 .lib {border-right:solid 1px rgb(15, 142, 226);}
+ 
+	.title2 {position:absolute;z-index:2;top:20px;right:70px;padding:0px 21px;;font-size:30px;font-weight:bold;
+	text-align:right;font-family: "Microsoft YaHei",SimHei;color: rgb(15, 142, 226);border:solid 0px red;}
+	-->
+
+	.header-title{padding:20px 50px;}
+	.header .title{font-size:20px;display:block;position:absolute;font-weight:bold !important;width:220px;left:0px;color: rgb(15, 142, 226);margin-bottom:10px;}
+	</style>
+ 
+<block name="css"></block>
+
+	<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 	
+    <script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+	<script type="text/javascript" src="__JS__/jquery.cookie.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+</head>
+<body>
+
+
+<?php 
+	$currMonth = '201611'; //date('Ym',time());
+	$month = ($month==null?$currMonth:$month);
+?>
+
+<div class="nav-div-left">
+	<ul class="nav">
+		<li><a href="{:U('index/index')}">首页</a></li>
+		<li class="curr"><a href="{:U('msg/index')}">目标</a></li>
+		<!--
+		<li><a href="{:U('config/index')}">条线</a></li>
+		<li><a href="javascript:;">人员</a></li>
+		<li><a href="javascript:;">日志</a></li>
+		<li><a href="javascript:;">系统</a></li>
+		-->
+	</ul>
+</div>
+
+<!--扩展的内容-->
+<block name="ext"></block>
+
+<div id="wrap">
+
+
+
+<DIV name="content" class="p_header hide">
+	<div class="header-title">				 
+		<div class="title1">
+			<ul>
+			<li class="lib">系统性思考</li>
+			<li>以终为始</li>
+			<li class="lib">结构化分析</li>
+			<li>钻研精神</li>
+			</ul>
+		</div>
+		
+		<div class="title2">
+			荣誉先进展示
+		</div>
+	</div>
+</DIV>
+
+<div style="height:0px;"></div>
+<block name="img">
+<img id="top_img" style="margin-left:0px;width:959px;margin-bottom: -4px;cursor:pointer;" src="__IMG__/top.jpg">
+</block>
+
+<block name="nav">
+<div class="main-nav">
+<div class="nav-mod-1 nav-w">
+    <ul>
+        <!-- <li><a href="{:u('ls/lishui')}"><b>赛马</b></a></li>
+        <li class=""><a href="{:U('index/rank_info')}?id=2001&month={$currMonth}">详情</a></li> -->
+        <li><a href="{:U('msg/index')}">目标</a></li>
+    </ul>
+</div>
+<div class="nav-mod-1 nav-w" style="display:none;">
+    <ul>
+        <li><a href="javascript:;"><b>考核</b></a></li>
+        <li style="width:36px;display:none;"><a href="javascript:;">能力</a></li>
+        <li style="display:none;"><a href="javascript:;">达标</a></li>
+    </ul>
+</div>
+<div class="nav-mod-1 nav-w" style="display:none;">
+    <ul  >
+        <li><a href="javascript:;"><b>营业</b></a></li>
+        <li style="width:36px;"><a href="javascript:;">销售</a></li>
+        <li><a href="javascript:;">政企</a></li>
+    </ul>
+</div>
+<div class="nav-mod-1 nav-w" style="display:none;">
+    <ul  >
+        <li><a href="javascript:;"><b>支撑</b></a></li>
+        <li><a href="javascript:;">报表</a></li>
+        <li><a href="javascript:;">答疑</a></li>
+    </ul>
+</div> 
+</div>
+</block>
+
+<block name="month">
+<div class="month-head">
+	<ul id="nav">
+		<li>
+			<span>历史月度模式</span>
+			<ul>
+				<li class="<?php echo ($month=="201601"?"curr":""); ?>">
+				<a href="?month=201601&id={$id}">2016年1月</a>
+				</li>
+				<li class="<?php echo $month=="201602"?"curr":"";?>">
+				<a href="?month=201602&id={$id}">2016年2月</a>
+				</li>
+				<li class="<?php echo ($month=="201603"?"curr":"");?>">
+				<a href="?month=201603&id={$id}">2016年3月</a>
+				</li>
+				<li class="<?php echo $month=="201604"?"curr":"";?>">
+				<a href="?month=201604&id={$id}">2016年4月</a>
+				</li>
+				<li class="<?php echo $month=="201605"?"curr":"";?>">
+				<a href="?month=201605&id={$id}">2016年5月</a>
+				</li>
+				<li class="<?php echo $month=="201606"?"curr":"";?>">
+				<a href="?month=201606&id={$id}">2016年6月</a>
+				</li>
+				<li class="<?php echo $month=="201607"?"curr":"";?>">
+				<a href="?month=201607&id={$id}">2016年7月</a>
+				</li>
+				<li class="<?php echo $month=="201608"?"curr":"";?>">
+				<a href="?month=201608&id={$id}">2016年8月</a>
+				</li>
+				<li class="<?php echo $month=="201609"?"curr":"";?>">
+				<a href="?month=201609&id={$id}">2016年9月</a>
+				</li>
+				<li class="<?php echo $month=="201610"?"curr":"";?>">
+				<a href="?month=201610&id={$id}">2016年10月</a>
+				</li>
+				<li class="<?php echo $month=="201611"?"curr":"";?>">
+				<a href="?month=201611&id={$id}">2016年11月</a>
+				</li>
+			</ul>
+		</li>
+		<li class="<?php echo $month=="201612"?"curr":"";?>">
+		<a href="?month=201612&id={$id}">2016年12月</a>
+		</li>
+		<li class="<?php echo $month=="year"?"curr":"";?>">
+		<a href="{:U('index/index')}?month=year">年度模式</a>
+		</li>
+		<li class="<?php echo $month=="qlm"?"curr":"";?>">
+		<a href="{:U('index/index')}?month=qlm">年度千里马</a>
+		</li>
+		<li class="<?php echo $month=="jm"?"curr":"";?>">
+		<a href="{:U('index/index')}?month=jm">月度骏马</a>
+		</li>
+		<li class="<?php echo $month=="hm"?"curr":"";?>">
+		<a href="{:U('index/index')}?month=hm">月度黑马</a>
+		</li>
+	</ul>
+</div>
+</block>
+
+ 
+<block name="body"></block>
+
+<block name="foot">
+</block>
+
+</div>
+<script type="text/javascript">
+	var oa = "{$_SESSION['user_auth']['OA']}";
+	if(oa.isEmpty()){
+		alert('操作会话超时，请重新OA登陆刷新进入');
+		this.window.opener = null;
+		window.close();
+		if(window){
+		   window.location.href="about:blank";
+		}
+	}
+</script>
+
+<script>
+	<?php 
+		$currMonth = date('Ym',time());
+	?>
+	var currMonth = "{$currMonth}";
+	var month = "{$month}";
+	month= (month==''?currMonth:month);
+
+	$(".action").click(function(){
+		layer.msg('功能正在建设中',{icon:4});
+	});
+</script>
+
+<script type="text/javascript">
+var imgs = new Array();
+var k = 0;
+$("img").each(function (i,e){
+  var imgsrc = $(e).attr("src");
+  $(e).load(function(){
+  		var i = e;
+    });
+  	// .error(function() {
+   //  	$(e).attr("src",'__PUBLIC__/images/noImg.png');	
+   //  }) ;
+});
+
+function noImg(e){
+	e.load(function(){
+		e.attr("src",imgsrc.replace('.jpg','.JPG'));	
+    });
+    // .error(function() {
+    // 	e.attr("src",'__PUBLIC__/images/noImg.png');	
+    // }) ;
+}
+
+$("#top_img").click(function(){
+	location.href="{:U('ls/lishui')}";
+});
+</script>
+
+
+
+
+
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '赛马程序', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+
+<block name="js"></block>
+
+
+
+</body>
+</html>

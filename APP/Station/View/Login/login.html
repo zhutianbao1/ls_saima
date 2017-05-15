@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>无线网基站规划建设平台登录</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+        <script src="__STATIC__/layer/layer.js"></script>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/regist.css" />
+    </head>
+    <body>
+		<div class="wrapper">
+			<div class="content">
+				<div id="form_wrapper" class="form_wrapper">
+					<form class="login active" action="{:U('Index/regist')}" method="post">
+						<h3>用户登录</h3>
+						<div>
+							<label for="node_login_code" >平台账号:</label>
+							<input type="text"  name="node_login_code" id="node_login_code" />
+							<span class="error" id="login_code_error">This is an error</span>
+						</div>
+						<div >
+							<label for="bill_id">手机号码:</label>
+							<input type="text" name="bill_id" id="bill_id" />
+							<span class="error" id="bill_id_error" >This is an error</span>	
+						</div>
+                        <div >
+                            <label for="user_pwd">账号密码:</label>
+                            <input type="text" name="user_pwd" id="user_pwd" />
+                            <span class="error" id="user_pwd_error" >This is an error</span> 
+                        </div>
+						<div class="bottom">
+                            <div class="links fl ">
+                                <a href="javascript:;"   class="reg_btn">注册</a>
+                                |
+                                <a  href="javascript:;"  class="mod_btn">重置密码</a>
+                            </div>			
+							<input type="button" value="登 录" class="log_btn fr"/>						
+							<div class="clear"></div>
+						</div>
+					</form>				
+				</div>			
+			</div>		
+		</div>
+    </body>
+    <script type="text/javascript">		
+			$(function() {
+                //登录 
+                $('.log_btn').click(function(event) {
+                	var flag=true;
+                	var node_login_code=$('#node_login_code').val();
+                	var bill_id=$('#bill_id').val(); 
+                    var user_pwd=$('#user_pwd').val();
+                	if(empty(node_login_code)){
+                		flag=false;
+                		$('#login_code_error').html('请输入平台账号!');
+                        $('#login_code_error').css('visibility','visible');
+                	}                	
+                	if(empty(bill_id)){
+                		flag=false;
+                		$('#bill_id_error').html('请输入手机号码!');
+                        $('#bill_id_error').css('visibility','visible');
+                	}
+
+                    if(empty(user_pwd)){
+                        flag=false;
+                        $('#user_pwd_error').html('请输入账号密码!');
+                        $('#user_pwd_error').css('visibility','visible');
+                    }
+
+                	if(flag){  
+                	   url="{:U('Login/login')}";              		
+                		$.ajax({
+                		  url: url,
+                		  type: 'POST',
+                		  //dataType: 'xml/html/script/json/jsonp',
+                		  data: {node_login_code:node_login_code,bill_id:bill_id,user_pwd:user_pwd},
+                          success: function(res){                           
+                		  	if(res.status=='1'){
+                                layer.alert(res.msg,{icon: 1});
+                                window.location="{:U('Index/index')}?tab=1";
+                		  	}else{
+                                layer.alert(res.msg,{icon: 2});
+                		  	}
+                		  },
+                		  error: function() {
+                		    layer.alert('系统请求出错',{icon: 2});                		    
+                		  }
+                		});                		
+                	}
+                });
+
+                //隐藏提示信息
+                $('input[type=text]').each(function(event) {
+                	$(this).focus(function(event) {
+                		$(this).next('span').css('visibility','hidden');
+                	});
+                });
+
+
+                //注册
+                $('.reg_btn').click(function(event) {
+                    var flag=true;
+                    var node_login_code=$('#node_login_code').val();
+                    var bill_id=$('#bill_id').val(); 
+                    var user_pwd=$('#user_pwd').val();
+                    if(empty(node_login_code)){
+                        flag=false;
+                        $('#login_code_error').html('请输入平台账号!');
+                        $('#login_code_error').css('visibility','visible');
+                    }                   
+                    if(empty(bill_id)){
+                        flag=false;
+                        $('#bill_id_error').html('请输入手机号码!');
+                        $('#bill_id_error').css('visibility','visible');
+                    }
+
+                    if(empty(user_pwd)){
+                        flag=false;
+                        $('#user_pwd_error').html('请输入账号密码!');
+                        $('#user_pwd_error').css('visibility','visible');
+                    }
+
+                    if(flag){  
+                       url="{:U('Login/regist')}";                   
+                        $.ajax({
+                          url: url,
+                          type: 'POST',
+                          dataType: 'json',
+                          data: {node_login_code:node_login_code,bill_id:bill_id,user_pwd:user_pwd},
+                          success: function(res){ 
+                            if(res.status=='1'){
+                                layer.alert(res.msg,{icon: 1});
+                                //window.location="{:U('Index/index')}";
+                            }else{
+                                layer.alert(res.msg,{icon: 2});
+                            }
+                            
+                            //layer.alert(res);
+
+                          },
+                          error: function() {
+                            layer.alert('系统请求出错',{icon: 2});                            
+                          }
+                        });                     
+                    } 
+                });
+
+                $('.mod_btn').click(function(event) {
+                    layer.confirm('您确定要修改密码吗?', {icon: 3, title:'提示'}, function(index){
+                        window.location="{:U('Login/user_pwd_mod')}";
+                      layer.close(index);
+                    });
+                });
+			});
+    </script>
+</html>

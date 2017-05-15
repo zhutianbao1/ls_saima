@@ -1,0 +1,57 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>我的关注</block>
+<block name='css'>
+	<style type="text/css">
+		.td-data{width: 100px;}
+	</style>
+</block>
+<block name='body'>
+<div class="body">
+<if condition="($rn neq 1)">
+	<fieldset style="border:1px solid #ccc">
+    	<legend style="margin-left:20px;font-weight:bold">我关注的个人信息简介</legend>
+			{:W('NewRank/rank_follow',array(null,$month))}
+    </fieldset>
+<else/>
+    <fieldset style="border:1px solid #ccc">
+    	<legend style="margin-left:20px;font-weight:bold">我关注的线条</legend>
+    	<div style="margin-top:20px;">
+			<div style="width:100%;" class="con">
+				<div class="table-title">
+					<div style="width:190px;float:left;text-align: center;">部门线条</div>
+					<ul>
+						<li style="list-style-type: none;">
+							<div class="td-data">前三马</div><div class="td-data">县市</div><div class="td-data">得分</div><div class="td-data">排名</div><div class="td-data">后三马</div><div class="td-data">县市</div><div class="td-data">得分</div><div class="td-data">排名</div>
+						</li>
+					</ul>
+				</div>
+				<volist name="con" id="cons">
+					<div class="table" id="{$cons['ID']}">
+						<div class="td"><span>{$cons['NAME']}</span><a href="{:U('NewRank/rank_info',array('month'=>$month,'id'=>$cons['ID']))}" target="_blank">详情</a><a href="{:U('msg/msg_priview','id='.$cons['CONFIG_ID'])}">目标</a><a href="{:U('index/rank_question','config_id='.$cons['ID'])}">答疑</a></div>
+						<ul class="td2">
+							<volist name='user_front' id='user'>
+								<if condition="($cons['ID'] eq $user['CONFIG_ID'])">
+									<li style="color:#ff6f02">
+										<div class="td-data nor" title="{$user['USER_NAME']}">{$user['USER_NAME']}</div><div class="td-data nor">{$user['COUNTY_NAME']}</div><div class="td-data">{$user['AMOUNT']}</div><div class="td-data">第{$user['PM']}名</div>
+									</li>
+								</if>
+							</volist>
+						</ul>
+						<ul class="td2">
+							<volist name='user_back' id='user'>
+								<if condition="($cons['ID'] eq $user['CONFIG_ID'])">
+									<li>
+										<div class="td-data nor" title="{$user['USER_NAME']}">{$user['USER_NAME']}</div><div class="td-data nor">{$user['COUNTY_NAME']}</div><div class="td-data">{$user['AMOUNT']}</div><div class="td-data">倒数第{$user['PM']}名</div>
+									</li>
+								</if>
+							</volist>
+						</ul>
+					</div>
+				</volist>
+			</div>
+		</div>
+    </fieldset>
+</if>
+</div>
+</block>
+

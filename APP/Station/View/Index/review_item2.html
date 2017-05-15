@@ -1,0 +1,256 @@
+<extend name="pub/base" />
+<block name="title">
+	<title>无线网基站规划建设平台首页</title>
+</block>
+<block name="css">
+   <link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/review.css"/>
+	<style type="text/css">
+	   
+	</style>
+</block>
+<block name="main_right">
+	<div class="right_contain">
+	<h3>无线网基站规划建设申请</h3>
+	<div class="right_item">
+	    <form id="theForm" action="{:U('Index/review_item2')}" method="post">
+	    <fieldset>
+	    <legend>基本信息</legend>
+	  	<div class="group">
+	  	   <div class="group_div">
+	  	    	<label>工单编号:</label>
+	  			<input type="text" name="item_id" value="{$items[0]['ITEM_ID']}"  
+	  			class="readonly" />
+	  		</div>
+	  		
+	  	    <div class="group_div">
+	  	        <label>申请人:</label>
+	  			<input type="text" name="project_name" value="{$items[0]['APPLIY_NAME']}" class="readonly" />
+	  	    </div>
+	  	    <div class="group_div">
+	  	        <label>项目名称:</label>
+	  			<input type="text" name="project_name" value="{$items[0]['PROJECT_NAME']}" class="readonly" />
+	  			</div>
+	  	    <div class="group_div">
+	  	    	<label>预规划站名:</label>
+	  			<input type="text" name="station_name" value="{$items[0]['STATION_NAME']}" class="readonly" />
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>县区</label>
+	  			<input type="text" name="county_name" value="{$items[0]['COUNTY_NAME']}" class="readonly" />
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>一二三类区域</label>
+	  			<input type="text" name="area_name" value="{$items[0]['AREA_NAME']}"  class="readonly"/>
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>基站类型</label>
+	  			<input type="text" name="station_type" value="{$items[0]['STATION_TYPE']}"  class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>网络制式</label>
+	  			<input type="text" name="network_type" value="{$items[0]['NETWORK_TYPE']}" class="readonly" />
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>建站方式</label>
+	  			<input type="text" name="station_con" value="{$items[0]['STATION_CON']}"  class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>建设目标</label>
+	  			<input type="text" name="con_target" value="{$items[0]['CON_TARGET']}"  class="readonly"/>
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>经度</label>
+	  			<input type="text" name="jindu" value="{$items[0]['JINDU']}" class="readonly" />
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>纬度</label>
+	  			<input type="text" name="weidu" value="{$items[0]['WEIDU']}"  class="readonly"/>
+	  	  
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>网络问题同步</label>
+	  			<input type="text" name="network_syn" value="{$items[0]['NETWORK_SYN']}" class="readonly" />
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>网路问题</label>
+	  			<input type="text" name="network_pro" value="{$items[0]['NETWORK_PRO']}" class="readonly"/>
+	  	    </div>
+	  	    <!--
+	  	    <div class="group_div1" >
+	  	       <label>备注</label>	  	       
+	  	       <textarea name="remark" class="readonly">{$items[0]['REMARK']}</textarea>	  	       	  	    	
+	  	    </div>
+	  	    <div class="clear"></div>
+            -->
+	  	    <div class="group_div">
+	  	    	<label>审核结果</label>
+	  	    	<!--
+	  	    	<input type="text" name="cur_node_result"  class="cur_node_result req"  
+	  	    	title="退回请输入0,同意请输入1." />
+	  	    	-->
+	  	    	 <select name="cur_node_result" class="req">
+                	<option value=''>---请选择---</option>
+                	<option value='0|退回修改'>退回修改</option>
+                	<option value='1|同意'>同意</option>
+                </select>
+	  	    	</div>
+	  	    <div class="group_div">
+	  	    	<label>下一节点</label>
+	  	    	<!--
+	  	    	<input type="text" name="next_node"  class="next_node req" />
+	  	    	-->
+	  	    	<select name="next_node" class="req">
+	  	    	    <option value="">---请选择---</option>
+	  	    	    <volist name="nodes" id="node">
+	  	    		<option value="{$node['NODE_NO']}|{$node['NODE_LOGIN_CODE']}|{$node['NODE_NAME']}|{$node['NODE_USERNAME']}|{$node['BILL_ID']}|{$node['COUNTY_CODE']}">{$node['NODE_NO']}|{$node['NODE_LOGIN_CODE']}|{$node['NODE_NAME']}|
+	  	    		{$node['NODE_USERNAME']}|{$node['BILL_ID']}|{$node['COUNTY_CODE']}
+	  	    		</option>
+	  	    		</volist>
+	  	    	</select>
+	  	    </div>
+	  	    <div class="group_div1" >
+	  	       <label>审核意见</label>	  	       
+	  	       <textarea name="review_suggest" class="req"></textarea>	  	       	  	    	
+	  	    </div>
+	  	    <div class="clear"></div>
+	  	    <div class="group_div1" >
+	  	       <label>备注</label>	  	       
+	  	       <textarea name="remark2">{$items[0]['REMARK']}</textarea>	  	       	  	    	
+	  	    </div>
+	  	    <div class="clear"></div>
+	  	</div>
+	  	<div style="height: 10px; width:100%;"></div>
+	  	
+	  	<!--
+	  	<div class="file_div">
+	  	    <label>附件:</label>
+	  		<a href="{$items[0]['FILES_PATH']}">
+			  	<?php 
+			  	$path=$items[0]['FILES_PATH'];
+			  	$pos      = strripos($path,'/');
+			  	$filename=substr($path,$pos+1);
+			  	echo  $filename;
+			  	?>
+	  	    </a>
+	  	</div>
+	  	-->
+	    </fieldset>
+	    <div class="div_btn">
+	  		<input type="button" class="sub_btn"  value="提交"/>
+	  	</div>
+	  	</form>	
+	  	</div>
+	</div>
+	
+	<div class="div_flow">
+		<h3>无线网基站规划建设流程审批信息</h3>
+		<fieldset>
+			<legend>流程信息:</legend>
+			<div class="flow_content">
+				<table>
+					<tr>
+					    <td>节点编号</td>
+						<td>节点名称</td>
+						<td>处理人</td>
+						<td>审批意见</td>
+						<td>处理时间</td>
+						<td>下一处理人</td>
+					</tr>
+					<volist name="flows" id="flow">
+						<tr>
+						    <td>{$flow.CUR_NODE_STEP}</td>
+							<td>{$flow.CUR_NODE_NAME}</td>
+							<td>{$flow.CUR_NODE_USERNAME}</td>
+							<td>{$flow.CUR_NODE_SUGGEST}</td>
+							<td>{$flow.NODE_DATE}</td>
+							<td>{$flow.NEXT_NODE_USERNAME}</td>
+						</tr>
+					</volist>
+				</table>
+		    </div>
+		</fieldset>
+	</div>
+</block>
+<block name="js">
+	<script >
+		$(function(){
+            $('.sub_btn').click(function() {
+           	  var flag=true;              
+	          $(".req").each(function(index, el) {
+	          	 if($(this).val().isEmpty()){
+	          	 	flag=false;
+	          	 	$(this).css('background-color','#ffffe1');
+	          	 	layer.alert('请将数据填写完整!');
+	          	 }
+	          });
+	          if(flag){
+	          	layer.confirm('确定要提交数据吗?', {icon: 3, title:'提示'}, function(index){
+                  $('#theForm').submit();
+				  layer.close(index);
+				});
+	          }
+            });
+
+            $(".req").each(function(index, el) {
+	          	 $(this).focus(function(event) {
+	          	  $(this).css('background-color','');
+	          	 });
+	        });
+
+
+	        $('.readonly').attr("readonly","readonly");
+
+
+          /**
+            $('.cur_node_result').tooltip();
+
+            var result=[
+               '0|退回修改',
+               '1|同意'
+			];
+
+			$(".cur_node_result").autocomplete({
+		      source: result,
+		      messages: {
+              noResults:'',
+              results: function() {}        
+             }
+		    });
+
+		    
+         
+			var nodes=[            
+                <?php 
+                   $node='';
+		           for ( $i=0;$i<count($nodes); $i++) { 
+		              if($i==count($nodes)-1){
+		                  $node .=('"'.$nodes[$i]['NODE_NO'].'|'.$nodes[$i]['NODE_LOGIN_CODE'].'|'.$nodes[$i]['NODE_NAME'].
+		                  	'|'.$nodes[$i]['NODE_USERNAME'].'|'.$nodes[$i]['BILL_ID'].'|'.$nodes[$i]['COUNTY_CODE'].'"');
+		              }else{
+		                  $node .= ('"'.$nodes[$i]['NODE_NO'].'|'.$nodes[$i]['NODE_LOGIN_CODE'].'|'.$nodes[$i]['NODE_NAME'].'|'
+		                  	.$nodes[$i]['NODE_USERNAME'].'|'.$nodes[$i]['BILL_ID'].'|'.$nodes[$i]['COUNTY_CODE'].'"'.',');
+		              }
+		           }
+		           echo $node;
+                ?>
+			];
+
+			$(".next_node").autocomplete({
+		      source: nodes,
+		      messages: {
+              noResults:'',
+              results: function() {}        
+             }
+		    });
+		    **/
+		   
+
+		});
+	</script>
+</block>
+

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2017年重点指标跟踪</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px;font-size: 12px}
+		.meettable{empty-cells: show;border-collapse: collapse;margin: 0 auto;}
+		.meettable th,td{border: 1px solid #a9c6c9;text-align: center;}
+		.meettable tr{height: 30px;line-height: 30px;background: #c3dde0}
+		.title{width:100%;height:120px;}
+	    table th{white-space: nowrap;}
+	    table td{white-space: nowrap;}
+	    table th span{display: block;font-weight: 100}
+		.pag li{list-style: none;padding-top:4px; }
+		.green{background:green;display:block}
+		.yellow{background:yellow;display:block;}
+		.key{color: red;font-weight: 600}
+	</style>
+</head>
+<body>
+	<div style="width:1100px;margin:auto">
+		<div class="title"><img style="margin-left:0px;width:1100px;margin-bottom: -4px;" src="__IMG__/重点指标.png"><span style="position:absolute;top:80px;right:700px;color:white;font-size:14px">当月时间进度：<?php echo round(substr($g4fz[0]['RPT_DATE'],6,2)/date("t")*100,2);?>%</span></div>
+		<span style="height:30px;color:#fff;text-align:center;font-size:16px;background:#2F75B5;width:100%;display:block;margin-top:20px;line-height:30px">市场大势（{$scds[0]['KPI_DATE']|strtotime|date="Ymd",###}）<span style="font-size:12px">最终结果以稽核后数据为准</span></span>
+		<div style="overflow: auto;">
+			<table class="meettable">
+				<tr>
+					<th rowspan="2">县市</th>
+					<th colspan="4">日通份额改善
+					<span>责任人：陈旺胜</span><span>（结果型指标，5月份KPI目标）</span></th>
+					<th colspan="4">月度净增份额
+					<span>责任人：陈旺胜</span><span>（结果型指标，5月份目标）</span></th>
+					<th colspan="4">年度净增份额
+					<span>责任人：陈旺胜</span><span>（结果型指标，5月份目标）</span></th>
+					<th colspan="6"><span class="key">新增市场份额（二季度"力争上游-大势主导"劳动竞赛指标）</span>
+					<span>责任人：陈旺胜</span><span>（过程型指标，“力争上游-大势主导”劳动竞赛5月份目标）</span></th>
+					<!-- <th colspan="4">视频王发展量
+					<span>责任人：苏笙</span><span>（过程型指标，5月份目标）</span></th> -->
+					<!-- <th colspan="4">集团双卡目标用户视频王办理量
+					<span>责任人：吕剑海</span><span>（过程型指标，5月份目标）</span></th> -->
+					<th colspan="4">新入网虚拟网通话率
+					<span>责任人：王晶晶</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团客户两网渗透率
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+				</tr>
+				<tr>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>模拟得分</th>
+					<th>排名</th>
+					<!-- <th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th> -->
+					<!-- <th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th> -->
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+				</tr>
+				<volist name="scds" id="user">
+					<tr>
+						<td>{$user.CITY_NAME}</td>
+						<if condition="($user['VALUE1'] eq null)">
+							<td>{$user.T1}</td>
+							<td>{$user.V1}</td>
+							<td><if condition="($user['R1'] lt 4) and ($user['R1'] neq null)"><span class="green">{$user['D1']}</span><elseif condition="($user['R1'] gt 7)"/><span class="yellow">{$user['D1']}</span><else/>{$user['D1']}</if></td>
+							<td>{$user.R1}</td>
+						<else/>
+							<td>{$user.TARGET1}</td>
+							<td>{$user.VALUE1}</td>
+							<td><if condition="($user['RANK1'] lt 4) and ($user['RANK1'] neq null)"><span class="green">{$user['DIFF1']}</span><elseif condition="($user['RANK1'] gt 7)"/><span class="yellow">{$user['DIFF1']}</span><else/>{$user['DIFF1']}</if></td>
+							<td>{$user.RANK1}</td>
+						</if>
+						<if condition="($user['VALUE2'] eq null)">
+							<td>{$user.T2}</td>
+							<td>{$user.V2}</td>
+							<td><if condition="($user['R2'] lt 4) and ($user['R2'] neq null)"><span class="green">{$user['D2']}</span><elseif condition="($user['R2'] gt 7)"/><span class="yellow">{$user['D2']}</span><else/>{$user['D2']}</if></td>
+							<td>{$user.R2}</td>
+						<else/>
+							<td>{$user.TARGET2}</td>
+							<td>{$user.VALUE2}</td>
+							<td><if condition="($user['RANK2'] lt 4) and ($user['RANK2'] neq null)"><span class="green">{$user['DIFF2']}</span><elseif condition="(($user['RANK2'] gt 7) or ($user['VALUE2'] eq '0.00%'))and ($user['RANK2'] neq null)"/><span class="yellow">{$user['DIFF2']}</span><else/>{$user['DIFF2']}</if></td>
+							<td>{$user.RANK2}</td>
+						</if>
+						<if condition="($user['VALUE8'] eq null)">
+							<td>{$user.T8}</td>
+							<td>{$user.V8}</td>
+							<td><if condition="($user['R8'] lt 4) and ($user['R8'] neq null)"><span class="green">{$user['D8']}</span><elseif condition="($user['R8'] gt 7)"/><span class="yellow">{$user['D8']}</span><else/>{$user['D8']}</if></td>
+							<td>{$user.R8}</td>
+						<else/>
+							<td>{$user.TARGET8}</td>
+							<td>{$user.VALUE8}</td>
+							<td><if condition="($user['RANK8'] lt 4) and ($user['RANK8'] neq null)"><span class="green">{$user['DIFF8']}</span><elseif condition="(($user['RANK8'] gt 7) or ($user['VALUE8'] eq '0.00%'))and ($user['RANK8'] neq null)"/><span class="yellow">{$user['DIFF8']}</span><else/>{$user['DIFF8']}</if></td>
+							<td>{$user.RANK8}</td>
+						</if>
+						<if condition="($user['VALUE3'] eq null)">
+							<td>{$user.T31}</td>
+							<td>{$user.T3}</td>
+							<td>{$user.V3}</td>
+							<td><if condition="($user['R3'] lt 4) and ($user['R3'] neq null)"><span class="green">{$user['D3']}</span><elseif condition="($user['R3'] gt 7)"/><span class="yellow">{$user['D3']}</span><else/>{$user['D3']}</if></td>
+							<td>
+							<?php 
+								if($user['V3']-$user['T3']>0) echo 100;
+								else if($user['V3']-$user['T31']<0) echo 0;
+								else echo round(60+40*($user['V3']-$user['T31'])/($user['T3']-$user['T31']),2);
+							?>
+							</td>
+							<td>{$user.R3}</td>
+						<else/>
+							<td>{$user.TARGET31}</td>
+							<td>{$user.TARGET3}</td>
+							<td>{$user.VALUE3}</td>
+							<td><if condition="($user['RANK3'] lt 4) and ($user['RANK3'] neq null)"><span class="green">{$user['DIFF3']}</span><elseif condition="($user['RANK3'] gt 7)"/><span class="yellow">{$user['DIFF3']}</span><else/>{$user['DIFF3']}</if></td>
+							<td>
+							<?php 
+								if($user['VALUE3']-$user['TARGET3']>0) echo 100;
+								else if($user['VALUE3']-$user['TARGET31']<0) echo 0;
+								else echo round(60+40*($user['VALUE3']-$user['TARGET31'])/($user['TARGET3']-$user['TARGET31']),2);
+							?>
+							</td>
+							<td>{$user.RANK3}</td>
+						</if>
+						<!-- <if condition="($user['VALUE4'] eq null)">
+							<td>{$user.T4}</td>
+							<td>{$user.V4}</td>
+							<td><if condition="($user['R4'] lt 4) and ($user['R4'] neq null)"><span class="green">{$user['D4']}</span><elseif condition="($user['R4'] gt 7)"/><span class="yellow">{$user['D4']}</span><else/>{$user['D4']}</if></td>
+							<td>{$user.R4}</td>
+						<else/>
+							<td>{$user.TARGET4}</td>
+							<td>{$user.VALUE4}</td>
+							<td><if condition="($user['RANK4'] lt 4) and ($user['RANK4'] neq null)"><span class="green">{$user['DIFF4']}</span><elseif condition="($user['RANK4'] gt 7)"/><span class="yellow">{$user['DIFF4']}</span><else/>{$user['DIFF4']}</if></td>
+							<td>{$user.RANK4}</td>
+						</if> -->
+						<!-- <if condition="($user['VALUE5'] eq null)">
+							<td>{$user.T5}</td>
+							<td>{$user.V5}</td>
+							<td><if condition="($user['R5'] lt 4) and ($user['R5'] neq null)"><span class="green">{$user['D5']}</span><elseif condition="($user['R5'] gt 7)"/><span class="yellow">{$user['D5']}</span><else/>{$user['D5']}</if></td>
+							<td>{$user.R5}</td>
+						<else/>
+							<td>{$user.TARGET5}</td>
+							<td>{$user.VALUE5}</td>
+							<td><if condition="($user['RANK5'] lt 4) and ($user['RANK5'] neq null) and ($user['VALUE5'] neq 0)"><span class="green">{$user['DIFF5']}</span><elseif condition="($user['RANK5'] gt 7) or ($user['VALUE5'] eq 0)"/><span class="yellow">{$user['DIFF5']}</span><else/>{$user['DIFF5']}</if></td>
+							<td>{$user.RANK5}</td>
+						</if> -->
+						<if condition="($user['VALUE6'] eq null)">
+							<td>{$user.T6}</td>
+							<td>{$user.V6}</td>
+							<td><if condition="($user['R6'] lt 4) and ($user['R6'] neq null)"><span class="green">{$user['D6']}</span><elseif condition="($user['R6'] gt 7)"/><span class="yellow">{$user['D6']}</span><else/>{$user['D6']}</if></td>
+							<td>{$user.R6}</td>
+						<else/>
+							<td>{$user.TARGET6}</td>
+							<td>{$user.VALUE6}</td>
+							<td><if condition="($user['RANK6'] lt 4) and ($user['RANK6'] neq null)"><span class="green">{$user['DIFF6']}</span><elseif condition="($user['RANK6'] gt 7)"/><span class="yellow">{$user['DIFF6']}</span><else/>{$user['DIFF6']}</if></td>
+							<td>{$user.RANK6}</td>
+						</if>
+						<if condition="($user['VALUE7'] eq null)">
+							<td>{$user.T7}</td>
+							<td>{$user.V7}</td>
+							<td><if condition="($user['R7'] lt 4) and ($user['R7'] neq null)"><span class="green">{$user['D7']}</span><elseif condition="($user['R7'] gt 7)"/><span class="yellow">{$user['D7']}</span><else/>{$user['D7']}</if></td>
+							<td>{$user.R7}</td>
+						<else/>
+							<td>{$user.TARGET7}</td>
+							<td>{$user.VALUE7}</td>
+							<td><if condition="($user['RANK7'] lt 4) and ($user['RANK7'] neq null)"><span class="green">{$user['DIFF7']}</span><elseif condition="($user['RANK7'] gt 7)"/><span class="yellow">{$user['DIFF7']}</span><else/>{$user['DIFF7']}</if></td>
+							<td>{$user.RANK7}</td>
+						</if>
+					</tr>
+				</volist>
+			</table>
+		</div>
+		<span style="height:30px;color:#fff;text-align:center;font-size:16px;background:#2F75B5;width:100%;display:block;margin-top:20px;line-height:30px">4G发展（{$g4fz[0]['RPT_DATE']|strtotime|date="Ymd",###}）<span style="font-size:12px">最终结果以稽核后数据为准</span></span>
+		<div style="overflow: auto;">
+			<table class="meettable">
+				<tr>
+					<th rowspan="2" style="width:50px">县市</th>
+					<th colspan="5">4G活跃客户净增
+					<span>责任人：叶剑虹</span><span>（结果型指标，5月份KPI目标）</span></th>
+				<!--	<th colspan="7">4G活跃客户到达情况
+					<span>责任人：叶剑虹</span><span>（结果型指标，5月份目标）</span></th>-->
+					<th colspan="4">2/3G客户购机直降+儿童腕表销量
+					<span>责任人：徐黎霞</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">2/3G终端客户迁移率
+					<span>责任人：徐黎霞</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">集团客户2/3G终端客户迁移率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">4G客户转化率
+					<span>责任人：李玲丽</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">新增可控4G终端转化率
+					<span>责任人：李玲丽</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">新增非可控4G终端转化率
+					<span>责任人：李玲丽</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">公众市场沉默客户唤醒率
+					<span>责任人：李玲丽</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">集团客户沉默客户唤醒率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+				</tr>
+				<tr>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>挑战目标完成进度</th>
+					<th>排名</th>
+				<!--	<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>4G活跃客户到达数</th>
+					<th>挑战目标达成率</th>
+					<th>挑战目标差距</th>
+					<th>日净增要求</th>
+					<th>排名</th>-->
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<!-- <th>挑战目标</th> -->
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>排名</th>
+				</tr>
+				<volist name="g4fz" id="user">
+					<tr>
+						<td>{$user.COUNTY_NAME}</td>
+						<if condition="($user['G4剔除后年底净增'] eq null)">
+							<td>{$user['A1']}</td>
+							<td>{$user['B1']}</td>
+							<td>{$user['C1']}</td>
+							<td><if condition="($user['E1'] lt 4) and ($user['E1'] neq null)"><span class="green">{$user.D1}</span><elseif  condition="($user['E1'] gt 7)"/><span class="yellow">{$user.D1}</span><else/>{$user.D1}</if></td>
+							<td>{$user.E1}</td>
+						<else/>
+							<td>{$user['G4_ACTIVE_BASE']}</td>
+							<td>{$user['G4_ACTIVE_CHALLENGE']}</td>
+							<td>{$user['G4剔除后年底净增']}</td>
+							<td><if condition="($user['排名1'] lt 4) and ($user['排名1'] neq null)"><span class="green">{$user.G4_ACTIVE_CHLG_PROP}</span><elseif  condition="($user['排名1'] gt 7)"/><span class="yellow">{$user.G4_ACTIVE_CHLG_PROP}</span><else/>{$user.G4_ACTIVE_CHLG_PROP}</if></td>
+							<td>{$user.排名1}</td>
+						</if>
+						<!--	<td>{$user['G4活跃到达BASE']}</td>
+							<td>{$user['G4活跃到达CHALLENGE']}</td>
+							<td>{$user['G4活跃到达数']}</td>
+							<td><if condition="($user['排名10'] lt 4) and ($user['排名10'] neq null)"><span class="green">{$user.G4活跃到达CHLG_PROP}</span><elseif  condition="($user['排名10'] gt 7)"/><span class="yellow">{$user.G4活跃到达CHLG_PROP}</span><else/>{$user.G4活跃到达CHLG_PROP}</if></td>
+							<td>{$user.G4活跃到达差距}</td>
+							<td>{$user.G4活跃日净增要求}</td>
+							<td>{$user.排名10}</td> -->
+						<if condition="($user['TMNL_BUY23G_CNT'] eq null)">
+							<td>{$user['B2']}</td>
+							<td>{$user['C2']}</td>
+							<td><if condition="($user['E2'] lt 4) and ($user['E2'] neq null)"><span class="green">{$user.D2}</span><elseif  condition="($user['E2'] gt 7)"/><span class="yellow">{$user.D2}</span><else/>{$user.D2}</if></td>
+							<td>{$user.E2}</td>
+						<else/>
+							<td>{$user['TMNL_BUY23G']}</td>
+							<td>{$user['TMNL_BUY23G_CNT']}</td>
+							<td><if condition="($user['排名2'] lt 4) and ($user['排名2'] neq null)"><span class="green">{$user.TMNL_BUY23G_LV}</span><elseif  condition="($user['排名2'] gt 7)"/><span class="yellow">{$user.TMNL_BUY23G_LV}</span><else/>{$user.TMNL_BUY23G_LV}</if></td>
+							<td>{$user.排名2}</td>
+						</if>
+						<if condition="($user['月累计转换率'] eq null)">
+							<td>{$user['A3']}</td>
+							<td>{$user['B3']}</td>
+							<td>{$user['C3']}</td>
+							<td><if condition="($user['E3'] lt 4) and ($user['E3'] neq null)"><span class="green">{$user.D3}</span><elseif  condition="($user['E3'] gt 7)"/><span class="yellow">{$user.D3}</span><else/>{$user.D3}</if></td>
+							<td>{$user.E3}</td>
+						<else/>
+							<td>{$user['TMNL_23G_QY_BASE']}</td>
+							<td>{$user['TMNL_23G_QY_CHALGE']}</td>
+							<td>{$user['月累计转换率']}</td>
+							<td><if condition="($user['排名3'] lt 4) and ($user['排名3'] neq null)"><span class="green">{$user.迁移挑战差距}</span><elseif  condition="($user['排名3'] gt 7)"/><span class="yellow">{$user.迁移挑战差距}</span><else/>{$user.迁移挑战差距}</if></td>
+							<td>{$user.排名3}</td>
+						</if>
+						<if condition="($user['集团月累计转换率'] eq null)">
+							<td>{$user['A4']}</td>
+							<td>{$user['B4']}</td>
+							<td>{$user['C4']}</td>
+							<td><if condition="($user['E4'] lt 4) and ($user['E4'] neq null)"><span class="green">{$user.D4}</span><elseif  condition="($user['E4'] gt 7)"/><span class="yellow">{$user.D4}</span><else/>{$user.D4}</if></td>
+							<td>{$user.E4}</td>
+						<else/>
+							<td>{$user['GROUP_TMNL_23G_QY_BASE']}</td>
+							<td>{$user['GROUP_TMNL_23G_QY_CHALG']}</td>
+							<td>{$user['集团月累计转换率']}</td>
+							<td><if condition="($user['排名4'] lt 4) and ($user['排名4'] neq null)"><span class="green">{$user.集团迁移挑战差距}</span><elseif  condition="($user['排名4'] gt 7)"/><span class="yellow">{$user.集团迁移挑战差距}</span><else/>{$user.集团迁移挑战差距}</if></td>
+							<td>{$user.排名4}</td>
+						</if>
+						<if condition="($user['G4客户转化率'] eq null)">
+							<td>{$user['A5']}</td>
+							<!-- <td>{$user['B5']}</td> -->
+							<td>{$user['C5']}</td>
+							<td><if condition="($user['E5'] lt 4) and ($user['E5'] neq null)"><span class="green">{$user.D5}</span><elseif  condition="($user['E5'] gt 7)"/><span class="yellow">{$user.D5}</span><else/>{$user.D5}</if></td>
+							<td>{$user.E5}</td>
+						<else/>
+							<td>{$user['G4_TRANSFORM_BASE']}</td>
+							<!-- <td>{$user['G4_TRANSFORM_CHALG']}</td> -->
+							<td>{$user['G4客户转化率']}</td>
+							<td><if condition="($user['排名5'] lt 4) and ($user['排名5'] neq null)"><span class="green">{$user.客户转化率目标差距}</span><elseif  condition="($user['排名5'] gt 7)"/><span class="yellow">{$user.客户转化率目标差距}</span><else/>{$user.客户转化率目标差距}</if></td>
+							<td>{$user.排名5}</td>
+						</if>
+						<if condition="($user['新增可控活跃'] eq null)">
+							<td>{$user['B6']}</td>
+							<td>{$user['C6']}</td>
+							<td><if condition="($user['E6'] lt 4) and ($user['E6'] neq null)"><span class="green">{$user.D6}</span><elseif  condition="($user['E6'] gt 7)"/><span class="yellow">{$user.D6}</span><else/>{$user.D6}</if></td>
+							<td>{$user.E6}</td>
+						<else/>
+							<td>{$user['NEW_SYSTMNL_TARGET']}</td>
+							<td>{$user['新增可控活跃']}</td>
+							<td><if condition="($user['排名6'] lt 4) and ($user['排名6'] neq null)"><span class="green">{$user.新增可控距目标差距}</span><elseif  condition="($user['排名6'] gt 7)"/><span class="yellow">{$user.新增可控距目标差距}</span><else/>{$user.新增可控距目标差距}</if></td>
+							<td>{$user.排名6}</td>
+						</if>
+						<if condition="($user['新增非控活跃'] eq null)">
+							<td>{$user['B7']}</td>
+							<td>{$user['C7']}</td>
+							<td><if condition="($user['E7'] lt 4) and ($user['E7'] neq null)"><span class="green">{$user.D7}</span><elseif  condition="($user['E7'] gt 7)"/><span class="yellow">{$user.D7}</span><else/>{$user.D7}</if></td>
+							<td>{$user.E7}</td>
+						<else/>
+							<td>{$user['NEW_OUTTMNL_TARGET']}</td>
+							<td>{$user['新增非控活跃']}</td>
+							<td><if condition="($user['排名7'] lt 4) and ($user['排名7'] neq null)"><span class="green">{$user.新增非控距目标差距}</span><elseif  condition="($user['排名7'] gt 7)"/><span class="yellow">{$user.新增非控距目标差距}</span><else/>{$user.新增非控距目标差距}</if></td>
+							<td>{$user.排名7}</td>
+						</if>
+						<if condition="($user['沉默唤醒率'] eq null)">
+							<td>{$user['A8']}</td>
+							<td>{$user['B8']}</td>
+							<td>{$user['C8']}</td>
+							<td><if condition="($user['E8'] lt 4) and ($user['E8'] neq null)"><span class="green">{$user.D8}</span><elseif  condition="($user['E8'] gt 7)"/><span class="yellow">{$user.D8}</span><else/>{$user.D8}</if></td>
+							<td>{$user.E8}</td>
+						<else/>
+							<td>{$user['SILENCE_BASE']}</td>
+							<td>{$user['SILENCE_CHALG']}</td>
+							<td>{$user['沉默唤醒率']}</td>
+							<td><if condition="($user['排名8'] lt 4) and ($user['排名8'] neq null)"><span class="green">{$user.沉默唤醒率差距}</span><elseif  condition="($user['排名8'] gt 7)"/><span class="yellow">{$user.沉默唤醒率差距}</span><else/>{$user.沉默唤醒率差距}</if></td>
+							<td>{$user.排名8}</td>
+						</if>
+						<if condition="($user['集团沉默唤醒率'] eq null)">
+							<td>{$user['A9']}</td>
+							<td>{$user['B9']}</td>
+							<td>{$user['C9']}</td>
+							<td><if condition="($user['E9'] lt 4) and ($user['E9'] neq null)"><span class="green">{$user.D9}</span><elseif  condition="($user['E9'] gt 7)"/><span class="yellow">{$user.D9}</span><else/>{$user.D9}</if></td>
+							<td>{$user.E9}</td>
+						<else/>
+							<td>{$user['GROUP_SILENCE']}</td>
+							<td>{$user['GROUP_SILENCE_CHALG']}</td>
+							<td>{$user['集团沉默唤醒率']}</td>
+							<td><if condition="($user['排名9'] lt 4) and ($user['排名9'] neq null)"><span class="green">{$user.集团沉默唤醒率差距}</span><elseif  condition="($user['排名9'] gt 7)"/><span class="yellow">{$user.集团沉默唤醒率差距}</span><else/>{$user.集团沉默唤醒率差距}</if></td>
+							<td>{$user.排名9}</td>
+						</if>
+					</tr>
+				</volist>
+			</table>
+		</div>
+
+		<span style="height:30px;color:#fff;text-align:center;font-size:16px;background:#2F75B5;width:100%;display:block;margin-top:20px;line-height:30px">流量经营（{$lljy[0]['RPT_DATE']|strtotime|date="Ymd",###}）<span style="font-size:12px">最终结果以稽核后数据为准</span></span>
+		<div style="overflow:auto">
+			<table class="meettable">
+				<tr>
+					<th rowspan="2" style="width:100px">县市</th>
+					<th colspan="4">流量增长率
+					<span>责任人：胡曙辉</span><span>（结果型指标，5月份KPI目标）</span></th>
+					<th colspan="4">4G资费净增份数
+					<span>责任人：胡秋芳</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团4G资费客户发展
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团成员流量礼包客户发展
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="6"><span class="key">50元以上流量包客户发展净增（二季度"力争上游-流量突破"劳动竞赛指标）</span>
+					<span>责任人：胡曙辉</span><span>（过程型指标，"力争上游-流量突破"劳动竞赛5月目标）</span></th>
+					<th colspan="6"><span class="key">咪咕爱看有效会员发展（二季度"力争上游-流量突破"劳动竞赛指标）</span>
+					<span>责任人：胡曙辉</span><span>（过程型指标，"力争上游-流量突破"劳动竞赛5月目标）</span></th>
+					<th colspan="4">集团客户咪咕爱看有效会员新增
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">满就送客户使用率
+					<span>责任人：胡秋芳</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团客户满就送使用率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">生日流量包领取率
+					<span>责任人：端木茂林</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团客户生日流量包领取率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">购机红包领取率
+					<span>责任人：陈拓凭</span><span>（过程型指标，5月份目标）</span></th>
+				</tr>
+				<tr>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>模拟得分</th>
+					<th>超额奖励得分</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>模拟得分</th>
+					<th>超额奖励得分</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+				</tr>
+				<volist name="lljy" id="user">
+					<tr>
+						<td>{$user.COUNTY_NAME}</td>
+						<if condition="($user['到达值0'] eq null)">
+							<td>{$user.A0}</td>
+							<td>{$user.B0}</td>
+							<td><if condition="($user['D0'] lt 4) and ($user['D0'] neq null)"><span class="green">{$user.C0}</span><elseif  condition="($user['D0'] gt 7)"/><span class="yellow">{$user.C0}</span><else/>{$user.C0}</if></td>
+							<td>{$user.D0}</td>
+						<else/>
+							<td>{$user.目标0}</td>
+							<td>{$user.到达值0}</td>
+							<td><if condition="($user['排名0'] lt 4) and ($user['排名0'] neq null)"><span class="green">{$user.进度0}</span><elseif  condition="($user['排名0'] gt 7)"/><span class="yellow">{$user.进度0}</span><else/>{$user.进度0}</if></td>
+							<td>{$user.排名0}</td>
+						</if>
+						<if condition="($user['到达值1'] eq null)">
+							<td>{$user.A1}</td>
+							<td>{$user.B1}</td>
+							<td><if condition="($user['D1'] lt 4) and ($user['D1'] neq null)"><span class="green">{$user.C1}</span><elseif  condition="($user['D1'] gt 7)"/><span class="yellow">{$user.C1}</span><else/>{$user.C1}</if></td>
+							<td>{$user.D1}</td>
+						<else/>
+							<td>{$user.目标值1}</td>
+							<td>{$user.到达值1}</td>
+							<td><if condition="($user['排名1'] lt 4) and ($user['排名1'] neq null)"><span class="green">{$user.进度1}</span><elseif  condition="($user['排名1'] gt 7)"/><span class="yellow">{$user.进度1}</span><else/>{$user.进度1}</if></td>
+							<td>{$user.排名1}</td>
+						</if>
+						<if condition="($user['到达值2'] eq null)">
+							<td>{$user.A2}</td>
+							<td>{$user.B2}</td>
+							<td><if condition="($user['D2'] lt 4) and ($user['D2'] neq null)"><span class="green">{$user.C2}</span><elseif  condition="($user['D2'] gt 7)"/><span class="yellow">{$user.C2}</span><else/>{$user.C2}</if></td>
+							<td>{$user.D2}</td>
+						<else/>
+							<td>{$user.目标值2}</td>
+							<td>{$user.到达值2}</td>
+							<td><if condition="($user['排名2'] lt 4) and ($user['排名2'] neq null)"><span class="green">{$user.进度2}</span><elseif  condition="($user['排名2'] gt 7)"/><span class="yellow">{$user.进度2}</span><else/>{$user.进度2}</if></td>
+							<td>{$user.排名2}</td>
+						</if>
+						<if condition="($user['到达值3'] eq null)">
+							<td>{$user.A3}</td>
+							<td>{$user.B3}</td>
+							<td><if condition="($user['D3'] lt 4) and ($user['D3'] neq null)"><span class="green">{$user.C3}</span><elseif  condition="($user['D3'] gt 7)"/><span class="yellow">{$user.C3}</span><else/>{$user.C3}</if></td>
+							<td>{$user.D3}</td>
+						<else/>
+							<td>{$user.目标值3}</td>
+							<td>{$user.到达值3}</td>
+							<td><if condition="($user['排名3'] lt 4) and ($user['排名3'] neq null)"><span class="green">{$user.进度3}</span><elseif  condition="($user['排名3'] gt 7)"/><span class="yellow">{$user.进度3}</span><else/>{$user.进度3}</if></td>
+							<td>{$user.排名3}</td>
+						</if>
+						<if condition="($user['到达值11'] eq null)">
+							<td>{$user.A11}</td>
+							<td>{$user.B11}</td>
+							<td><if condition="($user['D11'] lt 4) and ($user['D11'] neq null)"><span class="green">{$user.C11}</span><elseif  condition="($user['D11'] gt 7)"/><span class="yellow">{$user.C11}</span><else/>{$user.C11}</if></td>
+							<td>
+							<?php 
+								if($user['C11']*1<80) echo 0;
+								else if($user['C11']*1>100) echo 50;
+								else echo 30+20*($user['C11']*1-80)/20;
+							?>
+							</td>
+							<td>
+							<?php 
+								if($user['C11']*1>100) echo 10*($user['C11']*1-100)/($user['C11']*1-100);
+								else echo 0;
+							?>
+							</td>
+							<td>{$user.D11}</td>
+						<else/>
+							<td>{$user.目标值11}</td>
+							<td>{$user.到达值11}</td>
+							<td><if condition="($user['排名11'] lt 4) and ($user['排名11'] neq null)"><span class="green">{$user.进度11}</span><elseif  condition="($user['排名11'] gt 7)"/><span class="yellow">{$user.进度11}</span><else/>{$user.进度11}</if></td>
+							<td>
+							<?php 
+								if($user['进度11']*1<80) echo 0;
+								else if($user['进度11']*1>100) echo 50;
+								else echo 30+20*($user['进度11']*1-80)/20;
+							?>
+							</td>
+							<td>
+							<?php 
+								if($user['进度11']*1>100) echo 10*($user['进度11']*1-100)/($user['进度11']*1-100);
+								else echo 0;
+							?>
+							</td>
+							<td>{$user.排名11}</td>
+						</if>
+						<if condition="($user['到达值4'] eq null)">
+							<td>{$user.A4}</td>
+							<td>{$user.B4}</td>
+							<td><if condition="($user['D4'] lt 4) and ($user['D4'] neq null)"><span class="green">{$user.C4}</span><elseif  condition="($user['D4'] gt 7)"/><span class="yellow">{$user.C4}</span><else/>{$user.C4}</if></td>
+							<td>
+							<?php 
+								if($user['C4']*1<80) echo 0;
+								else if($user['C4']*1>100) echo 50;
+								else echo 30+20*($user['C4']*1-80)/20;
+							?>
+							</td>
+							<td>
+							<?php 
+								if($user['C4']*1>100) echo 10*($user['C4']*1-100)/100;
+								else echo 0;
+							?>
+							</td>
+							<td>{$user.D4}</td>
+						<else/>
+							<td>{$user.目标值4}</td>
+							<td>{$user.到达值4}</td>
+							<td><if condition="($user['排名4'] lt 4) and ($user['排名4'] neq null)"><span class="green">{$user.进度4}</span><elseif  condition="($user['排名4'] gt 7)"/><span class="yellow">{$user.进度4}</span><else/>{$user.进度4}</if></td>
+							<td>
+							<?php 
+								if($user['进度4']*1<80) echo 0;
+								else if($user['进度4']*1>100) echo 50;
+								else echo 30+20*($user['进度4']*1-80)/20;
+							?>
+							</td>
+							<td>0</td>
+							<td>{$user.排名4}</td>
+						</if>
+						<if condition="($lljy[0]['到达值5'] eq null)">
+							<td>{$user.A5}</td>
+							<td>{$user.B5}</td>
+							<td><if condition="($user['D5'] lt 4) and ($user['D5'] neq null)"><span class="green">{$user.C5}</span><elseif  condition="($user['D5'] gt 7)"/><span class="yellow">{$user.C5}</span><else/>{$user.C5}</if></td>
+							<td>{$user.D5}</td>
+						<else/>
+							<td>{$user.目标值5}</td>
+							<td>{$user.到达值5}</td>
+							<td><if condition="($user['排名5'] lt 4) and ($user['排名5'] neq null)"><span class="green">{$user.进度5}</span><elseif  condition="($user['排名5'] gt 7)"/><span class="yellow">{$user.进度5}</span><else/>{$user.进度5}</if></td>
+							<td>{$user.排名5}</td>
+						</if>
+						<if condition="($user['到达值6'] eq null)">
+							<td>{$user.A6}</td>
+							<td>{$user.B6}</td>
+							<td><if condition="($user['D6'] lt 4) and ($user['D6'] neq null)"><span class="green">{$user.C6}</span><elseif  condition="($user['D6'] gt 7)"/><span class="yellow">{$user.C6}</span><else/>{$user.C6}</if></td>
+							<td>{$user.D6}</td>
+						<else/>
+							<td>{$user.目标值6}</td>
+							<td>{$user.到达值6}</td>
+							<td><if condition="($user['排名6'] lt 4) and ($user['排名6'] neq null)"><span class="green">{$user.进度6}</span><elseif  condition="($user['排名6'] gt 7)"/><span class="yellow">{$user.进度6}</span><else/>{$user.进度6}</if></td>
+							<td>{$user.排名6}</td>
+						</if>
+						<if condition="($user['到达值7'] eq null)">
+							<td>{$user.A7}</td>
+							<td>{$user.B7}</td>
+							<td><if condition="($user['D7'] lt 4) and ($user['D7'] neq null)"><span class="green">{$user.C7}</span><elseif  condition="($user['D7'] gt 7)"/><span class="yellow">{$user.C7}</span><else/>{$user.C7}</if></td>
+							<td>{$user.D7}</td>
+						<else/>
+							<td>{$user.目标值7}</td>
+							<td>{$user.到达值7}</td>
+							<td><if condition="($user['排名7'] lt 4) and ($user['排名7'] neq null)"><span class="green">{$user.进度7}</span><elseif  condition="($user['排名7'] gt 7)"/><span class="yellow">{$user.进度7}</span><else/>{$user.进度7}</if></td>
+							<td>{$user.排名7}</td>
+						</if>
+						<if condition="($user['到达值8'] eq null)">
+							<td>{$user.A8}</td>
+							<td>{$user.B8}</td>
+							<td><if condition="($user['D8'] lt 4) and ($user['D8'] neq null)"><span class="green">{$user.C8}</span><elseif  condition="($user['D8'] gt 7)"/><span class="yellow">{$user.C8}</span><else/>{$user.C8}</if></td>
+							<td>{$user.D8}</td>
+						<else/>
+							<td>{$user.目标值8}</td>
+							<td>{$user.到达值8}</td>
+							<td><if condition="($user['排名8'] lt 4) and ($user['排名8'] neq null)"><span class="green">{$user.进度8}</span><elseif  condition="($user['排名8'] gt 7)"/><span class="yellow">{$user.进度8}</span><else/>{$user.进度8}</if></td>
+							<td>{$user.排名8}</td>
+						</if>
+						<if condition="($user['到达值9'] eq null)">
+							<td>{$user.A9}</td>
+							<td>{$user.B9}</td>
+							<td><if condition="($user['D9'] lt 4) and ($user['D9'] neq null)"><span class="green">{$user.C9}</span><elseif  condition="($user['D9'] gt 7)"/><span class="yellow">{$user.C9}</span><else/>{$user.C9}</if></td>
+							<td>{$user.D9}</td>
+						<else/>
+							<td>{$user.目标值9}</td>
+							<td>{$user.到达值9}</td>
+							<td><if condition="($user['排名9'] lt 4) and ($user['排名9'] neq null)"><span class="green">{$user.进度9}</span><elseif  condition="($user['排名9'] gt 7)"/><span class="yellow">{$user.进度9}</span><else/>{$user.进度9}</if></td>
+							<td>{$user.排名9}</td>
+						</if>
+						<if condition="($user['到达值10'] eq null)">
+							<td>{$user.A10}</td>
+							<td>{$user.B10}</td>
+							<td><if condition="($user['D10'] lt 4) and ($user['D10'] neq null)"><span class="green">{$user.C10}</span><elseif  condition="($user['D10'] gt 7)"/><span class="yellow">{$user.C10}</span><else/>{$user.C10}</if></td>
+							<td>{$user.D10}</td>
+						<else/>
+							<td>{$user.目标值10}</td>
+							<td>{$user.到达值10}</td>
+							<td><if condition="($user['排名10'] lt 4) and ($user['排名10'] neq null)"><span class="green">{$user.进度10}</span><elseif  condition="($user['排名10'] gt 7)"/><span class="yellow">{$user.进度10}</span><else/>{$user.进度10}</if></td>
+							<td>{$user.排名10}</td>
+						</if>
+					</tr>
+				</volist>
+			</table>
+		</div>
+
+		<span style="height:30px;color:#fff;text-align:center;font-size:16px;background:#2F75B5;width:100%;display:block;margin-top:20px;line-height:30px">智慧家庭（{$zhjt[0]['KPI_DATE']|strtotime|date="Ymd",###}）<span style="font-size:12px">最终结果以稽核后数据为准</span></span>
+		<div style="overflow:auto">
+			<table class="meettable">
+				<tr>
+					<th rowspan="2" style="width:100px">县市</th>
+					<th colspan="6"><span class="key">有线宽带年累计净增 （二季度"力争上游-宽带超越"劳动竞赛指标）</span>
+					<span>责任人：官军</span><span>（结果型指标，"力争上游-宽带超越"劳动竞赛5月目标）</span></th>
+					<th colspan="4">宽带电视年累计净增
+					<span>责任人：项伟龙</span><span>（结果型指标，5月份KPI目标）</span></th>
+					<th colspan="4">集团高价值目标用户营销
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">公众高价值目标用户营销
+					<span>责任人：凌飞</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团成员宽带渗透率
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">当月续费率
+					<span>责任人：项伟龙</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">次次月续费率
+					<span>责任人：项伟龙</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">政企通路新增竣工发展
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">新增20M宽带宽带电视办理率
+					<span>责任人：项伟龙</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">高价值宽带用户宽带电视办理率
+					<span>责任人：项伟龙</span><span>（过程型指标，5月份目标）</span></th>
+				</tr>
+				<tr>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>挑战目标完成进度</th>
+					<th>模拟得分</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>与挑战目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>目标进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+				</tr>
+				<volist name="zhjt" id="user">
+					<tr>
+						<td>{$user.CITY_NAME}</td>
+						<if condition="($user['完成值1'] eq null)">
+							<td>{$user.A0}</td>
+							<td>{$user.B0}</td>
+							<td>{$user.C0}</td>
+							<td><if condition="($user['E0'] lt 4) and ($user['E0'] neq null)"><span class="green">{$user.D0}</span><elseif condition="($user['E0'] gt 7)"/><span class="yellow">{$user.D0}</span><else/>{$user.D0}</if></td>
+							<td>
+							<?php 
+								if($user['C3']-$user['B3']>0) echo 100;
+								else if($user['C3']-$user['A0']<0) echo 0;
+								else echo round(60+40*($user['C3']-$user['A0'])/($user['B3']-$user['A0']),2);
+							?>
+							</td>
+							<td>{$user.E0}</td>
+						<else/>
+							<td>{$user.二季度宽带超越基础目标}</td>
+							<td>{$user.二季度宽带}</td>
+							<td>{$user.完成值1}</td>
+							<td><if condition="($user['排名1'] lt 4) and ($user['排名1'] neq null)"><span class="green">{$user.完成进度1}</span><elseif  condition="($user['排名1'] gt 7)"/><span class="yellow">{$user.完成进度1}</span><else/>{$user.完成进度1}</if></td>
+							<td>
+							<?php 
+								if($user['完成值1']-$user['二季度宽带']>0) echo 100;
+								else if($user['完成值1']-$user['二季度宽带超越基础目标']<0) echo 0;
+								else echo round(60+40*($user['完成值1']-$user['二季度宽带超越基础目标'])/($user['二季度宽带']-$user['二季度宽带超越基础目标']),2);
+							?>
+							</td>
+							<td>{$user.排名1}</td>
+						</if>
+						<if condition="($user['宽带电视完成值'] eq null)">
+							<td>{$user.B1}</td>
+							<td>{$user.C1}</td>
+							<td><if condition="($user['E1'] lt 4) and ($user['E1'] neq null)"><span class="green">{$user.D1}</span><elseif condition="($user['E1'] gt 7)"/><span class="yellow">{$user.D1}</span><else/>{$user.D1}</if></td>
+							<td>{$user.E1}</td>
+						<else/>
+							<td>{$user.宽带电视4月目标}</td>
+							<td>{$user.宽带电视完成值}</td>
+							<td><if condition="($user['宽带完成率排名'] lt 4) and ($user['宽带完成率排名'] neq null)"><span class="green">{$user.宽带电视完成进度}</span><elseif  condition="($user['宽带完成率排名'] gt 7)"/><span class="yellow">{$user.宽带电视完成进度}</span><else/>{$user.宽带电视完成进度}</if></td>
+							<td>{$user.宽带完成率排名}</td>
+						</if>
+						<if condition="($user['集团完成'] eq null)">
+							<td>{$user.B2}</td>
+							<td>{$user.C2}</td>
+							<td><if condition="($user['E2'] lt 4) and ($user['E2'] neq null)"><span class="green">{$user.D2}</span><elseif condition="($user['E2'] gt 7)"/><span class="yellow">{$user.D2}</span><else/>{$user.D2}</if></td>
+							<td>{$user.E2}</td>
+						<else/>
+							<td>{$user.集团目标}</td>
+							<td>{$user.集团完成}</td>
+							<td><if condition="($user['集团完成排名'] lt 4) and ($user['集团完成排名'] neq null)"><span class="green">{$user.集团完成率}</span><elseif  condition="($user['集团完成排名'] gt 7)"/><span class="yellow">{$user.集团完成率}</span><else/>{$user.集团完成率}</if></td>
+							<td>{$user.集团完成排名}</td>
+						</if>
+						<if condition="($user['公众完成'] eq null)">
+							<td>{$user.B3}</td>
+							<td>{$user.C3}</td>
+							<td><if condition="($user['E3'] lt 4) and ($user['E3'] neq null)"><span class="green">{$user.D3}</span><elseif condition="($user['E3'] gt 7)"/><span class="yellow">{$user.D3}</span><else/>{$user.D3}</if></td>
+							<td>{$user.E3}</td>
+						<else/>
+							<td>{$user.公众目标}</td>
+							<td>{$user.公众完成}</td>
+							<td><if condition="($user['公众完成排名'] lt 4) and ($user['公众完成排名'] neq null)"><span class="green">{$user.公众完成率}</span><elseif  condition="($user['公众完成排名'] gt 7)"/><span class="yellow">{$user.公众完成率}</span><else/>{$user.公众完成率}</if></td>
+							<td>{$user.公众完成排名}</td>
+						</if>
+						<if condition="($user['完成占比'] eq null)">
+							<td>{$user.B4}</td>
+							<td>{$user.C4}</td>
+							<td><if condition="($user['E4'] lt 4) and ($user['E4'] neq null)"><span class="green">{$user.D4}</span><elseif condition="($user['E4'] gt 7)"/><span class="yellow">{$user.D4}</span><else/>{$user.D4}</if></td>
+							<td>{$user.E4}</td>
+						<else/>
+							<td>{$user.目标值}</td>
+							<td>{$user.完成占比}</td>
+							<td><if condition="($user['排名C'] lt 4) and ($user['排名C'] neq null)"><span class="green">{$user.完成进度}</span><elseif  condition="($user['排名C'] gt 7)"/><span class="yellow">{$user.完成进度}</span><else/>{$user.完成进度}</if></td>
+							<td>{$user.排名C}</td>
+						</if>
+						<if condition="($user['四月续费率'] eq null)">
+							<td>{$user.A5}</td>
+							<td>{$user.B5}</td>
+							<td>{$user.C5}</td>
+							<td><if condition="($user['E5'] lt 4) and ($user['E5'] neq null)"><span class="green">{$user.D5}</span><elseif condition="($user['E5'] gt 7)"/><span class="yellow">{$user.D5}</span><else/>{$user.D5}</if></td>
+							<td>{$user.E5}</td>
+						<else/>
+							<td>{$user.基础值}</td>
+							<td>{$user.挑战值}</td>
+							<td>{$user.四月续费率}</td>
+							<td><if condition="($user['排名D'] lt 4) and ($user['排名D'] neq null)"><span class="green">{$user.与挑战目标差距}</span><elseif  condition="($user['排名D'] gt 7)"/><span class="yellow">{$user.与挑战目标差距}</span><else/>{$user.与挑战目标差距}</if></td>
+							<td>{$user.排名D}</td>
+						</if>
+						<if condition="($user['二月续费率'] eq null)">
+							<td>{$user.A6}</td>
+							<td>{$user.B6}</td>
+							<td>{$user.C6}</td>
+							<td><if condition="($user['E6'] lt 4) and ($user['E6'] neq null)"><span class="green">{$user.D6}</span><elseif condition="($user['E6'] gt 7)"/><span class="yellow">{$user.D6}</span><else/>{$user.D6}</if></td>
+							<td>{$user.E6}</td>
+						<else/>
+							<td>{$user.次次月基础值}</td>
+							<td>{$user.次次月挑战值}</td>
+							<td>{$user.二月续费率}</td>
+							<td><if condition="($user['次次月排名'] lt 4) and ($user['次次月排名'] neq null)"><span class="green">{$user.次次月与挑战目标差距}</span><elseif  condition="($user['次次月排名'] gt 7)"/><span class="yellow">{$user.次次月与挑战目标差距}</span><else/>{$user.次次月与挑战目标差距}</if></td>
+							<td>{$user.次次月排名}</td>
+						</if>
+						<if condition="($user['政企完成值'] eq null)">
+							<td>{$user.B7}</td>
+							<td>{$user.C7}</td>
+							<td><if condition="($user['E7'] lt 4) and ($user['E7'] neq null)"><span class="green">{$user.D7}</span><elseif condition="($user['E7'] gt 7)"/><span class="yellow">{$user.D7}</span><else/>{$user.D7}</if></td>
+							<td>{$user.E7}</td>
+						<else/>
+							<td>{$user.政企4月目标}</td>
+							<td>{$user.政企完成值}</td>
+							<td><if condition="($user['政企排名'] lt 4) and ($user['政企排名'] neq null)"><span class="green">{$user.政企目标进度}</span><elseif  condition="($user['政企排名'] gt 7)"/><span class="yellow">{$user.政企目标进度}</span><else/>{$user.政企目标进度}</if></td>
+							<td>{$user.政企排名}</td>
+						</if>
+						<if condition="($user['完成H'] eq null)">
+							<td>{$user.B8}</td>
+							<td>{$user.C8}</td>
+							<td><if condition="($user['E8'] lt 4) and ($user['E8'] neq null)"><span class="green">{$user.D8}</span><elseif condition="($user['E8'] gt 7)"/><span class="yellow">{$user.D8}</span><else/>{$user.D8}</if></td>
+							<td>{$user.E8}</td>
+						<else/>
+							<td>{$user.宽带20M目标}</td>
+							<td>{$user.完成H}</td>
+							<td><if condition="($user['集团完成排名H'] lt 4) and ($user['集团完成排名H'] neq null)"><span class="green">{$user.宽带20M完成率}</span><elseif  condition="($user['集团完成排名H'] gt 7)"/><span class="yellow">{$user.宽带20M完成率}</span><else/>{$user.宽带20M完成率}</if></td>
+							<td>{$user.集团完成排名H}</td>
+						</if>
+						<if condition="($user['电视完成'] eq null)">
+							<td>{$user.B9}</td>
+							<td>{$user.C9}</td>
+							<td><if condition="($user['E9'] lt 4) and ($user['E9'] neq null)"><span class="green">{$user.D9}</span><elseif condition="($user['E9'] gt 7)"/><span class="yellow">{$user.D9}</span><else/>{$user.D9}</if></td>
+							<td>{$user.E9}</td>
+						<else/>
+							<td>{$user.电视目标}</td>
+							<td>{$user.电视完成}</td>
+							<td><if condition="($user['电视完成排名'] lt 4) and ($user['电视完成排名'] neq null)"><span class="green">{$user.电视完成率}</span><elseif  condition="($user['电视完成排名'] gt 7)"/><span class="yellow">{$user.电视完成率}</span><else/>{$user.电视完成率}</if></td>
+							<td>{$user.电视完成排名}</td>
+						</if>
+					</tr>
+				</volist>
+			</table>
+		</div>
+
+		<span style="height:30px;color:#fff;text-align:center;font-size:16px;background:#2F75B5;width:100%;display:block;margin-top:20px;line-height:30px">政企通路发展情况汇总<span style="font-size:12px">最终结果以稽核后数据为准</span></span>
+		<div style="overflow:auto">
+			<table class="meettable">
+				<tr>
+					<th rowspan="2" style="width:100px">县市</th>
+					<th colspan="4">集团双卡目标用户视频王办理量
+					<span>责任人：吕剑海</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团客户两网渗透率
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">集团客户2/3G终端客户迁移率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="5">集团客户沉默客户唤醒率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团4G资费客户发展
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团成员流量礼包客户发展
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团客户咪咕爱看有效会员新增
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团客户满就送使用率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团客户生日流量包领取率
+					<span>责任人：刘弘</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团高价值目标用户营销
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">集团成员宽带渗透率
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+					<th colspan="4">政企通路新增竣工发展
+					<span>责任人：官琳芬</span><span>（过程型指标，5月份目标）</span></th>
+				</tr>
+				<tr>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>挑战目标完成进度</th>
+					<th>排名</th>
+					<th>基础目标</th>
+					<th>挑战目标</th>
+					<th>完成值</th>
+					<th>挑战目标完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>与目标差距</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+					<th>目标</th>
+					<th>完成值</th>
+					<th>完成进度</th>
+					<th>排名</th>
+				</tr>
+				<volist name="hz" id="user">
+					<tr>
+						<td>{$user.CITY_NAME}</td>
+						<if condition="($user['VALUE5'] eq null)">
+							<td>{$user.T5}</td>
+							<td>{$user.V5}</td>
+							<td><if condition="($user['R5'] lt 4) and ($user['R5'] neq null)"><span class="green">{$user['D5']}</span><elseif condition="($user['R5'] gt 7)"/><span class="yellow">{$user['D5']}</span><else/>{$user['D5']}</if></td>
+							<td>{$user.R5}</td>
+						<else/>
+							<td>{$user.TARGET5}</td>
+							<td>{$user.VALUE5}</td>
+							<td><if condition="($user['RANK5'] lt 4) and ($user['RANK5'] neq null) and ($user['VALUE5'] neq 0)"><span class="green">{$user['DIFF5']}</span><elseif condition="($user['RANK5'] gt 7) or ($user['VALUE5'] eq 0)"/><span class="yellow">{$user['DIFF5']}</span><else/>{$user['DIFF5']}</if></td>
+							<td>{$user.RANK5}</td>
+						</if>
+						<if condition="($user['VALUE7'] eq null)">
+							<td>{$user.T7}</td>
+							<td>{$user.V7}</td>
+							<td><if condition="($user['R7'] lt 4) and ($user['R7'] neq null)"><span class="green">{$user['D7']}</span><elseif condition="($user['R7'] gt 7)"/><span class="yellow">{$user['D7']}</span><else/>{$user['D7']}</if></td>
+							<td>{$user.R7}</td>
+						<else/> 
+							<td>{$user.TARGET7}</td>
+							<td>{$user.VALUE7}</td>
+							<td><if condition="($user['RANK7'] lt 4) and ($user['RANK7'] neq null)"><span class="green">{$user['DIFF7']}</span><elseif condition="($user['RANK7'] gt 7)"/><span class="yellow">{$user['DIFF7']}</span><else/>{$user['DIFF7']}</if></td>
+							<td>{$user.RANK7}</td>
+						 </if> 
+						<!-- <if condition="($user['集团月累计转换率'] eq null)">
+							<td>{$user['A4']}</td>
+							<td>{$user['B4']}</td>
+							<td>{$user['C4']}</td>
+							<td><if condition="($user['E4'] lt 4) and ($user['E4'] neq null)"><span class="green">{$user.D4}</span><elseif  condition="($user['E4'] gt 7)"/><span class="yellow">{$user.D4}</span><else/>{$user.D4}</if></td>
+							<td>{$user.E4}</td>
+						<else/> -->
+							<td>{$user['GROUP_TMNL_23G_QY_BASE']}</td>
+							<td>{$user['GROUP_TMNL_23G_QY_CHALG']}</td>
+							<td>{$user['集团月累计转换率']}</td>
+							<td><if condition="($user['排名44'] lt 4) and ($user['排名44'] neq null)"><span class="green">{$user.集团迁移挑战差距}</span><elseif  condition="($user['排名44'] gt 7)"/><span class="yellow">{$user.集团迁移挑战差距}</span><else/>{$user.集团迁移挑战差距}</if></td>
+							<td>{$user.排名44}</td>
+						<!-- </if> -->
+						<!-- <if condition="($user['集团沉默唤醒率'] eq null)">
+							<td>{$user['A9']}</td>
+							<td>{$user['B9']}</td>
+							<td>{$user['C9']}</td>
+							<td><if condition="($user['E9'] lt 4) and ($user['E9'] neq null)"><span class="green">{$user.D9}</span><elseif  condition="($user['E9'] gt 7)"/><span class="yellow">{$user.D9}</span><else/>{$user.D9}</if></td>
+							<td>{$user.E9}</td>
+						<else/> -->
+							<td>{$user['GROUP_SILENCE']}</td>
+							<td>{$user['GROUP_SILENCE_CHALG']}</td>
+							<td>{$user['集团沉默唤醒率']}</td>
+							<td><if condition="($user['PM9'] lt 4) and ($user['PM9'] neq null)"><span class="green">{$user.集团沉默唤醒率差距}</span><elseif  condition="($user['PM9'] gt 7)"/><span class="yellow">{$user.集团沉默唤醒率差距}</span><else/>{$user.集团沉默唤醒率差距}</if></td>
+							<td>{$user.PM9}</td>
+						<!-- </if> -->
+						<if condition="($user['到达值2'] eq null)">
+							<td>{$user.AA2}</td>
+							<td>{$user.BB2}</td>
+							<td><if condition="($user['DD2'] lt 4) and ($user['DD2'] neq null)"><span class="green">{$user.CC2}</span><elseif  condition="($user['DD2'] gt 7)"/><span class="yellow">{$user.CC2}</span><else/>{$user.CC2}</if></td>
+							<td>{$user.DD2}</td>
+						<else/>
+							<td>{$user.目标值2}</td>
+							<td>{$user.到达值2}</td>
+							<td><if condition="($user['排名2'] lt 4) and ($user['排名2'] neq null)"><span class="green">{$user.进度2}</span><elseif  condition="($user['排名2'] gt 7)"/><span class="yellow">{$user.进度2}</span><else/>{$user.进度2}</if></td>
+							<td>{$user.排名2}</td>
+						</if>
+						<if condition="($user['到达值3'] eq null)">
+							<td>{$user.AA3}</td>
+							<td>{$user.BB3}</td>
+							<td><if condition="($user['DD3'] lt 4) and ($user['DD3'] neq null)"><span class="green">{$user.CC3}</span><elseif  condition="($user['DD3'] gt 7)"/><span class="yellow">{$user.CC3}</span><else/>{$user.CC3}</if></td>
+							<td>{$user.DD3}</td>
+						<else/>
+							<td>{$user.目标值3}</td>
+							<td>{$user.到达值3}</td>
+							<td><if condition="($user['排名3'] lt 4) and ($user['排名3'] neq null)"><span class="green">{$user.进度3}</span><elseif  condition="($user['排名3'] gt 7)"/><span class="yellow">{$user.进度3}</span><else/>{$user.进度3}</if></td>
+							<td>{$user.排名3}</td>
+						</if>
+						<!-- <if condition="($hz[0]['到达值5'] eq null)">
+							<td>{$user.A5}</td>
+							<td>{$user.B5}</td>
+							<td><if condition="($user['D5'] lt 4) and ($user['D5'] neq null)"><span class="green">{$user.C5}</span><elseif  condition="($user['D5'] gt 7)"/><span class="yellow">{$user.C5}</span><else/>{$user.C5}</if></td>
+							<td>{$user.D5}</td>
+						<else/> -->
+							<td>{$user.目标值5}</td>
+							<td>{$user.到达值5}</td>
+							<td><if condition="($user['排名5'] lt 4) and ($user['排名5'] neq null)"><span class="green">{$user.进度5}</span><elseif  condition="($user['排名5'] gt 7)"/><span class="yellow">{$user.进度5}</span><else/>{$user.进度5}</if></td>
+							<td>{$user.排名5}</td>
+						<!-- </if> -->
+						<!-- <if condition="($user['到达值7'] eq null)">
+							<td>{$user.A7}</td>
+							<td>{$user.B7}</td>
+							<td><if condition="($user['D7'] lt 4) and ($user['D7'] neq null)"><span class="green">{$user.C7}</span><elseif  condition="($user['D7'] gt 7)"/><span class="yellow">{$user.C7}</span><else/>{$user.C7}</if></td>
+							<td>{$user.D7}</td>
+						<else/> -->
+							<td>{$user.目标值7}</td>
+							<td>{$user.到达值7}</td>
+							<td><if condition="($user['排名7'] lt 4) and ($user['排名7'] neq null)"><span class="green">{$user.进度7}</span><elseif  condition="($user['排名7'] gt 7)"/><span class="yellow">{$user.进度7}</span><else/>{$user.进度7}</if></td>
+							<td>{$user.排名7}</td>
+						<!-- </if> -->
+						<!-- <if condition="($user['到达值9'] eq null)">
+							<td>{$user.A9}</td>
+							<td>{$user.B9}</td>
+							<td><if condition="($user['D9'] lt 4) and ($user['D9'] neq null)"><span class="green">{$user.C9}</span><elseif  condition="($user['D9'] gt 7)"/><span class="yellow">{$user.C9}</span><else/>{$user.C9}</if></td>
+							<td>{$user.D9}</td>
+						<else/> -->
+							<td>{$user.目标值9}</td>
+							<td>{$user.到达值9}</td>
+							<td><if condition="($user['排名9'] lt 4) and ($user['排名9'] neq null)"><span class="green">{$user.进度9}</span><elseif  condition="($user['排名9'] gt 7)"/><span class="yellow">{$user.进度9}</span><else/>{$user.进度9}</if></td>
+							<td>{$user.排名9}</td>
+						<!-- </if> -->
+						<if condition="($user['集团完成'] eq null)">
+							<td>{$user.BZ2}</td>
+							<td>{$user.CZ2}</td>
+							<td><if condition="($user['EZ2'] lt 4) and ($user['EZ2'] neq null)"><span class="green">{$user.DZ2}</span><elseif condition="($user['EZ2'] gt 7)"/><span class="yellow">{$user.DZ2}</span><else/>{$user.DZ2}</if></td>
+							<td>{$user.EZ2}</td>
+						<else/>
+							<td>{$user.集团目标}</td>
+							<td>{$user.集团完成}</td>
+							<td><if condition="($user['集团完成排名'] lt 4) and ($user['集团完成排名'] neq null)"><span class="green">{$user.集团完成率}</span><elseif  condition="($user['集团完成排名'] gt 7)"/><span class="yellow">{$user.集团完成率}</span><else/>{$user.集团完成率}</if></td>
+							<td>{$user.集团完成排名}</td>
+						</if>
+						<!-- <if condition="($user['完成占比'] eq null)">
+							<td>{$user.B4}</td>
+							<td>{$user.C4}</td>
+							<td><if condition="($user['E4'] lt 4) and ($user['E4'] neq null)"><span class="green">{$user.D4}</span><elseif condition="($user['E4'] gt 7)"/><span class="yellow">{$user.D4}</span><else/>{$user.D4}</if></td>
+							<td>{$user.E4}</td>
+						<else/> -->
+							<td>{$user.目标值}</td>
+							<td>{$user.完成占比}</td>
+							<td><if condition="($user['排名C'] lt 4) and ($user['排名C'] neq null)"><span class="green">{$user.完成进度}</span><elseif  condition="($user['排名C'] gt 7)"/><span class="yellow">{$user.完成进度}</span><else/>{$user.完成进度}</if></td>
+							<td>{$user.排名C}</td>
+						<!-- </if> -->
+						<!-- <if condition="($user['政企完成值'] eq null)">
+							<td>{$user.B7}</td>
+							<td>{$user.C7}</td>
+							<td><if condition="($user['E7'] lt 4) and ($user['E7'] neq null)"><span class="green">{$user.D7}</span><elseif condition="($user['E7'] gt 7)"/><span class="yellow">{$user.D7}</span><else/>{$user.D7}</if></td>
+							<td>{$user.E7}</td>
+						<else/> -->
+							<td>{$user.政企4月目标}</td>
+							<td>{$user.政企完成值}</td>
+							<td><if condition="($user['政企排名'] lt 4) and ($user['政企排名'] neq null)"><span class="green">{$user.政企目标进度}</span><elseif  condition="($user['政企排名'] gt 7)"/><span class="yellow">{$user.政企目标进度}</span><else/>{$user.政企目标进度}</if></td>
+							<td>{$user.政企排名}</td>
+						<!-- </if> -->
+					</tr>
+				</volist>
+			</table>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript">
+//改变表格中第2n行的颜色
+	$(document).ready(function(){
+		$(".meettable tr:nth-child(2n) td").css("background","#d4e3e5");
+	});
+	$(".meettable tr td").each(function(i){
+ 	  	if($(this).html() == ""){
+ 	  		$(this).html("-");	
+ 	  	}	
+ 	});
+</script>
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '指标跟踪', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+</html>

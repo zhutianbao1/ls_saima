@@ -1,0 +1,57 @@
+<extend name='./prize_base'/>
+<block name='title'>全部浏览</block>
+<block name='css'>
+	<style type="text/css">
+		.fs{width:188px;float:left;margin:0px;height:300px;border:1px solid #A5C4E8;margin:5px}
+		.fs .pic{width:190px;text-align:center;display:block;margin-top:10px;word-break:break-all}
+		.fs .prize{color:white;top:-43px;position:relative;font-size:16px;font-weight:bold;cursor:pointer;display:block;width:100px;text-align: center;height: 38px;line-height: 38px}
+		.fs .btns{width:100px;margin-top:10px;margin-left:45px;}
+	</style>
+</block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<div style="overflow: hidden;">
+	<div style="font-size:14px;color:#1488F4;font-weight:600">{$dity[0]['type_name']}<span style="float:right;margin-right:100px"></span></div>
+		<volist name="dity" id="ditys">
+			<div class="fs">
+				<img src="__IMG__/{$ditys['prizes_img']}" style="width:188px;border-bottom:1px solid #ccc"/>
+				<span class="pic">{$ditys['prizes_name']}</span>
+				<img src="__IMG__/tu1.jpg" class="btns">
+				<span class="prize" onclick="aaa({$ditys['id']})">领奖</span>
+			</div>
+		</volist>
+	</div>
+</block>
+<block name='bottom'></block>
+<block name='js'>
+<script type="text/javascript">
+	var bill_id="{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+	var info="{$info['bill_id']}";
+	var status="{$info['status']}";
+	function aaa(id){
+		if(bill_id==null || bill_id==""){
+			alert("未获取的您的信息，请重新登录！");
+		}else{
+			if(info==null || info==""){
+				alert("你未达到领取标准，暂不能领取！");
+			}else{
+				if(status==2){
+					alert("您已领取，不能重复领取！");
+				}else{
+					$.ajax({
+						url:"{:U('prize_receive')}",
+						type:"post",
+						dataType:"json",
+						data:"id="+id+"&bill_id="+bill_id,
+						success:function(result){
+							alert(result.msg);
+							location.reload();
+						}
+					})
+				}
+			}
+		}
+	}
+</script>
+</block>

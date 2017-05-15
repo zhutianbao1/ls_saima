@@ -1,0 +1,75 @@
+<extend name="pub/tpl3"/>
+<block name="title">已领取工单列表</block>
+<block name="css">
+	<style type="text/css">
+		.b_btn{position: absolute;padding: 3px 15px;border:1px solid #666;top:3px;left: 800px; }
+	</style>
+</block>
+<block name="header">
+	<input type="button"  class="back_btn" value="返 回" />
+	<a class="title">已领取工单列表</a>
+</block>
+<block name="subtitle"></block>
+<block name="show">
+	<form action="{:U('Payment/make_print')}" method="post" id="theForm">
+	    <div class="search_div">
+			<div class="group">
+				<label>渠道名称:</label>
+				<input type="text" name="org_name" id="org_name"  value="{$org_name}" />
+			</div>
+			<div class="group">
+				<label>渠道编号:</label>
+				<input type="text" name="org_id" id="org_id" value="{$org_id}" />
+			</div>
+			<div class="group1">
+				<input type="button" name="" value="搜 索" class="sub_btn" />
+			</div>
+	    </div>
+	</form>	    
+	<table>
+		<tr>
+			<th>操作</th>
+			<th>工单号</th>
+			<th>县市</th>
+			<th>渠道名称</th>
+			<th>渠道编号</th>
+			<th>结算人员</th>
+			<th>结算时间</th>
+			<th>一级稽核</th>
+			<th>一级稽核时间</th>
+		</tr>
+		<empty name="lists">
+			<tr>
+				<td colspan="9" style="text-align: left;text-indent: 20px;">暂无数据</td>
+			</tr>
+		<else/>
+			<volist name="lists" id="list">
+				<tr>
+					<td>
+						<a href="{:U('Payment/register_form?item_id='.$list['ITEM_ID'])}">打印</a>	
+					</td>
+					<td>{$list.ITEM_ID}</td>
+					<td>{$list.COUNTY_NAME}</td>
+					<td>{$list.ORG_NAME}</td>
+					<td>{$list.ORG_ID}</td>
+					<td>{$list.JS_PERSON}</td>
+					<td>{$list.PAYMENT_DATE}</td>
+					<td>{$list.FIRST_AUDIT_OPER}</td>
+					<td>{$list.FIRST_AUDIT_DATE}</td>
+				</tr>
+			</volist>
+		</empty>
+	</table>
+</block>
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+			$('.back_btn').click(function(){
+				window.location="{:U('Login/payment_index')}";
+			});
+			$('.sub_btn').click(function(){
+				$('#theForm').submit();
+			});
+		});
+	</script>
+</block>

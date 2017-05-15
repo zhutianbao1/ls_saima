@@ -1,0 +1,81 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">个人信息 - 首页</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<link rel="stylesheet" href="__CSS__/my-rating.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+  </div>
+</div>
+</block>
+ 
+<block name="main_right">
+   
+
+  <div class="data_table clear">
+    <style>
+    p{overflow: hidden;}
+    label{width:70px;text-align: right;display: inline-block;}
+    input ,select{height:30px;line-height: 30px;background: #fffff9;}
+    input[type=text]{width:420px;}
+    select{width:200px;padding-left: 30px;height:30px;line-height: 30px;}
+    textarea{width:550px;height:200px;background: #fffff9;}
+    em{color:red;font-size: 14px;font-weight: bold;}
+    </style>
+    <div class="section">
+      <form id="theForm" action="{:U('manager_ploy_edit')}" name="theForm" method="post">
+        <input type="hidden" name="id" value={$ploy['id']}/>
+        <p><label>标题：</label><input type="text" name="title" value="{$ploy['title']}"></p>
+        <p><label>活动内容：</label><textarea name="content" id="" cols="30" rows="20">{$ploy['content']}</textarea></p>
+        <p>
+          <label>状态：</label>
+          <select name="status" id="">
+            <option value="1">进行中</option>
+            <option value="0">撤销</option>
+          </select>
+        </p>
+        <p style="padding-left:70px;">
+           <a style="padding:10px 35px;" href="javascript:;" class="btn btn_submit">保存</a>&nbsp;&nbsp;&nbsp;
+           <a style="padding:10px 35px;background:#ddd;color:#000;" href="javascript:;" class="btn btn_reset">重置</a></p>
+      </form>
+    </div>
+  </div>
+</block>
+
+<block name="js">
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script>
+$(function(){
+  $(".btn_submit").click(function(){
+    var title = $("input[name=title]").val(),
+        content=$("textarea[name=content]").val(),
+        flag = true;
+        if(title.isEmpty()){
+          $("input[name=title]").css('background','infobackground');
+          $("input[name=title]").focus();
+          flag=false;
+        }
+        if(content.isEmpty()){
+          $("textarea[name=content]").css('background','infobackground');
+          $("textarea[name=content]").focus();
+          flag=false;
+        }
+        if(flag){
+          if(confirm('是否继续保存数据?')){
+            $("#theForm").submit();
+          }else{
+            return false;
+          }
+        }
+  });
+
+  $(".btn_reset").click(function(event) {
+    $("#theForm").reset();
+  });
+});
+</script>
+</block>

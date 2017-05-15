@@ -1,0 +1,190 @@
+<extend name="./base"/>
+<block name="title">直销员直销装备管理 | 首页</block>
+<block name="css">
+<style>
+.container,.form1{
+  width:1100px;
+}
+.countyCode,.devicefl,.deviceName,.deviceType{
+  width:167px;
+}
+.btn-group{
+  margin-bottom:4px;
+}
+.navbar{
+  height: 50px;
+}
+.container{
+  margin-top: 50px;
+  padding-top: 50px;
+}
+</style>
+</block>
+<block name="wrapper">
+<div class="wrapper">
+  <nav class="navbar pure-menu pure-menu-horizontal pure-menu-fixed" role="navigation">
+    <div class="horizontal-center">
+    <a href="{:U('index/index')}">直销员直销装备管理</a>
+    </div>
+    <div class="user-info"><?php echo session('user_auth.OA')?></div>
+  </nav>
+
+  <div class="container">
+    <form class="pure-form form1" action="{:U('Index/devGrl')}" method="post">
+      <div class="form-block">
+        <div class="form-head">
+          直销员装备借还记录清单
+        </div>
+
+        <div class="">
+          <label>编号：</label>
+          <input type="text" name="id"/>
+
+          <label>分部名称：</label>
+          <select name="countyCode" class="countyCode">
+            <option value=""></option>
+            <option value="5781">莲都一部</option>
+            <option value="57812">莲都二部</option>
+            <option value="5782">缙云</option>
+            <option value="5783">青田</option>
+            <option value="5784">云和</option>
+            <option value="5785">庆元</option>
+            <option value="5786">龙泉</option>
+            <option value="5787">遂昌</option>
+            <option value="5788">松阳</option>
+            <option value="5789">景宁</option>
+            <option value="578B">南城</option>
+          </select>
+
+          <label>直销员：</label>
+          <input type="text" name="userName"/>
+        </div>
+
+        <div>
+          <label>装备分类：</label>
+          <select name="devicefl" class="devicefl">
+            <option value="0">全部</option>
+            <option value="1">须归还(全部)</option>
+            <option value="2">须归还(未归还)</option>
+            <option value="3">须归还(已归还)</option>
+            <option value="4">一次性</option>
+          </select>
+
+          <label>装备名称：</label>
+          <select name="deviceName" class="deviceName">
+            <option></option>
+            <option value="身份证识别仪">身份证识别仪</option>
+            <option value="外场订制帐篷">外场订制帐篷</option>
+            <option value="外场订制桌子">外场订制桌子</option>
+            <option value="外场订制椅子">外场订制椅子</option>
+            <option value="外场营销资料袋">外场营销资料袋</option>
+            <option value="外场营销文件夹">外场营销文件夹</option>
+            <option value="外场T恤">外场T恤</option>
+            <option value="外场马甲">外场马甲</option>
+            <option value="工作牌">工作牌</option>
+          </select>
+
+          <label>装备类型：</label>
+          <select name="deviceType" class="deviceType">
+            <option value=""></option>
+            <option value="分离式">分离式</option>
+            <option value="蓝牙式">蓝牙式</option>
+          </select>
+          <input type="submit" class="pure-button" value="查询"/>
+        </div>
+      </div>
+  
+      <div class="btn-group">
+        <div class="pure-button update">修改</div>
+        <div class="pure-button delete">删除</div>
+        <a class="pure-button exportTotal" href="{:U('Index/exportGr')}">导出</a>
+      </div>
+
+    <table class="pure-table pure-table-bordered">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th style="width:120px">编号</th>
+          <th>行</th>
+          <th>分部名称</th>
+          <th>直销员工号</th>
+          <th>直销员姓名</th>
+          <th>直销员手机号</th>
+          <th>装备名称</th>
+          <th>装备类型</th>
+          <th>押金</th>
+          <th>领取数量</th>
+          <th>领取时间</th>
+          <th>归还时间</th>
+          <th>内勤</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="devgrl" id="dl">
+          <tr>
+            <td>&nbsp;<input type="checkbox" name="grid" value="{$dl.ID}" param="{$dl.XH}"/>&nbsp;{$i}</td>
+            <td>{$dl.ID}</td>
+            <td>{$dl.XH}</td>
+            <td>{$dl.COUNTY_CODE}</td>
+            <td>{$dl.EMPLOYEE_ID}</td>
+            <td>{$dl.EMPLOYEE_NAME}</td>
+            <td>{$dl.PHONE}</td>
+            <td>{$dl.DEVICE_NAME}</td>
+            <td>{$dl.DEVICE_TYPE}</td>
+            <td>{$dl.DEPOSIT}</td>
+            <td>{$dl.NUM}</td>
+            <td>{$dl.GET_TIME}</td>
+            <td>{$dl.RETURN_TIME}</td>
+            <td>{$dl.OPER_NAME}</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    {$_page}
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  $(".devicefl").val("{$flag['devicefl']}");
+  $(".update").click(function(){
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/updateGr')}?id="+param[0]+"&r="+param[1];
+    }
+  });
+
+  $(".delete").click(function(){
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      if(confirm("确认删除"+param[0]+"第"+param[1]+"行数据？")){
+        window.location.href="{:U('Index/deleteGr')}?id="+param[0]+"&r="+param[1];
+      }
+    }
+  });
+
+  function selectRowid(){
+    var chk_value =[];//定义一个数组
+    var param = '';
+    $("input[name='grid']:checked").each(function(){
+      chk_value.push($(this).val());
+      param = $(this).attr("param");
+    });
+    
+    if(chk_value.length>1){
+      alert("不能同时编辑多条记录");
+      return;
+    }else if(chk_value.length==0){
+      alert("请选择对应记录");
+      return;
+    }
+
+    return chk_value + '&' + param;
+  }
+});
+</script>
+</block>

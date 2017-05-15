@@ -1,0 +1,48 @@
+<extend name="Index/salary_shouru"/>
+<block name='title'>
+	<title>全部</title>
+</block>
+<block name="css">
+	<style type="text/css"></style>
+</block>
+<block name="main_right">
+    <volist name="lists" id="list">
+		<div class="group">
+			<div class="group_month">
+			    <div class="tubiao"></div>			
+				<div class="month">{$list.FAFANG_MONTH}</div>
+				<div class="check">
+					<input type="checkbox" class="che" value="{$list.FAFANG_MONTH}"/>
+				</div>
+			</div>
+			<div class="group_xinxi">
+				<a href="{:U('Index/salary_qb_mx?month='.$list['FAFANG_MONTH'])}">
+					<div class="group_qiandai" ></div>
+					<div class="group_riqi">
+						<div>{$list.FAFANG_MONTH|substr=###,5,6}月份月收入</div>					
+					</div>
+					<div class="group_money">{$list.MONTH_SF}&nbsp;元</div>	
+				</a>				
+			</div>
+		</div>
+	</volist>
+	<div>	
+	</div>				
+</block>
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+			$('.che').click(function(){				
+				if($('.che:checked').length>=2){
+					layer.msg("只能选择两个");					
+					$(".che").not(".che:checked").attr('disabled','disabled');				
+				}else{
+					$('.che').removeAttr('disabled');
+				}                
+			});
+		});
+	</script>
+</block>
+
+
+	

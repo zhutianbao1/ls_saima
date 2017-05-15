@@ -1,0 +1,162 @@
+<style type="text/css">
+    .float2  {overflow: hidden;width: 487px;}
+</style>
+
+<div style="border:0px solid #eee;overflow:hidden;float:left;margin:20px 0 0 22px;">
+    <if condition="($my_info['USER_NAME'] eq null) and ($my_info['姓名'] eq null)">
+        <div style="font-family: 'Microsoft YaHei';font-size:48px;padding-top:20px;height:160px;line-height:80px;color:#92a0ac">尚未检索到您赛马相关数据</div>
+    <elseif condition="($my_info['COUNTY_NAME'] eq null)"/>
+            <img src="__HEAD_IMG__{$my_info['BILL_ID']}.jpg" style="float:left;width:160px;height:210px;">
+            <ul>
+                <li>姓名：<span>{$my_info['姓名']}</span></li>
+                <li>你并未参加赛马</li>
+            </ul>
+        <else/>
+            <img src="__HEAD_IMG__{$my_info['BILL_ID']}.jpg" style="float:left;width:160px;height:210px;">
+            <ul>
+                <li>姓名：<span>{$my_info['USER_NAME']}</span></li>
+                <li>县市：<span>{$my_info['COUNTY_NAME']}</span></li>
+                <li>部门：<span>{$my_info['POS_NAME']}</span></li>
+               <li>上月得分：<span>{$my_info['AMOUNT']}</span></li>
+               <li>上月排名：<span>{$my_info['同岗位排名']}</span></li>
+               <li>年度积分：<span>{$year['AMOUNT']}</span></li>
+               <li>年度排名：<span>{$year['PM']}</span></li>
+            </ul>
+            <ul>
+               <if condition="($khjl[0]['总分值'] neq null) or ($xsjl[0]['SCORE'] neq null) or ($yyy[0]['总得分'] neq null)">
+                   <li>当月得分：<span>{$khjl[0]['总分值']}{$xsjl[0]['SCORE']}{$yyy[0]['总得分']}</span></li>
+                   <li>当月排名：<span>{$khjl[0]['排名']}{$xsjl[0]['TOP']}{$yyy[0]['S_PAIMING']}</span></li>
+               </if>
+               <if condition="($my_info['上升'] gt 0)">
+                    <li class="pag1-1">与上月排名相比：<span>+{$my_info['上升']}</span></li>
+               <else/>
+                    <li class="pag1-2">与上月排名相比：<span>{$my_info['上升']}</span></li>
+               </if>
+               <li>与第一名相差：<span>{$my_info['相差']*-1}</span></li>
+               <li>与千里马目标相差<span>{$qlm['SCORE']-$year['AMOUNT']}</span>积分</li>
+               <li>本年度成长积分：<span>{$cjf['个人总积分']}</span></li>
+            </ul>
+        </if>
+    </if>
+</div>
+<if condition="($my_info['USER_NAME'] eq null) and ($my_info['姓名'] eq null)">
+<else/>
+<div id="container" class="float2"></div>
+</if>
+
+<script type="text/javascript" src="__STATIC__/highcharts.js"></script>
+<script type="text/javascript" src="__STATIC__/exporting.js"></script>
+<script language="javascript" type="text/javascript"> 
+var chart; 
+$(document).ready(function () { 
+    chart = new Highcharts.Chart({ 
+        chart: { 
+            renderTo: 'container', 
+            defaultSeriesType: 'line', //图表类别，可取值有：line、spline、area、areaspline、bar、column等 
+            marginRight: 50, 
+            marginBottom: 55,
+            height:250,
+            backgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                stops: [
+                    [0, '#DDF2FF'],
+                    [1, '#C8EAFF']
+                ]
+            }
+        }, 
+        title:{text:''},
+        xAxis: { 
+            categories: [<?php 
+                    $x_num='';
+                    for ($i=0; $i <count($lines) ; $i++) { 
+                        if($i<(count($lines)-1)){
+                            $x_num .=$lines[$i]['RPT_MONTH'].',';
+                        }else{
+                            $x_num .=$lines[$i]['RPT_MONTH'];
+                        }
+                    }
+                    echo $x_num;
+             ?>]//设置x轴的标题 
+        },  
+        yAxis: [{
+            title:{text:''},
+            labels: {
+                    formatter: function() {
+                        return '第'+this.value +'名';
+                    },
+                    style: {
+                        color: '#000'
+                    }
+                }, 
+            tickPositions: [<?php 
+                    $max=$lines[0]['PM'];
+                    for ($i=0; $i <count($lines) ; $i++) { 
+                        if($max<$lines[$i]['PM']){
+                            $max=$lines[$i]['PM'];
+                        }
+                     } 
+
+                    $y_num='';
+                for ($i=0; $i < count($lines) ; $i++) { 
+                    if($i<(count($lines)-1)){
+                        $y_num .=  $lines[$i]['PM'].'|';
+                    }else{
+                        $y_num .=  $lines[$i]['PM'];
+                    }
+                } 
+                    $b='';
+                    $y_nums=explode('|', $y_num);
+                    sort($y_nums);
+                    for ($j=count($y_nums)-1; $j >=0 ; $j--) {
+                        if($j>0){
+                            $b .= $y_nums[$j].',';
+                        } else{
+                            $b .= $y_nums[$j];
+                        }
+                    }
+                        echo $b;
+             ?>]
+        }], 
+        tooltip: {
+            backgroundColor:'#E6E8FA',
+            valueSuffix: '名',
+            valuePrefix: '第'
+        },
+        plotOptions: { 
+            line: { 
+                dataLabels: { 
+                    enabled: false //显示每条曲线每个节点的数据项的值 
+                },
+                enableMouseTracking: true 
+            } 
+        }, 
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{ 
+            name:"<?php $lines[0]['USER_NAME']=str_replace("\n","",$lines[0]['USER_NAME']);echo $lines[0]['USER_NAME'];?>", 
+            data: [
+                <?php 
+                $nums = '';
+                for ($i=0; $i < count($lines) ; $i++) { 
+                    if($i<(count($lines)-1)){
+                        $nums .=  $lines[$i]['PM'].',';
+                    }else{
+                        $nums .=  $lines[$i]['PM'];
+                    }
+                } 
+                echo $nums;
+                ?> ]
+            //每条线的数据 
+        }] 
+    }); 
+}); 
+</script> 
+
+    
+
+
+    

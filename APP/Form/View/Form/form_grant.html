@@ -1,0 +1,257 @@
+<html>
+	<head>
+		<title>表单赋权</title>
+		<include file="Form/form_js_css"/>
+
+<style type="text/css"> 
+.wrap{background: #fff;}
+textarea {
+	overflow: auto;
+}
+
+#sousuo_res li{
+ text-align: left;padding:3px 7px;
+}
+
+#oper_bills td{text-align: left;}
+</style>
+ 
+
+
+	</head>
+
+	<body>
+	<div class="form_wrap">
+		
+		<include file="Form/form_design_menu" />
+		<div class="clr"></div>
+
+		<div class="wrap">
+			<div class="row_title" style="margin-bottom:0px;">
+			 表单赋权
+			</div>
+
+
+			<form name="theForm" action="{:U('form_grant')}" method="post">
+				<div class="row">
+					<div class="col col1">
+						<label>表单编号</label>
+						<input id="id" name="form_id" value="{$info['ID']}" class="readInput" type="text">
+					</div>
+					<div class="col col1">
+						<label>表单名称</label>
+						<input id="name" name="name" value="{$info['NAME']}" class="readInput" type="text">
+					</div>
+				</div>
+			    <table class="layout-table" cellpadding="1" cellspacing="1" border=0 width="100%">
+			    	<tr class="hui"> 
+						<td>
+							 <div class="row_title" style="margin-bottom:0px;">角色/用户 赋权</div>
+						</td>
+					</tr>
+			    	
+			    	<tr height="200px">
+			    		<td>
+			    		 <div class="tiaojian" style="border:solid 0px red;text-align:left;">
+					  			<table class="c2table" cellpadding=0 cellspacing=0 border=0>
+									<tr>
+										<td valign="top" width="202px">
+											<table id="roleView" border=0>
+							    				<tr>
+							    					<th width="120px" style="background-color:#235475;color:#fff;">角色选择</th>
+							    				</tr>
+							    				<tr>
+			   									<td align="left">
+			   										<div style="padding-left:5px;text-align:left;width:200px;height:320px;border:solid 1px #ccc;overflow:auto;"> 
+			   										 <volist name="sysRoles" id="sysRole">
+			   										 	<?php 
+			   										 		$isCheck=false; 
+			   										 		foreach ($formRoles as $key => $formRole) {
+			   										 			if($sysRole['ROLE_ID']==$formRole['ROLE_ID']){
+			   										 				$isCheck = true;
+			   										 				break;
+			   										 			}
+			   										 		}
+			   										 	?>
+			   										 	<input type="checkbox" <?php echo  ($isCheck?'checked':''); ?> name="roleIds[]" value="{$sysRole['ROLE_ID']}">{$sysRole['ROLE_NAME']}<br>
+			   										 </volist>
+			   										</div>
+			   									</td>
+			   									</tr>
+							    			</table>
+										</td>
+										<td valign="top">
+												搜索用户：<input type="text" id="operName" name="operName"/>
+							    					<a href="#" class="btn"> <input class="sousuo" type="button" value="搜索"/> </a>
+							    				<i>提示:指定用户同样拥有报表访问权限</i>
+							    				<br>
+												<div>
+													<div style="float:left;width:180px;height:310px;border:solid 1px #ccc;overflow:auto;">
+													<i>手机号码搜索使用 ',' 隔开</i>
+													<textarea id="query_bills" style="width:100%;height:100%;overflow:auto;border:0px;"></textarea>
+													</div>
+													<div style="float:left;width:180px;height:310px;border:solid 1px #ccc;overflow:auto;margin-left:2px;">
+													<ul id="sousuo_res">
+													</ul>
+													</div>
+													<div style="float:left;width:200px;height:310px;border:solid 1px #ccc;overflow:auto;margin-left:2px;">
+														<table  id="oper_bills" cellpadding="1" cellspacing="0" border="0">
+															<volist name="formUsers" id="formUser">
+															<tr><td><input type='checkbox' value="{$formUser['OPER_ID']}" checked name='userIds[]'>{$formUser['OPER_LOGIN_CODE']}{$formUser['OPER_NAME']}</td><td><a href="javascript:;" class="delItem" para="{$formUser['OPER_ID']}">删除</a></td></tr>
+															</volist>
+														</table>
+													</div>
+												</div>				    				
+										</td>
+									</tr>
+								</table>
+			    		 </div>
+			    		</td>
+			    	</tr>
+			    	
+			    	
+			    	
+			    	<tr class="bai">
+			    		<td align="right">
+				    		<a href="#" class="btn"> <input name="button" type="button" onclick="theForm.submit();" value="保存"/> </a>
+				    		<a href="#" class="btn"> <input name="button" type="button" onclick="theForm.reset();" value="重置"/> </a>
+			    		</td>
+			    	</tr>
+				    <tr>
+				    	<td></td>
+				    </tr>
+			    </table>
+			    </form>
+		</div>
+	</div>	
+	</body>
+</html>
+
+<script type="text/javascript"> 
+	$(function(){
+		$(".sousuo").click(function(){
+			queryName();
+		});
+		
+		
+		$("#operName").keydown(function(event){
+	          if(event.which == 13){
+		          	queryName();
+	          }
+        });
+        
+        $("#query_bills").keydown(function(event){
+	          if(event.which == 13){
+		          	queryName();
+	          }
+        });
+
+        $(".delItem").live('click',function(){
+        	$(this).parent().parent().remove();
+        });
+ 
+	});
+	
+	var queryName = function(){
+			var val = $("#operName").val();
+			var query_bills = $("#query_bills").val();
+			
+			if(val.isEmpty() && query_bills.isEmpty()){
+		    	$("#sousuo_res").html('请输入搜索值');
+		    	return false;
+		    }
+
+			//location.href=url;
+			//return;	
+			$.ajax({
+			    type: "POST",
+			    dataType: "json",
+			    url: "{:U('form_grant_query_oper')}",
+			    data:{
+			    	'value':val,
+			    	'ext_value':query_bills
+			    },
+			    success: function(msg){
+			      	if(msg.success){
+				  	 	$("#sousuo_res").html(msg.msg);
+				  	 	
+				  	 	$("#sousuo_res li").each(function(){
+						    $(this).mouseover(function(){
+						    	$(this).css('background-color','#ECF3F9');
+						    	$(this).css('cursor','hand');
+						    });
+						    
+						    $(this).mouseout(function(){
+						    	$(this).css('background-color','#fff');
+						    });
+						    
+						    $(this).click(function(){
+					    		var val = $(this).attr('id');
+					    		var des = $(this).html();
+					    		addItem(val,des);
+					    		$(this).css('display','none');
+						    });
+						});
+		
+				  	 }else{
+				  	 	$("#sousuo_res").html(msg.msg);
+				  	 }
+			    },
+			    beforeSend:function(){
+			    	$("#sousuo_res").html('数据加载中..');
+			    },
+			    complete:function(){
+			    },
+			    error:function(){
+			    	$("#sousuo_res").html('<font color=red>数据加载失败</font>');
+			    }
+			  });
+		}
+	
+	var addItem = function(val,des){
+		var table= $("#oper_bills");
+		var vTr= "<tr><td><input type='checkbox' value='"+val+"' checked name='userIds[]'>"+des+"</td><td><a href='javascript:delItem("+val+");'>删除</a></td></tr>"
+		table.append(vTr);
+	}
+	
+	var delItem = function(val){
+		$("input[name='userIds']").each(function(){
+			var obj = $(this);
+			var id  = obj.attr("value");
+			if(id==val){
+				$(this).parent().parent().remove();
+				showItem(val);
+			}
+		});
+	}
+	
+	var showItem = function(val){
+		$("#sousuo_res li").each(function(){
+		     var id = $(this).attr('id');
+	    	 if(val==id){
+	    	 	$(this).css('display','block');
+	    	 }
+		});
+	}
+	
+	function addRow(){
+		var roleVal = document.getElementById('roleList');
+		var index = roleVal.selectedIndex; 
+ 
+		var row=document.getElementById("roleView").insertRow(document.getElementById("roleView").rows.length);
+		var rowCount =document.getElementById("roleView").rows.length;
+	　	var countCell=document.getElementById("roleView").rows.item(0).cells.length; 
+	
+	　  for(var i=0;i<countCell;i++){
+	　　　var cell=row.insertCell(i);
+	　　　cell.innerHTML='<input type="checkbox" name="roleIds" checked value="'+roleVal.value+'">'+roleVal.options[index].innerHTML;
+	　　　cell.id=(rowCount)+"/"+(i+1);
+	　　} 
+	}
+ 		
+	function delRow(){
+		var currIndex = event.parent.parentNode.rowIndex;
+		//alert(currIndex);
+		document.getElementById('roleView').deleteRow(currIndex);
+	}
+</script>

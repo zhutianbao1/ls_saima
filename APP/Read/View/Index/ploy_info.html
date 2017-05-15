@@ -1,0 +1,18 @@
+<extend name="tpl/base"/>
+
+<block name="css">
+<link rel="stylesheet" href="__CSS__/main.css">
+</block>
+<block name="main_top">
+<div class="showcase featured-books slide-5-items clear">
+  <div class="hd lined">
+    <h3>{$ploy['title']}
+      <span class="help-tip"></span> 
+  <a href="javascript:;">{$ploy['oper_date']|date='Y-m-d',###}</a>
+    </h3>
+  </div>
+  <div style="padding:10px;">
+    {$ploy['content']}
+  </div>
+</div>
+</block>

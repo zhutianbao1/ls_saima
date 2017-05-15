@@ -1,0 +1,148 @@
+<extend name="./base"/>
+<block name='title'>人员招聘</block>
+<block name='login'>人员招聘历史单</block>
+<block name='body'>
+<div class="a_mask" id="a_mask"></div>
+  <div>
+    <div class="queryGroup">
+      <form action="{:U('employee_recruit')}" method="post">
+        <div class="font">
+          <label>申请时间：</label>
+          <input type='text' name='home_date' onClick="WdatePicker()" value="{$home_date}" />-
+          <input type='text' name='end_date' onClick="WdatePicker()" value="{$end_date}" />
+        </div>
+        <div class="font">
+          <label>申请人：</label>
+          <input type="text" name="name" value="{$name}">
+        </div>
+        <div class="font">
+          <label>审批状态：</label>
+          <select name="state">
+            <option value=""></option>
+                <option value="2" {$state=='2'?'selected':''}>已审批</option>
+                <option value="3" {$state=='3'?'selected':''}>未审批</option>
+          </select>
+        </div>
+        <button class="btn">查询</button>
+      </form>
+    </div>
+    <div class="btnGroup">
+      <if condition="($btnGroup['admins'] eq 1)">
+        <button class="btn add">申请</button>
+        <button class="btn modify">修改</button>
+      </if>
+        <if condition="($btnGroup['audit'] eq 1)"><button class="btn audit">审批</button></if>
+    </div>
+    <div style="overflow: auto;">
+      <table class="table" border="0" cellpadding="1" cellspacing="0" width="100%">
+        <tr>
+          <th class="">序号</th>
+          <th style="">申请部门</th>
+          <th style="">申请时间</th>
+          <th class="">申请人</th>
+          <th style="">申请理由</th>
+          <th style="">需求岗位</th>
+          <th style="">人数</th>
+          <th style="">性别</th>
+          <th style="">年龄</th>
+          <th style="">学历</th>
+          <th style="">能力要求</th>
+          <th style="">综合管理部意见</th>
+          <th style="">操作</th>
+        </tr>
+        <volist name='user' id='el'>
+        <tr>
+          <td><input type="checkbox" name="line" param="{$el['ID']}" param1="{$el['APPLY_DEPT']}" param2="{$el['USER_NAME']}" style="width:13px"></td>
+          <td>{$el['APPLY_DEPT']}</td>
+          <td>{$el['CREATE_DATE']}</td>
+          <td>{$el['USER_NAME']}</td>
+          <td>{$el['APPLY_REN']}</td>
+          <td>{$el['POS_NAME']}</td>
+          <td>{$el['APPLY_NUM']}</td>
+          <td>{$el['SEX']}</td>
+          <td>{$el['AGE']}</td>
+          <td>{$el['EDU_DEGREE']}</td>
+          <td>{$el['ABILY']}</td>
+          <td>{$el['OPINION']}</td>
+          <td><if condition="($el['STATE'] eq 2)"><a style="color:red" href="{:U('fail_reason?id='.$el['ID'])}" target="_blank">未通过</a><else/><?php if($el['STATE']==1){echo "已通过";}else{echo "审核中";}?></if></td>
+        </tr>
+        </volist>
+      </table>
+    </div>
+    {$_page}
+
+    <!-- 审批弹窗 -->
+    <div class="pl">
+      <fieldset style="border: 0px;">
+        <div class="sj">
+          <div class="close_top">审批<a href="javascript:void(0)" title="关闭窗口" class="close_btn">×</a></div>
+          <p>申请人：<span id="name"></span></p>
+          <p>申请部门：<span id="dept"></span></p>
+          <p>审批是否通过：<input type="radio" name="sp" value="1" checked="checked">通过      <input type="radio" name="sp" value="2">不通过</p>
+          <p>审批意见：<textarea style="width:90%;height:80px;border:1px solid #ccc" id="content" name="content"></textarea></p>
+          <div style="left: 200px;position: relative;height:40px"><a href="javascript:;" class="tj">提交</a></div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</block>
+<block name='js'>
+  <script type="text/javascript">
+    $(".add").click(function(){
+      window.open("{:U('index/employee_train_re?ids=1.1')}");
+    });
+    function dge(){
+      var len = $("input[name='line']:checked").length;
+        if(len == 0){
+          alert("未选中编辑数据");
+          return false;
+        }
+        if(len > 1){
+          alert("同时只允许编辑一条记录");
+          return false;
+        }
+    }
+    $(".modify").click(function(){
+      var ab=dge();
+      if(ab!=false){
+        var id = $('input[name="line"]:checked').attr("param");
+        window.open("{:U('index/employee_train_re')}?id="+id+"&ids=1.1");
+      }
+    });
+    $(".audit").click(function(){
+      var ab=dge();
+      if(ab!=false){
+        var id = $('input[name="line"]:checked').attr("param");
+        var dept = $('input[name="line"]:checked').attr("param1");
+        var uname = $('input[name="line"]:checked').attr("param2");
+        $(".pl").fadeIn("slow");
+        $(".a_mask").css({ display: 'block' });
+        document.getElementById('dept').innerHTML=dept;
+        document.getElementById('name').innerHTML=uname;
+        $(".tj").click(function(){
+          var c={sp:$('input[name=sp]:checked').val(),content:$('#content').val(),id:id}
+          $.ajax({
+            type:'post',
+            url:"{:U('index/audit2')}",
+            dataType:'json',
+            data:c,
+            success:function(re){
+              alert(re.msg);
+              location.replace(location.href);
+            },
+            error:function(e){
+              
+            }
+          })
+        })
+      }
+    });
+
+    //关闭
+    $(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#fff' }) }).on('click', function () {
+      $(".pl").fadeOut("fast");
+      location.replace(location.href);
+      $("#a_mask").css({ display: 'none' });
+    }); 
+  </script>
+</block>

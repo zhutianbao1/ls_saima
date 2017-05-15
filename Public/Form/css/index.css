@@ -1,0 +1,49 @@
+/**width:1000px;left:50%;margin-left:-500px;**/
+.wrap{padding:0px; margin:0px;position:relative;overflow: hidden;}	
+.b102{background:rgb(102,102,102);}
+/**头部**/
+.head{position:relative;height:60px;background:rgb(240,240,240);}
+.h_left{}
+.h_right{position:absolute;right:0px;top:0px;height:100%;}
+.h_right_top{position: absolute;right:0px;top:0px;height:30px;line-height: 30px;width:400px;}
+.h_right_bottom{position: absolute;right:0px;top:20px;height:50px;line-height: 50px;width:600px;}
+
+/**主体**/
+#top_tab{width:100%;height:31px;border:solid 0px red;overflow: hidden;background:rgb(217, 211, 175);}
+#top_tab li{list-style: none;float: left;margin-left: 1px;padding-right:20px;position:relative;background:#fff;}
+#top_tab li a{display:block;padding:1px 5px;border:solid 0px red;font-size: 12px;}
+#top_tab .close{width:20px;font-size:9px;height:100%;padding:1px 0px;border:solid 0px green;position: absolute;top:0px;right:0px;vertical-align: center;text-align: center;cursor: pointer;color:#535353;}
+#top_tab .curr{background: #ccc;}
+#top_tab .curr a{color: #535353;font-weight: bold;}
+#top_tab .curr .close{color: #fff;}
+
+
+.top_tab_control{position: absolute;width:100px;top:0px;right:0px;}
+.top_tab_control span{width:33%;float:left;cursor: pointer;border:solid 0px red;}
+.top_tab_control input{border:0px;width: 100%;height:100%;padding:6px 0px;background:rgb(217, 211, 175);color:#fff;font-weight:bold;cursor:pointer;}
+.content{border:solid 0px green;overflow: hidden;}
+
+/**菜单**/
+.c_left{float:left;width:185px;height:100%;}
+.c_left_top{}
+.c_left_menu{}
+.c_left_tree{width:100%;height:100%;overflow:auto;}
+
+.menu_type > li{}
+.menu_type_a{display: block;padding:8px 8px;color: #fff;font-weight: 600;font-size: 12px;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;width:100%;} 
+.menu_type_a:hover{background:#535353;color:#fff;} 
+
+.sub_menus{clear:both;height:200px;overflow: auto;background: #535353;padding-left: 10px;}
+
+.c_middel{float:left;width:10px;height:600px;background:#fff url('../images/border_bg.gif');margin-left:0px;}
+
+/**主板**/
+.c_right{width:100%;}
+.c_right_top{padding-left:2px;height:30px;line-height: 30px;border-bottom: solid 1px #535353;position: relative;}
+.c_right_main{}
+
+
+
+/**页脚**/
+.c_footer{}
+

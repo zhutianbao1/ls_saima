@@ -1,0 +1,208 @@
+@CHARSET "UTF-8";
+*{
+	margin:0px;
+	padding: 0px;
+}
+body{
+	width: 100%;
+	margin: 0 auto;
+	background: #fff;
+	font-size: 12px;
+	color: #666;
+}
+table{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+table.cke_dialog{
+	width: auto;
+}
+table.user{
+	text-align: left;
+}
+table span.red{
+	color: red;
+}
+table span.green{
+	color: green;
+}
+table.user tr td select{
+	width: 220px;
+	height: 22px;
+	border: 1px solid #ccc;
+	background: #fff;
+}
+table.user tr td img.face{
+	margin: 0 0 0 60px;
+}
+table.left{
+	text-align: center;
+}
+table tr{
+	background: #fff;
+}
+table tr:hover{
+	background: #ffffcc;
+}
+table tr.ckeditor{
+	background: none;
+}
+table tr.ckeditor tr{
+	background: none;
+}
+table.cke_dialog tr{
+	background: none;
+}
+table th,table td{
+	height: 30px;
+	line-height: 30px;
+	color: #333;
+}
+table th{
+	background: #eef3f7;
+	border-bottom: 1px solid #d5dfe8;
+	font-weight: normal;
+}
+table td{
+	border-bottom: 1px solid #eee;
+}
+table.content td span.red{
+	color: red;
+}
+table.content td input.text{
+	width: 440px;
+}
+table.content td input.small{
+	width: 100px;
+}
+table.content td select{
+	border: 1px solid #ccc;
+	width: 150px;
+	height: 22px;
+}
+table.content td select optgroup{
+	font-style: normal;
+}
+table.content td select option{
+	padding: 0 0 0 20px;
+}
+table.content td textarea{
+	margin: 0;
+	width: 440px;
+	height: 80px;
+	overflow: auto;
+}
+table.content td span.middle{
+	vertical-align: 30px;
+}
+h2{
+	text-align: center;
+}
+ul,ol{
+	list-style-type: none;
+}
+ol{
+	padding: 0 0 0 35px;
+	height: 35px;
+}
+ol li{
+	float: left;
+	padding: 0 10px 0 0;
+}
+ol li a{
+	padding: 6px;
+	text-decoration: none;
+	display: block;
+}
+ol li a:hover{
+	background: #eee;
+}
+#wrap{
+	width: 100%;
+	float: left;
+	margin: 0 0 10px 0;
+}
+#wrap h2{
+	text-align: center;
+}
+#wrap form{
+	border: 1px solid #ccc;
+	padding: 15px 0;
+}
+#wrap form dl{
+	text-align: center;
+/*	padding-left: 380px;*/
+}
+#wrap form dl dd{
+	padding: 5px 0;
+}
+#wrap form dl dd input.text{
+	width: 150px;
+	height: 22px;
+	border: 1px solid #999;
+	background: #eee;
+}
+#wrap form dl dd input.submit{
+	width: 42px;
+	height: 26px;
+	background: #eee;
+	border: 1px dashed #ccc;
+	cursor: pointer;
+/*	margin: 0 0 0 80px;*/
+}
+#wrap form dl dd input.date{
+	background: #eee;
+	height: 22px;
+	width: 150px;
+}
+.wt{
+	margin-top: 20px;
+}
+#top h3{
+	text-align: center;
+}
+#top p{
+	float: right;
+	margin: -22px 0 0 0;
+}
+a{
+	text-decoration: none;
+	color:#3b6ea5;
+}
+a:hover{
+	text-decoration: underline;
+}
+#page{
+  text-align:center;
+  padding:10px;
+}#page a{
+  border:1px solid #666;
+  padding:2px 5px;
+  margin:0 2px;
+}
+#page a:hover,#page span.me{
+  color:#fff;
+  border:1px solid #000;
+  background:#000;
+  text-decoration:none;
+}
+#page span.disabled{
+  border:1px solid #ccc;
+  padding:2px 5px;
+  margin:0 2px;
+  color:#ccc;
+}
+#page span.me{
+  padding:2px 5px;
+  margin:0 2px;
+}
+#page select.select{
+  width:120px;
+  background:#fff;
+  border:1px solid #ccc;
+}
+#page select.select optgroup{
+  font-style:normal;
+}

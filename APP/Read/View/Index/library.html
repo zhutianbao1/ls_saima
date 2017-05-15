@@ -1,0 +1,184 @@
+<extend name="Tpl/base"/>
+<block name="title">图书馆</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css">
+ .dianzan{width: 100%;height: 20px;margin-top: 5px;line-height: 20px;
+          color: #afafaf; position: relative;  
+ }
+
+ .zan{  display: inline-block;width:60px;height: 20px; position: absolute;
+        left: 0;  top: 0;
+  }
+
+ .zong_borrow{ display: inline-block;height: 20px; position: absolute;
+    left: 60px; top: 0;
+ }
+ 
+</style>
+
+</block>
+
+<block name="main_top">
+
+<div class="hd tag-heading">
+<h3>移动图书馆</h3>
+<div class="hd-nav">
+  <ul class="filter-tabs filter-type-tabs">
+    <li class="tab ">
+      <a href="?sort=new&amp;cat=all">全部</a></li>
+   <?php 
+    foreach ($book_types as $key => $value) {
+      echo "<li class='tab'><a href='?sort=new&amp;cat=$key' >".$value."</a></li>";
+    }
+  ?>
+  </ul>
+</div>
+</div>
+
+
+<!-- 滚动书籍 -->
+<div class="showcase featured-books slide-5-items clear">
+  <div class="bd">
+    <div class="sl">
+      <div class="slide-list">
+         <empty name="books">
+        暂无数据信息,联系县市管理员
+        <else/>
+        <ul class="libary-list slide-item list-col list-col5 cover-list left">
+          <volist name="books" id="book" key="k">
+          <li style="width:150px;height:240px;padding-bottom:0px;margin-bottom:28px;" class="">
+            <div class="border-wrap" style="height:100%;border:solid 1px #eee;box-shadow:0px 0px 1px #eee;">
+              <div class="cover" style="width:100%;">
+                <a href="{:U('index/book_info?id='.$book['id'])}" class="pic" target="_self">
+                  <img src="__IMG__/22325617.jpg" alt="" tmpsrc="__ROOT__/{$book['img']}" itemprop="image" height="100%" width="100%">
+                </a>
+              </div>
+              <div class="info" style="height:60px;">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$meeting['id'])}">{$book['book_name']}</a></h4>
+                <div class="author" style="position:absolute;top:45px;left:0px;">
+                  <span class="orig-author">库存:{$book['store']|intval}</span> 
+                  <span class="orig-author">借出:{$book['lend']|intval}</span> 
+                </div>
+
+                <if condition="$book['county_code'] eq $_SESSION['user_auth']['COUNTY_CODE']">
+                  <a  para="{$book['id']}" href="javascript:;" style="background:#6e839a;border-color:#6e839a;position:absolute;top:45px;right:0px;padding: 1px 4px !important;" class="btn borrow">借阅</a>
+                  <else/>
+                  <a   href="javascript:alert('非所属县市书籍，不予借阅');" style="background:#6e839a;border-color:#6e839a;position:absolute;top:45px;right:0px;padding: 1px 4px !important;" class="btn">借阅</a>
+                </if>
+              </div>
+              <div class="dianzan">
+                <span para="{$book['id']}" class="zan" id="zan{$book['id']}">点赞({$book.zan})</span>
+                <span para="{$book['id']}" class="zong_borrow" id="zong_borrow{$book['id']}">
+                借阅{$book.zong_borrow}次
+                </span>
+              </div>              
+            </div>
+          </li>
+          </volist>
+        </ul>
+        </empty>
+      </div>
+    </div>
+ </div>
+
+ <div class="clear" style="margin-top:10px;"></div>
+ {$_page}
+
+</div>
+<!-- 滚动书籍 END -->
+</block>
+
+
+<block name="js">
+<script>
+  $(".borrow").click(function(){
+    var oper_login_code = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+    if(oper_login_code.isEmpty()){
+       layer.msg('未获取登录信息，请登录后操作');
+       return;
+    }
+    
+    if(confirm('申请借阅后,需要联系管理员领取书籍,是否继续借阅？')){
+        var e = $(this),
+          book_id = e.attr("para"),
+          url = "{:U('manager/manager_book_borrow')}";
+      $.ajax({
+         type:'post',
+         url:url,
+         dataType:'json',
+         data:{book_id:book_id},
+         success:function(re){
+            layer.msg(re.msg); 
+            if(re.msg='发起借阅成功,请联系书籍管理员'){
+              url="{:U('index/index_zong_borrow')}";
+              var zong_id='#zong_borrow'+book_id;
+               $.ajax({
+                 type:'post',
+                 url:url,
+                 //dataType:'json',
+                 data:{book_id:book_id},
+                 success:function(re){
+                   $(zong_id).html("借阅"+re+"次");                 
+                 }
+                });
+            }          
+         },
+         error:function(){
+            layer.msg('系统错误，请稍后重试');
+         }
+      });
+    }
+ });
+
+ $(".libary-list li").mouseover(function(event) {
+    var e = $(this);
+    e.css({
+      background:'#f6f6f1'
+    })
+ });
+
+ $(".libary-list li").mouseout(function(event) {
+    var e = $(this);
+    e.css({
+      background:'#fffff9'
+    })
+ });
+</script>
+<script type="text/javascript">
+
+  $(function(){
+     $(".slide-list li  ") .css('height','260px');     
+  });
+
+
+  $(function(){
+    $('.zan').click(function(){
+      var book_id=$(this).attr('para');
+      var id='#zan'+book_id;
+         url = "{:U('index/index_book_zan')}";
+         $.ajax({
+         type:'post',
+         url:url,
+        // dataType:'json',
+         data:{book_id:book_id},
+         success:function(re){
+            if(re.msg=='点赞成功'){
+              layer.alert(re.msg,{icon: 1,time: 2000} );
+               $(id).html("点赞("+re.zan+")");  
+            }else{
+               layer.alert(re.msg,{icon: 2,time: 2000} );
+            }                       
+         },
+         error:function(){
+            layer.msg('系统错误，请稍后重试');
+         }
+      });
+    });
+    
+  });
+
+</script>
+</block>

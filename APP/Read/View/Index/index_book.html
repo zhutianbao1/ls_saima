@@ -1,0 +1,102 @@
+<div class="hd lined">
+<h3>  
+  <div style="width:16%;height:50px;line-height:50px;border:0px solid red;float:left;">
+     本月读书计划
+  </div>
+</h3>
+  <div style="float:left;margin-left: 20px;height:50px;font-weight:600" >
+      <div style="font-size:12px;">您好:<span style="color:red">{$OPER_NAME}</span>
+              您本月获得读书会积分为<span style="color:red">{$month_jf[0]['m_total']*1}</span>分,
+              截止目前,您累计获得读书会积分为<span style="color:red">{$zong_jf[0]['s_score']*1}</span>分,
+              积分全市排名第<span style="color:red">{$zong_jf[0]['rownum']*1}</span>名.
+      </div>
+      <div>
+         <if condition="$type eq manager">  
+          <div >    
+                <span style="font-size:12px;">
+                截止目前,<span style="color:red">{$county_name}</span>组织读书会
+                <span style="color:red">{$book_meeting_no[0]['book_meeting_no']*1}</span>场,
+                参与读书会人员<span style="color:red">{$people_totle[0]['people_totle']*1}</span>人,                
+                共推荐书籍<span style="color:red">{$book_no[0]['book_no']*1}</span>本.
+                </span>     
+          </div>
+        <elseif condition="$type eq gen_user"/>  
+          <div >    
+                <span style="font-size:12px;">
+                截止目前您本月获得读书会积分为<span style="color:red">{$arr4[0]['total']*1}</span>分, 其中参与读书会积分为<span style="color:red">{$arr4[1]['canyu']*1}</span>分,心得发表积分为<span style="color:red">{$arr4[2]['xinde']*1}</span>分. 
+                </span>     
+          </div>
+        </if>
+    </div>
+  </div>
+<div style="clear:both;"></div>
+</div>
+<style>
+.bm-list li{height:25px;line-height: 25px;padding-left: 4px;}
+</style>
+
+<div class="bd" style="border:solid 0px red;margin-bottom:10px;overflow:hidden;">
+<if condition="$book eq null">
+   <p>暂无最新计划。</p>   
+<else/>
+   <div class="left" style="width:151px;text-align:center;border:solid 0px red;">
+    <img src="__ROOT__/{$book['img']}" width="150px" height="180px"/>
+   </div>
+
+   <div class="left" style="width:250px;border:solid 0px red;margin-left:10px;">
+    <h3 style="margin-left:-15px;">{$book['book_name']}</h3><br>
+    <p>计划开展时间:&nbsp;&nbsp;&nbsp;{$book['meet_date']}</p>
+    <p>
+
+    <if condition="time() elt  (strtotime($book['meet_date'])+17*3600)  ">   
+      <a  para="{$book['meet_id']}" href="javascript:;" class="baoming">点击报名>></a>
+    <else/>
+      <a  href="javascript:alert('阅读会已开展,不允许报名');"  class="">点击报名>></a>
+    </if>
+    
+    <!--
+    <a  para="{$book['meet_id']}" href="javascript:;" class="baoming">点击报名>></a>
+    -->
+    <!--
+    <if condition="$book['county_code'] eq $_SESSION['user_auth']['COUNTY_CODE']">   
+      <a  para="{$book['meet_id']}" href="javascript:;" class="baoming">点击报名>></a>
+    <else/>
+      <a  href="javascript:alert('非所属县市书籍，不予报名');"  class="">点击报名>></a>
+    </if>
+    -->
+
+                  &nbsp;参与活动报名并领取书籍</p>
+    <p><a href="{:U('index/meeting_bao?book_id='.$book['id'])}">更多>></a>&nbsp;&nbsp;报名情况</p>
+    
+    <p style="color: #666;">策划人:&nbsp;&nbsp;&nbsp;{$book['meeting_planner']}</p>
+
+    <p class="hide"><a href="{:U('index/book_meeting?id='.$book['meet_id'])}">进入>></a>&nbsp;&nbsp;读书会</p>
+   </div>
+  
+   <div class="left" style="width:260px;margin-left:10px;">
+    <div style="padding-left:10px;width:100%;background:rgb(160,113,111);height:24px;line-height:24px;color:#fff;position:relative;">报名情况
+    </div>   
+    <ul class="bm-list" id="bm_list">
+      <volist name="bms" id="bm" offset="0" length='6'>
+        <li>{$bm['bao_oper_name']}&nbsp;&nbsp;&nbsp;{$bm['bao_oper']|substr=###,0,3}****{$bm['bao_oper']|substr=###,7,11} &nbsp;&nbsp;{$bm['bao_date']|date='Y-m-d',###} &nbsp;&nbsp;已报名&nbsp;&nbsp;</li>
+      </volist>
+    </ul>     
+   </div>
+</if>
+</div>
+<div class="clear"></div>
+  <div style="padding-left:10px;width:100%;background:rgb(246,246,241);height:24px;line-height:24px;color:#111;position:relative;font-weight:400;"><span class="left">书籍简介</span>
+
+  <a href="javascript:;" class="more right view_more">查看全部>></a>
+</div>
+<div style="padding:10px 5px 0px 5px;font-size:12px;letter-spacing:1px;">
+  {$book['sub_content']|mb_substr=###,0,157,'utf-8'}
+</div>
+
+<div class="hide" id="book_desc" para="{$book['book_name']}" style="padding:0px 5px 15px 5px;font-size:12px;">
+  {$book['sub_content']|mb_substr=###,157,10000,'utf-8'}
+</div>
+
+<div>
+
+</div>

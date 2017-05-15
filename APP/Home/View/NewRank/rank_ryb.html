@@ -1,0 +1,83 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>荣誉榜</block>
+<block name='css'>
+	<style type="text/css">
+		.td3 a{float: left;width: 248px;}
+		.body{background: #fff url("__IMG__/bg4.png") no-repeat;}
+	</style>
+</block>
+<block name='body'>
+	<div class="body">
+	<div style="height:119px"></div>
+	<!-- 千里马查询栏 -->
+	<form action="{:U('newRank/rank_ryb')}" method="post">
+		<div id="pgk" class="query">
+			<span>荣誉榜</span><select id="cn" name="qlx" style="float:left;margin-top:15px;height:25px;line-height:25px;width:100px"><option value="qlm">千里马</option><option value="jm">骏马</option><option value="hm">黑马</option></select>
+			<span>姓名</span><input type="text" name="qname" value="{$qname}">
+			<span>条线</span><select id="config_id" name="config_id" class="select">
+			<?php echo R('Admin/Util/select',array($rank_configs,$config_id)); ?></select>
+			<input type="submit" id="query_q" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		</div>
+	</form>
+	<!-- 千里马显示栏 -->
+		<div id="demo_qlm4" class="demo">
+			<div id="demo_qlm1" style="zoom:1">
+				<ul class="td3 demo_qlm1">
+					<volist name='user_qlm' id='user'>
+						<a href="{:U('newRank/rank_year_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>'2017year'))}" target="_blank"><li>
+						<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"   width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+							<div class="td-data2 nor" title="{$user['COUNTY_NAME']}/{$user['USER_NAME']}">{$user['COUNTY_NAME']}/{$user['USER_NAME']}</div>
+							<div class="td-data2 nor" title="{$user['POS_NAME']}">{$user['POS_NAME']}</div>
+							<div class="td-data2">第{$user['RANK']}名</div>
+							<div class="td-data2" style="color:#979797">总积分：{$user['SCORE']}</div>
+						</li></a>
+					</volist>
+				</ul>
+			</div>
+		</div>
+	<!-- 骏马显示栏	 -->
+		<div id="demo_jm4" class="demo">
+			<div id="demo_jm1" style="zoom:1">
+				<ul class="td3 demo_jm1">
+					<volist name='user_jm' id='user'>
+						<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>$user['RPT_MONTH']))}" target="_blank"><li>
+						<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"   width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+							<div class="td-data2 nor" title="{$user['COUNTY_NAME']}/{$user['USER_NAME']}">{$user['COUNTY_NAME']}/{$user['USER_NAME']}</div>
+							<div class="td-data2 nor" title="{$user['POS_NAME']}">{$user['POS_NAME']}</div>
+							<div class="td-data2">第{$user['RANK']}名</div>
+							<div class="td-data2">&nbsp;</div>
+						</li></a>
+					</volist>
+				</ul>
+			</div>
+		</div>
+	<!-- 黑马显示栏 -->
+		<div id="demo_hm4" class="demo">
+			<div id="demo_hm1" style="zoom:1">
+				<ul class="td3 demo_hm1"><div style="font-size:20px;">{$errMsg}</div>
+					<volist name='user_hm' id='user'>
+						<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>$user['RPT_MONTH']))}" target="_blank"><li>
+						<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"   width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+							<div class="td-data2 nor" title="{$user['COUNTY_NAME']}/{$user['USER_NAME']}">{$user['COUNTY_NAME']}/{$user['USER_NAME']}</div>
+							<div class="td-data2 nor" title="{$user['POS_NAME']}">{$user['POS_NAME']}</div>
+							<div class="td-data2">第{$user['RANK']}名</div>
+							<div class="td-data2" style="color:#979797">排名提升:{$user['RANK_MINUS']}</div>
+						</li></a>
+					</volist>
+				</ul>
+			</div>
+		</div>
+	<div style="background:white;height:35px;border-top:1px solid red;">{$_page}</div>
+	</div>
+</block>
+<block name='js'>
+<script type="text/javascript">
+	qlx="{$qlx}";
+	obj=document.getElementById("cn");
+	for(i=0;i<obj.length;i++){
+		if(obj[i].value==qlx){
+			obj[i].selected=true;
+		}
+	}
+</script>
+</block>

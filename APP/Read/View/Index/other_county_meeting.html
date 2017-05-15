@@ -1,0 +1,244 @@
+<!-- 滚动书籍 -->
+<div class="showcase featured-books slide-5-items clear">
+  <div class="hd lined">
+    <h3>各县市读书风采<span class="help-tip"></span></h3>   
+  </div>
+  <div class="bd">
+    <a href="javascript:;" class="slide-prev disabled">‹</a>
+    <div class="carousel">
+      <div style="width: 2784px;" class="slide-list">    
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="lists" id="list" key="k" offset="0" length='5'>
+          <li>  
+            <span>
+                <if condition="$list['county_code'] eq 5780 ">市公司
+                    <elseif  condition="$list['county_code'] eq 5781 "/>莲都分公司
+                    <elseif  condition="$list['county_code'] eq 5782 "/>缙云分公司
+                    <elseif  condition="$list['county_code'] eq 5783 "/>青田分公司
+                    <elseif  condition="$list['county_code'] eq 5784 "/>云和分公司
+                    <elseif  condition="$list['county_code'] eq 5785 "/>庆元分公司
+                    <elseif  condition="$list['county_code'] eq 5786 "/>龙泉分公司
+                    <elseif  condition="$list['county_code'] eq 5787 "/>遂昌分公司
+                    <elseif  condition="$list['county_code'] eq 5788 "/>松阳分公司
+                    <elseif  condition="$list['county_code'] eq 5789 "/>景宁分公司
+                    <elseif  condition="$list['county_code'] eq '578B' "/>南城分公司                  
+                </if>
+            </span>          
+            <div class="border-wrap">              
+              <div class="cover shadow-cover" style="height:164px;width:100%;">
+                <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" class="pic"
+                    target="_self">
+                  <if condition="(substr($list['img'],0,5) eq 'https')">
+                    <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="{$list['img']}">
+                  <else/>
+                    <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$list['img']}">
+                  </if>
+                </a>
+              </div>             
+              <div class="info">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" >
+                    {$list['title']}
+                  </a>
+                </h4>                 
+                <div class="author">
+                  <span class="orig-author">                  
+                        {$list['meet_date']}    
+                  </span>
+                </div>                            
+              </div>           
+            </div>
+          </li>
+          </volist>
+        </ul>
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="lists" id="list" key="k" offset="5" length='5'>
+          <li>
+            <span>
+                <if condition="$list['county_code'] eq 5780 ">市公司
+                    <elseif  condition="$list['county_code'] eq 5781 "/>莲都分公司
+                    <elseif  condition="$list['county_code'] eq 5782 "/>缙云分公司
+                    <elseif  condition="$list['county_code'] eq 5783 "/>青田分公司
+                    <elseif  condition="$list['county_code'] eq 5784 "/>云和分公司
+                    <elseif  condition="$list['county_code'] eq 5785 "/>庆元分公司
+                    <elseif  condition="$list['county_code'] eq 5786 "/>龙泉分公司
+                    <elseif  condition="$list['county_code'] eq 5787 "/>遂昌分公司
+                    <elseif  condition="$list['county_code'] eq 5788 "/>松阳分公司
+                    <elseif  condition="$list['county_code'] eq 5789 "/>景宁分公司
+                    <elseif  condition="$list['county_code'] eq '578B' "/>南城分公司                  
+                </if>
+            </span>       
+            <div class="border-wrap">
+              <div class="cover shadow-cover">
+                <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" class="pic"
+                     target="_self">
+                  <if condition="(substr($list['img'],0,5) eq 'https')">
+                    <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="{$list['img']}">
+                  <else/>
+                    <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$list['img']}">
+                  </if>
+                </a>
+              </div>              
+              <div class="info">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" >{$list['title']}</a>
+                </h4>                 
+                <div class="author">
+                  <span class="orig-author">
+                  {$list['meet_date']}          
+                  </span>
+                  <span></span>
+                 </div>              
+              </div>             
+            </div>
+          </li>
+          </volist>
+        </ul>
+
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="lists" id="list" key="k" offset="10" length='5'>
+          <li>
+            <span>
+                <if condition="$list['county_code'] eq 5780 ">市公司
+                    <elseif  condition="$list['county_code'] eq 5781 "/>莲都分公司
+                    <elseif  condition="$list['county_code'] eq 5782 "/>缙云分公司
+                    <elseif  condition="$list['county_code'] eq 5783 "/>青田分公司
+                    <elseif  condition="$list['county_code'] eq 5784 "/>云和分公司
+                    <elseif  condition="$list['county_code'] eq 5785 "/>庆元分公司
+                    <elseif  condition="$list['county_code'] eq 5786 "/>龙泉分公司
+                    <elseif  condition="$list['county_code'] eq 5787 "/>遂昌分公司
+                    <elseif  condition="$list['county_code'] eq 5788 "/>松阳分公司
+                    <elseif  condition="$list['county_code'] eq 5789 "/>景宁分公司
+                    <elseif  condition="$list['county_code'] eq '578B' "/>南城分公司                  
+                </if>
+            </span>       
+            <div class="border-wrap">
+              <div class="cover shadow-cover" style="height:164px;width:100%;">
+                <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" class="pic" 
+                      target="_self">
+                  <if condition="(substr($list['img'],0,5) eq 'https')">
+                    <img width="110px" height="164px" itemprop="image" alt="" 
+                          src="__IMG__/22325617.jpg" tmpsrc="{$list['img']}">
+                  <else/>
+                    <img width="110px" height="164px" itemprop="image" alt="" 
+                          src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$list['img']}">
+                  </if>
+                </a>
+              </div>
+              <div class="info">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" >
+                    {$list['title']}
+                  </a></h4>                 
+                <div class="author">
+                  <span class="orig-author">
+                    {$list['meet_date']}   
+                  </span>
+                </div>                 
+              </div>           
+            </div>
+          </li>
+          </volist>
+        </ul>
+
+
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="lists" id="list" key="k" offset="15" length='5'>
+          <li>
+            <span>
+                <if condition="$list['county_code'] eq 5780 ">市公司
+                    <elseif  condition="$list['county_code'] eq 5781 "/>莲都分公司
+                    <elseif  condition="$list['county_code'] eq 5782 "/>缙云分公司
+                    <elseif  condition="$list['county_code'] eq 5783 "/>青田分公司
+                    <elseif  condition="$list['county_code'] eq 5784 "/>云和分公司
+                    <elseif  condition="$list['county_code'] eq 5785 "/>庆元分公司
+                    <elseif  condition="$list['county_code'] eq 5786 "/>龙泉分公司
+                    <elseif  condition="$list['county_code'] eq 5787 "/>遂昌分公司
+                    <elseif  condition="$list['county_code'] eq 5788 "/>松阳分公司
+                    <elseif  condition="$list['county_code'] eq 5789 "/>景宁分公司
+                    <elseif  condition="$list['county_code'] eq '578B' "/>南城分公司                  
+                </if>
+            </span>       
+            <div class="border-wrap">
+              <div class="cover shadow-cover" style="height:164px;width:100%;">
+                <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" class="pic"
+                   target="_self">
+                <if condition="(substr($list['img'],0,5) eq 'https')">
+                <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="{$list['img']}">
+                <else/>
+                <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$list['img']}">
+                </if>                  
+                </a>
+              </div>
+              <div class="info">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" >
+                    {$list['title']}
+                  </a></h4>                 
+                <div class="author">
+                  <span class="orig-author">
+                    {$list['meet_date']}         
+                  </span>
+                 </div>                  
+              </div>           
+            </div>
+          </li>
+          </volist>
+        </ul>
+        
+        <!--
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="lists" id="list" key="k" >
+          <li>
+            <div class="border-wrap">
+              <div class="cover shadow-cover" style="height:164px;width:100%;">
+                <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" class="pic"
+                   target="_self">
+                <if condition="(substr($list['img'],0,5) eq 'https')">
+                <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="{$list['img']}">
+                <else/>
+                <img width="110px" height="164px" itemprop="image" alt="" 
+                    src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$list['img']}">
+                </if>                  
+                </a>
+              </div>
+              <div class="info">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" >
+                    {$list['title']}
+                  </a></h4>                 
+                <div class="author">
+                  <span class="orig-author">
+                    <if condition="$list['county_code'] eq 5780 ">市公司
+                    <elseif  condition="$list['county_code'] eq 5781 "/>莲都
+                    <elseif  condition="$list['county_code'] eq 5782 "/>缙云
+                    <elseif  condition="$list['county_code'] eq 5783 "/>青田
+                    <elseif  condition="$list['county_code'] eq 5784 "/>云和
+                    <elseif  condition="$list['county_code'] eq 5785 "/>庆元
+                    <elseif  condition="$list['county_code'] eq 5786 "/>龙泉
+                    <elseif  condition="$list['county_code'] eq 5787 "/>遂昌
+                    <elseif  condition="$list['county_code'] eq 5788 "/>松阳
+                    <elseif  condition="$list['county_code'] eq 5789 "/>景宁
+                    <elseif  condition="$list['county_code'] eq '578B' "/>南城                  
+                    </if>                  
+                  </span>
+                 </div>                  
+              </div>           
+            </div>
+          </li>
+          </volist>
+        </ul>
+        -->
+
+      </div>
+    </div>
+    <a href="javascript:;" class="slide-next">›</a></div>
+</div>
+<!-- 滚动书籍 END -->

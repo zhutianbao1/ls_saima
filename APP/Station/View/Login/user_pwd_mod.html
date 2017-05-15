@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>账号密码修改</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+        <script src="__STATIC__/layer/layer.js"></script>
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/regist.css" />
+    </head>
+    <body>
+		<div class="wrapper">
+			<div class="content">
+				<div id="form_wrapper" class="form_wrapper">
+					<form class="login active" action="{:U('Index/regist')}" method="post">
+						<h3>密码重置</h3>
+						<div>
+							<label for="node_login_code" >平台账号:</label>
+							<input type="text"  name="node_login_code" id="node_login_code" />
+							<span class="error" id="login_code_error">This is an error</span>
+						</div>
+						<div >
+							<label for="bill_id">手机号码:</label>
+							<input type="text" name="bill_id" id="bill_id" />
+							<span class="error" id="bill_id_error" >This is an error</span>	
+						</div>
+
+                        <div >
+                            <label for="verfy_code">验证码:
+                                <a href="javascript:;" class="verfy" >获取验证码</a>
+                                <span id="msg" style="margin-left: 10px;"></span>
+                            </label>
+                            <input type="text" name="verfy_code" id="verfy_code" />
+                            <span class="error" id="verfy_code_error" >This is an error</span> 
+                        </div>
+
+                        <div >
+                            <label for="user_pwd">账号密码:</label>
+                            <input type="text" name="user_pwd" id="user_pwd" />
+                            <span class="error" id="user_pwd_error" >This is an error</span> 
+                        </div>
+						<div class="bottom">
+                            <a href="{:U('Login/login')}"  class="abtn  fl">登 录</a>
+							<input type="button" value="提 交" class="sub_btn fr"/>						
+							<div class="clear"></div>
+						</div>
+					</form>				
+				</div>			
+			</div>		
+		</div>
+    </body>
+    <script type="text/javascript">		
+			$(function() {
+                //密码重置
+                $('.sub_btn').click(function(event) {
+                	var flag=true;
+                	var node_login_code=$('#node_login_code').val();
+                	var bill_id=$('#bill_id').val();
+                    var user_pwd=$('#user_pwd').val();
+                    var verfy_code=$('#verfy_code').val();
+                    
+                	if(empty(node_login_code)){
+                		flag=false;
+                		$('#login_code_error').html('请输入平台账号!');
+                        $('#login_code_error').css('visibility','visible');
+                	}                	
+                	if(empty(bill_id)){
+                		flag=false;
+                		$('#bill_id_error').html('请输入手机号码!');
+                        $('#bill_id_error').css('visibility','visible');
+                	}
+                    if(empty(verfy_code)){
+                        flag=false;
+                        $('#verfy_code_error').html('请输入验证码!');
+                        $('#verfy_code_error').css('visibility','visible');
+                    }
+
+                    if(empty(user_pwd)){
+                        flag=false;
+                        $('#user_pwd_error').html('请输入账号密码!');
+                        $('#user_pwd_error').css('visibility','visible');
+                    }
+
+                	if(flag){                       
+                	   url="{:U('Login/user_pwd_mod')}";              		
+                		$.ajax({
+                		  url: url,
+                		  type: 'POST',
+                		  dataType: 'json',
+                		  data: {node_login_code:node_login_code,bill_id:bill_id,user_pwd:user_pwd,verfy_code:verfy_code},
+                          success: function(res){                           
+                		  	if(res.status=='1'){
+                                layer.alert(res.msg,{icon: 1},function(){
+                                    window.location="{:U('Login/login')}";
+                                });
+                		  	}else{
+                                layer.alert(res.msg,{icon: 2});
+                		  	}
+                		  },
+                		  error: function() {
+                		    layer.alert('系统请求出错',{icon: 2});                		    
+                		  }
+                		});                		
+                	}
+                });
+
+                //隐藏提示信息
+                $('input[type=text]').each(function(event) {
+                	$(this).focus(function(event) {
+                		$(this).next('span').css('visibility','hidden');
+                	});
+                });
+
+
+            
+                var dsq;
+                function showMsg(){
+                  var seconds = 60;
+                  dsq=  setInterval(function(){
+                    if (seconds > 0) {
+                       seconds--;
+                       $('#msg').html(''+seconds+' 秒');
+                    }else {
+                       $('#msg').html('');
+                       clearInterval(dsq);
+                    }
+                    }, 1000); 
+                }
+                
+
+                //获得验证码
+                $('.verfy').click(function(event){
+                   var flag=true;
+                   var node_login_code=$('#node_login_code').val();
+                   var bill_id=$('#bill_id').val(); 
+
+                    if(empty(node_login_code)){
+                        flag=false;
+                        $('#login_code_error').html('请输入平台账号!');
+                        $('#login_code_error').css('visibility','visible');
+                    }                   
+                    if(empty(bill_id)){
+                        flag=false;
+                        $('#bill_id_error').html('请输入手机号码!');
+                        $('#bill_id_error').css('visibility','visible');
+                    }
+
+                    url="{:U('Login/getverfy_code')}";
+                    if(flag){ 
+                        this.disabled=true;
+                        var self = this;
+                        setTimeout(function(){self.disabled=false;}, 60*1000); 
+                        showMsg(); 
+                        
+                        $.ajax({
+                           url: url,
+                           type: 'POST',
+                           dataType: 'json',
+                           data: {node_login_code: node_login_code,bill_id:bill_id},
+                           success:function(re){
+                                if(re.status=='1'){
+                                    layer.alert(re.msg,{icon: 1});
+                                }else{
+                                    layer.alert(re.msg,{icon: 2});
+                                }
+                           } ,
+                           error:function(){
+                            layer.alert('系统请求出错!');
+                           }
+                        });
+                    }
+                });
+			});
+    </script>
+</html>

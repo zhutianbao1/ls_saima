@@ -1,0 +1,142 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 常规流程</block>
+<block name="css">
+
+</block>
+
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="sidebar">
+    <ul class="sidemenu">
+      <li><a href="{:U('Index/index')}">汇总报表</a></li>
+      <li><a href="{:U('Index/cdeali')}">投诉处理记录表</a></li>
+      <li><a href="{:U('Index/faulti')}">故障处理记录表</a></li>
+      <li><a href="{:U('Index/onlinei')}">上线类</a></li>
+      <li><a href="{:U('Index/repositoryi')}">知识库</a></li>
+      <li><a href="{:U('Index/ruleflowi')}" style="color:#f00">常规流程</a></li>
+      <li><a href="{:U('Index/schedulei')}">排班表</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <form class="form tjform" name="form1" action="{:U('Index/ruleflowi')}" method="post">
+      <div>
+        <label>投诉类型：</label>
+        <input type="text" name="complain_type"/>
+
+        <label>处理流程：</label>
+        <input type="text" name="deal_way"/>
+
+        <label>特别注意点：</label>
+        <input type="text" name="lime_light"/>
+      </div>
+
+      <div>
+        <label>备注：</label>
+        <input type="text" name="remark"/>
+
+        <label>时间>=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="start_time"/>
+
+        <label>时间<=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="end_time"/>
+
+        <button class="btn query"/>查询</button>
+      </div>
+    </form>
+
+    <div class="btn-box">
+      <button class="btn ruleflowa"/>新增</button>
+      <button class="btn ruleflowu"/>修改</button>
+      <button class="btn ruleflowd"/>删除</button>
+      <button class="btn ruleflowq"/>查看</button>
+    </div>
+
+    <table class="altrowstable">
+      <div style="font-size:14px;font-weight:600">常规流程清单：</div>
+      <tr>
+        <th style="width:25px"></th><th style="width:54px">时间</th>
+        <th style="width:120px">投诉类型</th><th>处理流程</th>
+        <th>特别注意点</th><th style="width:100px">备注</th>
+        <th style="width:42px">记录人</th>
+      </tr>
+      <volist name="ruleflowlist" id="rl">
+      <tr>
+        <td><input type="checkbox" name="id" value="{$rl['ID']}" param="{$i}"/>{$i}</td>
+        <td>{$rl['LR_TIME']}</td><td>{$rl['COMPLAIN_TYPE']}</td><td>{$rl['DEAL_WAY']}</td>
+        <td>{$rl['LIME_LIGHT']}</td><td>{$rl['REMARK']}</td><td>{$rl['OPER_NAME']}</td>
+      </tr>
+      </volist>
+    </table>
+    {$_page}
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+  $(".ruleflowa").click(function(){
+    window.location.href="{:U('Index/ruleflowa')}";
+  });
+
+  $(".ruleflowu").click(function(){
+    //常规流程(修改)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/ruleflowu')}?id="+param[0];
+    }
+  });
+
+  $(".ruleflowd").click(function(){
+    //常规流程(删除)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      if(confirm("确认删除第"+param[1]+"行？")){
+        window.location.href="{:U('Index/ruleflowd')}?id="+param[0];
+      }
+      
+    }
+  });
+  
+  $(".ruleflowq").click(function(){
+    //常规流程(查看)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/ruleflowq')}?id="+param[0];
+    }
+  });
+
+  function selectRowid(){
+    var chk_value =[];//定义一个数组
+    var param = '';
+    $("input[name='id']:checked").each(function(){
+      chk_value.push($(this).val());
+      param = $(this).attr("param");
+    });
+    
+    if(chk_value.length>1){
+      alert("不能同时编辑多条记录");
+      return;
+    }else if(chk_value.length==0){
+      alert("请选择对应记录");
+      return;
+    }
+    return chk_value + '&' + param;
+  }
+});
+</script>
+</block>

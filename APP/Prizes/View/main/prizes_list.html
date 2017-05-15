@@ -1,0 +1,177 @@
+<extend name='./base'/>
+<block name='title'>后台管理</block>
+<block name='css'>
+	<style type="text/css">
+		.btn{padding:5px 8px;width:90px;float: left;border: 1px solid #28A0FF;background:#C8EAFF;cursor:pointer}
+		.frames label{font-size: 14px;line-height: 40px}
+	</style>
+</block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<div style="width:100%;padding-bottom:20px">
+		<div style="border-bottom:0px solid #ddd;height:20px;line-height:20px;width:100%;padding-bottom:3px">
+			<button class="btn add">添加新奖品</button>
+			<button class="btn audit">奖品入库</button>
+			<button class="btn audit1">修改奖品信息</button>
+			<button class="btn delete">删除奖品</button>
+		</div>
+		<table style="width:100%;" id="a" cellspacing="0" cellpadding="1" border="0px" class="rank">
+			<tr>
+				<th></th>
+				<th>编号</th>
+				<th>奖品名称</th>
+				<th>奖品类型</th>
+				<th>奖品库存</th>
+				<th style="display:block;">奖品领取数</th>
+				<th>奖品描述</th>
+			</tr>
+			<volist name='info' id='info'>
+			<tr class="{$info['id']}">
+				<td><input type="checkbox" name="line" param="{$info['id']}" style="background:#d9ffff;border:1px solid #d9ffff"></td>
+				<td>{$info['id']}</td>
+				<td title="{$info['prizes_name']}">
+				<div style="white-space:nowrap;width:10em;overflow:hidden;text-overflow:ellipsis">{$info['prizes_name']}</div>
+				</td>
+				<td title="{$info['type_name']}">
+				<div style="white-space:nowrap;width:10em;overflow:hidden;text-overflow:ellipsis">{$info['type_name']}</div>
+				</td>
+				<td>{$info['prizes_stock']}</td>
+				<td>{$info['receive_num']}</td>
+				<td title="{$info['prizes_desc']}">
+				<div style="white-space:nowrap;width:10em;overflow:hidden;text-overflow:ellipsis">{$info['prizes_desc']}</div>
+				</td>
+			</tr>
+			</volist>
+		</table>
+		{$_page}
+	</div>
+	<div class="frames popup1" style="display:none">
+		<form id="forms1" method="post" style="width:100%">
+		<input type="hidden" name="id1" id="id1"/>
+		<label for="prizes_name">奖品名称：</label>
+		<input type="text" name="prizes_name" id="prizes_name" style="width:200px"><br/>
+		<label for="prizes_type">奖品类型：</label>
+		<input type="text" name="prizes_type" id="prizes_type" style="width:200px" disabled>
+		<!-- <span style="font-size:25px;cursor:pointer" onclick="edit1()">✍</span> --><br/>
+		<label for="prizes_desc">奖品描述：</label>
+		<textarea name="prizes_desc" id="prizes_desc" style="width:500px;height:100px"></textarea><br/>
+		<input type="reset" value="取消" class="can1" style="width:100px;margin-left:35%;margin-bottom:20px">
+		<input type="submit" value="提交" onclick="prizeNUM();" style="width:100px;">
+		</form>
+	</div>
+	<div class="frames popup" style="display:none">
+		<!-- <form action="{:U('main/update')}" method="post" onsubmit="return prizeNUM();" style="width:100%"> -->
+		<form id="forms" method="post" style="width:100%">
+		<input type="hidden" name="id" id="id"/>
+		<label for="prizes_num">奖品入库数量：</label>
+		<input type="text" name="prizes_num" id="prizes_num" style="width:200px"><br/>
+		<input type="reset" value="取消" class="can" style="width:100px;margin-left:35%;margin-bottom:20px">
+		<input type="submit" value="提交" onclick="prizesNUM();" style="width:100px;">
+		</form>
+	<!-- </form> -->
+	</div>
+</block>
+<block name='bottom'></block>
+<block name='js'>
+	<script type="text/javascript">
+		$(".add").click(function(){
+			//window.open("{:U('main/index')}");//转页
+			location.href="{:U('main/index')}"; //不转页
+		});
+		$(".delete").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				var id = $('input[name="line"]:checked').attr("param");
+				var url="{:U('main/delete')}?id="+id;
+				if(confirm('是否确定删除')){
+					$.ajax({
+						url:url,
+						type:'POST',
+						datatype:'json',
+						success:function(re){
+							alert(re.msg);
+							location.reload();
+						}
+					})
+				}else{
+					return;
+				}
+			}
+		});
+		$(".audit").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				$(".popup").fadeIn("slow");
+				$(".popup1").hide(1);
+				var id = $('input[name="line"]:checked').attr("param");
+				$("#id").val(id);
+			}
+		})
+		$(".audit1").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				$(".popup").hide(1);
+				$(".popup1").fadeIn("slow");
+				var id = $('input[name="line"]:checked').attr("param");
+				var name=$("."+id+" td:eq(2) div").html();
+				var type=$("."+id+" td:eq(3) div").html();
+				var desc=$.trim($("."+id+" td:eq(6)").text());
+				$("#prizes_name").val(name);
+				$("#prizes_type").val(type);
+				$("#prizes_desc").val(desc);
+				$("#id1").val(id);
+			}
+		})
+		function edit1(){
+			$('#prizes_type').attr("disabled",false);
+		}
+		function dge(){
+			var len = $("input[name='line']:checked").length;
+		    if(len == 0){
+		      alert("未选中编辑数据");
+		      return false;
+		    }
+		    if(len > 1){
+		      alert("同时只允许编辑一条记录");
+		      return false;
+		    }
+		}
+		function prizesNUM(){
+			var url="{:U('main/update')}";
+			var a=$("#prizes_num").val();
+			var re = /^[0-9]*[1-9][0-9]*$/;
+			if(!re.test(a)){
+				alert("请输入正整数"); 
+			}else{
+				$.ajax({
+					url:url,
+					type:'POST',
+					datatype:'json',
+					data:$("#forms").serializeArray(),
+					success:function(re){
+						alert(re.msg);
+					}
+				})
+			}
+		}
+		function prizeNUM(){ 
+			var url="{:U('main/update')}";
+			$.ajax({
+				url:url,
+				type:'POST',
+				datatype:'json',
+				data:$("#forms1").serializeArray(),
+				success:function(re){
+					alert(re.msg);
+				}
+			})
+		}
+		$(".can").click(function(){
+			$(".popup").hide(1);
+		})
+		$(".can1").click(function(){
+			$(".popup1").hide(1);
+		})
+	</script>
+</block>

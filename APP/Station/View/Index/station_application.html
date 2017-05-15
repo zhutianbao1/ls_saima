@@ -1,0 +1,184 @@
+<extend name="pub/base" />
+<block name="title">
+	<title>流程申请</title>
+</block>
+<block name="css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/application.css">
+	<style type="text/css">
+	</style>
+</block>
+
+<block name="main_right">
+	  <div class="right_contain">	
+	  <h3>无线网基站规划建设申请</h3>
+	  <div class="right_content">
+
+	    <form id="theForm" action="{:U('Index/application')}" method="post" >
+	    <fieldset>
+	    <legend>基本信息</legend>   
+	  	<div class="group">
+	  	    <div class="group_div">
+	  	    	<label>工单编号:</label>	  	    	
+	  			<input type="text" name="item_id" value="{$item_id}" readonly="readonly" />
+	  	    </div>	  	    
+	  	    <div class="group_div">
+	  	    <label>平台账号:</label>
+	  			<input type="text" name="node_login_code"   readonly="readonly"
+	  			                      value="{$_SESSION['node']['NODE_LOGIN_CODE']}" />
+	  	    </div>	  	   
+	  	    <div class="group_div">	  	       
+	  			<label>申请人姓名:</label>
+	  			<input type="text" name="appliy_name" value="{$_SESSION['node']['NODE_USERNAME']}" readonly="readonly"/> 
+	  		</div>	  	   
+	  	    <div class="group_div">	
+	  			<label>申请人手机:</label>
+	  			<input type="text" name="bill_id" value="{$_SESSION['node']['BILL_ID']}" readonly="readonly"/>
+	  	    </div>    
+	  	    <div class="group_div">
+	  	    	<label>县区:</label>
+	  			<input type="text" name="county_name" class="county_name" 
+	  			   value="{$_SESSION['node']['COUNTY_CODE']}"  readonly="readonly" />
+	  		</div>
+	  	    <div class="group_div">	  
+	  			<label>项目名称:</label>
+	  			<input type="text" name="project_name"/>   
+	  	    </div>
+	  	    <div class="group_div">	  	        
+	  	    	<label>预规划站名:</label>
+	  			<input type="text" name="station_name"/>
+	  		</div>	  	   
+	  	    <div class="group_div">	  
+	  			<label>一二三类区域:</label>
+	  			<input type="text" name="area_name"/> 
+	  	    </div>
+	  	    <div class="group_div">
+	  	    	<label>基站类型:</label>	
+	  			<select name="station_type">
+	  				<option>----请选择----</option>
+	  				<option value="宏站">宏站</option>
+	  				<option value="小微站">小微站</option>
+	  				<option value="室分">室分</option>
+	  			</select>
+	  		</div>	  	   
+	  	    <div class="group_div">	  
+	  			<label>网络制式:</label>
+	  			<input type="text" name="network_type"/>
+	  	    </div>
+	  	    <div class="group_div">
+	  	    	<label>建站方式:</label>
+	  			<input type="text" name="station_con"/>
+	  		</div>	  	   
+	  	    <div class="group_div">	  
+	  			<label>建设目标:</label>
+	  			<input type="text" name="con_target"/>
+	  	    </div>
+	  	    <div class="group_div"> 
+	  	    	<label>经度:</label>
+	  			<input type="text" name="jindu"/>
+	  			</div>	  	   
+	  	    <div class="group_div">	  
+	  			<label>纬度:</label>
+	  			<input type="text" name="weidu"/>	  	    
+	  	    </div>
+	  	    <div class="group_div">	  	    	
+	  	    	<label>网络问题同步:</label>
+	  			<input type="text" name="network_syn"/>
+	  		</div>	  	   
+	  	    <div class="group_div">	  
+	  			<label>网路问题:</label>
+	  			<input type="text" name="network_pro"/>	
+	  	    </div>
+	  	    <div class="group_div" >
+	  	    	<label>下一审核人:</label>
+	  	    	<!--
+	  	    	<input type="text" name="next_node" class="next_node" />
+	  	    	-->
+	  	    	<select name="next_node">
+	  	    	    <option value="">---请选择---</option>
+	  	    	    <volist name="nodes" id="node">
+	  	    		<option value="{$node['NODE_NO']}|{$node['NODE_LOGIN_CODE']}|{$node['NODE_NAME']}|{$node['NODE_USERNAME']}|{$node['BILL_ID']}|{$node['COUNTY_CODE']}">{$node['NODE_NO']}|{$node['NODE_LOGIN_CODE']}|{$node['NODE_NAME']}|
+	  	    		{$node['NODE_USERNAME']}|{$node['BILL_ID']}|{$node['COUNTY_CODE']}
+	  	    		</option>
+	  	    		</volist>
+	  	    	</select>
+	  	    </div>
+	  	    <!--
+	  	    <div class="group_div">
+	  	    	<label>上传附件:</label>
+	  	    	<input type="file"  name="file"  class="upload1"  /> 
+	  	    </div>
+	  	    -->
+	  	    <div class="group_div1" >
+	  	       <label>备注:</label>	
+	  	       <textarea name="remark" ></textarea> 
+	  	    </div>
+	  	    <div class="clear"></div>
+	  	    <div style="height: 10px;width: 100%;"></div>
+	  	</div>
+	  	</fieldset> 
+	  	<div class="div_btn">	      
+	  		<input type="button" class="sub_btn"  value="提  交"/>
+	  	</div>
+	  	</form>	  	
+	  </div>  	
+	  </div>
+	</block>
+<block name="js">
+	<script >
+	$(function(){
+		$('.sub_btn').click(function(event) {  
+		    var flag=true;          
+            $('.group_div input').each(function() {
+            	if(!$(this).val()){
+            		flag=false;
+            		$(this).css('background-color','#fff8d7');
+            		layer.alert('请将数据填写完整!');
+            	}
+            });
+           if(flag){
+            	layer.confirm('确定要提交数据吗?', {icon: 3, title:'提示'}, function(index){
+                  $('#theForm').submit();
+				  layer.close(index);
+				});
+            }
+		});
+
+		$(".req").each(function(index, el) {
+          	 $(this).focus(function(event) {
+          	  $(this).css('background-color','');
+          	 });
+        });
+
+		/**
+
+       var nodes=[            
+                <?php 
+                   $node='';
+		           for ( $i=0;$i<count($nodes); $i++) { 
+		              if($i==count($nodes)-1){
+		                  $node .=('"'.$nodes[$i]['NODE_NO'].'|'.$nodes[$i]['NODE_LOGIN_CODE'].'|'.$nodes[$i]['NODE_NAME'].
+		                  	'|'.$nodes[$i]['NODE_USERNAME'].'|'.$nodes[$i]['BILL_ID'].'|'.$nodes[$i]['COUNTY_CODE'].'"');
+		              }else{
+		                  $node .= ('"'.$nodes[$i]['NODE_NO'].'|'.$nodes[$i]['NODE_LOGIN_CODE'].'|'.$nodes[$i]['NODE_NAME'].'|'
+		                  	.$nodes[$i]['NODE_USERNAME'].'|'.$nodes[$i]['BILL_ID'].'|'.$nodes[$i]['COUNTY_CODE'].'"'.',');
+		              }
+		           }
+		           echo $node;
+                ?>
+			];
+
+			$(".next_node").autocomplete({
+		      source: nodes,
+		      messages: {
+              noResults:'',
+              results: function() {}        
+             }
+		    });
+
+		   
+		    **/
+
+	});
+	</script>
+</block>	
+

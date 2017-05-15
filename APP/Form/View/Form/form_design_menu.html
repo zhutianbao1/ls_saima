@@ -1,0 +1,14 @@
+<div class="form_tab">
+	<ul class="">
+		<li><a class="<?php echo ($m==0 || empty($m))?'curr':''; ?>" href="{:U('Manage/form_list?m=0&form_id='.$form_id)}">表单列表</a></li>
+		<li><a class="<?php echo $m==1?'curr':''; ?>" href="{:U('Manage/form_info?m=1&form_id='.$form_id)}">基础信息</a></li>
+		<li><a class="<?php echo $m==3?'curr':''; ?>" href="{:U('Manage/form_design?m=3&form_id='.$form_id)}">表单设计</a></li>
+		
+		<li><a class="<?php echo $m==2?'curr':''; ?>" href="{:U('Manage/form_table?m=2&form_id='.$form_id)}">存储设计</a></li>		
+		<li><a class="<?php echo $m==4?'curr':''; ?>" href="{:U('Manage/form_grant?m=4&form_id='.$form_id)}">权限设置</a></li>
+		<li><a class="<?php echo $m==31?'curr':''; ?>"  href="{:U('Manage/form_priview?m=31&head=y&form_id='.$form_id)}">表单预览</a></li>
+		<li><a class="<?php echo $m==41?'curr':''; ?>"  href="{:U('Manage/form_data_list?m=41&form_id='.$form_id)}">数据列表</a></li>
+		<li><a class="<?php echo $m==5?'curr':''; ?>" href="{:U('Manage/form_publish?m=5&form_id='.$form_id)}">部署发布</a></li>
+		
+	</ul>
+</div>

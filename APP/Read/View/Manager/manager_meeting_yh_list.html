@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>确认与会名单</title>
+
+	<link rel="stylesheet" href="__CSS__/balance.css">
+	<link rel="stylesheet" href="__CSS__/tag.css">
+
+	<style type="text/css">
+	*{margin: 0;padding: 0;}
+	.show{width: 90%;margin: 0 auto; }
+	.show h3{letter-spacing: 1px;	color: #666; text-align: center;margin-top: 5px;}
+	.show_list{margin-top: 5px; }
+	.show_list table{border-collapse: collapse;text-align: center;color: #666;width: 100%;}
+    .show_list table tr{height:23px;line-height: 23px;  }
+	.show_list table tr td{	border:1px solid #ccc;font-size: 13px;} 
+	.delete{padding: 2px 5px;} 
+	.btn_div{height: 30px;line-height: 30px;margin-top: 10px;text-align: center;}
+	.sub_btn{font-size: 13px;padding: 5px 15px;border:1px solid #666;} 
+	.think_page{top:10px;text-align: left;position: relative;margin-top: 5px;}
+	.think_page .num,.next,.current,.prev,.first,.end,.rows{padding:5px 10px;border:solid 1px #666;
+	  font-size: 12px;text-decoration: none;color:#000;position: relative;}
+	.think_page .current{background: #ccc;} 
+	</style>	
+</head>
+
+<body>
+	<div class="show">
+		<h3>阅读会报名参加人员信息</h3>
+		<form  id="theForm"  method="post" action="{:U('manager/manager_meeting_yh_queren')}">
+			<div class="show_list">
+				<table >
+					<tr >
+						<td>  	     		    	
+							<input type="checkbox" id="checkAllId"/> 
+						</td>
+						<td>编号</td>
+						<td>阅读会名称</td>
+						<!--
+						<td  style="width:100px;" >员工部门</td>
+						-->
+						<td>员工姓名</td>
+						<!--
+						<td  style="width:100px;" >员工编号</td>
+						-->
+						<td>员工手机</td>
+						<td>删除</td>     			
+					</tr>	     		
+					<volist name="list" id="list" >
+					<tr>
+						<td >
+						<input type="checkbox" class="validateCheckAll" name="mtlist"  
+						value="{$list.oper_phone}"  />     
+						<input type="hidden" name="meeting_id" value="{$list.meeting_id}">   
+						</td>
+						<td  >{$list.meeting_id}</td>
+						<td  >{$list.meeting_name}</td>
+						<!--
+						<td  >{$list.oper_city}</td>
+						-->
+						<td  >{$list.oper_name}</td>
+						<!--
+						<td  >{$list.oper_num}</td>
+						-->
+						<td  >{$list.oper_phone}</td>
+						<td  >	                    	
+						<a class="delete" value="{$list['id']}">删除</a>
+						</td>
+					</tr>                  
+					</volist>	       		        
+				</table>
+			<input type="hidden" id="ids" name="ids"/> 
+			</div>
+			<div>
+				{$_page}
+			</div>
+			<div class="btn_div">
+				<input  type="button" id="sub_btn" class="sub_btn" value="提 交"/>
+			</div>
+		</form>
+	</div> 
+</body>
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+
+ <script type="text/javascript">
+    $(function(){
+    	$('.validateCheckAll').click(function() {
+    	var allboxs = $(":checkbox").length;    		
+		var checked = $(":checked[name=mtlist]").length;
+		if($(this).is(':checked') && checked==allboxs-1){			
+			$("#checkAllId").attr("checked",true);
+		}else{			
+			$("#checkAllId").attr("checked",false);
+		}    		
+    	});
+    });
+
+    $(function(){
+    	$('#checkAllId').click(function() {
+    		if(this.checked){
+    			$('input[type=checkbox]').attr("checked",true);
+    		}else{
+    			$('input[type=checkbox]').attr("checked",false);
+    		}
+    	});
+    });
+
+    $(function(){
+    	$("#sub_btn").click(function() {    		
+    		var checkeds=$(":checked[name=mtlist]");
+		    var id="";
+	        for(var i=0;i<checkeds.length;i++){
+	        	if(i==checkeds.length-1){
+			   id+=checkeds[i].value;
+	        	}else{
+	        	  id+=checkeds[i].value+",";
+	        	}            
+	        } 
+            $('#ids').val(id); 
+            if($('#ids').val().length==0){
+            	layer.alert('请选择要提交的名单!');
+            }else{
+            	layer.open({
+            		content:'确定要提交吗?',
+            		btn:['确定','取消'],
+            		yes:function(index, layero){
+            			$('#theForm').submit();
+            			layer.close(index);
+            		}
+            	});
+
+            }           
+    	});
+    });
+
+    $(function(){
+    	$('.delete').click(function() {
+    		var meeting_bao_id=$(this).val();
+    		layer.open({
+    			content:'确定要删除报名吗?',
+    			btn:['确定','取消'],
+    			yes:function(index, layero){
+    				url="{:U('manager/bao_shanchu')}";
+    				$.ajax({
+		    			url: url,
+		    			type: 'POST',    			
+		    			data: {meeting_bao_id: meeting_bao_id},
+		    			success: function(msg){
+		    				if(msg="删除成功!"){
+		    					layer.alert(msg);  
+                                location.reload();
+		    				}else{
+		    					layer.alert(msg);  
+		    				}                   
+		                },
+		                error:function() {
+		                	layer.alert('系统请求出错!');
+		                }
+		    		});
+		    		layer.close(index);
+    			}
+    		}); 
+    	});
+    });   
+ </script> 
+
+
+</html>
+
+
+
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

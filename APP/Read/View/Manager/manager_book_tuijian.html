@@ -1,0 +1,110 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">推荐管理</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')} 
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div> 
+</div>
+</block> 
+<block name="main_right">
+  <div class="query_div hide">
+    <form action="" name="theForm" method="post">
+      <ul>
+        <li>条件1：<input type="text" name=""></li>
+        <li>条件2：<input type="text" name=""></li>
+        <li>条件3：<input type="text" name=""></li>
+        <li>条件4：<input type="text" name=""></li>
+        <li><a class="btn" href="javascript:;"> 查询 </a>
+            <a class="btn" href="javascript:;"> 添加 </a></li>
+      </ul>
+    </form>
+  </div>
+
+  <div class="data_table clear">
+    <div class="hide page-title" style="margin-bottom:15px;margin-top:15px;">
+      <h2>阅读会会员</h2>
+      <div class="alternative">
+        <!-- <a href="/provider/all">按提供方浏览</a> -->
+      </div>
+    </div>
+    <div class="section">
+    <div>
+      <ul>
+        <li style="font-size: 20px;" >
+         <!--
+            <a href="{:U('manager/manager_shenhe')}">书籍审核</a></li>
+       
+        <li style="font-size: 20px;" ><a href="">书籍列表</a></li>
+        -->
+      </ul>
+    </div>
+    
+    <div class="bd">
+      <empty name='list'>
+       暂无数据信息,联系县市管理员 
+       <else/>
+      <ul class="list-lined ebook-list column-list">
+       <volist name="list" id="list">
+        <li class="item">
+          <div class="info">
+            <div class="article-actions">
+              <div class="action-buttons">
+                <!-- <span class="price-tag ">免费</span> -->
+                <a class="btn btn-icon "  
+                href="{:U('manager/manager_book_tuijian_shenhe?id='.$list['id'])}">管理</a>
+                <a class="btn btn-icon "  href="javascript:;">屏蔽</a>
+                </div>
+            </div>
+            <div class="title">
+              <a >书名:{$list.book_name}</a></div>
+            <p class="">
+              <span class="">
+                <span class="label">作者:</span>
+                <span class="labeled-text">{$list.book_auth}</span>
+              </span>
+    
+              <span class="category" style="margin-left:30px;">
+                <span class="label">推荐人</span>
+                <span class="labeled-text">
+                  <span itemprop="genre"><a >{$list.book_oper}</a></span></span>
+              </span>
+              <span class="category" style="margin-left:30px;">
+                <span class="label">状态</span>
+                <span class="labeled-text">
+                  <span itemprop="genre">
+                  <a >
+                  <if condition="$list.status eq 0">
+                  待审核
+                  <elseif condition="$list.status eq 1"/>
+                  审核采纳
+                  <else/>
+                  审核未采纳
+                  </if>
+                  </a>                 
+                 </span></span>
+              </span>
+            </p>
+            <div class="article-desc-brief">
+          </div>
+        </li> 
+       </volist>       
+      </ul>
+      </empty>
+    </div>
+    
+  </div>
+  </div>
+    {$_page}
+</block>
+<block name="js">
+<script type="text/javascript">
+  
+</script> 
+
+</block>

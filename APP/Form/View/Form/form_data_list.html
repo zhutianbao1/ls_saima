@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>{$info['NAME']}</title>
+		<include file="Form/form_js_css"/>
+	</head>
+
+	<body> 
+		<include file="Form/form_design_menu" />
+		 
+		<table class="table_list list_attrs_table clear" width="100%" cellpadding=0 cellspacing="0">
+			<tr>
+			<volist name="fields" id="feild">			 
+				<th>{$feild['name']}</th>
+			</volist>
+			</tr>
+
+			<volist name="datas" id="data">
+			<tr>
+				<volist name="fields" id="feild2" key="k">
+					<?php $key = strtoupper($feild2['name']);?>
+					<td><a href="{:U('manage/form_priview',array('form_id'=>$info['ID'],'id'=>$data['ID']))}">{$data[$key]}</a></td>
+				</volist>
+			</tr>
+			</volist>
+		</table>
+
+		<div style="text-align:center;padding-top:10px;">
+			{$_page}
+		</div>
+
+	</body> 
+</html>
+ 
+
+
+
+

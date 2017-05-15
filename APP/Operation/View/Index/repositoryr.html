@@ -1,0 +1,82 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 投诉处理记录表</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  .busi_name{width:735px;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="main-content">
+    <form id="theForm1" class="" action="{:U('Index/repositorys')}" method="post">
+      <div class="hidden">
+        <label>编号:</label>
+        <input class="readonly" type="text" name="id" value="{$repository['ID']}"/>
+        <label>记录人:</label>
+        <input class="readonly" type="text" name="recorder" value="{$repository['RECORDER']}"/>
+      </div>
+      
+      <div class="form">
+        <div class="form-header">知识库</div>
+        <div>
+          <label>业务名称:<font color="#ff0000">*</font></label>
+          <input type="text" class="busi_name" name="busi_name" value="{$repository['BUSI_NAME']}"/>
+        </div>
+
+        <div>
+          <label>业务详情及处理办法：<font color="#ff0000">*</font></label>
+          <textarea name="describ">{$repository['DESCRIB']}</textarea>
+        </div>
+
+        <div class="btn-box">
+          <div class="btn-group">
+            <input type="button" class="btn tj" value="提交"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+
+  $(".tj").click(function(){
+    var busi_name = $("input[name='busi_name']").val();
+    if(busi_name==''){
+      alert("业务名称不能为空");
+      return false;
+    }
+    var describ = $("textarea[name='describ']").val();
+    if(describ==''){
+      alert("业务详情及处理办法不能为空");
+      return false;
+    }
+
+    $(".tj").attr("disabled", true);
+    $("#theForm1").submit();
+    
+  });
+});
+</script>
+</block>

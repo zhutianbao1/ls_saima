@@ -1,0 +1,923 @@
+@font-face {
+	font-family:"arkitalic";
+	src:local('Georgia-Italic'),local('Georgia Italic');
+	font-weight:normal;
+	font-style:normal
+}
+@font-face {
+	font-family:"arkitalic";
+	src:local('Georgia-BoldItalic'),local('Georgia Bold Italic');
+	font-weight:bold;
+	font-style:normal
+}
+@font-face {
+	font-family:'doucoin';
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot);
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot) format('embedded-opentype'),url(/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff) format('woff'),url(/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf) format('truetype'),url(/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg) format('svg');
+	font-weight:normal;
+	font-style:normal
+}
+[data-icon]:before {
+	font-family:'arkicons';
+	content:attr(data-icon);
+	speak:none;
+	font-weight:normal;
+	font-variant:normal;
+	text-transform:none;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale
+}
+@font-face {
+	font-family:'doucoin';
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot);
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot) format('embedded-opentype'),url(/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff) format('woff'),url(/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf) format('truetype'),url(/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg) format('svg');
+	font-weight:normal;
+	font-style:normal
+}
+[data-icon]:before {
+	font-family:'arkicons';
+	content:attr(data-icon);
+	speak:none;
+	font-weight:normal;
+	font-variant:normal;
+	text-transform:none;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale
+}
+.author-info {
+	margin-bottom:15px
+}
+.author-info a {
+	display:block
+}
+.author-info a:hover {
+	color:#825d5b;
+	background:transparent
+}
+.author-info h4 {
+	margin-bottom:16px
+}
+.author-info .avatar {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	vertical-align:middle;
+	width:48px;
+	height:48px;
+	line-height:48px;
+	text-align:center;
+	margin-right:12px;
+	background-color:#eee
+}
+.author-info .name {
+	font-size:16px;
+	font-weight:bold
+}
+.collapse-content,.author-info {
+	overflow:hidden
+}
+.expand-collapsed-content a {
+	display:inline
+}
+.author-info p {
+	font-size:12px
+}
+.author-other-works .title {
+	color:#666;
+	margin-bottom:10px
+}
+.works-list {
+	font-size:14px
+}
+.works-list li {
+	margin-bottom:6px
+}
+.events {
+	zoom:1;
+}
+.events h4 {
+	font-size:14px;
+	margin-bottom:5px
+}
+.events p {
+	margin-bottom:0;
+	font-size:12px;
+	color:#999;
+	line-height:1.6
+}
+.events .item {
+	margin-bottom:15px
+}
+.events .author {
+	margin-right:5px
+}
+.events li:last-child {
+	margin-bottom:0
+}
+@font-face {
+	font-family:'doucoin';
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot);
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot) format('embedded-opentype'),url(/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff) format('woff'),url(/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf) format('truetype'),url(/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg) format('svg');
+	font-weight:normal;
+	font-style:normal
+}
+[data-icon]:before {
+	font-family:'arkicons';
+	content:attr(data-icon);
+	speak:none;
+	font-weight:normal;
+	font-variant:normal;
+	text-transform:none;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale
+}
+.cover-list .title,.cover-list .author,.cover-list .panel,.cover-list .price {
+	text-align:left;
+	color:#afafaf
+}
+.cover-list .cover,.cover-list .title,.cover-list .author,.cover-list .pirce {
+	margin-bottom:5px
+}
+.cover-list .title {
+	font-size:14px;
+	font-weight:bold;
+	display:-webkit-box;
+	overflow:hidden;
+	-webkit-box-orient:vertical;
+	-webkit-line-clamp:2;
+	color:#825d5b;
+}
+.cover-list .title:hover {
+	color:#fff
+}
+.cover-list .orig-author {
+	margin-right:5px
+}
+.cover-list .type {
+	color:#999;
+	font-size:12px;
+	margin-left:3px;
+	font-weight:normal
+}
+.cover-list .cover {
+	float:none;
+	position:relative;
+	z-index:2;
+	overflow:hidden;
+	height:164px;
+	width:110px;
+	margin-right:0
+}
+.cover-list .panel {
+	background:#fff;
+	height:130px;
+	width:95px;
+	padding:10px 15px 10px 10px;
+	margin-top:-150px;
+	display:none;
+	position:relative;
+	cursor:pointer;
+	color:#111;
+}
+.cover-list .panel .category-type {
+	margin-bottom:8px;
+	font-weight:bold;
+	color:#333;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	_width:100%
+}
+.cover-list .panel:hover {
+	color:#111
+}
+@font-face {
+	font-family:'doucoin';
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot);
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot) format('embedded-opentype'),url(/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff) format('woff'),url(/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf) format('truetype'),url(/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg) format('svg');
+	font-weight:normal;
+	font-style:normal
+}
+[data-icon]:before {
+	font-family:'arkicons';
+	content:attr(data-icon);
+	speak:none;
+	font-weight:normal;
+	font-variant:normal;
+	text-transform:none;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale
+}
+.btn-icon {
+	font-size:14px;
+	line-height:22px;
+}
+.btn-icon:hover {
+	font-size:14px;
+	line-height:22px
+}
+.btn-icon .price-tag {
+	color:#fff;
+	vertical-align:baseline;
+	*vertical-align:4px;
+	_vertical-align:5px
+}
+.btn-icon i {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	width:20px;
+	height:20px;
+	margin-right:5px;
+	vertical-align:-5px;
+	_vertical-align:0;
+	background-image:url(/f/ark/382606f5954176c4c18baff0ad443144698c66a2/pics/btn-icons.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+@media (min--moz-device-pixel-ratio:1.3),(-o-min-device-pixel-ratio:2.6/2),(-webkit-min-device-pixel-ratio:1.3),(min-device-pixel-ratio:1.3),(min-resolution:1.3dppx) {
+	.btn-icon i {
+	background-image:url(/f/ark/050d17dd1889eca8d60b333fead70c83d8e6b9a4/pics/btn-icons@2x.png);
+	-webkit-background-size:19px 60px;
+	-moz-background-size:19px 60px;
+	background-size:19px 60px
+}
+}.btn-icon i.icon-buy {
+	background-position:0 -20px
+}
+.btn-icon i.icon-read {
+	vertical-align:-6px;
+	background-position:0 -40px
+}
+.btn-icon i.icon-gift {
+	background-position:0 -1px
+}
+.btn-icon i.icon-splitter {
+	width:1px;
+	background:#98706f;
+	margin:0 10px
+}
+.ua-ie8 .btn-icon i {
+	vertical-align:-5px
+}
+.ua-ie7 .btn-icon i {
+	vertical-align:-4px
+}
+button.btn-icon {
+	_height:32px
+}
+.btn-utils,.btn-utils:hover {
+	height:30px;
+	font-size:14px;
+}
+.btn-utils i,.btn-utils:hover i {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	width:14px;
+	height:14px;
+	margin-right:5px;
+	vertical-align:-2px;
+}
+.ua-ie7 .btn-utils i,.ua-ie7 .btn-utils:hover i {
+	vertical-align:middle
+}
+.rebate-helper {
+	display:inline-block;
+	text-align:center;
+	width:17px;
+	font-size:11px;
+	-webkit-text-size-adjust:none;
+	color:#fff;
+	background:#b2b2b2;
+	-moz-border-radius:2px;
+	border-radius:2px;
+	cursor:pointer
+}
+.another-rebate-way {
+	display:none;
+	margin:5px 0 0 18px;
+}
+.another-rebate-way .rebate-link-container {
+	display:none;
+	width:100%;
+	overflow:hidden
+}
+.another-rebate-way .rebate-link {
+	color:#444;
+	width:94%;
+	margin-top:5px;
+	*margin-left:-17px;
+	-webkit-box-shadow:inset 1px 1px 2px rgba(0,0,0,0.1);
+	-moz-box-shadow:inset 1px 1px 2px rgba(0,0,0,0.1);
+	box-shadow:inset 1px 1px 2px rgba(0,0,0,0.1)
+}
+@font-face {
+	font-family:'doucoin';
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot);
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot) format('embedded-opentype'),url(/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff) format('woff'),url(/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf) format('truetype'),url(/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg) format('svg');
+	font-weight:normal;
+	font-style:normal
+}
+[data-icon]:before {
+	font-family:'arkicons';
+	content:attr(data-icon);
+	speak:none;
+	font-weight:normal;
+	font-variant:normal;
+	text-transform:none;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale
+}
+.device-icon,.device-name {
+	position:absolute
+}
+.device-name {
+	width:100%;
+	text-align:center;
+	left:0;
+	bottom:7px
+}
+.icon-device-web-mini,.icon-device-iphone-mini,.icon-device-ipad-mini,.icon-device-android-mini {
+	background-image:url(/f/ark/a0b627351ab49359cfca173a42ce9a8636d2671b/pics/icon-mini-device.png);
+	background-repeat:no-repeat;
+	background-position:top left;
+}
+@media (min--moz-device-pixel-ratio:1.3),(-o-min-device-pixel-ratio:2.6/2),(-webkit-min-device-pixel-ratio:1.3),(min-device-pixel-ratio:1.3),(min-resolution:1.3dppx) {
+	.icon-device-web-mini,.icon-device-iphone-mini,.icon-device-ipad-mini,.icon-device-android-mini {
+	background-image:url(/f/ark/cfd35957fddc936519c4cac21376a645141dec5c/pics/icon-mini-device@2x.png);
+	-webkit-background-size:50px 89px;
+	-moz-background-size:50px 89px;
+	background-size:50px 89px
+}
+}.icon-device-web-mini {
+	width:23px;
+	height:17px;
+	top:15px;
+	left:21px;
+	background-position:0 0
+}
+.icon-device-iphone-mini {
+	width:12px;
+	height:20px;
+	top:14px;
+	left:27px;
+	background-position:-5px -21px
+}
+.icon-device-ipad-mini {
+	width:14px;
+	height:20px;
+	top:14px;
+	left:26px;
+	background-position:-4px -45px
+}
+.icon-device-android-mini {
+	background-position:-3px -69px;
+	width:17px;
+	height:20px;
+	top:14px;
+	left:24px
+}
+.device-list {
+	float:left;
+	overflow:hidden;
+	width:132px;
+	margin-right:1px;
+}
+.device-list li {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	vertical-align:top
+}
+.device-list a,.device-list del {
+	display:block;
+	position:relative;
+	font-size:11px;
+	-webkit-text-size-adjust:none;
+	height:65px;
+	text-align:center;
+	line-height:20px;
+	width:66px;
+	background-color:#f0f0ea
+}
+.device-list a:hover {
+	color:#825d5b;
+	background:rgba(240,240,234,0.6)
+}
+.app-qrcode {
+	height:130px;
+	line-height:229px;
+	text-align:center;
+	margin-left:133px;
+	background-color:#f0f0ea;
+	background-image:url(/f/ark/707e3c5bc7c2f0afde80b0b9b2bce6c58cdfcaba/pics/read-qrcode.png);
+	background-repeat:no-repeat;
+	background-position:center 13px;
+}
+@media (min--moz-device-pixel-ratio:1.3),(-o-min-device-pixel-ratio:2.6/2),(-webkit-min-device-pixel-ratio:1.3),(min-device-pixel-ratio:1.3),(min-resolution:1.3dppx) {
+	.app-qrcode {
+	background-image:url(/f/ark/9d03a973c306419fde8eff9bb5d9c1500d1dcdf3/pics/read-qrcode@2x.png);
+	-webkit-background-size:85px 85px;
+	-moz-background-size:85px 85px;
+	background-size:85px 85px
+}
+}.app-qrcode .qrcode-text {
+	color:#999
+}
+.unsupported-device {
+	color:#999;
+}
+.unsupported-device .icon-device-web {
+	background-position:23px -45px
+}
+.unsupported-device .icon-device-iphone {
+	background-position:-57px -45px
+}
+.unsupported-device .icon-device-ipad {
+	background-position:-139px -45px
+}
+.unsupported-device .icon-device-android {
+	background-position:-232px -45px
+}
+.unsupported-device .icon-device-web-mini {
+	background-position:-27px 0
+}
+.unsupported-device .icon-device-iphone-mini {
+	background-position:-32px -21px
+}
+.unsupported-device .icon-device-ipad-mini {
+	background-position:-31px -45px
+}
+.unsupported-device .icon-device-android-mini {
+	background-position:-30px -69px
+}
+.tags .tag-total {
+	color:#999;
+	margin-left:3px
+}
+@font-face {
+	font-family:'doucoin';
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot);
+	src:url(/f/ark/6884fe5b5835d68925eb8bfedf253f60b0081606/pics/iconic/doucoin.eot) format('embedded-opentype'),url(/f/ark/6487b12cd6469de55381bb8cc3ffab1c3583350f/pics/iconic/doucoin.woff) format('woff'),url(/f/ark/0aaeccddd95375af390fb1ee7bca787824b9801c/pics/iconic/doucoin.ttf) format('truetype'),url(/f/ark/22e5905b4acd543e923891251f27407c175fdaec/pics/iconic/doucoin.svg) format('svg');
+	font-weight:normal;
+	font-style:normal
+}
+[data-icon]:before {
+	font-family:'arkicons';
+	content:attr(data-icon);
+	speak:none;
+	font-weight:normal;
+	font-variant:normal;
+	text-transform:none;
+	line-height:1;
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale
+}
+.press-contact {
+	margin-top:32px;
+	padding:10px 15px;
+	color:#666;
+	font-size:12px;
+	background:#f6f6f1;
+}
+.press-contact .cover {
+	height:auto
+}
+.press-contact .info {
+	margin-top:4px
+}
+.press-contact .press-state {
+	margin-bottom:10px
+}
+.press-contact .press-books-list {
+	margin-top:18px;
+	text-align:center;
+	margin-right:-18px;
+}
+.press-contact .press-books-list li {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	width:90px;
+	margin-bottom:10px;
+	margin-right:18px;
+	text-align:center
+}
+.press-contact .press-books-list .cover {
+	width:76px;
+	height:113px;
+	margin:0 auto;
+	float:none
+}
+.press-contact .helper-text {
+	color:#afafaf;
+}
+.press-contact .helper-text:hover {
+	background-color:#afafaf;
+	color:#fff
+}
+.avatar {
+	position:relative;
+}
+.avatar .icon-author-stamp {
+	position:absolute
+}
+.avatar24 {
+	width:24px;
+	height:24px
+}
+.avatar32 {
+	width:32px;
+	height:32px
+}
+.avatar48 {
+	width:48px;
+	height:48px
+}
+.avatar58 {
+	width:58px;
+	height:58px
+}
+.avatar48 .icon-author-stamp,.avatar58 .icon-author-stamp {
+	width:24px;
+	height:24px;
+	line-height:24px;
+	text-align:center;
+	background-image:url(/f/ark/53f119879777d958857260dec41febe3a6f7b61e/pics/store/people/author_stamp_large.png);
+	background-repeat:no-repeat;
+	background-position:top left;
+	right:-6px;
+	bottom:-6px
+}
+@media (min--moz-device-pixel-ratio:1.3),(-o-min-device-pixel-ratio:2.6/2),(-webkit-min-device-pixel-ratio:1.3),(min-device-pixel-ratio:1.3),(min-resolution:1.3dppx) {
+	.avatar48 .icon-author-stamp,.avatar58 .icon-author-stamp {
+	background-image:url(/f/ark/c6e0374ea0ec06be3ef848c4bc2615188a10eab2/pics/store/people/author_stamp_large@2x.png);
+	-webkit-background-size:24px 24px;
+	-moz-background-size:24px 24px;
+	background-size:24px 24px
+}
+}.avatar24 .icon-author-stamp,.avatar32 .icon-author-stamp {
+	width:18px;
+	height:18px;
+	line-height:18px;
+	text-align:center;
+	background-image:url(/f/ark/6c0fc237db390f50511eca5f0fc44184f5e9d9c7/pics/store/people/author_stamp_small.png);
+	background-repeat:no-repeat;
+	background-position:top left;
+	right:-6px;
+	bottom:-6px
+}
+@media (min--moz-device-pixel-ratio:1.3),(-o-min-device-pixel-ratio:2.6/2),(-webkit-min-device-pixel-ratio:1.3),(min-device-pixel-ratio:1.3),(min-resolution:1.3dppx) {
+	.avatar24 .icon-author-stamp,.avatar32 .icon-author-stamp {
+	background-image:url(/f/ark/ae29baf9c000eb2d960ad3673af921689ac093b0/pics/store/people/author_stamp_small@2x.png);
+	-webkit-background-size:18px 18px;
+	-moz-background-size:18px 18px;
+	background-size:18px 18px
+}
+}.author-block {
+	margin-bottom:20px;
+	padding:15px;
+	border:1px solid #ddd;
+}
+.author-block .people-name {
+	font-size:16px;
+	margin-bottom:5px
+}
+.author-block .follow-actions {
+	line-height:25px
+}
+.author-block .col-media {
+	overflow:hidden;
+	zoom:1
+}
+.author-block .cm-left {
+	margin-right:18px;
+	margin-bottom:6px
+}
+.author-block .split-line {
+	margin:0 5px
+}
+.author-block .author-intro {
+	margin-top:20px;
+}
+.author-block .author-intro p {
+	color:#666;
+	font-size:13px;
+	line-height:1.6;
+	margin-bottom:6px
+}
+.author-block .author-intro a {
+	margin:0 .3em
+}
+.author-block .splite-line {
+	margin-top:15px;
+	color:#999;
+	border-top:1px solid #ddd;
+	text-align:center;
+}
+.author-block .splite-line .text-inner {
+	padding:0 10px;
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	position:relative;
+	background-color:#fffff9;
+	top:-10px
+}
+.author-block .other-works li {
+	font-size:13px
+}
+.article-rating {
+	margin-top:8px
+}
+.article-rating,.list-rating {
+	line-height:18px;
+	color:#825d5b;
+}
+.article-rating .rating-stars,.list-rating .rating-stars,.article-rating .rating-average,.list-rating .rating-average,.article-rating .rating-amount,.list-rating .rating-amount {
+	vertical-align:middle;
+	_vertical-align:baseline
+}
+.article-rating .no-rating-amount,.list-rating .no-rating-amount {
+	color:#666
+}
+.article-rating .no-rating-amount,.list-rating .no-rating-amount,.article-rating .rating-amount:first-child,.list-rating .rating-amount:first-child {
+	margin-left:-.28em
+}
+.hd-lined {
+	padding-bottom:10px;
+	border-bottom:1px solid #ddd
+}
+aside section {
+	margin-bottom:30px
+}
+aside .tags-heading,aside .author-heading,aside .events-heading {
+	margin-bottom:10px;
+}
+aside .tags-heading h3,aside .author-heading h3,aside .events-heading h3 {
+	color:#444;
+	font-size:16px
+}
+.article-profile-primary .cover {
+	width:140px;
+	height:209px;
+	margin-right:20px
+}
+.article-profile-primary .label,.article-profile-primary .labeled-text {
+	font-size:12px
+}
+.article-meta {
+	margin-top:8px;
+}
+.article-meta p {
+	line-height:1.5
+}
+.app-article .label {
+	margin-right:5px
+}
+.labeled-text .author-item {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	margin:0 5px 0 0;
+	line-height:1.2
+}
+.labeled-text .sep {
+	margin:0 5px
+}
+.abstract-full p {
+	text-indent:2em;
+	line-height:24px;
+	min-height:24px
+}
+.abstract-full .info {
+	margin-bottom:24px
+}
+.article-abstract .abstract-full {
+	/*max-height:360px;*/
+	overflow:hidden
+}
+.article-abstract-expanded .abstract-full {
+	max-height:none;
+	overflow:visible
+}
+.place-title {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	vertical-align:middle
+}
+.app-article p {
+	margin-bottom:0
+}
+.app-article .article-profile-actions {
+	margin-top:26px
+}
+.article-profile-primary {
+	padding-bottom:13px
+}
+.app-article .short-story-meta {
+	font-size:12px
+}
+.table-of-contents {
+	line-height:1.8;
+}
+.table-of-contents .story-item {
+	padding-left:16px;
+	margin-bottom:10px;
+	background:url(/f/ark/314480aaf127ac3f41ec487ad34a1c46a315af5d/pics/toc-leading-dot.png) no-repeat 5px 10px;
+	-webkit-background-size:4px 4px;
+	-moz-background-size:4px 4px;
+	background-size:4px 4px
+}
+.table-of-contents li {
+	font-size:14px
+}
+.table-of-contents .level-1 {
+	margin-left:1em
+}
+.table-of-contents .level-2 {
+	margin-left:2em
+}
+.table-of-contents .level-3 {
+	margin-left:3em
+}
+.table-of-contents .level-4 {
+	margin-left:4em
+}
+.table-of-contents .level-5 {
+	margin-left:5em
+}
+.popular-annotations {
+	margin-top:40px;
+}
+.popular-annotations li {
+	margin:20px 0 0;
+}
+.popular-annotations li blockquote {
+	font-size:14px;
+	background-image:url(/f/ark/f447b06142514391e3d8c93e622545fe324ff865/pics/store/opening-double-quote.png);
+	background-repeat:no-repeat;
+	background-position:top left;
+	padding-left:22px;
+	margin-top:8px
+}
+@media (min--moz-device-pixel-ratio:1.3),(-o-min-device-pixel-ratio:2.6/2),(-webkit-min-device-pixel-ratio:1.3),(min-device-pixel-ratio:1.3),(min-resolution:1.3dppx) {
+	.popular-annotations li blockquote {
+	background-image:url(/f/ark/0c9daa0d8c680ee7ac919960eb7061ad1d9bf907/pics/store/opening-double-quote@2x.png);
+	-webkit-background-size:14px 9px;
+	-moz-background-size:14px 9px;
+	background-size:14px 9px
+}
+}.popular-annotations li a {
+	color:#444;
+	border-bottom:2px solid transparent;
+	padding:5px 0 1px
+}
+.popular-annotations li a:hover {
+	border-color:#825d5b;
+	background-color:transparent
+}
+.popular-annotations li span {
+	margin-left:12px;
+	font-size:11px
+}
+.author-motivation p {
+	text-indent:2em;
+	margin-bottom:10px
+}
+.expand-table a:hover,.expand-article-abstract a:hover {
+	color:#825d5b;
+	background-color:transparent
+}
+.article-profile-actions .article-actions,.article-profile-primary .article-profile-actions {
+	overflow:hidden;
+	_zoom:1
+}
+.article-actions .btn {
+	margin-right:10px
+}
+.article-profile-primary .btn-present,.article-profile-primary .btn-share {
+	float:right;
+	_display:inline;
+	font-size:12px
+}
+.article-profile-primary .btn-present {
+	margin-right:.5em
+}
+.article-profile-primary .btn .price-tag {
+	font-weight:normal;
+	color:#fff;
+	vertical-align:baseline;
+	*vertical-align:3px;
+	_vertical-align:5px;
+}
+.article-profile-primary .btn .price-tag .original-tag {
+	font-size:12px;
+	vertical-align:1px;
+	color:#c7b5b5
+}
+.article-profile-primary .btn .price-tag .discount-price {
+	color:#fff;
+	font-weight:bold
+}
+.article-profile-intros .article-profile-intro-tabs {
+	margin:20px 0;
+}
+.article-profile-intros .article-profile-intro-tabs ul {
+	border-left:1px solid #ddd;
+}
+.article-profile-intros .article-profile-intro-tabs li {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	color:#825d5b;
+	font-size:14px;
+	font-weight:bold;
+	padding:0 25px;
+	cursor:pointer;
+	border-right:1px solid #ddd;
+}
+.article-profile-intros .article-profile-intro-tabs li.ark-tab-activated {
+	cursor:default;
+	color:#737371
+}
+.article-profile-intros .article-profile-intro:nth-child(n+3) {
+	display:none
+}
+.article-profile-secondary .label {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	vertical-align:top;
+	width:75px;
+	margin-left:-75px;
+	margin-right:0
+}
+.article-profile-secondary .labeled-text {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	width:100%
+}
+.article-profile-secondary p {
+	padding-left:75px
+}
+.reader-action {
+	font-size:0;
+	padding-bottom:20px
+}
+.action-user {
+	margin-right:12px;
+	float:left;
+	vertical-align:top
+}
+.action-desc {
+	vertical-align:top;
+	overflow:hidden;
+	*zoom:1;
+	font-size:12px;
+	width:185px
+}
+.action-msg {
+	margin:5px 0 15px;
+	color:#666
+}
+.ebook-actions {
+	float:right;
+	height:34px;
+	line-height:34px;
+}
+.ebook-actions .btn {
+	margin-left:5px
+}
+.article-recommends li {
+	margin:17px 36px 0 1px;
+}
+.article-recommends li .cover {
+	width:90px;
+	height:134px
+}
+.article-recommends li .title {
+	font-size:13px
+}
+.discount-info,.admin-info {
+	font-size:12px;
+	line-height:1.5;
+	word-wrap:break-word;
+	-ms-word-wrap:break-word;
+	color:#8d8d89
+}
+.discount-info {
+	margin-bottom:10px
+}
+.admin-info {
+	margin-top:10px
+}
+ 

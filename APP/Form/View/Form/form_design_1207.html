@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+	<link rel="stylesheet" href="__CSS__/form.css">
+	<script type="text/javascript" src="__PUBLIC__/static/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/static/jquery.cookie.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/static/jquery.json.js"></script>
+	<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+	</head>
+
+	<body>
+	<div class="form_wrap">		 
+		<div class="clr"></div>
+		<div class="row_title" style="margin-bottom:0px;">预览设计</div>
+		<div class="dis_wrap">
+			<div class="dis_menu hide">
+				<ul>
+					<li><a href="javascript:;" title="wrap" onclick="initWRAP();" type="text">WRAP</a></li>
+					<li><a href="javascript:;" title="row" onclick="initROW();" type="text">ROW</a></li>
+					<li><a href="javascript:;" title="col" onclick="initCOL(1);" type="text">COL</a></li>
+					<li><a href="javascript:;" title="text" onclick="initINT();" type="text">INT</a></li>
+					<li><a href="javascript:;" title="text" onclick="initTEXT();" type="text">TXT</a></li>
+					<li><a href="javascript:;" title="select" onclick="initSELT();" type="select">SELT</a></li>
+					<li><a href="javascript:;" title="date" onclick="initDATE();" type="date">DATE</a></li>
+					<li><a href="javascript:;" title="textarea" onclick="initCONT();" type="textarea">CONT</a></li>
+					<li><a href="javascript:;" title="county" onclick="initCTY();" type="county">CTY</a></li>
+					<li><a href="javascript:;" title="editor" onclick="initEDIT();" type="editor">EDIT</a></li>
+				</ul>
+			</div>
+
+			<div class="dis_con">
+				<form name="design_form" action="{:U('form_design')}" method="post">
+				<table width="100%" height="330px" border="0">
+				<tr>
+					<td valign="top">
+					<ul class="dis_attr_model">
+						<li class="disgn_model"><a class="curr" href="javascript:;">设计模式</a></li>
+						<li class="getSource code_model"><a href="javascript:;">代码模式</a></li>
+						<!-- <li><a href="javascript:;">撤销</a></li>
+						<li><a href="javascript:;">恢复</a></li> -->
+					</ul>
+					<a href="javascript:;" class="a_btn a_btn_primary a_save save_design right" style="float:right;"><input type="button" value="保存设计"></a>
+					<div id="dis_main" class="clr flag" contenteditable="false">{$info['FORM_DESIGN']}</div>
+
+					<div id="dis_code" class="clr form_design" style="display:none;">
+						<input type="hidden" value="{$info['ID']}" name="id" />
+						<textarea name="form_design" id="" style="width:98%;height:290px;"></textarea>	
+						<textarea name="form_objs" id="" style="display:none;width:100%;height:100%;"></textarea>	
+						<textarea name="form_objs_table" id="" style="display:none;width:100%;height:100%;"></textarea>	
+					</div>	
+					</td>
+					<td  valign="top" width="450px">
+					<div>
+					<ul class="dis_attr_model">
+						<li><a  class="curr design_yuansu" href="javascript:;">元素列表</a></li>
+						<li><a  class="disgn_priview" href="javascript:;">设计预览</a></li>
+					</ul>
+
+					<div id="list_attrs"  class="clr flag" style="overflow:auto;">
+						<table class="list_attrs_table" width="100%" border=0 cellpadding="0" cellspacing="0">
+							<tr><th>标题</th><th>名称</th><th>类型</th><th width="120px">排序</th><th width="80px">操作</th></tr>
+						</table>
+						<table id="list_attrs_table" class="list_attrs_table" width="100%" border=0 cellpadding="0" cellspacing="0">
+							{$info['FORM_OBJS_TABLE']}
+						</table>
+					</div>
+					</div>
+					</td>
+				</tr>
+				</table>
+				</form>
+
+				<div class="hide">
+				拓展JS:<input type="text" name="js" style="width:400px"/>
+				拓展CSS:<input type="text" name="css" style="width:400px"/>
+				</div>
+				<div id="dis_attr">
+					<ul class="dis_attr_model">
+						<li><a class="" href="javascript:;">对象属性</a></li>
+						<li><a class="type curr" href="javascript:;" para="row">标题行</a></li>
+						<li><a class="type"  href="javascript:;" para="text">文本框</a></li>
+						<li><a class="type"  href="javascript:;" para="date">日期框</a></li>
+						<li><a class="type"  href="javascript:;" para="select">下拉框</a></li>
+						<li><a class="type"  href="javascript:;" para="county">县市框</a></li>
+						<li><a class="type"  href="javascript:;" para="textarea">文本域</a></li>
+						<li><a class="type"  href="javascript:;" para="checkbox">复选框</a></li>
+						<li><a class="type"  href="javascript:;" para="radiobox">单选框</a></li>
+						<li><a class="type"  href="javascript:;" para="img">图片</a></li>
+						<li><a class="type"  href="javascript:;" para="submit">保存按钮</a></li>
+					</ul>
+					
+					<a href="javascript:;" class="a_btn a_btn_default attr_add right" style="float:right;"><input type="button" value="保存控件"></a>
+					<div class="clr"></div>
+
+					<div id="dis_attr_add" class="dis_attr_design">
+					<form name="dis_attr_form">
+							<!--保存当前控件类型-->
+							<input name="type" type="hidden" value="row">
+						 
+							<div class="col col0 nborder"><label for="select">title:</label><div class="in"><input name="title" type="text" value="标题行"></div></div>
+							<div class="col col0 nborder"><label for="text">name:</label><div class="in"><input name="name" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="select">id:</label><div class="in"><input name="id" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="text">format:</label><div class="in">
+							<select name="format">
+								<option value="string">string</option>
+								<option value="int">int</option>
+								<option value="float">float</option>
+								<option value="date">date</option>
+								<option value="text">text</option>
+							</select>
+							</div></div>
+
+							<div class="col col0 nborder"><label for="text">class:</label><div class="in"><input name="lei" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="text">default:</label><div class="in"><input name="moren" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="select">list:</label><div class="in"><input name="list" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="select">checked:</label><div class="in">
+								<select name="checked">
+									<option value=""></option>
+									<option value="checked">checked</option>
+								</select>
+							</div></div>
+					 
+						
+						 
+							<div class="col col0 nborder"><label for="text">width:</label><div class="in"><input name="width" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="text">height:</label><div class="in"><input name="height" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="select">bkground:</label><div class="in"><input name="background" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="select">display:</label><div class="in">
+							<select name="display">
+								<option value="block">display:block</option>
+								<option value="none">display:none</option>
+							</select>
+							</div></div>
+						 
+							<div class="col col0 nborder"><label for="text">rows:</label><div class="in"><input name="rows" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="text">cols:</label><div class="in"><input name="cols" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="select">src:</label><div class="in"><input name="src" type="text" value=""></div></div>
+							<div class="col col0 nborder"><label for="select">border:</label><div class="in"><input name="border" type="text" value=""></div></div>
+						 
+					</form>
+					<div class="clr"></div>
+ 					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+
+	//保存当前是否为已添加控件的编辑状态 并且值为当前控件所在行位置 index
+	var edit_row_flag = null;
+
+	$(function(){
+		//保存设计代码
+		$(".save_design").click(function(){
+			attr_init();
+			var form_design = $("textarea[name=form_design]").val(),
+				form_objs = $("textarea[name=form_objs]").val(),
+			    form_objs_table = $("textarea[name=form_objs_table]").val();
+			if(form_design.isEmpty() || form_objs.isEmpty() || form_objs_table.isEmpty()){
+				alert('尚未生成保存的设计数据');
+				return;
+			}else{
+				design_form.submit();
+			}
+		});
+
+		//根据添加的控件集合生成模板页面
+		//预览容器 ID dis_main
+		$(".disgn_priview").click(function(){
+			attr_init();
+		});
+
+		//添加控件
+		$(".attr_add").click(function(){
+			attr_add();
+			dis_attr_form.reset();
+		});
+
+		//选择控件类型
+		$(".dis_attr_model li .type").click(function(event) {
+			var e = $(this),
+				i = e.index(),
+				v = e.attr('para');
+			e.addClass('curr').parent().siblings('li').find('a').removeClass('curr');
+ 			$("#dis_attr_add input[name=type]").val(v);			
+ 			$("#dis_attr_add input[name=title]").val(e.text());	
+		});
+
+		//获取源码
+		$(".getSource").click(function(){
+			attr_init();
+		});
+ 
+
+		//设计模式和源码模式切换
+		$(".disgn_model , .code_model").click(function(){
+			if($(this).hasClass('disgn_model')){
+				$("#dis_main").show();
+				$("#dis_code").hide();
+			}else{
+				$("#dis_main").hide();
+				$("#dis_code").show();
+			}
+			$(this).find('a').addClass('curr');
+			$(this).siblings('li').find('a').removeClass('curr')
+		});
+
+
+		//上移 
+	    $(".up").live('click',function() { 
+	        var $tr = $(this).parent().parent("tr"); 
+	        if ($tr.index() != 0) { 
+	            $tr.fadeOut().fadeIn(); 
+	            $tr.prev().before($tr); 	             
+	        } 
+	    }); 
+
+	    //下移 
+	    var len = $(".down").length; 
+	    $(".down").live('click',function() { 
+	        var $tr = $(this).parent().parent("tr"); 
+	        if ($tr.index() != len - 1) { 
+	            $tr.fadeOut().fadeIn(); 
+	            $tr.next().after($tr); 
+	        } 
+	    }); 
+
+	    //置顶 
+	    $(".top").live('click',function(){ 
+	        var $tr = $(this).parent().parent("tr"); 
+	        $tr.fadeOut().fadeIn(); 
+	        $("#list_attrs_table").prepend($tr); 
+	        $tr.css("color","#f60"); 
+	    });
+
+	});
+
+	//列表中删除控件
+	$(".attr_delete").live('click',function(){
+		if(confirm('是否确认删除')){
+			$(this).parent().parent().remove();
+		}
+	});
+	//列表中编辑控件
+	$(".attr_edit").live('click',function(){
+		var e = $(this),
+			edit_row_index = e.parent().parent().index(),
+			attrs_str = e.parent().siblings('.attrs_json').html(),
+			attrs_json = $.parseJSON(attrs_str);		
+			//保存当前修改控件所在行的位置	
+			edit_row_flag = edit_row_index;
+			$.each(attrs_json,function(index, el) {
+				//console.info(index+' : '+el);
+				$("#dis_attr_add input[name="+index+"]").val(el);
+			});
+	});	 
+
+	 
+	//保存生成所有需要保存的内容并设置
+	attr_init = function(){
+		//预览效果
+		var objs = $(".attrs_json");
+		$("#dis_main").html('');
+		$.each(objs,function(index, el) {
+			 var j = $.parseJSON($(this).html());
+			 //根据JSON 数据内容生成对应的网页标签
+			 var h = attr_tag(j);
+			 $("#dis_main").append(h);
+		});
+
+		//转换需要的格式值填充到 三个 textarea 中用来保存进入数据库表
+		$("textarea[name=form_design]").val($("#dis_main").html());
+		$("textarea[name=form_objs_table]").val($("#list_attrs_table").html());
+
+		var attrs_json_arr = new Array();
+		$.each($(".attrs_json"),function(index, el) {
+			attrs_json_arr[index]=$(this).html();
+		});
+
+		$("textarea[name=form_objs]").val(attrs_json_arr);
+	}
+
+	//添加控件
+	attr_add = function(){	 
+	var obj ={
+			type	:$("#dis_attr_add input[name=type]").val(),
+			title	:$("#dis_attr_add input[name=title]").val(),
+			name	:$("#dis_attr_add input[name=name]").val(),
+			id		:$("#dis_attr_add input[name=id]").val(),
+			lei		:$("#dis_attr_add input[name=lei]").val(),
+			format	:$("#dis_attr_add input[name=format]").val(),
+			moren	:$("#dis_attr_add input[name=moren]").val(),
+			list	:$("#dis_attr_add input[name=list]").val(),
+			checked	:$("#dis_attr_add input[name=checked]").val(),
+			width	:$("#dis_attr_add input[name=width]").val(),
+			height	:$("#dis_attr_add input[name=height]").val(),
+			background	:$("#dis_attr_add input[name=background]").val(),
+			display	:$("#dis_attr_add input[name=display]").val(),
+			rows	:$("#dis_attr_add input[name=rows]").val(),
+			cols	:$("#dis_attr_add input[name=cols]").val(),
+			src		:$("#dis_attr_add input[name=src]").val(),
+			border	:$("#dis_attr_add input[name=border]").val()
+		};
+
+		var attrs_json = $.toJSON(obj);
+		var html = '<tr>';
+			html+= '<td><a href="javascript:;" class="attr_edit">'+obj.title+'</a></td>';
+			html+= '<td>'+obj.name+'</td>';
+			html+= '<td>'+obj.type+'</td>';
+			html+= '<td><a href="javascript:;" class="up">上移</a>&nbsp;&nbsp;<a class="down" href="javascript:;">下移</a>&nbsp;&nbsp;<a class="top" href="javascript:;">置顶</a></td>';
+			html+= '<td><a href="javascript:;" class="attr_edit">编辑</a>&nbsp;&nbsp;<a class="attr_delete" href="javascript:;">删除</a></td>';
+			html+= '<td style="display:none;" class="attrs_json">'+attrs_json+'</td>';
+			html+= '</tr>';
+
+		//获取当前是否为修改已添加控件状态
+
+		if(edit_row_flag!=null){
+			var curr_tr = $("#list_attrs_table").find('tr').eq(edit_row_flag);
+			curr_tr.after(html);
+			curr_tr.remove();
+			edit_row_flag=null;
+		}else{
+			$("#list_attrs_table").append(html);
+			$("#list_attrs_table tr:even").children('td').css('background','#ccc');
+		}
+	}
+
+
+	//根据JSON 内容生成网页标签 字符串
+	attr_tag = function(json){
+		 var type = json.type;
+		 if(json.moren==undefined || json.moren=='' || json.moren==null){
+		 	json.moren = '';
+		 }
+		 var h = '<div class="col col1"><label>'+json.title+':</label><div class="in">';
+		 switch(type){
+		 	case 'row':
+		 		h = '<div id="'+json.id+'" class="row_title '+json.lei+'" style="display:'+json.display+';width:'+json.width+';height:'+json.height+';">'+json.title+'</div>';
+		 		return h;
+		 		break;
+		 	case 'text':
+		 		h+= '<input type="text" id="'+json.id+'" name="'+json.name+'" class="'+json.lei+'" width="'+json.width+'" height="'+json.height+'" value="'+json.moren+'"/>';
+		 		break;
+		 	case 'date':
+		 		h+= '<input type="text" id="'+json.id+'" name="'+json.name+'" class="date '+json.lei+'" width="'+json.width+'" height="'+json.height+'" value="'+json.moren+'"/>';
+		 		break;
+		 	case 'select':
+		 		var list = json.list;
+		 		h+= '<select id="'+json.id+'" class="'+json.lei+'" name="'+json.name+'">';
+		 		$.each(list,function(index,kv){
+		 			if(kv.v==json.moren)
+		 				h+='<option value="'+kv.v+'" selected="selected">'+kv.k+'</option>';
+		 			h+='<option value="'+kv.v+'" selected="selected">'+kv.k+'</option>';
+		 		});
+		 		h+= '</select>';
+		 		break;
+		 	case 'county':
+		 		h+= '<select id="'+json.id+'" class="'+json.lei+'" name="'+json.name+'"></select>';
+		 		break;
+		 	case 'textarea':
+		 		h = '<div class="col col3"><lable>'+json.name+'</lable><div class="in">';
+		 		h+= '<textarea id="'+json.id+'" class="'+json.lei+'" name="'+json.name+'" rows="'+json.rows+'" cols="'+json.cols+'" value="'+json.moren+'">'+json.moren+'</textarea>';
+		 		return h;
+		 		break;
+		 	case 'checkbox':
+		 		h+= '<inpu type="checkbox" id="'+json.id+'" class="'+json.lei+'" name="'+json.name+'" value="'+json.moren+'"/>';
+		 		break;
+		 	case 'radiobox':
+		 		h+= '<inpu type="radiobox" id="'+json.id+'" class="'+json.lei+'" name="'+json.name+'" value="'+json.moren+'"/>';
+		 		break;
+		 	case 'img':
+		 		h+= '<img id="'+json.id+'" class="'+json.lei+'" name="'+json.name+'" src="'+json.src+'" style="widht:'+json.widht+';height:'+json.height+';"/>';
+		 		break;
+		 	case 'submit':
+		 		h = '<div id="'+json.id+'" class="row_submit '+json.lei+'" style="display:'+json.display+';width:'+json.width+';height:'+json.height+';">';
+		 		h+= '<a href="javascript:;" class="a_btn a_btn_primary"><input type="button" value="保存" /></a>';
+		 		h+= '<a href="javascript:;" class="a_btn"><input type="reset" value="重置" /></a>';
+		 		h+= '</div>';
+		 		h+= '<div class="clr"></div>';
+		 		return h;
+		 		break;
+		 	default:
+		 		alert('未找到匹配解析控件类型');
+		 		break;
+		 } 
+		 h+= '</div></div>';
+		 return h;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	这部分代码暂时未完全使用，
+	主要作用用来拖拉 编辑表单页面功能
+	**/
+	//获取源代码 
+	getCode = function (){
+		$("textarea[name=form_design]").val($("#dis_main").html());
+	}
+	//获取对象方法
+	get     = function (reg){return $(reg);}
+	//初始化wrap
+	initWRAP= function (){
+		h="<div class='wrap border'>";
+		h+="<form name='theForm' action='' method=''>";
+		h+="</form>";
+		h+="</div>";
+		insertHTML(h);
+	}
+	//插入row
+	initROW = function (){
+		h="<div class='row'>";
+		h+="</div>";
+		insertHTML(h);
+	}
+	//插入col
+	initCOL = function (cols){
+		h="<div class='col col"+cols+"'>";
+		h+="</div>";
+		insertHTML(h);
+	}
+	//初始化INT
+	initINT = function (){
+		h="<label for='int'>label:</label>";
+		h+="<div class='in'>";
+		h+="<input id='int' name='int' type='text' value=''>";
+		h+="</div>";
+		insertHTML(h);
+	}
+	//初始化TEXT
+	initTEXT= function (){
+		h="<label for='text'>label:</label>";
+		h+="<div class='in'>";
+		h+="<input id='text' name='text' type='text' value=''>";
+		h+="</div>";
+		insertHTML(h);
+	}
+	//初始化SELECT
+	initSELT= function (){}
+	//初始化DATE
+	initDATE= function (){}
+	//初始化CONTENT
+	initCONT= function (){}
+	//初始化COUNTY
+	initCTY = function (){}
+	//初始化EDITOR
+	initEDIT= function (){}
+
+
+	//获取光标位置并追加内容
+	$(function(){
+		$("#dis_main").focus(function(){
+	    	$("#dis_main").removeClass("flag");
+	    });
+	    /* $("#dis_main").blur(function(){
+	    	$("#dis_main").addClass("flag");
+	     }); */
+	});
+	//再加入一个全屏事件  
+ 	$(window).click(function(e)  
+      {  
+        if (window.getSelection)  
+        {  
+             var getevent=e.srcElement?e.srcElement:e.target;//不要告诉我不知道这句的意思  
+          //console.log(getevent.id,getevent.tagName);
+            if(getevent.id!=null && getevent.id=="cmdInsert"||getevent.id=="dis_main")  
+            {  
+            	//alert(0);
+            	//代表 点了插入html的按钮  
+                //则不执行getFocus方法  
+             }  
+            else  
+            	$("#dis_main").addClass("flag");//除非点了那个插入html的按钮 其他时候必须要执行getFocus来更新最后失去焦点的div  
+        }  
+
+    }) 
+   		
+		       
+	function insertHTML(html)  
+    {  
+        var dthis=$("#dis_main")[0];//要插入内容的某个div,在标准浏览器中 无需这句话  
+        //dthis.focus();
+         var sel, range; 
+         //console.log($(dthis).hasClass("flag"));
+         if($(dthis).hasClass("flag")){
+        	 $(dthis).html(dthis.innerHTML+html);
+        	 return;
+         }
+         if (window.getSelection)  
+          {  
+                 // IE9 and non-IE  
+                 sel = window.getSelection();  
+                 if (sel.getRangeAt && sel.rangeCount) {  
+                 range = sel.getRangeAt(0);  
+                 range.deleteContents();  
+                 var el = document.createElement('div');  
+                 el.innerHTML = html;  
+                 var frag = document.createDocumentFragment(), node, lastNode;  
+                 while ( (node = el.firstChild) )  
+                  {  
+                     lastNode = frag.appendChild(node);  
+                  }  
+
+             range.insertNode(frag);  
+                 if (lastNode) {  
+                 range = range.cloneRange();  
+                 range.setStartAfter(lastNode);  
+                 range.collapse(true);  
+                 sel.removeAllRanges();  
+                 sel.addRange(range);  
+                 }  
+                }  
+         }   
+         else if (document.selection && document.selection.type !='Control')   
+         {  		
+             $(dthis).focus(); //在非标准浏览器中 要先让你需要插入html的div 获得焦点  
+      		 ierange= document.selection.createRange();//获取光标位置  
+             ierange.pasteHTML(html);    //在光标位置插入html 如果只是插入text 则就是fus.text="..."  
+             $(dthis).focus(); 
+             //$(dthis).find('div').attr('contenteditable','true');
+             getCode();
+         }  
+
+    }
+
+ 
+
+	</script>
+	</body>
+</html>

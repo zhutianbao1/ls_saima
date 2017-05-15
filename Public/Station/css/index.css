@@ -1,0 +1,41 @@
+.main_right{
+width: 100%;				
+}
+.main_right h3{			
+margin-top:5px;
+margin-left: 5px;
+background-color: #61abea;
+color: #eee;
+font-size: 13px;
+font-weight: 600;
+width: 100px;
+text-align: center;
+}
+.div_li{
+margin-top: 5px;
+width: 100%;	
+}
+.div_li table{
+width:100%;
+text-align: center;			
+border-collapse: collapse;
+}
+.div_li table tr{
+height: 25px;
+line-height: 25px;
+}
+.div_li table tr:hover{
+background-color: #eee; 
+}
+.div_li table tr td{
+border:1px solid #ccc;
+}
+.div_li table tr td a{
+	color: #666;
+	padding: 1px 5px;
+}
+.div_li table tr td a:hover{
+	background-color: #666;
+			color: #fff;
+
+}

@@ -1,0 +1,150 @@
+<extend name="Tpl/base"/>
+<block name="title">个人信息 - 首页</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+</block>
+
+<block name="main_left">
+			 <div class="categories">
+			 	<ul class="list categories-list">
+				  <li>
+				    <a href="/account/notifications" class="">提醒
+				      <span class="nav-tips">0 未读</span></a>
+				  </li>
+				  <li>
+				    <a href="/account/wishlist" class="">购物车
+				      <span class="nav-tips">0 本</span></a>
+				  </li>
+				  <li>
+				    <a href="/account/balance" class="on">余额
+				      <span class="nav-tips">¥ 0.00</span></a>
+				  </li>
+				  <li>
+				    <a href="/account/coupon" class="">礼券
+				      <span class="nav-tips">0 张</span></a>
+				  </li>
+				  <li>
+				    <a href="/account/billing" class="">购买记录</a></li>
+				  <li>
+				    <a href="/account/gifts" class="">礼物记录</a></li>
+				  <li>
+				    <a href="/account/rebates" class="">返利记录</a></li>
+				  <li>
+				    <a href="/account/setting" class="">设置</a></li>
+				</ul>
+			 </div>
+</block>
+
+
+<block name="main_right">
+			 <h2>账户余额</h2>
+				<div class="account">
+				  <ul class="account-list">
+				    <li>
+				      <div class="balance-name">人民币余额</div>
+				      <div class="balance-count">¥ 0.00</div>
+				      <div class="balance-opt">
+				        <a href="#" class="btn btn-large btn-balance">人民币账户充值</a></div>
+				    </li>
+				  </ul>
+				  <div class="recharge-bubble top-arrow-box">
+				    <form target="_blank" action="" method="post" id="direct-deposit-form" class="deposit-form form-vertical">
+				      <div style="display:none;">
+				        <input name="ck" value="o5B_" type="hidden"></div>
+				      <input name="insufficient" value="0" type="hidden">
+				      <div class="field-group amount-section">
+				        <label class="field-label">选择充值的金额</label>
+				        <div class="fields-inline">
+				          <label class="radio">
+				            <input name="amount" value="2" type="radio">2元</label>
+				          <label class="radio">
+				            <input name="amount" value="10" type="radio">10元</label>
+				          <label class="radio">
+				            <input name="amount" value="20" checked="checked" type="radio">20元</label>
+				          <label class="radio">
+				            <input name="amount" value="50" type="radio">50元</label>
+				          <label class="radio">
+				            <input name="amount" value="100" type="radio">100元</label>
+				          <label class="radio">
+				            <input name="amount" value="200" type="radio">200元</label>
+				          <label class="radio">
+				            <input name="amount" value="300" type="radio">300元</label>
+				          <label class="radio">
+				            <input name="amount" value="500" type="radio">500元</label></div>
+				      </div>
+				      <div class="payment-method-section not-binded-express ">
+				        <label class="field-label">选择支付方式</label>
+				        <div class="field-group">
+				          <div class="fields-inline">
+				            <label class="payment-method radio">
+				              <input name="bankcode" value="alipay" class="alipay-input" type="radio">
+				              <div class="bank-box">
+				                <span class="alipay-logo">支付宝</span></div>
+				            </label>
+				            <label class="payment-method radio">
+				              <input name="bankcode" value="wxpay_native" type="radio">
+				              <div class="bank-box">
+				                <span class="weixin-pay-logo">微信支付</span></div>
+				            </label>
+				            <label class="payment-method paypal-payment radio disabled">
+				              <input name="bankcode" value="paypal" disabled="disabled" type="radio">
+				              <div class="bank-box">
+				                <span class="paypal-logo">PayPal</span></div>
+				              <div class="payment-tip">仅支持 100 元以上的充值
+				                <br>中国大陆之外的用户可用</div></label>
+				          </div>
+				        </div>
+				      </div>
+				      <div class="form-actions">
+				        <button type="submit" data-express-text="确认充值" data-normal-text="充值" class="btn btn-large">充值</button></div>
+				    </form>
+				  </div>
+				  <ul class="account-list">
+				    <li>
+				      <div class="balance-name">豆币余额</div>
+				      <div class="balance-count">
+				        <span class="icon-doucoin"></span>0.00</div>
+				      <div class="balance-opt">（
+				        <a href="#" class="about-ios-credit">豆币是什么?</a>）</div></li>
+				    <li>
+				      <div class="balance-name">礼券余额</div>
+				      <div class="balance-count">¥ 0.00</div>
+				      <div class="balance-opt">（
+				        <a href="/account/coupon" class="about-coupon">共 0 张</a>）</div></li>
+				  </ul>
+				</div>
+
+				<div class="section">
+				  <div data-money-after-withdraw="0.00" class="rebate-info">
+				    <form method="post" action="/account/withdraw_rebate">
+				      <div style="display:none;">
+				        <input name="ck" value="o5B_" type="hidden"></div>
+				    </form>
+				    <a href="/account/rebates" class="lnk-view">查看返利记录</a>
+				    <span class="rebate-amount">你目前收到的返利为 0.00 元</span>
+				    <button class="btn withdraw btn-disabled">提取</button>
+				    <span data-tip-content="返利账户余额大于等于 3 元时，可选择提取，全部返利余额会成为可用账户余额" class="withdraw-helper">何时提取？</span></div>
+				</div>
+
+				<div class="section">
+				  <h3>充值记录</h3>
+				  <div data-pager-url="/j/account/deposite_history" data-pager-max="0" class="recharged">
+				    <div class="simple-pager-container">
+				      <p class="empty-recharge-log-msg">你还没有充值过</p></div>
+				  </div>
+				</div>
+
+				<div class="section">
+				  <h3>注意事项</h3>
+				  <div class="postscript">
+				    <ul>
+				      <li>充值金额用于购买豆瓣阅读提供的付费作品，暂时不能退还至支付宝账户。</li>
+				      <li>如注销豆瓣帐号，相应的豆瓣阅读充值余额不能转移。</li>
+				      <li>如果遇到问题，
+				        <a href="https://help.douban.com/help/ask?category=book&amp;type=43">请来这里提交反馈</a></li>
+				    </ul>
+				  </div>
+				</div>
+		</block>
+		<!-- col10 END --> 
+ 

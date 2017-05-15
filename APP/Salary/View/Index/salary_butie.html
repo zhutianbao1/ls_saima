@@ -1,0 +1,88 @@
+<extend name="Index/salary_shouru"/>
+<block name='title'>
+	<title>补贴项</title>
+</block>
+<block name="css">
+	<style type="text/css"></style>
+</block>
+<block name="main_right">	
+    <volist  name="lists" id="list">			
+		<div class="group">
+			<div class="group_month">
+				<div class="tubiao">				
+				</div>
+				<div class="month">{$list.FAFANG_MONTH}</div>
+			</div>					
+			<div class="group_xinxi">
+				<a href="{:U('Index/salary_bt_mx?month='.$list['FAFANG_MONTH'])}">
+											
+				<div class="group_qiandai">
+					
+				</div>
+				<div class="group_riqi">
+					<div>{$list.FAFANG_MONTH|substr=###,5,6}月份月补贴项 </div>					
+				</div>						
+				<div class="group_money">{$list.BUTIE}&nbsp;元</div>
+				</a>					
+			</div>
+		</div>
+	</volist>	
+</block>
+<block name="js">	
+</block>
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

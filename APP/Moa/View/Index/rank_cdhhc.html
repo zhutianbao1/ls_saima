@@ -1,0 +1,239 @@
+<extend name="pub/tpl"/>
+<block name="title">长短号互查</block>
+<block name="css">
+<style type="text/css">
+    .tou{  width:99%;margin:50px auto;border: 0px solid red;}
+    .zong{ width:99%;margin:-40px auto;border: 0px solid red;}
+     table{width:98%;text-align:center;border: none;margin:0 auto;border-collapse: collapse; } 
+     td{border-collapse: collapse;}    
+     .td1{width:30%; border: 1px solid #cccccc;}
+     .td2{width: 16%; border: 1px solid #cccccc;}
+     .td3{ border: 1px solid #cccccc;}
+     .td11{text-align: left; width:30%; border: 1px solid #cccccc;}
+     .td22{text-align: left; width: 16%; border: 1px solid #cccccc;}
+     .td33{text-align: left; border: 1px solid #cccccc; }  
+
+</style>
+</block> 
+<block name="body"> 
+<div class="cover"></div> 
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>        
+        <a class="right_btn btn_home" href="#"></a>
+    </header>  
+    
+    <section class="sections list_con_2"> 
+    <div class="tou" >
+    <form  method="post" action="{:U('index/rank_cdhhc')}"  onsubmit="return checkForm();">
+    <span style="width:99%;height:25px;line-height:25px;border: 0px solid red;">
+        <label>长号</label>
+        <input type="text" id="bill_id" name="bill_id" value="{$bill_id}"  style="width:100px;" />
+        &nbsp;&nbsp;&nbsp;
+        <label>短号</label>
+        <input type="text" id="short_num" name="short_num" value="{$short_num}" style="width:100px;" />
+    </span>    
+    <br/>
+    <span style="width:99%;height:25px;line-height:25px;border: 0px solid red;margin-top: 10px;">
+       <input type="submit" value="查询" id="btn"  style="width:60px; height: 25px;line-height: 25px; margin-left: 30px;"/>   
+        <input type="button" value="重置"  id="reset" style="width:60px;height: 25px;line-height: 25px; margin-left:50px;"/>
+        <span id="djs" style="margin-left: 10px; height: 25px;line-height: 25px;"></span>
+    </span>    
+    </form>
+    </div>
+
+    <div class="zong">
+    <table>
+        <tr>
+            <td class="td1" style="border-left: none;" >长号</td>
+            <td class="td2" style="border-left: none;">短号</td>
+            <td class="td3" style="border-left: none;border-right: none;">虚拟网名称</td>
+        </tr>
+         <volist name="arrs" id="arr" >
+                <tr>
+                    <td class="td11" style="border-left: none;">{$arr.BILL_ID}</td>
+                    <td class="td22" style="border-left: none;">{$arr.SHORT_NUM}</td>
+                    <td class="td33" style="border-left: none;border-right: none;">{$arr.GROUP_NAME}</td>
+                </tr>                  
+         </volist>         
+    </table> 
+    </div>
+    <div  id="divmsg" style="display:none;margin-top: 40px;">{$msg[0]}</div>
+    <h2>长短号互查</h2>
+    <div id="divmsg2" style="display:none;">{$arrs[0]['BILL_ID']}</div>             
+    </section>
+
+    <section class="sections list_con_2 info_con hide" >        
+    </section> 
+    <section class="sections list_con_2 hide"  >
+    </section> 
+</block>
+<block name="js">
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+var name="<?php $oa=$_SESSION['user_auth']['OA']; echo $oa;?>";
+alert(name);
+  watermark({ watermark_txt: "丽水移动" }); 
+
+  function watermark(settings) {
+
+  //默认设置
+  var defaultSettings={
+    watermark_txt:"text",
+    watermark_x:20,//水印起始位置x轴坐标
+    watermark_y:20,//水印起始位置Y轴坐标
+    watermark_rows:20,//水印行数
+    watermark_cols:20,//水印列数
+    watermark_x_space:100,//水印x轴间隔
+    watermark_y_space:50,//水印y轴间隔
+    watermark_color:'#000000',//水印字体颜色
+    watermark_alpha:0.3,//水印透明度
+    watermark_fontsize:'18px',//水印字体大小
+    watermark_font:'微软雅黑',//水印字体
+    watermark_width:120,//水印宽度
+    watermark_height:80,//水印长度
+    watermark_angle:15//水印倾斜度数
+  };
+  //采用配置项替换默认值，作用类似jquery.extend
+  if(arguments.length===1&&typeof arguments[0] ==="object" )
+  {
+    var src=arguments[0]||{};
+    for(key in src)
+    {
+      if(src[key]&&defaultSettings[key]&&src[key]===defaultSettings[key])
+        continue;
+      else if(src[key])
+        defaultSettings[key]=src[key];
+    }
+  }
+
+  var oTemp = document.createDocumentFragment();
+
+  //获取页面最大宽度
+  var page_width = Math.max(document.body.scrollWidth,document.body.clientWidth);
+  //获取页面最大长度
+  var page_height = Math.max(document.body.scrollHeight,document.body.clientHeight);
+  //如果将水印列数设置为0，或水印列数设置过大，超过页面最大宽度，则重新计算水印列数和水印x轴间隔
+  if (defaultSettings.watermark_cols == 0 || (parseInt(defaultSettings.watermark_x + defaultSettings.watermark_width *defaultSettings.watermark_cols + defaultSettings.watermark_x_space * (defaultSettings.watermark_cols - 1)) > page_width)) {
+    defaultSettings.watermark_cols = parseInt((page_width-defaultSettings.watermark_x+defaultSettings.watermark_x_space) / (defaultSettings.watermark_width + defaultSettings.watermark_x_space));
+    defaultSettings.watermark_x_space = parseInt((page_width - defaultSettings.watermark_x - defaultSettings.watermark_width * defaultSettings.watermark_cols) / (defaultSettings.watermark_cols - 1));
+  }
+  //如果将水印行数设置为0，或水印行数设置过大，超过页面最大长度，则重新计算水印行数和水印y轴间隔
+  if (defaultSettings.watermark_rows == 0 || (parseInt(defaultSettings.watermark_y + defaultSettings.watermark_height * defaultSettings.watermark_rows + defaultSettings.watermark_y_space * (defaultSettings.watermark_rows - 1)) > page_height)) {
+    defaultSettings.watermark_rows = parseInt((defaultSettings.watermark_y_space + page_height - defaultSettings.watermark_y) / (defaultSettings.watermark_height + defaultSettings.watermark_y_space));
+    defaultSettings.watermark_y_space = parseInt(((page_height - defaultSettings.watermark_y) - defaultSettings.watermark_height * defaultSettings.watermark_rows) / (defaultSettings.watermark_rows - 1));
+  }
+  var x;
+  var y;
+  for (var i = 0; i < defaultSettings.watermark_rows; i++) {
+    y = defaultSettings.watermark_y + (defaultSettings.watermark_y_space + defaultSettings.watermark_height) * i;
+    for (var j = 0; j < defaultSettings.watermark_cols; j++) {
+      x = defaultSettings.watermark_x + (defaultSettings.watermark_width + defaultSettings.watermark_x_space) * j;
+
+      var mask_div = document.createElement('div');
+      mask_div.id = 'mask_div' + i + j;
+      mask_div.appendChild(document.createTextNode(defaultSettings.watermark_txt));
+      //设置水印div倾斜显示
+      mask_div.style.webkitTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+      mask_div.style.MozTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+      mask_div.style.msTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+      mask_div.style.OTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+      mask_div.style.transform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+      mask_div.style.visibility = "";
+      mask_div.style.position = "absolute";
+      mask_div.style.left = x + 'px';
+      mask_div.style.top = y + 'px';
+      mask_div.style.overflow = "hidden";
+      mask_div.style.zIndex = "9999";
+      //mask_div.style.border="solid #eee 1px";
+      mask_div.style.opacity = defaultSettings.watermark_alpha;
+      mask_div.style.fontSize = defaultSettings.watermark_fontsize;
+      mask_div.style.fontFamily = defaultSettings.watermark_font;
+      mask_div.style.color = defaultSettings.watermark_color;
+      mask_div.style.textAlign = "center";
+      mask_div.style.width = defaultSettings.watermark_width + 'px';
+      mask_div.style.height = defaultSettings.watermark_height + 'px';
+      mask_div.style.display = "block";
+      oTemp.appendChild(mask_div);
+    };
+  };
+  document.body.appendChild(oTemp);
+}
+</script>
+    <script type="text/javascript">  
+
+        function checkForm(){
+           var bill_id=document.getElementById("bill_id").value;
+           var short_num=  document.getElementById("short_num").value;
+
+           if(bill_id!=""){
+            if(!(/^1[34578]\d{9}$/.test(bill_id))){ 
+                 alert("输入的长号必须为11位的手机号码!");  
+               return false; 
+            } 
+           }           
+           if(short_num!=""){
+             if(!(/\d{6}/i.test(short_num))){
+                  alert("短号必须为6位数字!");  
+               return false;
+            }
+           } 
+           if(bill_id==""&&short_num==""){
+            alert('请输入查询条件!');
+            return false;
+           } 
+        }     
+
+     var reset= document.getElementById("reset");
+       reset.onclick=function(){       
+       document.getElementById("bill_id").value="";
+       document.getElementById("short_num").value="";
+      }       
+
+        window.onload=function(){ 
+            //未查到,提示信息
+            if(divmsg.innerHTML!=""){
+                 msgdiv();
+            } 
+            //查询到结果才调用定时器           
+            if(divmsg2.innerHTML!=""){ 
+                dingshiqi(); 
+            }            
+        }       
+
+       //如果没有查询结果,提示为查询到记录
+       function msgdiv(){         
+            document.getElementById("divmsg").style.display="block";        
+       } 
+       // 调用定时器 
+       function dingshiqi(){                      
+                 ds();
+                 setTimeout(xianshi,30000);
+                 setInterval(showMsg, 1000); 
+              
+        }           
+
+       //点击后使按钮失效
+       function ds(){
+         document.getElementById("btn").disabled=true;
+       }
+       //使按钮显示
+       function xianshi(){                   
+        document.getElementById("btn").disabled=false;
+       }
+
+       //倒计时                
+        var seconds = 30;
+        function showMsg() {
+            if (seconds > 0) {
+                seconds--;
+                document.getElementById("djs").innerHTML=seconds+'秒后查询!';
+            }
+            else {
+               document.getElementById("djs").innerHTML="";
+            }
+        } 
+    </script>
+</block>
+
+
+

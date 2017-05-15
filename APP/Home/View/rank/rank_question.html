@@ -1,0 +1,164 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">赛马答疑</block>
+<block name="month"></block>
+<block name="css">
+	<style>
+	.wrap{background: #fff;padding:20px 10px;margin-top:8px;
+  		  
+ 	}
+	.question-sub{padding:40px;text-align: center;}
+	.question-content{border:solid 3px rgb(248,248,248);margin-top:20px;height:151px;}
+	.question-content textarea{width:100%;height:150px;border:solid 1px #ddd;line-height: 150%;letter-spacing: 1px;}
+	.list-ul {padding:20px 2px;}
+	.list-ul ul li{list-style: none;}
+	.list-ul li{position:relative;height:25px;line-height: 25px;font-size: 14px;border:solid 0px red;margin-bottom: 1px;padding-right:160px;
+		overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:770px;}
+	.list-ul li a{font-size: 13px;text-decoration: none;display: block;width:100%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+	.list-ul li a:hover{text-decoration: underline;}
+	.list-ul li span{position: absolute;right:0px;top:0px;padding-right:4px;}
+	h2{padding:5px;font-size: 18px;margin-bottom: 10px;color: rgb(15, 142, 226);font-family: icon,elvetica,elvetica;}
+	</style>
+</block>
+
+<block name="body">
+ 
+
+	<div class="wrap effect">
+	 <h2>
+	 	<notempty name="config">
+	 		条线反馈 - {$config['NAME']}
+	 	<else/>
+	 	<font color=red>请选择赛马条线反馈</font>
+	 	</notempty>
+	 </h2>
+	 <fieldset>
+	 	<legend>最新问答</legend>
+	 	<div class="list-ul">
+ 		<notempty name="qs">
+ 		<ul>
+ 		<volist name="qs" id="tion">
+ 			<li><a href="javascript:;" id="{$tion['ID']}">
+ 			{$tion['CREATE_DATE_CHAR']} :{$tion['CONTENT']}</a>
+ 				<span>{$tion['OPER_NAME']}</span></li>
+ 		</volist>
+ 		</ul>
+ 		{$_page}
+ 		<else/>
+ 			<div class="no-data">
+ 				暂无任何提问，咨询条线相关问题请下方提交问题
+ 			</div>
+ 		</notempty>
+	 	
+	 	
+	 	</div>
+	 </fieldset>
+	<br>
+	 <fieldset>
+	 	<legend>提交疑问</legend>
+	 	<div class="question-content">
+	 	<textarea id="content" name="content"></textarea>
+	 	</div>
+	 </fieldset>
+
+	 <div class="question-sub">
+	 	<a href="javascript:;" class="c-btn question-save">提交</a>
+	</div>
+	</div>
+
+	<br><br><br><br>
+	<iframe id="jbpm" src="" frameborder="0" height="0px"></iframe>
+</block>
+
+
+<block name="js">
+<script type="text/javascript">
+
+	$(".list-ul a").live('click',function(){
+		var e = $(this),
+			id = e.attr('id');
+
+			var url = "{:U('rank_answer')}?id="+id;
+			layer.open({
+				  type: 2,
+				  title: "赛马答疑-{$config['NAME']}",
+				  shadeClose: true,
+				  shade: 0.01,
+				  area: ['800px', '500px'],
+				  content: url
+				}); 
+		return false;
+	});
+
+	$(".question-save").click(function(){
+		var c = $("#content").val();
+		var config_id="{$config['ID']}";
+		var oa = "{$_SESSION['user_auth']['OA']}";
+
+		if(config_id.isEmpty()){
+			alert('条线信息获取失败');
+			return;
+		}
+
+		if(oa.isEmpty()){
+			alert('未获取您的OA信息，请联系管理员');
+			return;
+		}
+
+		if(c.isEmpty() || c.length<20){
+			alert('提交内容不小于20个字数');
+			$("#content").focus();
+			return;
+		}
+
+		if(c.length>300){
+			alert('提交问题内容超过300个字数');
+			$("#content").focus();
+			return;
+		}
+
+
+
+		if(confirm('是否继续提交问题？')){
+			var load = layer.load(2);
+			$.ajax({
+				type:'post',
+				url:"{:U('index/rank_question')}",
+				data:{content:c,config_id:config_id},
+				dataType:'json',
+				success:function(re){
+					if(re.success){
+						$("#content").val('');
+						if(config_id<500){
+						var jbp = "http://10.78.245.89:9080/uniflow/lsTaskManager/service/jsonService.db/autoRacingInteraction.jss?open&question="+c+"&major={$config['NAME']}&configId={$config['ID']}&applicantPeople={$_SESSION['user_auth']['OA']}|{$_SESSION['user_auth']['OPER_NAME']}||&dealPeople=daiy|戴云|||&id="+re.nid;
+						}else
+						{
+						var jbp = "http://10.78.245.89:9080/uniflow/lsTaskManager/service/jsonService.db/autoRacingInteraction.jss?open&question="+c+"&major={$config['NAME']}&configId={$config['ID']}&applicantPeople={$_SESSION['user_auth']['OA']}|{$_SESSION['user_auth']['OPER_NAME']}||&dealPeople=yangxingli|杨兴力|||,huhuan1|胡欢|||&id="+re.nid;
+						}
+						$("#jbpm").attr('src',jbp);
+						$("#jbpm").load(function() {
+							alert('反馈问题已经提交成功并触发电子流工单，请注意关注工单信息');
+							location.reload();
+						});
+					}else{
+						alert('提交问题错误,请重试');
+						$("#content").focus();
+					}
+				},
+				error:function(){},
+				complete:function(){
+					layer.closeAll();
+				}
+			});
+		}
+	});
+
+	setTimeout(function(){
+		$(".list-ul li").each(function(index, el) {
+				if(index%2==0){
+					$(this).css('background','rgb(248,248,248)');
+				}
+		});
+	},1000);
+</script>
+</block>

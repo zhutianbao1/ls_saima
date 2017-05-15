@@ -1,0 +1,74 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 投诉处理记录表</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('Index/faulti')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="form">
+    <table>
+      <thead>
+        <tr>
+        <th colspan="6">投诉处理记录表</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label" style="width:120px">序号</td>
+          <td style="width:170px">{$fault['ID']}</td>
+          <td class="label" style="width:120px">故障系统</td>
+          <td style="width:170px">{$fault['FAULT_SYSTEM']}</td>
+          <td class="label" style="width:120px">记录人</td>
+          <td style="width:170px">{$fault['OPER_NAME']}</td> 
+        </tr>
+        
+        <tr>
+          <td class="label">报障方式</td><td>{$fault['NOTIFY_WAY']}</td>
+          <td class="label">影响范围</td><td>{$fault['EFFECT_SCOPE']}</td>
+          <td class="label">是否发故障单</td><td>{$fault['HAS_POST']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">故障发生时间</td><td>{$fault['HAPPEN_TIME']}</td>
+          <td class="label">报障时间</td><td>{$fault['NOTIFY_TIME']}</td>
+          <td class="label">故障处理时间</td><td>{$fault['DEAL_TIME']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">故障描述</td>
+          <td colspan="5">{$fault['DESCRIB']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">故障原因</td>
+          <td colspan="5">{$fault['HAPPEN_REASON']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">解决方案</td>
+          <td colspan="5">{$fault['SOLUTION']}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</block>

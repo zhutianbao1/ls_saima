@@ -1,0 +1,164 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">丽水移动-营业员实时先锋榜</block>
+
+<block name="nav"></block>
+<block name="month"></block>
+
+<block name="body">
+	<div class="rank-info" style="overflow: hidden;">
+		<div class="top">
+		<a href="#">营业员实时先锋榜 </a>
+        <form action="{:U('ls_yyy')}" method="post">
+            <input name="user_name" value="<?php if($user_name=='') echo '请输入姓名'; else echo $user_name;?>" onfocus="if(value=='请输入姓名') {value=''}" onblur="if(value==''){value='请输入姓名'}"  style="width: 150px;height: 20px;line-height: 20px;border: 1px solid #ccc;margin-left: 10px;"/>
+            <input type="submit" value="搜索" style="width: 50px;height: 22px;border: 0px;background:#0081CC;color: white" />
+        </form>
+		</div>
+		<ul>
+		<volist name="user" id="u">
+			<li class="" title="{$u['渠道名称']}-{$u['营业员']}">
+				<a href="http://10.78.1.85/lishui/d_yyy.jsp?mobile={$u['BILL_ID']}" target="_blank" class="link">
+                    <img src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" width="35%" height="80px" style="float: left;">
+					<div class="score">{$u['全市排名']} &nbsp;&nbsp;{$u['营业员']}</div>
+					<div class="span"><span>综合得分：{$u['综合得分']}</span><br/>
+					<span>{$u['渠道名称']}</span><br/><span style="color: #979797;display:none;">计件总量：{$u['PM_总量']}</span></div>
+				</a>
+			</li>
+		</volist>
+		</ul>
+		{$_page}
+	</div>
+	<div class="rank-info">
+		<div class="top">
+			<a href="#">县市集中综合得分</a>
+		</div>
+		<div id="container" style="height:320px"></div>
+	</div>
+	<div class="rank-info" style="overflow: auto;"> 
+        <div style="float: left;">
+            <a href="#" class="head">营业集中优秀营业厅TOP10</a>
+            <table cellspacing="0">
+                <tr>
+                    <td class="heand">县市</td>
+                    <td class="heand">营业厅</td>
+                    <td class="heand">人数</td>
+                    <td class="heand">综合得分</td>
+                </tr>
+                <volist name="org" id="org">
+                <tr class="tr">
+                    <td>{$org.县市名称}</td>
+                    <td>{$org.渠道名称}</td>
+                    <td>{$org.渠道人数}</td>
+                    <td>{$org.综合得分}</td>
+                </tr>
+                </volist> 
+            </table>      
+        </div> 
+
+		<div style="float: right;">
+            <a href="#" class="head">营业集中县市数据</a>
+            <table cellspacing="0">
+                <tr>
+                    <td class="heand">县市</td>
+                    <td class="heand">参与人数</td>
+                    <td class="heand">综合得分</td>
+                    <td class="heand">全市排名</td>
+                </tr>
+                <volist name="cr" id="c">
+                <tr class="tr">
+                    <td>{$c.县市名称}</td>
+                    <td>{$c.县市人数}</td>
+                    <td>{$c.综合得分}</td>
+                    <td>{$c.全市排名}</td>
+                </tr>
+                </volist> 
+            </table>
+        </div>
+	</div>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>
+
+<block name="js">
+	<script type="text/javascript" src="__STATIC__/highcharts.js"></script>
+	<script type="text/javascript" src="__STATIC__/exporting.js"></script>
+	<script type="text/javascript" src="__STATIC__/highcharts-3d.js"></script>
+	<script type="text/javascript">
+    var chart; 
+    $(document).ready(function () { 
+        chart = new Highcharts.Chart({ 
+        chart: {
+            renderTo: 'container',
+            type: 'column',
+            margin: 75,
+            options3d: {
+                enabled: true,
+                alpha: 10,
+                beta: 15,
+                depth: 0
+            }
+        },
+        subtitle: {
+            text: '县市集中综合得分'
+        },
+        plotOptions: {
+        	
+        	series: {
+				pointWidth: 68
+			},
+            column: {
+            	dataLabels: {
+                    enabled: true
+                },
+                depth: 50
+            }
+        },
+        xAxis: {
+            gridLineWidth: 0,
+            categories: ['5781<br/>莲都', '5782<br/>缙云', '5783<br/>青田', '5784<br/>云和', '5785<br/>庆元', '5786<br/>龙泉','5787<br/>遂昌', '5788<br/>松阳', '5789<br/>景宁','578B<br/>南城']
+        },
+        yAxis: {
+            title: {
+                text: null
+            },
+            tickPositions: [0, 20, 40,60,80, 100]
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b></b>'+
+                this.x +', '+ this.y;
+            }
+        },
+        legend: {
+	        enabled:false
+	    },
+        series: [{
+            data: [{'color':'#dfdfdf','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5781') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#33cc33','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5782') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#ee1169','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5783') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#dddd22','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5784') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#aaaa22','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5785') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#33ffaa','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5786') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#00ccff','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5787') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#01fe5a','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5788') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#ffcc00','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='5789') {echo $cr[$i]['综合得分'];}} ?>},
+                   {'color':'#ffccff','y':<?php for($i=0;$i<count($cr);$i++){
+                if($cr[$i]['CODE']=='578B') {echo $cr[$i]['综合得分'];}} ?>}]
+        }]
+    });
+});
+	</script>
+</block>

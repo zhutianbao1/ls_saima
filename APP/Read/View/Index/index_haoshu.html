@@ -1,0 +1,84 @@
+<!-- 滚动书籍 -->
+<div class="showcase featured-books slide-5-items clear">
+  <div class="hd lined">
+    <h3>推荐书籍<span class="help-tip"></span></h3>
+    <a href="{:U('index/book_tuijian')}"  class="more a-btn" >好书分享</a>    
+      <a class="more" href="{:U('index/book')}">更多>></a>
+  </div>
+  <div class="bd">
+    <a href="javascript:;" class="slide-prev disabled">‹</a>
+    <div class="carousel">
+      <div style="width: 2784px;" class="slide-list">
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="books" id="book" key="k" offset="0" length='5'>
+          <li>
+            <div class="border-wrap">
+              <div class="cover shadow-cover" style="height:164px;width:100%;">
+                <a href="{:U('index/book_info?id='.$book['id'])}" class="pic" target="_self">
+                <if condition="(substr($book['img'],0,5) eq 'https')">
+                <img width="110px" height="164px" itemprop="image" alt="" src="__IMG__/22325617.jpg" tmpsrc="{$book['img']}">
+                <else/>
+                <img width="110px" height="164px" itemprop="image" alt="" src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$book['img']}">
+              </if>
+                  <div class="panel">
+                    <div class="category-type">
+                      <span itemprop="genre">
+                      <?php 
+		              		$type  = R('para/attr_book_type',array($book['book_type']));
+		              		echo $type;
+		              	?>
+      					</span></div>
+                    <div class="rec-intro">{$book['sub_content']|mb_substr=###,0,27,utf-8}…</div></div>
+                </a>
+              </div>
+              <div class="info">
+                <h4 class="title">
+                  <a href="{:U('index/book_info?id='.$book['id'])}" title="{$book['book_name']}">{$book['book_name']|substr=###,0,18}..</a></h4>
+                <div class="author">
+                  <span class="orig-author">{$book['author']}</span></div>
+                <span class="price-tag discount hide">
+                  <s class="original-tag hide">13.50元</s>
+                  <span>{$book['star']}星</span></span>
+              </div>
+            </div>
+          </li>
+          </volist>
+        </ul>
+
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="books" id="book" key="k" offset="5" length='5'>
+          <li>
+            <div class="border-wrap">
+              <div class="cover shadow-cover">
+                <a href="javascript:;" class="pic" target="_self">
+                  <img src="__IMG__/22325617.jpg" alt="" tmpsrc="__ROOT__/{$book['img']}" itemprop="image" height="164px" width="110px">
+                  <div class="panel">
+                    <div class="category-type">
+                      <span itemprop="genre">
+                      <?php $types = json_decode($web_attrs['BOOK_TYPE']);
+	                        $ts = json_decode(json_encode($types),true);
+	                        $type  = $ts[$bk['book_type']];
+	                        echo $type;
+	                  ?>
+      					</span></div>
+                    <div class="rec-intro">{$bk['sub_content']|substr=###,0,30}…</div></div>
+                </a>
+              </div>
+              <div class="info">
+                <h4 class="title">
+                  <a href="{:U('index/book_info?id='.$book['id'])}" title="{$book['book_name']}">{$book['book_name']}</a></h4>
+                <div class="author">
+                  作者:<span class="orig-author">{$book['author']}</span></div>
+                <span class="price-tag discount">
+                  <s class="original-tag hide">13.50元</s>
+                  <span>{$book['star']}星级</span></span>
+              </div>
+            </div>
+          </li>
+          </volist>
+        </ul>
+      </div>
+    </div>
+    <a href="javascript:;" class="slide-next">›</a></div>
+</div>
+<!-- 滚动书籍 END -->

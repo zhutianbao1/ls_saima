@@ -1,0 +1,67 @@
+<extend name="pub/base" />
+<block name="title">
+	<title>无线网基站规划建设平台首页</title>
+</block>
+<block name="css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/index.css"/>
+	<style type="text/css">
+		
+	</style>
+</block>
+<block name="main_right">
+	<div class="main_right">
+	    <h3>我的待办工单</h3>
+	    <div class="div_li">
+	    	<table>
+	    		<tr>
+	    			<td>工单号</td>
+	    			<td>项目名称</td>
+	    			<td>申请人</td>
+	    			<td>上节点</td>
+	    			<td>上节点结果</td>
+	    			<td>到达时间</td>
+	    		</tr>
+	    		<volist name="items" id="item">
+	    			<tr>
+	    				<td>
+	    				    <if condition="$items[0]['STEP_NO'] eq '2' "> 
+	    					<a href="{:U('Index/review_item3?item_id='.$item['ITEM_ID'])}">
+	    					{$item.ITEM_ID}
+	    					</a>
+	    					<elseif condition="$items[0]['STEP_NO'] eq '6' "/>
+	    					<a href="{:U('Index/review_item3_1?item_id='.$item['ITEM_ID'])}">
+	    					{$item.ITEM_ID}
+	    					</a>
+	    					<elseif condition="$items[0]['STEP_NO'] eq '10' "/>
+	    					<a href="{:U('Index/review_item3_2?item_id='.$item['ITEM_ID'])}">
+	    					{$item.ITEM_ID}
+	    					</a>
+	    					</if>	    				
+	    				</td>
+	    				<td>{$item.APPLIY_TYPE_NAME}</td>
+	    				<td>{$item.CUR_NODE_USERNAME}</td>
+	    				<td>{$item.CUR_NODE_NAME}</td>
+	    				<td>
+		    				<if condition="$item.CUR_NODE_RESULT eq '1' ">
+		    				同意
+		    				<elseif condition="$item.CUR_NODE_RESULT eq '0' "/> 
+		    				退回
+		    				</if>	    				
+	    				</td>
+	    				<td>{$item.NODE_DATE}</td>
+	    			</tr>
+	    		</volist> 
+	    	</table>
+	    	
+	    </div>
+		
+	</div>
+</block>
+<block name="js">
+	<script >
+		$(function(){
+			
+		});
+	</script>
+</block>
+

@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<title>表单设计</title>
+		<link rel="stylesheet" href="__PUBLIC__/comm.css">
+		<link rel="stylesheet" href="__PUBLIC__/global.css">
+		<style type="text/css">
+		.form_warp{}
+		.form_tab{padding:20px 0px 0px;}
+		.form_tab ul li{list-style: none;}
+		.form_tab li{float:left;margin-left:2px;}
+		.form_tab li a{padding:5px 10px;display:block;padding:8px;}
+		.form_tab li .curr{background:yellow;font-weight: bold;}
+
+		.form_design{padding:2px;}
+
+		.panel{border:solid 1px grey;border-radius:3px;}
+		.panel legend{padding:5px 8px;font-size: 12px;color: #535353;font-weight: bold;}		
+		.row{clear:both;height:30px;line-height: 30px;padding:1px 0px 5px 1%;margin:5px 0px;border-bottom: solid 1px #535353;}
+		.col{padding-left:5px;min-width: 1080px;}
+		.col1{float:left;width:33%; background: none;}
+		.col2{float:left;width:66%; background: none;}
+		.col3{float:left;width:99%; background: none;}
+
+		.col .in{position:relative;border:solid 0px red;height:28px;width:250px;width:100%;padding-right:115px;}
+		.in select{height:100%;width:100%;border:inset 1px #cccccc;}
+		.in input{vertical-align: middle;height:100%;}
+		.in textarea{width:100%;}
+		.in .msg{width:115px;position:absolute;right:0px;top:0px;font-size: 11px;border:solid 0px red;padding-left:4px;}
+		.in .msg_info{color:#535353;}
+		.in .msg_err{color:red;}
+		.in .msg_suc{color:green;}
+		.col label{width:100px;text-align: right;padding-right:10px;font-size: 13px;font-weight:bold;display: inline-block;float: left;background: grey;}
+		</style>
+	</head>
+
+	<body>
+	<div class="form_warp">
+		<div class="form_tab">
+			<ul>
+				<li><a class="curr" href="javascript:;">存储设计</a></li>
+				<li><a href="javascript:;">表单设计</a></li>
+				<li><a href="javascript:;">权限设置</a></li>
+				<li><a href="javascript:;">部署发布</a></li>
+			</ul>
+		</div>
+
+		<div class="clr"></div>
+
+		<div class="form_design">
+			<fieldset class="panel">
+				<form action="" name="theForm" method="post">
+				<legend>容器</legend>
+				<div class="row">
+					<div class="col col1"><label for="text">文本</label><div class="in"><input name="text" type="text" value="测试数据"><span class="msg msg_err">错误信息</span></div></div>
+					<div class="col col1"><label for="text">文本</label><div class="in"><input name="text" type="text" value="测试数据"><span class="msg msg_info">错误信息</span></div></div>
+					<div class="col col1"><label for="select">下拉</label><div class="in">
+						<select name="select" id="">
+							<option value="1">11</option>
+							<option value="2">22</option>
+							<option value="3">33</option>
+							<option value="4">44</option>
+						</select><span class="msg msg_err">错误信息</span></div></div>
+				</div>		
+
+				<div class="row">
+					<div class="col col3">
+						<label for="textarea">文本域</label>
+						<div class="in"><textarea name="weben" id="" cols="3" rows="3">测试数据</textarea><span class="msg msg_suc">错误信息</span></div></div>
+				</div>	
+				</form>
+			</fieldset>
+		</div>
+	</div>
+	</body>
+</html>

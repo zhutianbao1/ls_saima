@@ -1,0 +1,70 @@
+<extend name="Tpl/base"/>
+<block name="title">我的心得分享</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title" >
+  {:W('Side/user_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+<block name="main_left">
+  {:W('Side/vip_html')}
+</block>
+
+<block name="main_right">
+ <div class="hd lined">
+ <h3>我的心得分享
+      <span class="help-tip"></span></h3>
+</div>
+<div>
+<if  condition="$myxindes neq null">
+  <table width="100%">
+    <tr height="22px">
+    <th style="background:#6e839a;color:#fff;">书籍</th>
+    <th style="background:#6e839a;color:#fff;">心得标题</th>
+    <th style="background:#6e839a;color:#fff;">发表时间</th>
+    <th style="background:#6e839a;color:#fff;">状态</th>
+    <th style="background:#6e839a;color:#fff;">操作</th>
+    </tr>
+    <volist name="myxindes" id="myxinde">
+    <tr>
+      <td>{$myxinde['book_name']}</td>
+      <td>{$myxinde['title']}</td>
+      <td>{$myxinde['oper_date']|date='Y-m-d',###}</td>
+      <td>
+        <if condition="$myxinde['shenhe'] eq 0 ">待审核
+        <elseif condition="$myxinde['shenhe'] eq 1 " />审核通过
+        <else />审核未通过
+      </if>
+      </td>  
+      <td>
+        <a href="{:U('index/xinde_edit?book_id='.$myxinde['book_id'].'&id='.$myxinde['id'])}">编辑</a>&nbsp;
+        <a href="javascript:;" para="{$myxinde['id']}" class="del_xinde">删除</a>
+      </td>
+    </tr>
+    </volist>
+  </table>
+  <div class="ft">
+      {$_page}
+  </div>
+<else/>
+  <p style="color: #666;letter-spacing: 1px; font-size: 13px;font-weight: 700;"> 
+  暂未获得到您关于心得分享的数据!点击此处
+  <a href="{:U('Index/xinde_edit')}" style="font-size: 18px;font-weight: bold;">我要发表</a>
+  发表您的读书心得,赶快行动吧!</p>
+
+</if>
+</div>
+
+
+
+<br/>
+  
+{:W('Side/haoshu')}
+</block>
+

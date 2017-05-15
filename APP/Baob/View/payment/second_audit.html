@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	*{margin: 0;padding: 0;color: #666;font-size: 14px;font-family: "Microsoft Yahe,微软雅黑"}
+	.tc{text-align: center;}
+	.content{width:100%; min-width: 960px;}
+	.box{width: 960px;margin: 0 auto;border:1px solid #666;	}
+	.box .header{position: relative;width: 100%;background-color: #eee;}
+	.header .back_btn{padding: 3px 15px;border:1px solid #666;margin-left: 50px;}
+	.header .title{text-align: center;width: 180px;letter-spacing: 1px;height: 20px;
+		display: inline-block;line-height: 20px;position: absolute;left: 390px;top: 1px;}
+    .show{width: 100%;}
+    .show fieldset{margin:5px;padding: 10px 0;}
+    .show table{width: 97%;margin: 5px auto 0;border-collapse: collapse;}
+    .show table tr{height: 25px;line-height: 25px;}
+    .show table tr td{border:1px solid #666;}
+    .show .tleft{width: 15%;}
+    .show .tright{width: 35%;}
+    .btn_div{height: 30px;text-align: center;line-height: 30px;width: 300px;margin: 0 auto;}
+    .btn_div .sub_btn{padding: 5px 15px;border:1px solid #666;  }
+    .fl{float: left;}
+    .fr{float: right;}
+    input[type='text']{width: 95%;height: 18px;text-indent: 5px;border: none;}
+
+	</style>
+</head>
+<body>
+	<div class="content">
+		<div class="box">
+			<div class="header">
+				<input type="button"  class="back_btn" value="返 回" />
+				<a class="title">营销缴费结算详细</a>
+			</div>
+			<div class="show">
+				<form action="{:U('Payment/second_audit_result')}" method="post" id="theForm">
+					<fieldset>
+						<legend>渠道信息:</legend>
+						<table>
+							<tr>
+								<td class="tleft">工单编号;</td>
+								<td class="tright">
+									<input type="text" name="item_id" value="{$list['ITEM_ID']}" 
+									readonly="readonly" style="border:none;" />
+								</td>
+								<td class="tleft">县市:</td>
+								<td class="tright">{$list['COUNTY_NAME']}</td>
+							</tr>
+							<tr>
+								<td class="tleft">渠道名称:</td>
+								<td class="tright">{$list['ORG_NAME']}</td>
+								<td class="tleft">渠道编号:</td>
+								<td class="tright">{$list['ORG_ID']}</td>
+							</tr>
+							<tr>
+								<td class="tleft">销售经理:</td>
+								<td class="tright">{$list['MANAGER_NAME']}</td>
+								<td class="tleft">渠道类型:</td>
+								<td class="tright">{$listq['ORG_TYPE']}</td>
+							</tr>
+						</table>
+					</fieldset>
+					<fieldset>
+						<legend>领取人验证:</legend>
+						<table >
+							<tr>
+								<td class="tleft">验证卡:</td>
+								<td class="tright">{$listy['SIM_CARD']}</td>
+								<td class="tleft">验证时间:</td>
+								<td class="tright">{$listy['VERFY_DATE']}</td>
+							</tr>
+							<tr>
+								<td class="tleft">验证码发送号码:</td>
+								<td class="tright">{$listy['VERFY_BILL']}</td>						
+								<td class="tleft">二次验证码:</td>
+								<td class="tright">{$listy['VERFY_CODE']}</td>
+							</tr>
+						</table>
+					</fieldset>
+					<fieldset>
+						<legend>领取人信息:</legend>
+						<table >
+						    <tr>
+								<td class="tleft">联系号码:</td>
+								<td class="tright">{$list['PAYMENT_BILL']}</td>
+								<td class="tleft">姓名:</td>
+								<td class="tright">{$list['PAYMENT_OPER']}</td>							
+							</tr>
+							<tr>
+								<td class="tleft">证件(身份证号):</td>
+								<td class="tright">{$list['PAYMENT_CARD']}</td>
+								<td class="tleft">是否法人:</td>
+								<td class="tright">{$list['PAYMENT_BILL']}</td>
+							</tr>
+						</table>
+					</fieldset>
+					<fieldset>
+						<legend>兑换信息:</legend>
+						<table >
+							<tr>
+								<td class="tleft">实际可领取金额:</td>
+								<td class="tright">
+									<input type="text" name="amount" value="{$list['PAYMENT_AMOUNT_SJ']}" class="only" />
+								</td>
+								<td class="tleft">本次可兑换金额:</td>
+								<td class="tright">{$list['PAYMENT_AMOUNT_BC']}</td>
+							</tr>
+							<tr>
+								<td class="tleft">500元面值张数</td>
+								<td class="tright">
+									<input type="text" name="price500" value="{$list500[0]['CARD_NO']}" class="only" />
+								</td>
+								<td class="tleft">300元面值张数</td>
+								<td class="tright">
+									<input type="text" name="price300" value="{$list300[0]['CARD_NO']}" class="only" />
+								</td>
+							</tr>
+							<tr>
+								<td class="tleft">100元面值张数</td>
+								<td class="tright">
+								<input type="text" name="price100" value="{$list100[0]['CARD_NO']}" class="only" />
+								</td>
+								<td class="tleft">50元面值张数</td>
+								<td class="tright">
+									<input type="text" name="price50" value="{$list50[0]['CARD_NO']}" class="only" />
+								</td>
+							</tr>
+							<tr>
+								<td class="tleft">30元面值张数</td>
+								<td class="tright">
+								<input type="text" name="price30" value="{$list30[0]['CARD_NO']}" class="only" />						
+								</td>
+								<td class="tleft">20元面值张数</td>
+								<td class="tright">
+									<input type="text" name="price20" value="{$list20[0]['CARD_NO']}" class="only" />
+								</td>
+							</tr>
+							<tr>
+								<td class="tleft">本次兑换纸券张数:</td>
+								<td class="tright">{$list['PAYMENT_CARD_NO']}</td>
+							</tr>
+						</table>
+					</fieldset>
+					<fieldset>
+						<legend>稽核信息:</legend>
+						<table>
+							<tr>
+								<td class="tleft">结算人员</td>
+								<td class="tright">{$list.JS_PERSON}</td>
+								<td class="tleft">一级稽核:</td>
+								<td class="tright">{$list.FIRST_AUDIT_OPER}</td>
+							</tr>
+						</table>
+					</fieldset>
+					<input type="hidden" name="second_audit_result" id="second_audit_result">
+				</form>
+				<div class="btn_div">
+					<input type="button" name="" value="同意" class="sub_btn fl" />
+					<input type="button" name="" value="不同意"   class="sub_btn fr">
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.sub_btn').click(function(){
+			$('#second_audit_result').val($(this).val());
+			layer.confirm('确定要稽核此工单吗?',{icon:3,title:'提示'},function(index){
+				$('#theForm').submit();
+				layer.colse(index);
+			});
+		});
+
+		$('.back_btn').click(function(){
+			window.location="{:U('Payment/item_list_second')}";
+		});
+
+		$('.only').attr('readonly',true);
+	});
+</script>
+</html>

@@ -1,0 +1,503 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style>
+    body{padding-top: 50px;}
+    .term{border:1px solid #ccc;height: 30px;line-height: 30px;}
+    .dd dd{border-bottom: 1px solid #ccc;font-size: 0.6em}
+    .wrap{ width:auto; max-width:320px; margin:0 auto;}
+    .fenye{ float:left; margin-top:10px;}
+    .fenye ul{ float:left; text-align: center;}
+    .fenye ul li{ float:left; margin-left:5px;padding: 4px 6px; border:1px solid #ccc;  font-weight:bold; cursor:pointer; color:#999;}
+    .fenye ul li a{ color:#999;}
+    .fenye ul li.xifenye{ width:38px; text-align:center; float:left; position:relative;cursor: pointer;}
+    .fenye ul li .xab{ float:left; position:absolute; width:39px; border:1px solid #ccc; height:123px; overflow-y: auto;overflow-x: hidden;top:-125px; background-color: #fff; display:inline;left:-1px; width:50px;}
+    .fenye ul li .xab ul{ margin-left:0; padding-bottom:0;}
+    .fenye ul li .xab ul li{ border:0; padding:4px 0px; color:#999; width:34px; margin-left:0px; text-align:center;}
+
+</style>
+</block>
+    
+<block name="body">
+<?php
+$i=count($rpt_month);
+$m=max($rpt_month[$i-1]);
+$month = isset($_POST['month']) ? $_POST['month'] : $m;
+$id = isset($_POST['id']) ? $_POST['id'] : '';
+$config_id = isset($_POST['config_id']) ? $_POST['config_id'] : '';
+?>    
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>全员赛马</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+    <section class="btn_bar">
+        <div class="btn-link-box" id="tab">
+            <a href="javascript:;" url="{:U('info_id_data')}" class="btn_link active">月度赛马</a>
+            <a href="javascript:;" url="{:U('info_family')}" class="btn_link">年度赛马</a>
+            <a href="javascript:;" url="{:U('info_three_year')}" class="btn_link">成长积分</a>
+            
+            <!-- <a href="javascript:;" url="{:U('info_zoufan')}" class="btn_link">模块4</a>
+            <a href="javascript:;" url="" class="jlxq btn_link">模块5</a> -->
+        </div>
+    </section>
+
+    <section class="sections list_con_2">
+        <div class="term">
+            月份:
+            <select id="month" name="month" style="width: 20%;" onchange="Month(this)" <?php echo $mode==2 ? 'disabled' : ''?>>
+                <volist name="rpt_month" id="a">
+                    <option value="{$a['MONTH']}" <?php $value=$a['MONTH']; echo $month == $value ? 'selected' : '' ?>>{$a['MONTH']}</option>
+                </volist>
+            </select>
+            部门:
+            <select id="id" name="id" style="width: 28%;" onchange="Id()">
+                <volist name="pos_name" id="a">
+                    <option value="{$a['ID']}" <?php $value=$a['ID']; echo $id == $value ? 'selected' : '' ?>>{$a['NAME']}</option>
+                </volist>
+            </select>
+        </div>
+        <dl class="dt">
+            <dt style="width:10%;text-align: center;">编号</dt>
+            <dt style="width:15%;text-align: center;">姓名</dt>
+            <dt style="width:25%;text-align: center;">手机号码</dt>
+            <dt style="width:15%;text-align: center;">县市</dt>
+            <dt style="width:15%;text-align: center;">总分</dt>
+            <dt style="width:10%;text-align: center;">排名</dt>
+            <dt style="width:10%;text-align: center;">操作</dt>
+        </dl>
+        <div class="mon"></div>
+        <div class="wrap">
+            <div class="fenye">
+                <ul>
+                    <li id="first">首页</li>
+                    <li id="top" onclick="topclick()">上一页</li>
+                    <li class="xifenye" id="xifenye">
+                        <a id="xiye">1</a>/<a id="mo">66</a>
+                        <div class="xab" id="xab" style="display:none">
+                            <ul id="uljia">
+                                
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="down" onclick="downclick()">下一页</li>
+                    <li id="last">末页</li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="sections list_con_2 info_con hide" >
+        <div class="term">
+            部门:
+            <select id="ids" name="id" style="width: 28%;" onchange="Ids()">
+                <volist name="pos_name" id="a">
+                    <option value="{$a['ID']}" <?php $value=$a['ID']; echo $id == $value ? 'selected' : '' ?>>{$a['NAME']}</option>
+                </volist>
+            </select>
+        </div>
+        <dl class="dt">
+            <dt style="width:10%;text-align: center;">编号</dt>
+            <dt style="width:20%;text-align: center;">姓名</dt>
+            <dt style="width:30%;text-align: center;">手机号码</dt>
+            <dt style="width:20%;text-align: center;">赛马积分</dt>
+            <dt style="width:10%;text-align: center;">排名</dt>
+            <dt style="width:10%;text-align: center;">操作</dt>
+        </dl>
+        <div class="year"></div>
+        <div class="wrap">
+            <div class="fenye">
+                <ul>
+                    <li id="first1">首页</li>
+                    <li id="top1" onclick="topclick1()">上一页</li>
+                    <li class="xifenye" id="xifenye1">
+                        <a id="xiye1">1</a>/<a id="mo1">66</a>
+                        <div class="xab" id="xab1" style="display:none">
+                            <ul id="uljia1">
+                                
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="down1" onclick="downclick1()">下一页</li>
+                    <li id="last1">末页</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+ 
+    <section class="sections list_con_2 hide"  >
+        <div class="term">
+            单位:
+            <select id="config_id" name="config_id" style="width: 28%;" onchange="Config_id()">
+                <volist name="jf" id="a">
+                    <option value="{$a['CONFIG_ID']}" <?php $value=$a['CONFIG_ID']; echo $id == $value ? 'selected' : '' ?>>{$a['单位']}</option>
+                </volist>
+            </select>
+        </div>
+        <div class="jf"></div>
+        <div class="wrap">
+            <div class="fenye">
+                <ul>
+                    <li id="first2">首页</li>
+                    <li id="top2" onclick="topclick2()">上一页</li>
+                    <li class="xifenye" id="xifenye2">
+                        <a id="xiye2">1</a>/<a id="mo2">66</a>
+                        <div class="xab" id="xab1" style="display:none">
+                            <ul id="uljia2">
+                                
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="down2" onclick="downclick2()">下一页</li>
+                    <li id="last2">末页</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="sections detail_con hide" >
+        模块111
+    </section>
+
+    <section class="sections detail_con info_con hide" id="fcxx">
+        模块1111 
+    </section>
+
+    
+
+    <section class="sections list_con_2 hide" id="zfxq" style="padding:10px;">
+        <dl class="no-data">
+            请选择指定 
+        </dl>
+    </section>
+
+</block>
+
+<block name="js">
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+var text=condtion_t();
+var value=condtion_v();
+var values=condtions_v();
+var config_id=condtion_jf();
+var num=1,num1=1,num2=1;
+seachs(values,num1);
+seach(text,value,num);
+pointer(config_id,num2);
+function seach(text,value,num){
+    $(".mon").each(function() {
+        var e = $(this);
+        var url="{:U('rank_load')}"+"?month="+text+"&id="+value+"&num="+num;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            success:function(result){
+                var html='';
+                $.each(result, function(index, el) {
+                    html += '<dl class="dd">';
+                    html += '<dd style="width:10%;text-align: center;">'+el['N']+'</dd>';
+                    html += '<dd style="width:15%;text-align: center;">'+el['USER_NAME']+'</dd>';
+                    html += '<dd style="width:25%;text-align: center;">'+el['BILL_ID']+'</dd>';
+                    html += '<dd style="width:15%;text-align: center;">'+el['COUNTY_NAME']+'</dd>';
+                    html += '<dd style="width:15%;text-align: center;">'+el['AMOUNT']+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;">'+el['PM']+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;"><a href="{:U("rank_info")}?month='+text+'&id='+value+'&bill_id='+el['BILL_ID']+'" style="color:#1FA5E4;">详情</a></dd>';
+                    html += '</dl>';
+                });
+                e.html(html);
+            },
+            error:function(e) {
+                console.error(e);
+            }
+        });
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success:function(re){
+                $.each(re,function(index,el){
+                    document.getElementById("mo").innerHTML=Math.ceil(el['SUM']/10);
+                })
+            }
+        });
+         
+    });
+}
+function seachs(value,num){
+    $(".year").each(function() {
+        var e = $(this);
+        var url="{:U('new_load')}"+"?id="+value+"&num="+num;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            success:function(result){
+                var html='';
+                $.each(result, function(index, el) {
+                    html += '<dl class="dd">';
+                    html += '<dd style="width:10%;text-align: center;">'+el['N']+'</dd>';
+                    html += '<dd style="width:20%;text-align: center;">'+el['USER_NAME']+'</dd>';
+                    html += '<dd style="width:30%;text-align: center;">'+el['BILL_ID']+'</dd>';
+                    html += '<dd style="width:20%;text-align: center;">'+el['AMOUNT']*1+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;">'+el['PM']+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;"><a href="{:U("new_info")}?id='+value+'&bill_id='+el['BILL_ID']+'" style="color:#1FA5E4;">详情</a></dd>';
+                    html += '</dl>';
+                });
+                e.html(html);
+            },
+            error:function(e) {
+                console.error(e);
+            }
+        }); 
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success:function(re){
+                $.each(re,function(index,el){
+                    document.getElementById("mo1").innerHTML=Math.ceil(el['SUM']/10);
+                })
+            }
+        });
+    });
+}
+function pointer(value,num){
+    $(".jf").each(function() {
+        var e = $(this);
+        var url="{:U('rank_jf')}"+"?id="+value+"&num="+num;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            success:function(result){
+                var html='';
+                if(value<200){
+                    html += '<dl class="dt">';
+                    html += '<dt style="width:10%;text-align: center;">编号</dt>';
+                    html += '<dt style="width:20%;text-align: center;">姓名</dt>';
+                    html += '<dt style="width:30%;text-align: center;">手机号码</dt>';
+                    html += '<dt style="width:20%;text-align: center;">总积分</dt>';
+                    html += '<dt style="width:10%;text-align: center;">排名</dt>';
+                    html += '<dt style="width:10%;text-align: center;">操作</dt>';
+                    html += '</dl>';
+                $.each(result, function(index, el) {
+                    html += '<dl class="dd">';
+                    html += '<dd style="width:10%;text-align: center;">'+el['N']+'</dd>';
+                    html += '<dd style="width:20%;text-align: center;">'+el['姓名']+'</dd>';
+                    html += '<dd style="width:30%;text-align: center;">'+el['BILL_ID']+'</dd>';
+                    html += '<dd style="width:20%;text-align: center;">'+el['个人总积分']+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;">'+el['PM']+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;"><a href="{:U("rank_jf_info")}?id='+value+'&bill_id='+el['BILL_ID']+'" style="color:#1FA5E4;">详情</a></dd>';
+                    html += '</dl>';
+                });   
+                }else{
+                    html += '<dl class="dt">';
+                    html += '<dt style="width:10%;text-align: center;">编号</dt>';
+                    html += '<dt style="width:25%;text-align: center;">团队</dt>';
+                    html += '<dt style="width:30%;text-align: center;">单位</dt>';
+                    html += '<dt style="width:15%;text-align: center;">总积分</dt>';
+                    html += '<dt style="width:10%;text-align: center;">排名</dt>';
+                    html += '<dt style="width:10%;text-align: center;">操作</dt>';
+                    html += '</dl>';
+                $.each(result, function(index, el) {
+                    html += '<dl class="dd">';
+                    html += '<dd style="width:10%;text-align: center;">'+el['N']+'</dd>';
+                    html += '<dd style="width:25%;text-align: center;">'+el['团队']+'</dd>';
+                    html += '<dd style="width:30%;text-align: center;">'+el['单位']+'</dd>';
+                    html += '<dd style="width:15%;text-align: center;">'+el['团队总积分']+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;">'+el['PM']+'</dd>';
+                    html += '<dd style="width:10%;text-align: center;"><a href="{:U("rank_jf_info")}?id='+value+'&bill_id='+el['BILL_ID']+'" style="color:#1FA5E4;">详情</a></dd>';
+                    html += '</dl>';
+                });
+                }
+                e.html(html);
+            },
+            error:function(e) {
+                console.error(e);
+            }
+        }); 
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success:function(re){
+                $.each(re,function(index,el){
+                    document.getElementById("mo2").innerHTML=Math.ceil(el['SUM']/10);
+                })
+            }
+        });
+    });
+}
+$(function(){
+//基础信息
+    $("#tab").find("a").click(function(){
+        var e = $(this),
+            url = e.attr('url'),
+            index = e.index();
+        if(!e.hasClass('active')){
+            $(".sections").hide();
+            $(".sections").eq(index).show();
+            e.addClass('active').siblings('a').removeClass('active');
+        }
+    });
+});  
+
+function Month(osel){
+    num=1;
+    fen.innerHTML=1;
+    var text=condtion_t();
+    var value=condtion_v();
+    seach(text,value,num);
+}
+
+function Id(){
+    num=1;
+    fen.innerHTML=1;
+    var text=condtion_t();
+    var value=condtion_v();
+    seach(text,value,num);
+}
+
+function condtion_t(){
+    var obj=document.getElementById('month');
+    var index=obj.selectedIndex;
+    var text=obj.options[index].text;
+    return text;
+}
+function condtion_v(){
+    var obj=document.getElementById('id');
+    var index=obj.selectedIndex;
+    var value=obj.options[index].value;
+    return value;
+}
+function condtions_v(){
+    var obj=document.getElementById('ids');
+    var index=obj.selectedIndex;
+    var value=obj.options[index].value;
+    return value;
+} 
+function condtion_jf(){
+    var obj=document.getElementById('config_id');
+    var index=obj.selectedIndex;
+    var value=obj.options[index].value;
+    return value;
+}  
+function Ids(){
+    num1=1;
+    fen1.innerHTML=1;
+    var value=condtions_v();
+    seachs(value,num1);
+} 
+function Config_id(){
+    num2=1;
+    fen2.innerHTML=1;
+    var value=condtion_jf();
+    pointer(value,num2);
+}
+
+var fen=document.getElementById("xiye");
+var fen1=document.getElementById("xiye1");
+var fen2=document.getElementById("xiye2");
+function downclick(){
+    if(fen.innerHTML*1<document.getElementById("mo").innerHTML){
+        num++;
+        fen.innerHTML=num;
+        var text=condtion_t();
+        var value=condtion_v();
+        seach(text,value,num);
+    }
+
+}
+function topclick(){
+    if(fen.innerHTML>1){
+        num--;
+        fen.innerHTML=num;
+        var text=condtion_t();
+        var value=condtion_v();
+        seach(text,value,num);
+    }
+}
+$("#first").bind("click",function(){
+    fen.innerHTML=1;
+    num=1
+    var text=condtion_t();
+    var value=condtion_v();
+    seach(text,value,num);
+});
+$("#last").bind("click",function(){
+    fen.innerHTML=document.getElementById("mo").innerHTML;
+    num=document.getElementById("mo").innerHTML;
+    var text=condtion_t();
+    var value=condtion_v();
+    seach(text,value,num);
+});
+
+function downclick1(){
+    if(fen1.innerHTML*1<document.getElementById("mo1").innerHTML){
+        num1++;
+        fen1.innerHTML=num1;
+        var value=condtions_v();
+        seachs(value,num1);
+    }
+
+}
+function topclick1(){
+    if(fen1.innerHTML>1){
+        num1--;
+        fen1.innerHTML=num1;
+        var value=condtions_v();
+        seachs(value,num1);
+    }
+}
+$("#first1").bind("click",function(){
+    fen1.innerHTML=1;
+    num1=1
+    var value=condtions_v();
+    seachs(value,num1);
+});
+$("#last1").bind("click",function(){
+    fen1.innerHTML=document.getElementById("mo1").innerHTML;
+    num1=document.getElementById("mo1").innerHTML;
+    var value=condtions_v();
+    seachs(value,num1);
+});
+
+function downclick2(){
+    if(fen2.innerHTML*1<document.getElementById("mo2").innerHTML){
+        num2++;
+        fen2.innerHTML=num2;
+        var value=condtion_jf();
+        pointer(value,num2);
+    }
+
+}
+function topclick2(){
+    if(fen2.innerHTML>1){
+        num2--;
+        fen2.innerHTML=num2;
+        var value=condtion_jf();
+        pointer(value,num2);
+    }
+}
+$("#first2").bind("click",function(){
+    fen2.innerHTML=1;
+    num2=1
+    var value=condtion_jf();
+    pointer(value,num2);
+});
+$("#last2").bind("click",function(){
+    fen2.innerHTML=document.getElementById("mo2").innerHTML;
+    num2=document.getElementById("mo2").innerHTML;
+    var value=condtion_jf();
+    pointer(value,num2);
+});
+</script>
+</block>

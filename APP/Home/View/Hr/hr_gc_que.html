@@ -1,0 +1,230 @@
+<extend name="pub/main_hr"/>
+
+<block name="title">
+<if condition="$errMsg neq null">
+    暂无权限
+<else/>
+    工程事务 - 能力测评汇总
+</if>
+</block>
+
+<block name="body">
+<div class="model">
+    <div>
+        <div class="hr_info_title_l">
+            <span>能力评测人员</span>
+        </div>
+
+<if condition="$errMsg neq null">
+    <div class="errMsg">
+        {$errMsg}
+    </div>
+<else/>
+<?php
+$select_value = isset($_POST['countyName']) ? $_POST['countyName'] : '';
+$pro = isset($_POST['pro']) ? $_POST['pro'] : '';
+?>
+<div class="wrap query">
+    <input id="initURL" type="hidden" value="{$initURL}"/>
+    <form  action="{:U('hr/hr_gc_que')}?bill_id={$bill_id}&id={$id}" method="post">
+    <table class="query-table">
+        <tr>
+            <td><span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span><input type="text" 
+            name="name" value="{$name}" class="text"></td>
+            <td><span>县&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市</span>
+            <select id="a" name="countyName" style="width: 140px;border: 1px solid #ccc;">
+                <option value="">请选择</option>
+                <option value="莲都" <?php echo $select_value == '莲都' ? 'selected' : '' ?>>莲都</option>
+                <option value="青田" <?php echo $select_value == '青田' ? 'selected' : '' ?>>青田</option>
+                <option value="景宁" <?php echo $select_value == '景宁' ? 'selected' : '' ?>>景宁</option>
+                <option value="缙云" <?php echo $select_value == '缙云' ? 'selected' : '' ?>>缙云</option>
+                <option value="遂昌" <?php echo $select_value == '遂昌' ? 'selected' : '' ?>>遂昌</option>
+                <option value="庆元" <?php echo $select_value == '庆元' ? 'selected' : '' ?>>庆元</option>
+                <option value="龙泉" <?php echo $select_value == '龙泉' ? 'selected' : '' ?>>龙泉</option>
+                <option value="松阳" <?php echo $select_value == '松阳' ? 'selected' : '' ?>>松阳</option>
+                <option value="云和" <?php echo $select_value == '云和' ? 'selected' : '' ?>>云和</option>
+                <option value="南城" <?php echo $select_value == '南城' ? 'selected' : '' ?>>南城</option>
+            </select></td>
+            <td><span>手机号码</span><input type="text" name="billId" value="{$billId}" class="text"></td>
+        </tr>
+        <tr>
+            <td><span>员工编号</span><input type="text" name="userId" value="{$userId}" class="text"></td>
+            <td><span>用工性质</span>
+            <select name="pro" style="width: 140px;border: 1px solid #ccc;">
+            <option value="">请选择</option>
+            <option value="A2" <?php echo $pro == 'A2' ? 'selected' : '' ?>>A2</option>
+            <option value="浙江文博" <?php echo $pro == '浙江文博' ? 'selected' : '' ?>>浙江文博</option>
+            <option value="雷博" <?php echo $pro == '雷博' ? 'selected' : '' ?>>雷博</option>
+            </select></td>
+            <td><span>最高学历</span><input type="text" name="xl" value="{$xl}" class="text"></td>
+        </tr>
+        <tr>
+            <td><span>入职时间</span><input type="text" name="dat" value="{$dat}" class="text">-<input type="text" name="dat1" value="{$dat1}" class="text"></td>
+            <td><span>岗位工龄</span><input type="text" name="age" value="{$age}" class="text">-<input type="text" name="age1" value="{$age1}" class="text"></td>
+            <td><input type="submit"  value="  查     询  " class="btn term" style="background:rgb(15,142,226);color:#fff;"></td>
+        </tr>
+    </table>
+    </form>
+
+<div class="xq">
+    <table id="tableSort" class="rank" border="0px" cellspacing="0" cellpadding="1">
+        <thead class="piao">
+        <tr align="center" class="head">
+            <th rowspan="3" class="rank-title fixed">姓名</th>
+            <th rowspan="3" class="rank-title fixed">县市</th>
+            <th rowspan="3" class="rank-title fixed">手机号码</th>
+            <th rowspan="3" class="rank-title">员工编号</th>
+            <th rowspan="3" class="rank-title">用工性质</th>
+            <th rowspan="3" class="rank-title">入职时间</th>
+            <th rowspan="3" class="rank-title">岗位工龄</th>
+            <th rowspan="3" class="rank-title">年龄</th>
+            <th rowspan="3" class="rank-title">最高学历</th>
+           <!--  <th rowspan="3" class="rank-title">任现岗位时间</th>  -->
+            <th rowspan="3" class="rank-title">2013年绩效</th>  
+            <th rowspan="3" class="rank-title">2014年绩效</th>   
+            <th rowspan="3" class="rank-title">2015年绩效</th>
+            <th rowspan="3" class="rank-title">等级(职级) </th>  
+            <th rowspan="3" class="rank-title">工作经历</th>
+            <td rowspan="2" colspan="2" class="rank-title">测评结果</td>
+            <td rowspan="2" colspan="4" class="rank-title">笔试成绩</td>
+            <td colspan="40" class="rank-title">胜任力</td>
+        </tr>
+        <tr align="center" class="head"> 
+            <td colspan="7" class="rank-title">自我评价</td>
+            <td colspan="7" class="rank-title">他人评价</td>
+            <td colspan="7" class="rank-title">经理评价</td>
+            <td colspan="7" class="rank-title">领导评价</td>
+            <td colspan="7" class="rank-title">综合评价</td>
+        </tr>
+        <tr align="center" class="head">
+            <th class="rank-title">得分</th> 
+            <th class="rank-title">排名</th>    
+            <th class="rank-title">专业施工规范</th>  
+            <th class="rank-title">专业基础知识</th>  
+            <th class="rank-title">流程制度</th> 
+            <th class="rank-title">项目管理基础</th>
+            <th class="rank-title">个人素养</th>    
+            <th class="rank-title">工作态度</th>
+            <th class="rank-title">团队协作</th>
+            <th class="rank-title">计划与执行</th>
+            <th class="rank-title">业务管理</th>
+            <th class="rank-title">效能提升</th>
+            <th class="rank-title">学习与探索</th>
+            <th class="rank-title">个人素养</th>    
+            <th class="rank-title">工作态度</th>
+            <th class="rank-title">团队协作</th>
+            <th class="rank-title">计划与执行</th>
+            <th class="rank-title">业务管理</th>
+            <th class="rank-title">效能提升</th>
+            <th class="rank-title">学习与探索</th>
+            <th class="rank-title">个人素养</th>    
+            <th class="rank-title">工作态度</th>
+            <th class="rank-title">团队协作</th>
+            <th class="rank-title">计划与执行</th>
+            <th class="rank-title">业务管理</th>
+            <th class="rank-title">效能提升</th>
+            <th class="rank-title">学习与探索</th>
+            <th class="rank-title">个人素养</th>    
+            <th class="rank-title">工作态度</th>
+            <th class="rank-title">团队协作</th>
+            <th class="rank-title">计划与执行</th>
+            <th class="rank-title">业务管理</th>
+            <th class="rank-title">效能提升</th>
+            <th class="rank-title">学习与探索</th>
+            <th class="rank-title">个人素养</th>    
+            <th class="rank-title">工作态度</th>
+            <th class="rank-title">团队协作</th>
+            <th class="rank-title">计划与执行</th>
+            <th class="rank-title">业务管理</th>
+            <th class="rank-title">效能提升</th>
+            <th class="rank-title">学习与探索</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="hrs" id="hr">
+        <tr align="center">
+            <td class="fixeds"><a href="{:U('hr/hr_gc_index')}?billId={$hr.BILL_ID}">{$hr.USER_NAME}</a></td>
+            <td class="fixeds">{$hr.COUNTY_NAME}</td>
+            <td class="fixeds">{$hr.BILL_ID}</td>
+            <td >{$hr.USER_ID}</td>
+            <td >{$hr.用工性质}</td>
+            <if condition="($hr['入职时间'] neq null)"><td >{$hr.入职时间|strtotime|date="Y-m-d",###}</td><else/><td></td></if>
+            <td >{$hr.岗位工龄}</td>
+            <td >{$hr.年龄}</td>
+            <td >{$hr.最高学历}</td>
+            <!-- <td >{$hr.担任现岗位时间|strtotime|date="Y-m-d",###}</td> -->
+            <td >{$hr.M2013年绩效}</td>
+            <td >{$hr.M2014年绩效}</td>
+            <td >{$hr.M2015年绩效}</td>
+            <if condition="($hr['等级'] neq null)"><td >{$hr.等级}</td><else/><td></td></if>
+            <td align="left" title="{$hr.工作经历}"><div style="white-space:nowrap;width:12em;
+            overflow:hidden;text-overflow:ellipsis ">{$hr.工作经历}</div></td>
+            <td>{$hr['得分']*1}</td>
+            <td>{$hr['排名']*1}</td>
+            <td>{$hr['专业施工规范']*1}</td>
+            <td>{$hr['专业基础知识']*1}</td>
+            <td>{$hr['流程制度']*1}</td>
+            <td>{$hr['项目管理基础']*1}</td>
+            <td>{$hr['个人素养Z']*1}</td>
+            <td>{$hr['工作态度Z']*1}</td> 
+            <td>{$hr['团队协作Z']*1}</td> 
+            <td>{$hr['计划与执行Z']*1}</td>  
+            <td>{$hr['业务管理Z']*1}</td>
+            <td>{$hr['效能提升Z']*1}</td>
+            <td>{$hr['学习与探索Z']*1}</td>
+            <td>{$hr['个人素养T']*1}</td>  
+            <td>{$hr['工作态度T']*1}</td> 
+            <td>{$hr['团队协作T']*1}</td> 
+            <td>{$hr['计划与执行T']*1}</td>  
+            <td>{$hr['业务管理T']*1}</td>
+            <td>{$hr['效能提升T']*1}</td>
+            <td>{$hr['学习与探索T']*1}</td>
+            <td>{$hr['个人素养J']*1}</td>  
+            <td>{$hr['工作态度J']*1}</td> 
+            <td>{$hr['团队协作J']*1}</td> 
+            <td>{$hr['计划与执行J']*1}</td>  
+            <td>{$hr['业务管理J']*1}</td>
+            <td>{$hr['效能提升J']*1}</td>
+            <td>{$hr['学习与探索J']*1}</td>
+            <td>{$hr['个人素养L']*1}</td>  
+            <td>{$hr['工作态度L']*1}</td> 
+            <td>{$hr['团队协作L']*1}</td> 
+            <td>{$hr['计划与执行L']*1}</td>  
+            <td>{$hr['业务管理L']*1}</td>
+            <td>{$hr['效能提升L']*1}</td>
+            <td>{$hr['学习与探索L']*1}</td>
+            <td>{$hr['个人素养']*1}</td>  
+            <td>{$hr['工作态度']*1}</td> 
+            <td>{$hr['团队协作']*1}</td> 
+            <td>{$hr['计划与执行']*1}</td>  
+            <td>{$hr['业务管理']*1}</td>
+            <td>{$hr['效能提升']*1}</td>
+            <td>{$hr['学习与探索']*1}</td>
+        </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+{$_page}
+</div>
+</if>
+
+</div></div>
+</block>
+<block name="js">
+<script language="JavaScript" type="text/javascript" src="__STATIC__/jquery.tablesorter.min.js"></script>
+<script>
+//排序
+    $('#tableSort').tablesorter();
+    $(function(){   
+        $("th").each(function(index, el) {
+            var e = $(this),
+            order= e.attr('order');
+            if(order==null || order=='' || order==undefined){
+                e.css('cursor','default');
+            }
+        });
+    });
+
+</script>
+</block>

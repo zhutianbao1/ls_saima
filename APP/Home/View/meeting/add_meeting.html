@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>添加早会</title>
+	<style type="text/css">
+		*{margin: 0px;padding: 0px;font-size: 12px}
+		.line{height: 52px;line-height: 50px}
+		.line span{width: 200px;text-align: right;display: block;float: left;}
+		.line input,select{width: 150px;float: left;margin-left: 40px;margin-top: 10px;height: 30px;line-height: 30px;border: 1px solid #eee}
+		.line select{width: 154px}
+		.title{width:100%;height:50px;background:#438EB9;color:white;text-align:center;line-height:50px;font-size: 16px}
+	</style>
+</head>
+<body>
+	<div>
+		<div class="title">添加早会</div>
+		<form action="{:U('meeting/tj')}" method="post" onsubmit="return toValid()">
+			<div class="line">
+				<span>县市</span>
+				<select name='county_name'>
+					<option value=''></option>
+					<option value='莲都一'>莲都一</option>
+					<option value='莲都二'>莲都二</option>
+					<option value='缙云'>缙云</option>
+					<option value='青田'>青田</option>
+					<option value='云和'>云和</option>
+					<option value='庆元'>庆元</option>
+					<option value='龙泉'>龙泉</option>
+					<option value='遂昌'>遂昌</option>
+					<option value='松阳'>松阳</option>
+					<option value='景宁'>景宁</option>
+					<option value='南城'>南城</option>
+				</select>
+				<span>早会时间</span>
+				<input type='text' name='create_date' onClick="WdatePicker()"/>
+				<span>主持人</span>
+				<input type="text" name="主持人">
+			</div>
+			<div class="line">
+				<span>问好、晨操</span>
+				<input type="text" name="晨操">
+				<span>信息播报</span>
+				<input type="text" name="信息播报">
+				<span>轻松一刻</span>
+				<input type="text" name="轻松一刻">
+			</div>
+			<div class="line">
+				<span>典范分享</span>
+				<input type="text" name="典范分享">
+				<span>专题学习内容</span>
+				<input type="text" name="专题学习内容">
+				<span>专题主讲人</span>
+				<input type="text" name="专题主讲人">
+			</div>
+			<div class="line">
+				<span>政令宣导</span>
+				<input type="text" name="政令宣导">
+				<span>成功欢呼</span>
+				<input type="text" name="成功欢呼">
+				<span>业务推动</span>
+				<input type="text" name="业务推动">
+			</div>
+			<div class="line">
+				<span>本周重要事项提醒</span>
+				<input type="text" name="本周重要事项提醒">
+				<span>其他事项</span>
+				<input type="text" name="其他事项">
+				<span>提交人</span>
+				<input type="text" name="user_name">
+			</div>
+			<div class="line" style="padding-left:490px">
+				<input type="submit" value="提交">
+			</div>
+		</form>
+	</div>
+</body>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript">
+	function toValid(){
+		county_name=$('select[name=county_name]').val();
+		create_date=$('input[name=create_date]').val();
+		主持人=$('input[name=主持人]').val();
+		晨操=$('input[name=晨操]').val();
+		信息播报=$('input[name=信息播报]').val();
+		轻松一刻=$('input[name=轻松一刻]').val();
+		典范分享=$('input[name=典范分享]').val();
+		专题学习内容=$('input[name=专题学习内容]').val();
+		专题主讲人=$('input[name=专题主讲人]').val();
+		政令宣导=$('input[name=政令宣导]').val();
+		成功欢呼=$('input[name=成功欢呼]').val();
+		业务推动=$('input[name=业务推动]').val();
+		本周重要事项提醒=$('input[name=本周重要事项提醒]').val();
+		其他事项=$('input[name=其他事项]').val();
+		user_name=$('input[name=user_name]').val();
+		if(county_name==null || county_name=="" || create_date==null || create_date=="" || 主持人==null || 主持人=="" || 晨操==null || 晨操=="" || 信息播报==null || 信息播报=="" || 轻松一刻==null || 轻松一刻=="" || 典范分享==null || 典范分享=="" || 专题学习内容==null || 专题学习内容=="" || 专题主讲人==null || 专题主讲人=="" || 政令宣导==null || 政令宣导=="" || 成功欢呼==null || 成功欢呼=="" || 业务推动==null || 业务推动=="" || 本周重要事项提醒==null || 本周重要事项提醒=="" || 其他事项==null || 其他事项=="" || user_name==null || user_name==""){
+			alert('添加早会内容不能为空，请检查！');
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>
+</html>

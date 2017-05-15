@@ -1,0 +1,719 @@
+<extend name="./base_employee"/>
+
+<block name="title">员工基本信息录入</block>
+<block name="css">
+  <link href="__STATIC__/uploadify/uploadify.css"/>
+  <style>
+    body{background-color: #efefef;}
+	.form{margin-left:auto;margin-right:auto;width:940px;}
+    .form.bform {width:1560px;background-color:#fff;border: 1px solid #ddd;}
+    .btn-box {width:925px;margin-left:auto;margin-right:auto;}
+    .btn-group{width:930px;}
+    .btn{background-color:#fff;}
+    .btn.zc{margin-left:20px;}
+    .btn.upload{width:30px;cursor:pointer;}
+    table td{color:#000 !important;}
+    label{width:113px;}
+    input[type="file"]{width:205px;}
+    .file{width:140px !important;}
+  </style>
+</block>
+
+<block name="nav">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">员工基本信息录入</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+</block>
+
+<block name="content">
+<form id="theForm1" class="" action="{:U('Employee/save')}" method="post" enctype="multipart/form-data">
+<div class="hidden">
+  <label>编号id:</label>
+  <input class="readonly" type="text" name="id" value="{$da['ID']}"/>
+  <label>用户OA:</label>
+  <input class="readonly" type="text" name="oa" value="{$da['OA']}"/>
+</div>
+
+<div class="form bform">
+  <div class="form-header">员工基本信息</div>
+  <div>
+    <label>部门：<font color="#ff0000">*</font></label>
+    <select name="dept">
+      <option></option>
+      <option value="公司领导" {$da[DEPT]=='公司领导'?'selected':''}>公司领导</option>
+      <option value="党委办公室（党群工作部）" {$da[DEPT]=='党委办公室（党群工作部）'?'selected':''}>党委办公室（党群工作部）</option>
+      <option value="纪检监察室" {$da[DEPT]=='纪检监察室'?'selected':''}>纪检监察室</option>
+      <option value="市场经营部" {$da[DEPT]=='市场经营部'?'selected':''}>市场经营部</option>
+      <option value="政企客户部" {$da[DEPT]=='政企客户部'?'selected':''}>政企客户部</option>
+      <option value="人力资源部" {$da[DEPT]=='人力资源部'?'selected':''}>人力资源部</option>
+      <option value="工程建设部" {$da[DEPT]=='工程建设部'?'selected':''}>工程建设部</option>
+      <option value="网络部" {$da[DEPT]=='网络部'?'selected':''}>网络部</option>
+      <option value="财务部" {$da[DEPT]=='财务部'?'selected':''}>财务部</option>
+       <option value="综合部" {$da[DEPT]=='综合部'?'selected':''}>综合部</option>
+      <option value="工会" {$da[DEPT]=='工会'?'selected':''}>工会</option>
+      <option value="莲都" {$da[DEPT]=='莲都'?'selected':''}>莲都</option>
+      <option value="缙云" {$da[DEPT]=='缙云'?'selected':''}>缙云</option>
+      <option value="青田" {$da[DEPT]=='青田'?'selected':''}>青田</option>
+      <option value="云和" {$da[DEPT]=='云和'?'selected':''}>云和</option>
+      <option value="庆元" {$da[DEPT]=='庆元'?'selected':''}>庆元</option>
+      <option value="龙泉" {$da[DEPT]=='龙泉'?'selected':''}>龙泉</option>
+      <option value="遂昌" {$da[DEPT]=='遂昌'?'selected':''}>遂昌</option>
+      <option value="松阳" {$da[DEPT]=='松阳'?'selected':''}>松阳</option>
+      <option value="景宁" {$da[DEPT]=='景宁'?'selected':''}>景宁</option>
+      <option value="南城" {$da[DEPT]=='南城'?'selected':''}>南城</option>
+    </select>
+
+    <label>姓名:<font color="#ff0000">*</font></label>
+    <input type="text" name="user_name" value="{$da['USER_NAME']}"/>
+    <label>申请时间：<font color="#ff0000">*</font></label>
+    <input class="readInput" type="text" name="create_time" value="{$da['CREATE_TIME']}"/>
+  </div>
+
+  <div>
+    <label>员工编号:<font color="#ff0000">*</font></label>
+    <input type="text" name="userid" value="{$da['USERID']}"/>
+    <label>联系电话：<font color="#ff0000">*</font></label>
+    <input type="text" name="bill_id" value="{$da['BILL_ID']}"/>
+    <label>身份证号：<font color="#ff0000">*</font></label>
+    <input type="text" name="id_card" value="{$da['ID_CARD']}"/>
+  </div>
+  
+  <div>
+    <label>身份证签发单位：<font color="#ff0000">*</font></label>
+    <input type="text" name="card_unit" value="{$da['CARD_UNIT']}" />
+    <label>身份证签发日期：<font color="#ff0000">*</font></label>
+    <input type="text" name="card_start" value="{$da['CARD_START']}" class="date Wdate" onClick="WdatePicker()"/>
+    <label>身份证到期日期：<font color="#ff0000">*</font></label>
+    <input type="text" name="card_end" value="{$da['CARD_END']}" class="date Wdate" onClick="WdatePicker()"/>
+  </div>
+	
+  <div>
+    <label>身份证扫描件1：<font color="#ff0000">*</font></label>
+    <a href="{$path}{$da['CARD_NAME1_1']}" target="_blank">{$da['CARD_NAME1']}</a>
+    <span>
+      <input type="text" class="file" id="card_name1" name="card_name1" value="{$da['CARD_NAME1']}" param1="{$da.DEPT_NO}_lsygzj_<?php echo session('user_auth.OA')?>_1"/>
+      <input type="button" class="btn file-btn" value="浏览"/>
+    </span>
+    <input type="hidden" id="card_name1_1" name="card_name1_1" value="{$da['CARD_NAME1_1']}"/>
+
+    <label>身份证扫描件2：<font color="#ff0000">*</font></label>
+    <a href="{$path}{$da['CARD_NAME2_1']}" target="_blank">{$da['CARD_NAME2']}</a>
+    
+    <span>
+      <input type="text" class="file" id="card_name2" name="card_name2" value="{$da['CARD_NAME2']}" param1="{$da.DEPT_NO}_lsygzj_<?php echo session('user_auth.OA')?>_2"/>
+      <input type="button" class="btn file-btn" value="浏览"/>
+    </span>
+    <input type="hidden" id="card_name2_1" name="card_name2_1" value="{$da['CARD_NAME2_1']}"/>
+  </div>
+  
+  <div>
+    <label>政治面貌：<font color="#ff0000">*</font></label>
+    <select name="political_status">
+      <option></option>
+      <option value="群众" {$da[POLITICAL_STATUS]=='群众'?'selected':''}>群众</option>
+      <option value="共青团员" {$da[POLITICAL_STATUS]=='共青团员'?'selected':''}>共青团员</option>
+      <option value="预备党员" {$da[POLITICAL_STATUS]=='预备党员'?'selected':''}>预备党员</option>
+      <option value="中共党员" {$da[POLITICAL_STATUS]=='中共党员'?'selected':''}>中共党员</option>
+      <option value="中共预备党员" {$da[POLITICAL_STATUS]=='中共预备党员'?'selected':''}>中共预备党员</option>
+      <option value="民建党员" {$da[POLITICAL_STATUS]=='民建党员'?'selected':''}>民建党员</option>
+      <option value="民进会员" {$da[POLITICAL_STATUS]=='民进会员'?'selected':''}>民进会员</option>
+      <option value="民盟盟员" {$da[POLITICAL_STATUS]=='民盟盟员'?'selected':''}>民盟盟员</option>
+      <option value="无党派人士" {$da[POLITICAL_STATUS]=='无党派人士'?'selected':''}>无党派人士</option>
+    </select>
+
+    <label>家庭住址：<font color="#ff0000">*</font></label>
+    <input type="text" class="text" name="family_address" value="{$da['FAMILY_ADDRESS']}" />
+  </div>
+
+  <div>
+    <label>全日制最高学历：<font color="#ff0000">*</font></label>
+    <select name="bachelor_degree">
+      <option></option>
+      <option value="初中及以下" {$da[BACHELOR_DEGREE]=='初中及以下'?'selected':''}>初中及以下</option>
+      <option value="中专" {$da[BACHELOR_DEGREE]=='中专'?'selected':''}>中专</option>
+      <option value="高中" {$da[BACHELOR_DEGREE]=='高中'?'selected':''}>高中</option>
+      <option value="技校" {$da[BACHELOR_DEGREE]=='技校'?'selected':''}>技校</option>
+      <option value="大学专科" {$da[BACHELOR_DEGREE]=='大学专科'?'selected':''}>大学专科</option>
+      <option value="大学本科" {$da[BACHELOR_DEGREE]=='大学本科'?'selected':''}>大学本科</option>
+      <option value="硕士研究生" {$da[BACHELOR_DEGREE]=='硕士研究生'?'selected':''}>硕士研究生</option>
+      <option value="博士研究生" {$da[BACHELOR_DEGREE]=='博士研究生'?'selected':''}>博士研究生</option>
+      <option value="双学位" {$da[BACHELOR_DEGREE]=='双学位'?'selected':''}>双学位</option>
+    </select>
+
+    <label>专业：<font color="#ff0000">*</font></label>
+    <input type="text" name="major" value="{$da['MAJOR']}" />
+    <label>毕业时间：<font color="#ff0000">*</font></label>
+    <input type="text" name="graduate_time" value="{$da['GRADUATE_TIME']}" class="date Wdate" onClick="WdatePicker()"/>
+  </div>
+  
+  <div>
+    <label>毕业院校：<font color="#ff0000">*</font></label>
+    <input id="school1" type="text" name="school" value="{$da['SCHOOL']}" />
+    <label>是否211：<font color="#ff0000">*</font></label>
+    是<input type="radio" name="if0211" value="是" disabled="true"/>
+    否<input type="radio" name="if0211" value="否" disabled="true"/>
+    
+
+    <label>学历学位证书：<font color="#ff0000">*</font></label>
+    <a href="{$path}{$da['DEGREE1_NAME_1']}" target="_blank">{$da['DEGREE1_NAME']}</a>
+
+    <span>
+      <input type="text" class="file" id="degree1_name" name="degree1_name" value="{$da['DEGREE1_NAME']}" param1="{$da.DEPT_NO}_lsygxl_<?php echo session('user_auth.OA')?>_1"/>
+      <input type="button" class="btn file-btn" value="浏览"/>
+    </span>
+    <input type="hidden" id="degree1_name_1" name="degree1_name_1" value="{$da['DEGREE1_NAME_1']}"/>
+  </div>
+
+  <div>
+    <label>非全日制最高学历：</label>
+    <select name="edu_degree">
+      <option></option>
+      <option value="初中及以下" {$da[EDU_DEGREE]=='初中及以下'?'selected':''}>初中及以下</option>
+      <option value="中专" {$da[EDU_DEGREE]=='中专'?'selected':''}>中专</option>
+      <option value="高中" {$da[EDU_DEGREE]=='高中'?'selected':''}>高中</option>
+      <option value="技校" {$da[EDU_DEGREE]=='技校'?'selected':''}>技校</option>
+      <option value="大学专科" {$da[EDU_DEGREE]=='大学专科'?'selected':''}>大学专科</option>
+      <option value="大学本科" {$da[EDU_DEGREE]=='大学本科'?'selected':''}>大学本科</option>
+      <option value="硕士研究生" {$da[EDU_DEGREE]=='硕士研究生'?'selected':''}>硕士研究生</option>
+      <option value="博士研究生" {$da[EDU_DEGREE]=='博士研究生'?'selected':''}>博士研究生</option>
+      <option value="双学位" {$da[EDU_DEGREE]=='双学位'?'selected':''}>双学位</option>
+    </select>
+
+    <label>专业：</label>
+    <input type="text" name="edu_major" value="{$da['EDU_MAJOR']}"/>
+    <label>毕业时间：</label>
+    <input type="text" name="edu_end" value="{$da['EDU_END']}" class="date Wdate" onClick="WdatePicker()"/>
+  </div>
+  
+  <div>
+    <label>毕业院校：</label>
+    <input id="school2" type="text" name="edu_school" value="{$da['EDU_SCHOOL']}" />
+
+    <label>是否211：<font color="#ff0000">*</font></label>
+    是<input type="radio" name="if1211" value="是" disabled="true"/>
+    否<input type="radio" name="if1211" value="否" disabled="true"/>
+
+    <label>学历学位证书：</label>
+    <a href="{$path}{$da['DEGREE2_NEW_NAME']}" target="_blank">{$da['DEGREE2_OLD_NAME']}</a>
+
+    <span>
+      <input type="text" class="file" id="degree2_name" name="degree2_name" value="{$da['DEGREE2_NAME']}" param1="{$da.DEPT_NO}_lsygxl_<?php echo session('user_auth.OA')?>_2"/>
+      <input type="button" class="btn file-btn" value="浏览"/>
+    </span>
+    <input type="hidden" id="degree2_name_1" name="degree2_name_1" value="{$da['DEGREE2_NAME_1']}"/>
+  </div>
+  <div>
+    <label>特长：<font color="#ff0000">*</font></label>
+    <input type="text" class="text" name="speciality" value="{$da['SPECIALITY']}" />
+  </div>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">员工家属信息
+  <input type="button" class="but1" value="增加"/>
+  </div>
+  <table class="tab1">
+	  <tr>
+	    <th class="xh" style="width:35px">序号</th>
+	    <th style="width:60px">家属姓名</th>
+	    <th style="width:80px">出生日期</th>
+      <th style="width:80px">身份证号</th>
+      <th style="width:220px">身份证正面</th>
+      <th style="width:220px">身份证反面</th>
+	    <th style="width:98px">与员工本人关系</th>
+	    <th style="width:100px">联系电话</th>
+      <th style="width:200px">工作单位</th>
+      <th style="width:120px">职位</th>
+	    <th>操作</th>
+	  </tr>
+    <for start="0" end="count($fami)">
+    <tr class="{$i+1}">
+      <td class="xh xh1">{$i+1}</td>
+      <td><input type="hidden" style="width:35px" name="xh1[]" value="{$fami[$i]['XH1']}"/>
+        <input type="text" name="fami_name[]" value="{$fami[$i]['FAMI_NAME']}"/>
+      </td>
+      <td><input type="text" name="birth[]" value="{$fami[$i]['BIRTH']}" class="date Wdate" onClick="WdatePicker()"/></td>
+      <td>
+        <input type="text" name="card_id[]" value="{$fami[$i]['CARD_ID']}"/>
+      </td>
+
+      <td>
+      <span>
+        <input type="text" class="file" id="img1_{$i+1}" name="img1[]" value="{$fami[$i]['IMG1']}" param1="{$da.DEPT_NO}_lsygjs_<?php echo session('user_auth.OA')?>_{$i+1}_1"/>
+        <input type="button" class="btn file-btn" value="浏览"/>
+      </span>
+      <input type="hidden" id="img1_{$i+1}_1" name="img1_1[]" value="{$fami[$i]['IMG1_1']}"/>
+      </td>
+
+      <td>
+      <span>
+        <input type="text" class="file" id="img2_{$i+1}" name="img2[]" value="{$fami[$i]['IMG2']}" param1="{$da.DEPT_NO}_lsygjs_<?php echo session('user_auth.OA')?>_{$i+1}_2"/>
+        <input type="button" class="btn file-btn" value="浏览"/>
+      </span>
+      <input type="hidden" id="img2_{$i+1}_1" name="img2_1[]" value="{$fami[$i]['IMG2_1']}"/>
+      </td>
+
+      <td>
+        <select name="relation[]">
+          <option value=""></option>
+          <option value="父亲" {$fami[$i][RELATION]=='父亲'?'selected':''}>父亲</option>
+          <option value="母亲" {$fami[$i][RELATION]=='母亲'?'selected':''}>母亲</option>
+          <option value="配偶" {$fami[$i][RELATION]=='配偶'?'selected':''}>配偶</option>
+          <option value="子女" {$fami[$i][RELATION]=='子女'?'selected':''}>子女</option>
+          <option value="兄弟" {$fami[$i][RELATION]=='兄弟'?'selected':''}>兄弟</option>
+          <option value="姐妹" {$fami[$i][RELATION]=='姐妹'?'selected':''}>姐妹</option>
+		  <option value="姐弟" {$fami[$i][RELATION]=='姐弟'?'selected':''}>姐弟</option>
+          <option value="公公" {$fami[$i][RELATION]=='公公'?'selected':''}>公公</option>
+          <option value="婆婆" {$fami[$i][RELATION]=='婆婆'?'selected':''}>婆婆</option>
+          <option value="岳父" {$fami[$i][RELATION]=='岳父'?'selected':''}>岳父</option>
+          <option value="岳母" {$fami[$i][RELATION]=='岳母'?'selected':''}>岳母</option>
+        </select>
+      </td>
+      <td><input type="text" name="link_no[]" value="{$fami[$i]['LINK_NO']}"/></td>
+      <td><input type="text" name="com[]" value="{$fami[$i][COM]}"/></td>
+      <td><input type="text" name="position[]" value="{$fami[$i]['POSITION']}"/></td>
+      <td><a class="del" onclick="deltr1({$i+1})">删除</a></td>
+    </tr>
+    </for>
+  </table>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">员工资格认证信息<input type="button" class="but2" value="增加"/></div>
+  <table class="tab2">
+	  <tr>
+	    <th class="xh" style="width:35px">序号</th>
+	    <th style="width:120px">证书名称</th>
+	    <th style="width:70px">发证日期</th>
+      <th style="width:90px">发证机关</th>
+      <th style="width:220px">扫描件</th>
+      <th style="width:216px">有效期</th>
+	    <th>操作</th>
+	  </tr>
+    <for start="0" end="count($cert)">
+    <tr>
+      <td class="xh xh2">{$i+1}</td>
+      <td><input type="hidden" name="xh2[]" value="{$cert[$i]['XH2']}"/><input type="text" name="certify_name[]" value="{$cert[$i]['CERTIFY_NAME']}"/></td>
+      <td><input type="text" name="sign_date[]" value="{$cert[$i]['SIGN_DATE']}" class="date Wdate" onClick="WdatePicker()"/></td>
+      <td><input type="text" name="sign_unit[]" value="{$cert[$i]['SIGN_UNIT']}"/></td>
+      <td>
+      <span>
+        <input type="text" class="file" id="cert_name{$i+1}" name="cert_name[]" param1="{$da.DEPT_NO}_lsygzs_<?php echo session('user_auth.OA')?>_{$i+1}_1" value="{$cert[$i]['OLD_FILE_NAME']}"/>
+        <input type="button" class="btn file-btn" value="浏览"/>
+      </span>
+      <input type="hidden" id="cert_name{$i+1}_1" name="cert_name_1[]" value="{$cert[$i]['NEW_FILE_NAME']}"/>
+      </td>
+
+      <td><input type="text" name="start_date[]" value="{$cert[$i]['START_DATE']}" class="date Wdate" onClick="WdatePicker()"/>--<input type="text" name="end_date[]" value="{$cert[$i]['END_DATE']}" class="date Wdate" onClick="WdatePicker()"/></td>
+      <td><a class="del" onclick="deltr2({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="hidden">
+  <label>当前操作：</label>
+  <input type="text" class="date readonly" name="cz" value="zc"/>
+  <label>当前状态：</label>
+  <input type="text" class="readonly" name="tb_status" value="{$da['TB_STATUS']}"/>
+</div>
+
+<div class="form bform auditView">
+  <div>
+    <label>退回意见：</label>
+    <textarea style="width:760px"  name="audit_view">{$da['AUDIT_VIEW']}</textarea>
+  </div>
+</div>
+
+<div class="btn-box">
+  <div class="btn-group">
+    <input type="button" class="btn zc" value="暂存"/>
+    <input type="button" class="btn tj" value="提交"/>
+    <input type="button" class="btn thng" value="退回拟稿"/>
+    <input type="button" class="btn thpre" value="退回上一节点"/>
+  </div>
+</div>
+</form>
+</block>
+
+<block name="jsfile">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  $(".file").attr("readonly","readonly");//文件上传框内容只读
+  $id = "{$da['ID']}";
+  if($id == ''){
+    var date = new Date();
+    var hours =date.getHours();
+
+    if(hours < 10){
+      hours = "0"+hours;
+    }
+    var minutes = date.getMinutes();
+    if(minutes < 10){
+      minutes = "0"+minutes;
+    }
+    var seconds = date.getSeconds();
+    if(seconds < 10){
+      seconds = "0"+seconds;
+    }
+    var currDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+" "+hours+":"+minutes+":"+seconds;
+    $("input[name='create_time']").val(currDate);
+    $("input[name='tb_status']").val("1");
+  }
+
+  $("input[name='dept']").val("{$da['DEPT']}");
+
+  var role = "{$role}";
+  var auditView = $(".auditView");
+  auditView.css("display","block");
+  //拟稿节点
+  if(role != "deptManager" && role != "zhadmin"){
+    var audit_view = $("textarea[name='audit_view']");
+    if(audit_view.val() == ''){
+      auditView.css("display","none");
+    }
+    $("textarea[name='audit_view']").attr("readOnly","readOnly");
+  }
+
+  read();//文档加载时
+  
+  $("#theForm1").on("click",".file-btn",function(){
+    var param = $(this).parent("span").children(".file").attr("id");
+    var param1 = $(this).parent("span").children(".file").attr("param1");
+    
+    if(param1==undefined) param1 = '';
+    layer.open({
+      type: 2,
+      area: ['300px', '200px'],
+      fixed: false,
+      maxmin: false,
+      content: '__APP__/uploadFile1.php?id='+param+'&prefix='+param1
+    });
+  });
+  
+  $("input:radio[name='if0211'][value={$da['IF0211']}]").prop("checked",true);
+  $("input:radio[name='if1211'][value={$da['IF1211']}]").prop("checked",true);
+  $("#school1").change(function(){
+    var index = $("select[name='bachelor_degree']").get(0).selectedIndex;
+    if(index > 4){
+      var thisVal = $(this).val();
+      $.ajax({
+        type:'post',
+        url:"{:U('Employee/if211')}",
+        async : false,
+        data:{school:thisVal},
+        dataType:'json',
+        success:function(re){
+          var school = re.SCHOOL;
+          $("#school1").val(school);
+          if(re.IF211=='是'){
+            $("input:radio[name='if0211']").eq(1).removeProp('checked');
+            $("input:radio[name='if0211']").eq(0).prop('checked',true);
+          }else{
+            $("input:radio[name='if0211']").eq(0).removeProp('checked');
+            $("input:radio[name='if0211']").eq(1).prop('checked',true);
+          }
+        }
+      });
+    }
+  });
+
+  $("#school2").change(function(){
+    var index = $("select[name='edu_degree']").get(0).selectedIndex;
+    if(index > 4){
+      var thisVal = $(this).val();
+      $.ajax({
+        type:'post',
+        url:"{:U('Employee/if211')}",
+        async : false,
+        data:{school:thisVal},
+        dataType:'json',
+        success:function(re){
+          var school = re.SCHOOL;
+          $("#school2").val(school);
+          if(re.IF211=='是'){
+            $("input:radio[name='if1211']").eq(1).removeProp('checked');
+            $("input:radio[name='if1211']").eq(0).prop('checked',true);
+          }else{
+            $("input:radio[name='if1211']").eq(0).removeProp('checked');
+            $("input:radio[name='if1211']").eq(1).prop('checked',true);
+          }
+        }
+      });
+    }
+  });
+
+  $(".zc").click(function(){
+    if(!saveCheck()){
+      return;
+    }
+    $("form input").removeAttr("disabled");
+    $("form select").removeAttr("disabled");
+    $("form input:radio").removeAttr("disabled");
+    $("input[name='cz']").val("zc");
+    $("form").attr("action","{:U('Employee/save')}");
+    $("form").submit();
+    $(".btn").attr("disabled",true);
+  });
+
+  $(".tj").click(function(){
+    saveCheck();
+    $("textarea[name='audit_view']").val("");
+    $("form input").removeAttr("disabled");
+    $("form select").removeAttr("disabled");
+    $("form input:radio").removeAttr("disabled");
+    $("input[name='cz']").val("tj");
+    $("form").attr("action","{:U('Employee/save')}");
+    $("form").submit();
+    $(".btn").attr("disabled",true);
+  });
+
+  $(".thng").click(function(){
+    if(role == "zhadmin"){
+      var audit_view = $("textarea[name='audit_view']").val();
+      if(audit_view == ''){
+        alert("退回意见不能为空");
+        return false;
+      }
+    }
+
+    $("form input").removeAttr("disabled");
+    $("form select").removeAttr("disabled");
+    $("form input:radio").removeAttr("disabled");
+    $("input[name='cz']").val("thng");
+    $("form").attr("action","{:U('Employee/save')}");
+    $("form").submit();
+    $(".btn").attr("disabled",true);
+  });
+
+  $(".thpre").click(function(){
+    if(role == "zhadmin"){
+      var audit_view = $("textarea[name='audit_view']").val();
+      if(audit_view == ''){
+        alert("退回意见不能为空");
+        return false;
+      }
+    }
+
+    $("form input").removeAttr("disabled");
+    $("form select").removeAttr("disabled");
+    $("form input:radio").removeAttr("disabled");
+    $("input[name='cz']").val("thpre");
+    $("form").attr("action","{:U('Employee/save')}");
+    $("form").submit();
+  });
+
+  //增加行
+  $(".but1").click(function(){
+		var len = $(".tab1 tr").length;
+	  $(".tab1").append("<tr><td class='xh xh1' style='width:35px'>"+len+"</td>"
+    +"<td><input type='hidden' name='xh1[]' value='"+len+"'/><input style='width:65px' type='text' name='fami_name[]'/></td>"
+    +"<td><input type='text' name='birth[]' class=\'date Wdate\' onClick=\'WdatePicker()\'/></td>"
+    
+    +"<td><input type='text' name='card_id[]'/></td>"
+
+    +"<td><span><input type='text' class='file' id='img1_"+len+"' name='img1[]' param1='{$da.DEPT_NO}_lsygjs_<?php echo session('user_auth.OA')?>_"+len+"_1'/><input type='button' class='btn file-btn' value='浏览'/></span><input type='hidden' id='img1_"+len+"_1' name='img1_1[]'/></td>"
+
+    +"<td><span><input type='text' class='file' id='img2_"+len+"' name='img2[]' param1='{$da.DEPT_NO}_lsygjs_<?php echo session('user_auth.OA')?>_"+len+"_2'/><input type='button' class='btn file-btn' value='浏览'/></span><input type='hidden' id='img2_"+len+"_1' name='img2_1[]'/></td>"
+
+    +"<td><select name='relation[]' style='width:112px'><option value=''></option><option value='父亲'>父亲</option>"
+	+"<option value='母亲'>母亲</option><option value='配偶'>配偶</option><option value='子女'>子女</option>"
+	+"<option value='兄弟'>兄弟</option><option value='姐妹'>姐妹</option><option value='姐弟'>姐弟</option>"
+	+"<option value='公公'>公公</option><option value='婆婆'>婆婆</option><option value='岳父'>岳父</option>"
+	+"<option value='岳母'>岳母</option></select></td>"
+    +"<td><input style='width:105px' type='text' name='link_no[]'/></td>"
+    +"<td><input style='width:240px' type='text' name='com[]'/></td>"
+    +"<td><input style='width:130px' type='text' name='position[]'/></td>"
+    +"<td><a href=\'#\' onclick=\'deltr1("+len+")\'>删除</a></td>"
+    +"</tr>");
+  });
+
+  $(".but2").click(function(){
+    /*$("form").attr("action","{:U('Employee/addCert')}");
+    $("form").submit();*/
+    var len = $(".tab2 tr").length;
+	  $(".tab2").append("<tr><td class='xh xh2' style='width:35px'>"+len+"</td>"
+		+"<td><input type='hidden' name='xh2[]' value='"+len+"'/><input type='text' style='width:125px' name='certify_name[]'/></td>"
+    +"<td><input type='text' name='sign_date[]' class=\'date Wdate\' onClick=\'WdatePicker()\'/></td>"
+    +"<td><input style='width:110px' type='text' name='sign_unit[]'/></td>"
+    +"<td><span><input type='text' class='file' id='cert_name"+len+"' name='cert_name[]' param1='{$da.DEPT_NO}_lsygzs_<?php echo session('user_auth.OA')?>_"+len+"_1'/><input type='button' class=\'btn file-btn\' value='浏览'/></span><input type='hidden' id='cert_name"+len+"_1' name='cert_name_1[]'/></td>"
+    +"<td><input type='text' name='start_date[]' class=\'date Wdate\' onClick=\'WdatePicker()\'/>--<input type='text' name='end_date[]' class=\'date Wdate\' onClick=\'WdatePicker()\'/></td>"
+    +"<td><a href=\'#\' onclick=\'deltr2("+len+")\'>删除</a></td>"
+		+"</tr>");
+  });
+});
+
+//删除行
+var deltr1 =function(index){
+  if(confirm("确定要删除第"+index+"行吗？")){
+    var len = $(".tab1 tr").length;
+    $(".tab1 tr").eq(index).remove();//删除当前索引行
+    for(var i=index,j=len-1;i<j;i++){
+      $(".tab1 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+      $("input[name='xh1[]']").get(i-1).value = i;
+      var clickattr = "deltr1("+(i)+")";
+      $(".tab1 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+    }
+  }else{
+    return false;
+  }
+	
+}
+
+var deltr2 =function(index){
+  if(confirm("确定要删除第"+index+"行及相应附件吗？")){
+  	var len = $(".tab2 tr").length;
+    $(".tab2 tr").eq(index).remove();//删除当前索引行
+    for(var i=index,j=len-1;i<j;i++){
+      $(".tab2 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+      $("input[name='xh2[]']").get(i-1).value = i;
+      var clickattr = "deltr2("+(i)+")";
+      $(".tab2 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+    }
+  }else{
+    return false;
+  }
+}
+
+function read(){
+  //按当前节点控制显示按钮组(暂存按钮、提交按钮在流程流转中始终显示)
+  var zc = "{$btnTb['1']}";
+  if(zc=='1'){
+    $(".zc").css("display","inline-block");
+  }else{
+    $(".zc").css("display","none");
+  }
+  
+  $(".tj").css("display","inline-block");
+  var btnTbThng="{$btnTb['3']}";//退回拟稿按钮
+  if(btnTbThng=='1'){
+    $(".thng").css("display","inline-block");
+  }else{
+    $(".thng").css("display","none");
+  }
+  var btnTbThpre="{$btnTb['4']}";//退回上一节点按钮
+  if(btnTbThpre){
+    $(".thpre").css("display","inline-block");
+  }else{
+    $(".thpre").css("display","none");
+  }
+  
+  //节点控制显示隐藏，是否可编辑等内容
+  //拟稿节点，不填写的内容不显示
+  var tb_status="{$da['TB_STATUS']}";
+  if(tb_status=='3'){
+    tb_status = '';
+
+  }
+  if(tb_status==''){
+    $("input[name='tb_status']").val("1");
+    tb_status = '1';
+  }else if(tb_status == '2'){
+    $("input[name='dept']").removeClass("readInput");
+    $("input[name='card_old_name']").css("display","none");
+    $("input[name='degree1_old_name']").css("display","none");
+    $("input[name='degree2_old_name']").css("display","none");
+    $("input[name='user_name']").removeClass("readInput");
+    $("input[name='create_time']").removeClass("readInput");
+    $(".bform input").attr("disabled",true);
+    $(".bform select").attr("disabled",true);
+    $(".bform .date").removeClass('Wdate');
+    $("a.del").attr("disabled",true);
+    $("a.del").css('cursor','not-allowed');
+    $(".dynamic input[type='button']").css("display","none");
+  }
+
+  $("input[name='fami_name[]']").css("width","65px");
+  $("select[name='relation[]']").css("width","112px");
+  $("input[name='link_no[]']").css("width","105px");
+  $("input[name='com[]']").css("width","240px");
+  $("input[name='position[]']").css("width","130px");
+
+  $("input[name='certify_name[]']").css("width","125px");
+  $("input[name='sign_unit[]']").css("width","110px");
+  $("input[name='cert_name[]']").css("width","200px");
+}
+
+function saveCheck(){
+  var dept = $("select[name='dept']").val();
+  if(dept == ''){
+    alert("请选择部门");
+    return false;
+  }
+
+  var userName = $("input[name='user_name']").val();
+  if(userName == ''){
+    alert("姓名不能为空");
+    return false;
+  }
+
+  var userid = $("input[name='userid']").val();
+  if(userid == ''){
+    alert("工号不能为空");
+    return false;
+  }
+
+  var billId = $("input[name='bill_id']").val();
+  if(billId == ''){
+    alert("联系电话不能为空");
+    return false;
+  }
+
+  var bachelor_degree = $("select[name='bachelor_degree']").prop('selectedIndex');
+  //$("select[name='bachelor_degree']").val();
+  if(bachelor_degree == '0'){
+    alert("全日制学历不能为空");
+    return false;
+  }
+
+  var edu_degree = $("select[name='edu_degree']").prop('selectedIndex');
+  if(edu_degree !='' && (edu_degree <= bachelor_degree)){
+      if(!(bachelor_degree == '4' && (edu_degree == '2' || edu_degree == '3' || edu_degree == '4'))){
+        alert("非全日制学历须高于全日制学历，请重选");
+        return false;
+      }
+  }
+
+  var t1xh = $(".tab1 .xh1");
+  var t1faminame = $(".tab1 input[name='fami_name[]']");
+  var t1relation = $(".tab1 select[name='relation[]']");
+  
+  var t1size = t1xh.length;
+  for(var i=0; i < t1size; i++){
+    if(t1faminame.eq(i).val() == ''){
+      alert("表一第"+(i+1)+"行家属姓名不能为空");
+      return false;
+    }
+
+    if(t1relation.eq(i).val() == ''){
+      alert("表一第"+(i+1)+"行与员工本人关系不能为空");
+      return false;
+    }
+  }
+
+  var t2xh = $(".tab2 .xh2");
+  var t2certname = $(".tab2 input[name='certify_name[]']");
+  var t2file = $(".tab2 input[name='old_name[]']");
+  
+  var t1size = t1xh.length;
+  for(var i=0; i < t1size; i++){
+    if(t2certname.eq(i).val() == ''){
+      alert("表二第"+(i+1)+"行证书名称不能为空");
+      return false;
+    }
+  }
+
+  return true;
+}
+</script>
+</block>

@@ -1,0 +1,38 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">丽水移动-销售经理实时先锋榜</block>
+
+
+<block name="nav"></block>
+<block name="month"></block>
+
+<block name="body">
+	<div class="rank-info" style="overflow: hidden;">
+		<div class="top">
+		<a href="#">销售经理实时先锋榜</a>
+		<form action="{:U('ls_xsjl')}" method="post">
+			<input name="user_name" value="<?php if($user_name=='') echo '请输入姓名'; else echo $user_name;?>" onfocus="if(value=='请输入姓名') {value=''}" onblur="if(value==''){value='请输入姓名'}"  style="width: 150px;height: 20px;line-height: 20px;border: 1px solid #ccc;margin-left: 10px;"/>
+			<input type="submit" value="搜索" style="width: 50px;height: 22px;border: 0px;background:#0081CC;color: white" />
+		</form>
+		</div>
+		<ul>
+		<volist name="user" id="u">
+			<li class="" title="{$u['COUNTY_NAME']}-{$u['MANAGER_NAME']}">
+				<a href="{:U('ls/wid_xsjl')}?bill_id={$u['BILL_ID']}" target="_blank" class="link">
+					<img src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" width="35%" height="80px" style="float: left;">
+					<div class="score">{$u['TOP']} &nbsp;&nbsp;{$u['MANAGER_NAME']}</div>
+					<div class="span"><span>综合得分：{$u['SCORE']}</span><br/>
+					<span>{$u['COUNTY_NAME']}</span></div>
+				</a>
+			</li>
+		</volist>
+		</ul>
+		{$_page}
+	</div>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>

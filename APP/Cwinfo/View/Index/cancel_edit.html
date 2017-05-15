@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发票作废</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Fpgl/style/cancel_edit.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/jquery-ui.css" />
+<script type="text/javascript" src="__PUBLIC__/Fpgl/js/cancel_edit.js"></script>
+<link rel="shortcut icon" href="__PUBLIC__/Fpgl/favicon.ico" />
+</head>	
+<body>
+ <div id="add">
+	<h2>{$result['INVOICE_ID']}--发票作废</h2> 
+	 	<form name="add" action="{:U('invoice_cancel')}" method="post">
+	 	<dl>
+	 		<dd><span>发票编号</span><input class="text" type="text" readonly name="invoice_id" value="{$result['INVOICE_ID']}"/></dd>
+	 		<dd><span>部门经理</span><input class="text" type="text" id="dept_manager" name="dept_manager" /></dd>
+	 		<dd><span>作废原因</span><textarea class="text" name="cancel_reason"></textarea></dd>
+	 		<dd><input type="submit" class="submit" name="send" onclick=" return checkForm();" value="提交" /></dd>
+	 	</dl>
+	 	</form>
+</div>
+</body>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 	
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script> 
+<script type="text/javascript" src="__STATIC__/jquery-ui-1.10.4-custom.js"></script>
+<script type="text/javascript">
+	var availableTags = [
+     <?php 
+        $x_num='';
+          for ( $i=0;$i<count($empl_info); $i++) { 
+              if($i==count($empl_info)-1){
+                  $x_num .=('"'.$empl_info[$i]['EMPL_NAME'].'|'.$empl_info[$i]['EMPL_OA'].'"');
+              }else{
+                  $x_num .= ('"'.$empl_info[$i]['EMPL_NAME'].'|'.$empl_info[$i]['EMPL_OA'].'"'.',');
+              }
+          }
+          echo $x_num;
+    ?>
+    ];
+    $("#dept_manager").autocomplete({
+      source: availableTags,
+      messages: {
+        noResults:'',
+        results: function() {}        
+      }
+    }); 
+</script>	
+</html>

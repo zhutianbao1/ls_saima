@@ -1,0 +1,233 @@
+<extend name="pub/main_hr"/>
+
+<block name="title">
+<if condition="$errMsg neq null">
+	未获取信息
+<else/>
+{$hr['USER_NAME']} - 个人能力测评报告
+</if>
+</block>
+	
+<?php echo 'aaaaa';?>
+<block name="body">
+	<if condition="$errMsg neq null">
+		<div class="errMsg">
+			{$errMsg}
+		</div>
+	<else/>
+	<div id="hr_info">
+		<div>
+			<div class="hr_info_title">
+				<span>基本信息</span>
+			</div>
+			<div class="hr_info_content" style="height: 185px;">
+				<div class="model-con"><img src="__HEAD_IMG__{$hr['BILL_ID']}.jpg" height="150px" width="120px"></div>
+				<div class="model-cons">
+					<ul class="model-list">
+						<li class="li">姓名：<span>{$hr['USER_NAME']}</span></li>
+						<li class="li">县市：<span>{$hr['COUNTY_NAME']}</span></li>
+						<li class="li">岗位：<span>{$hr['岗位']}</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">员工编号：<span>{$hr['USER_ID']}</span></li>
+						<li class="li">用工性质：<span>{$hr['用工性质']}</span></li>
+						<li class="li">入职时间：<span><?php echo date ("Y-m-d",strtotime($hr['入职时间'])); ?></span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">任现岗位时间：<span><?php echo date ("Y-m-d",strtotime($hr['担任现岗位时间'])); ?></span></li>
+						<li class="li">岗位工龄：<span>{$hr['岗位工龄']}</span></li>
+						<li class="li">年龄：<span>{$hr['年龄']}</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">最高学历：<span>{$hr['最高学历']}</span></li>
+						<li class="li">现职等：<span>{$hr['等级']}级</span></li>
+						<li class="li">13年绩效：<span>{$hr['M2013年绩效']}</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">14年绩效：<span>{$hr['M2014年绩效']}</span></li>
+						<li class="li">15年绩效：<span>{$hr['M2015年绩效']}</span></li>
+						<li class="li">16年评定星级：<span><?php if($hr['现星级']==null){
+						echo $hr['等级']-1;} else {echo $hr['现星级'];}?></span></li>
+					</ul>
+				</div>
+			</div>
+			<!-- <p>工作经历：<span>{$hr['工作经历']}</span></p> -->
+		</div>
+		<div>
+			<div class="hr_info_title">
+				<span>测评结果</span>
+			</div>
+			<div class="hr_info_content" style="height: 50px;">
+				<ul class="model-list">
+					<li class="ls">综合得分：<span class="col">{$hr['得分']}</span></li>
+					<li class="ls">全市排名：<span class="col">{$hr['排名']}</span></li>
+					<li class="ls">总人数：<span class="col">{$info[0]['A']}</span></li>
+				</ul>
+			</div>
+			<if condition="($hr['温馨提示'] eq '')"><else/><p class="col">温馨提示：<span class="col">{$hr['温馨提示']}</span></p></if>
+			
+			<!-- <div id="container1" class="line" style="width:700px;height:320px"></div> -->
+		</div>
+		<div>
+			<div class="hr_info_title">
+				<span>胜任力</span>
+			</div>
+			<div id="container3" class="line" style="width:700px;height:320px"></div>
+		</div>
+		<div style="margin-bottom: 50px;">
+			<div class="hr_info_title">
+				<span>通用培训</span>
+			</div>
+			<div style="min-width:400px;" id="c">
+				<table class="ran" border="0" cellspacing="0" cellpadding="1">
+					<tr class="c">
+						<td class="tab" style="height: 30px;">胜任力项</td>
+						<td class="tab">匹配课程</td>
+						<td class="tab">培训开始时间</td>
+						<td class="tab">培训结束时间</td>
+						<td class="tab">考试得分</td>
+						<td class="tab">选课</td>
+					</tr>
+					<volist name="ty_cour" id="cou">
+						 
+						<tr class="c">
+							<td>通用课程</td>
+							<td>{$cou.COURSE_NAME}</td>
+							<td>{$cou.START_TIME}</td>
+							<td>{$cou.END_TIME}</td>
+							<td>{$cou.EXAM_SCORE}&nbsp;</td>
+							<td>
+							<?php 
+								$url = "http://ls-webdev06.zj.chinamobile.com/uniflow/lsTaskManager/app_ls/chenhao8//LS_Training_plan_approval_process.db/baoming.jssp?open&queryStr=".$cou['APPLYID']."&deptName=".urlencode($hr['COUNTY_NAME'])."&userName=".urlencode($hr['POS_NAME'])."&userId=".$hr['USER_ID']."&charset=utf-8";
+								//$url = urlencode($url);
+							?>
+
+							<if condition="($cou['USERID']) eq null">
+								<a target="_blank" href="{$url}" class="baom">{$cou.情况}</a>			
+							<else/>
+							{$cou.情况}
+							</if></td>
+						</tr>
+					</volist>
+				</table>
+			</div>
+		</div>
+	</div>
+	</if>
+</block>
+
+
+<block name="js">
+	<script type="text/javascript" src="__STATIC__/highcharts.js"></script>
+	<script type="text/javascript" src="__STATIC__/exporting.js"></script>
+	<script type="text/javascript" src="__STATIC__/highcharts-more.js"></script>
+
+    <script language="javascript" type="text/javascript"> 
+    var chart; 
+    $(document).ready(function () { 
+        chart = new Highcharts.Chart({ 
+            chart: { 
+                renderTo: 'container3', 
+                defaultSeriesType: 'column', //图表类别有：line、spline、area、areaspline、bar、column等 
+                marginRight: 50, 
+                marginBottom: 55,
+                height:300,
+	            borderWidth: 10,
+				borderRadius: 10,
+				borderColor:'#f8f8f8'
+            }, 
+            colors: [
+                 '#5B9BD5',
+                 '#ED7D31',
+                 '#A5A5A5',
+                 '#FFC000',
+                 '#4472C4',
+                 '#70AD47'
+             ],
+	        xAxis: {
+	            categories: ['个人素养','工作态度','团队协作','计划与执行','业务管理','效能提升','学习与探索'],
+                lineWidth: 1,
+             	lineColor: '#272727',
+                tickWidth: 1,
+                tickColor: '#272727'
+	        },
+	        yAxis: {
+                allowDecimals: false,
+                min: 0,
+                endOnTick: false,
+                gridLineWidth: 0,
+                lineWidth: 1,
+                lineColor: '#272727',
+                tickWidth: 1,
+                tickColor: '#272727',
+                tickPixelInterval: 70
+	        },
+	        plotOptions: {
+	        	series: {
+					pointWidth: 10,
+				},
+	            column: {
+	                dataLabels: {
+	                    enabled: true
+	                },
+	                enableMouseTracking:true
+	            }
+	        },
+	        legend: {
+	            //layout: 'vertical',
+	            align: 'center',
+	            verticalAlign: 'bottom',
+	            y:20,
+	            x:0,
+	            floating: true,
+	            borderWidth: 0,
+	            backgroundColor:null, 
+	            itemMarginBottom: 10,
+	            shadow: false
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: '自我评价',
+	            data: [{$hr['个人素养Z']},{$hr['工作态度Z']},{$hr['团队协作Z']},{$hr['计划与执行Z']},{$hr['业务管理Z']},{$hr['效能提升Z']},{$hr['学习与探索Z']}]
+	        }, {
+	            name: '同事评价',
+	            data: [{$hr['个人素养T']},{$hr['工作态度T']},{$hr['团队协作T']},{$hr['计划与执行T']},{$hr['业务管理T']},{$hr['效能提升T']},{$hr['学习与探索T']}]
+	        }, {
+	            name: '经理评价',
+	            data: [{$hr['个人素养J']},{$hr['工作态度J']},{$hr['团队协作J']},{$hr['计划与执行J']},{$hr['业务管理J']},{$hr['效能提升J']},{$hr['学习与探索J']}]
+	        }, {
+	            name: '领导评价',
+	            data: [{$hr['个人素养L']},{$hr['工作态度L']},{$hr['团队协作L']},{$hr['计划与执行L']},{$hr['业务管理L']},{$hr['效能提升L']},{$hr['学习与探索L']}]
+	        }, {
+	        	type: 'line',
+	            name: '综合评价',
+	            data: [{$hr['个人素养']},{$hr['工作态度']},{$hr['团队协作']},{$hr['计划与执行']},{$hr['业务管理']},{$hr['效能提升']},{$hr['学习与探索']}]
+	        }, {
+	        	type: 'line',
+	            name: '均值',
+	            data: [8.34,7.82,7.49,7.69,7.79,7.67,7.60]
+	        }]
+	    });
+	});
+    </script>
+	<script type="text/javascript">
+	$(function(){
+		var duanb="<?php echo str_replace(array("\r\n", "\r", "\n","&nbsp;"),"|",$yjrs."".$yzrs."".$szrs); ?>";
+		var arr = duanb.split('|||||');
+		$('#c .row').hide();
+		$('#c .row').each(function(index, el) {
+			var e=$(this),
+			td=e.find('td').eq(0),
+			html=$.trim(td.html());
+			for (var i = 0; i < arr.length; i++) {
+				var tmp=$.trim(arr[i]);
+				if(tmp.indexOf(html)>=0){
+					e.show();
+				}
+			}
+		});
+	});
+	</script>
+</block>

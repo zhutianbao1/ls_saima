@@ -1,0 +1,253 @@
+<html>
+	<head>
+		<title>表单存储</title>
+		<include file="Form/form_js_css"/>
+		<style>
+		.list_attrs_table{width:800px;}
+		.list_attrs_table td{background: #fff;text-align: right;padding-right:2px;}
+		.list_attrs_table td input{border:solid 1px grey;}
+		select{border:solid 1px grey;background:#ccc;padding:3px 0px;}
+		.his_tables li a{display: block;width:100%;padding:10px 0px;border-bottom: solid 1px #ccc;}
+		.his_tables li a:hover{background: rgb(219,234,239);color:#000;font-weight: bold;}
+		.his_tables li .curr{background: rgb(219,234,239);color:#000;font-weight: bold;}
+		th{background: rgb(219,234,239) !important;border-bottom: solid 1px #ccc;border-right:solid 1px #ccc;}
+		.checkbox{border:0px;margin:0px;-webkit-appearance:none;}
+		</style>
+		<include file="Form/for_js_css"/>
+	</head>
+
+	<body>
+	<form name="table_form" action="{:U('form_table_design')}" method="post">
+
+	<?php 
+		$table_name = 'ft_'.date('ymdHis',time());
+	?>
+	 
+	<div class="row">
+		<div class="col col1">
+			<label>表名</label>
+			<input id="id" name="table_name" readonly="readonly" value="{$table_name}" class="readInput" type="text">
+		</div>
+		<div class="col col1">
+			<label>表单编号</label>
+			<input id="id" name="form_id"  readonly="readonly" value="{$info['ID']}" class="readInput" type="text">
+		</div>
+		<div class="col col1">
+			<label>表单名称</label>
+			<input id="name" name="name" readonly="readonly" value="{$info['NAME']}" class="readInput" type="text">
+		</div>
+	</div>
+	<div>
+	<table id="table_atrrs" class="list_attrs_table clr left;" cellspacing="0" cellpadding="0" border=0 width="100%">
+	<tr>
+		<th  width="50px">&nbsp;</th>
+		<th>标题</th>
+		<th>列名</th>
+		<th>类型</th>
+		<th>长度</th>
+		<th>允许空值</th>
+		<th>默认值</th>
+		<th>备注<th>
+		<th>&nbsp;<th>
+	</tr>
+	<?php 
+		 
+		$attrs = json_decode("[".$info['FORM_OBJS']."]");
+	?>
+	<tr>
+		<td align="center" width="80px">{$k}</td>
+		<td><input type="text" name="title" readonly="readonly" value="序列号"/></td>
+		<td><input type="text" name="name"  readonly="readonly" value="id"/></td>
+		<td>
+		<select name="type" style="width:80px">
+				<option value="number">number</option>
+			</select>
+		</td>
+		<td><input style="width:50px"  readonly="readonly" type="text" name="length" value="18"/></td>
+		<td>
+			<select name="display" style="width:50px">
+				<option value=" not null ">否</option>
+			</select>
+		</td>
+		<td><input type="text"  readonly="readonly" name="default" value=""/></td>
+		<td><input type="text"  readonly="readonly" name="comment" value="自增序列"/></td>
+	</tr>
+	<?php $i = 1; ?>
+	<volist name="attrs" id="col" key="k">
+		<?php
+			$type = $col->type;
+		?>
+		<if condition="($type neq 'row') and ($type neq 'submit')">
+		<tr>
+			<td><input type="checkbox" class="checkbox" name="rowid"/></td>
+			<td><input type="text" name="title" value="{$col->title}"/></td>
+			<td><input type="text" name="name" value="{$col->name}"/></td>
+			<td>
+			<select name="type" style="width:80px">
+					<option value=""></option>
+					<option value="varchar2" selected="selected">varchar2</option>
+					<option value="varchar">varchar</option>
+					<option value="number">number</option>
+					<option value="date">date</option>
+					<option value="clob">clob</option>
+					<option value="int">int</option>
+					<option value="float">float</option>
+					<option value="text">text</option>
+				</select>
+			</td>
+			<td><input style="width:50px" type="text" name="length" value="255"/></td>
+			<td>
+				<select name="isNull" style="width:50px">
+					<option value="">是</option>
+					<option value=" not null ">否</option>
+				</select>
+			</td>
+			<td><input type="text" name="default" value=""/></td>
+			<td><input type="text" name="comment" value=""/></td>
+			<td><a href="javascript:;" class="insert_row">插入新行</a>
+				<a href="javascript:;" class="delete_row">删除行</a>
+			</td>
+		</tr>
+		<?php
+			 $i++;
+		?>
+		</if>
+	</volist>
+	</table>
+	<textarea class="hide" rows=3 cols=120 name="table_json" id="table_json"></textarea>
+	</div>
+	
+	<div style="padding-left:22px;">
+		<a href="javascript:;" class="a_btn a_btn_default right add_last_row"><input type="button" value="新增尾行" /></a>
+		<a href="javascript:;" class="a_btn a_btn_default right del_rows"><input type="button" value="删除行" /></a>
+		<a href="javascript:;" class="a_btn a_btn_primary left create_table"><input type="button" value="表创建" /></a>
+		<!-- <a href="javascript:;" class="a_btn a_btn_default left modify_table"><input type="button" value="表更新" /></a> -->
+	</div>
+	</form>
+
+	<script type="text/javascript">
+	var table_flag = false;
+	$(function(){		 
+		// var table_name = $("input[name=table_name]").val();
+		// table_flag = table_exists(table_name);
+
+		//表创建
+		$(".create_table").click(function(){
+			var table_name = $("input[name=table_name]").val();
+			var cols = new Array();
+			var valid = true;
+
+			$("#table_atrrs").find('input ,select').css('background','none');
+
+			$.each($("#table_atrrs tr"),function(index,e){
+				if(index>0){
+					var e = $(this);
+					var col = {
+						title : e.find("input[name=title]").eq(0).val(),
+						name : e.find("input[name=name]").eq(0).val(),
+						type : e.find("select[name=type]").eq(0).val(),
+						isNull : e.find("select[name=isNull]").eq(0).val(),
+						length : e.find("input[name=length]").eq(0).val(),
+						moren : e.find("input[name=moren]").eq(0).val(),
+						comment : e.find("input[name=comment]").eq(0).val()
+					}
+					cols.push(col);
+
+					//数据输入验证
+					if(col.title.isEmpty()){
+						e.find("input[name=title]").eq(0).css('background','rgb(230,118,16)');
+						valid=false;
+					}
+
+					if(col.name.isEmpty()){
+						e.find("input[name=name]").eq(0).css('background','rgb(230,118,16)');
+						valid=false;
+					}
+
+					if(col.type==null || col.type.isEmpty()){
+						e.find("select[name=type]").eq(0).css('background','rgb(230,118,16)');
+						valid=false;
+					}
+
+					if(!(col.type=='date' || col.type=='number'  || col.type=='clob' || col.type=='text')){
+						if(col.length.isEmpty() || !(col.length.isNumber())){
+							e.find("input[name=length]").eq(0).css('background','rgb(230,118,16)');
+							valid=false;
+						}
+					}
+				}
+			});
+
+			if(valid==false){
+				return;
+			}
+
+			if(table_name.isEmpty()){
+				alert('表明不允许为空');
+				return;
+			}
+			if(cols.length>0){
+				$("#table_json").val($.toJSON(cols));
+			}	
+
+			if(table_flag){
+				alert(table_name+' 表已经存在');
+				return ;
+			}
+
+			if(confirm('是否确认执行建立表格：'+table_name)){
+				table_form.submit();
+			}
+		});
+
+		//检查表是否已经存在
+		table_exists = function(table_name){
+			$.ajax({
+				url:"{:U('manage/form_table_exists')}",
+				type:'POST',
+				dataType:'json',
+				data:{table_name:table_name},
+				success:function(re){
+					return re['success'];
+				},
+				error:function(){
+					return false;
+				}
+			});
+		}
+
+		//检验数据输入规则
+
+
+		//表更新
+		$(".modify_table").click(function(){
+
+		});
+
+		//删除选中行
+		$(".del_rows").click(function(){
+
+		});
+
+		//新增尾行
+		$(".add_row").click(function(){
+
+		});
+		//插入行
+		$(".insert_row").live('click',function(){
+			var e = $(this),
+				tr = e.parent().parent(),
+				clone = tr.clone(),
+				index = tr.index();
+				clone.find('input[type=text]').val('');
+				tr.after(clone);
+		});
+
+		//删除行
+		$(".delete_row").live('click',function(){
+			$(this).parent().parent().remove();
+		});
+	});
+	</script>
+</body>
+</html>

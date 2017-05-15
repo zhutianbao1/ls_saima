@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>积分导入</title>
+	<link rel="stylesheet"  
+            href="__STATIC__/jquery-ui-10/css/base/jquery-ui-1.10.4.custom.min.css">
+	<style type="text/css">
+		.file_content{width: 550px; position: absolute;
+					background-color: #fffff9; top: 10px; left:175px;border:1px solid #666;}
+		.file_group{height: 30px; line-height: 30px; font-size: 13px; margin-bottom: 5px; }
+		.file_group label{ display: inline-block;width: 15%;text-align: right; }
+		.file_group a{ padding: 3px 5px;}
+		.file_group input[type='text']{border:1px solid #666;width: 60%;margin-bottom: 3px;height: 25px;line-height: 25px;}
+		.file_group input[type='file']{border:1px solid #666; height: 28px;line-height: 28px;width: 80%;
+					margin-bottom: 3px; }
+		.btn_div{ margin-top: 10px; text-align: center; height: 30px; line-height: 30px;}
+		.btn_div .sub_btn{font-size: 14px;color: #666; padding: 3px 15px; border:1px solid #666; margin-bottom: 2px; }
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div id="file_content" class="file_content" >  
+		    <form id="theForm" method="post" action="{:U('Manager/manager_score_import')}" 
+		    														enctype="multipart/form-data" >   
+		        <div class="file_group">
+		            <label>模板下载:</label> 
+		            <a href="__PUBLIC__/files/导入模板.xlsx">下载模板</a>
+		        </div>
+		        <div class="file_group">
+		            <label>阅读会名称:</label>
+		            <input type="text" name="meeting" class="meeting" /><span style="color: red;">输入关键字</span>
+		        </div>
+		        <div class="file_group">
+		            <label>阅读会时间:</label>
+		            <input type="text" name="meeting_date" class="meeting_date" 
+		                               onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+		            <span style="color: red;">阅读会对应日期</span>
+		        </div>
+
+		        <div class="file_group">
+		            <label>导入数据:</label>
+		            <input type="file" name="file_stu"/>
+		        </div>
+		        <div class="btn_div">
+		            <input type="button" value="导 入" class="sub_btn" />
+		        </div>
+		    </form>
+		</div>
+	</div>		
+</body>
+<script src="__STATIC__/jquery-1.7.2.min.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script src="__STATIC__/jquery-ui-10/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var titles=[            
+	                <?php 
+	                $title='';
+	                for ( $i=0;$i<count($meeting); $i++) { 
+	                    if($i==count($meeting)-1){
+	                        $title .=('"'.$meeting[$i]['id'].'|'.$meeting[$i]['title'].'"');
+	                    }else{
+	                        $title .= ('"'.$meeting[$i]['id'].'|'.$meeting[$i]['title'].'"'.',');
+	                    }
+	                }
+	                echo $title;
+	                ?>
+	    ];
+
+	    $(".meeting").autocomplete({
+	        source: titles,
+	        messages: {
+	            noResults:'',
+	            results: function() {}        
+	        }
+	    });
+ 		
+ 		$('.sub_btn').click(function(){
+ 			var flag=true;
+ 			var meeting=$('.meeting').val();
+ 			var meeting_date=$('.meeting_date').val();
+ 			if(meeting_date.isEmpty()){
+ 				flag=false;
+ 				layer.alert('请选择阅读会时间!');
+ 			}
+ 			if(meeting.isEmpty()){
+ 				flag=false;
+ 				layer.alert('请选择阅读会标题!');
+ 			}else{
+ 				if(meeting.indexOf("|") <= 0 ){
+ 					flag=false;
+ 					layer.alert('阅读会标题不正确!');
+				}
+ 			}
+
+ 			if(meeting.indexOf("|") > 0&&flag){
+ 				$('#theForm').submit();
+ 			}
+
+ 			//
+
+
+ 		});
+
+
+	});
+</script>
+</html>

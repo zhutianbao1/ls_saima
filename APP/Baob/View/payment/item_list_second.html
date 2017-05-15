@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>营收资金稽核及报表</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/payment_six2.css"/>
+	<style type="text/css"></style>
+</head>
+<body>
+	<div class="content">
+		<div class="box">
+			<div class="header">
+				<input type="button"  class="back_btn" value="返 回" />
+				<a class="title">营收资金稽核工单列表</a>
+			</div>
+			<div class="main">
+			    <div class="subtitle">
+			    	{:W('Side/side_tabs')}
+			    </div>
+				<table>
+					<tr>
+						<th>操作</th>
+						<th>工单号</th>
+						<th>县市</th>
+						<th>渠道名称</th>
+						<th>结算人员</th>
+						<th>结算时间</th>
+						<th>一级稽核</th>
+						<th>一级稽核时间</th>
+						<th>打印人</th>
+						<th>打印时间</th>
+					</tr>
+					<empty name="lists">
+						<tr >
+							<td colspan=8 style="text-align:left;text-indent: 20px;">暂无数据</td>
+						</tr>
+					<else/>
+						<volist name="lists" id="list">
+							<tr>
+								<td>
+									<a href="{:U('Payment/second_audit?item_id='.$list['ITEM_ID'])}">稽核</a>
+								</td>
+								<td>{$list.ITEM_ID}</td>
+								<td>{$list.COUNTY_NAME}</td>
+								<td>{$list.ORG_NAME}</td>
+								<td>{$list.JS_PERSON}</td>
+								<td>{$list.PAYMENT_DATE}</td>
+								<td>{$list.FIRST_AUDIT_OPER}</td>
+								<td>{$list.FIRST_AUDIT_DATE}</td>
+								<td>{$list.DAYIN}</td>
+								<td>{$list.DAYIN_DATE}</td>
+							</tr>
+						</volist>
+					</empty>
+					
+				</table>				
+			</div>
+			<div style="margin-left: 10px; height: 40px;">
+				{$_page}
+			</div>
+		</div>
+	</div>
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.back_btn').click(function(){
+			window.location="{:U('Login/payment_index')}";
+		});
+	});
+</script>
+</html>

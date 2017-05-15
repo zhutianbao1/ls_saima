@@ -1,0 +1,97 @@
+<extend name="tmp"/>
+<block name="body">
+   <form name="theForm" id="demo" action="" method="post"> 
+   <input type="hidden"  name="id" value={$menu['MENU_ID']}>
+   <input type="hidden"  name="menu_id" value={$menu['MENU_ID']}>
+   <input type="hidden"  name="menu_level" value={$menu['MENU_LEVEL']}>
+  <table  width="100%" height="100%" border="0" class="ctable" cellspacing="1" cellpadding="0"> 
+      <tr>
+          <td>排序序号</td>
+              <td>
+              <input id="menuNo" type="text" name="menu_no" value="{$menu['MENU_NO']}" size="20" >
+             </td>
+      </tr>
+      <tr>
+        <td>归属系统</td>
+        <td>
+          <select name="menu_func">
+            <?php 
+              echo R('Admin/Util/select',array(array('业务支撑系统A'=>'A',
+                                                     '报表管理系统B'=>'B',
+                                                     '综合业务受理C'=>'C'),$menu['MENU_FUNC']))
+            ?>
+          </select>
+        </td>
+      </tr>
+      <tr>
+          <td>名称</td>
+          <td>
+          <input type="text" name="menu_name" value="{$menu['MENU_NAME']}">
+        </td>
+      </tr>
+      
+        <tr>
+          <td>上级菜单</td>
+          <td>
+          <input type="text" id="parentMenuName" readonly value="{$menuParent['MENU_NAME']}">
+          <input type="hidden" readonly="readonly" name="menu_parent_id" id="menuId" value="{$menu['MENU_PARENT_ID']}"/>
+          <input type="button" class="bottom" value="变更" onclick="selectGroupId();"/>
+        </td>
+      </tr>
+        
+      
+      <tr>
+          <td>连接地址</td>
+          <td><input type="text" name="menu_url" value="{$menu['MENU_URL']}" style="width:372px;"></td>
+      </tr>
+      <tr>
+          <td>菜单图片</td>
+          <td><input type="text" name="img" value="{$menu['IMG']}"></td>
+      </tr>
+      <tr>
+          <td>状态</td>
+          <td>
+          <select id="status" name="status">
+          <?php 
+                  echo R('Admin/Util/select',array(array('正常1'=>'1',
+                                                         '注销0'=>'0',
+                                                         'TAB10'=>'10'),$menu['MENU_STATUS']))
+                ?>
+        </select>
+    </td>
+      </tr>
+      <tr>
+          <td>备注</td>
+          <td><textarea name="remark" cols="50" rows="5" >{$menu['MENU_REMARK']}</textarea></td>
+      </tr>
+      <tr class="bai">
+<td></td>
+<td>
+<input type="button" class="btn1_mouseout bottom" value=" 提 交 " onClick="save()">
+<input type="button" class="btn1_mouseout bottom" value=" 重 置 "  onClick="tdeForm.reset();"/>
+<input type="button" class="btn1_mouseout bottom" value=" 新 增 "  onClick="javascript:location.href='{:U('menu_edit')}';"/>
+</td>
+</tr>
+</table>
+</FORM>
+
+</block>
+
+<block name="js">
+<script type="text/javascript">
+  selectGroupId = function(){
+    // openDialog("{:U('menu_select')}",'400px','600px');
+    openWindow("{:U('menu_select')}",'选择部署菜单','400','600','800','100');
+  }
+
+  save = function(){
+    var menu_name = $("input[name=menu_name]").val();
+    if(menu_name.isEmpty()){
+      alert('菜单名称不能为空');
+      return;
+    }
+    layer.load(2,{shade:[0.5,'#ccc']});
+    theForm.submit();
+  }
+</script>
+</block>

@@ -1,0 +1,124 @@
+<html>
+	<head>
+		<title>表单信息</title>
+		<include file="Form/form_js_css"/>
+	</head>
+
+	<body>
+	<form name="theForm"  action="{:U('form_info')}" method="post">
+	<div class="form_wrap">
+		
+		<include file="Form/form_design_menu" />
+
+		<div class="clr"></div>
+
+		<input type="hidden" name="form_id" value="{$info['ID']}" />
+
+		<div class="wrap">
+			<div class="row ">
+				<div class="col col nborder"><label for="text">表单名称:</label><div class="in">
+					<input name="name" type="text" value="{$info['NAME']}" style="width:540px;"></div></div>
+			</div>
+
+			<div class="row ">
+				<div class="col col1 nborder"><label for="text">表单类型:</label><div class="in">
+					<select name="form_type" id="">
+						<option value="default">默认</option>
+						<option value="scl">市场类</option>
+						<option value="wll">网络类</option>
+						<option value="rll">人力类</option>
+						<option value="cwl">财务类</option>
+						<option value="zhl">综合类</option>
+						<option value="qtl">其他类</option>
+					</select>
+				</div></div>
+
+				<div class="col col1 nborder"><label for="text">验证方式:</label><div class="in">
+					<select name="valid_type" id="">
+						<option value="default">默认</option>
+						<option value="login">登录验证</option>
+					</select>
+				</div></div>
+
+				<div class="col col1 nborder"><label for="text">存储表名:</label><div class="in">
+					<input name="table_name" type="text" value="{$info['TABLE_NAME']}">
+				</div></div>
+
+				
+			</div>
+
+			<div class="row ">
+				<div class="col col1 nborder"><label for="text">状态:</label><div class="in">
+					<select name="status" id="">
+						<option value="1">启用</option>
+						<option value="0">停用</option>
+					</select>
+				</div></div>
+
+				<div class="col col1 nborder"><label for="text">生效时间:</label><div class="in">
+					<input name="effective_date" value="{$info['EFFECTIVE_DATE']}" class="Wdate" type="text" size="12" onClick="WdatePicker()"> 
+				</div></div>
+
+				<div class="col col1 nborder"><label for="text">失效时间:</label><div class="in">
+					<input name="expire_date" value="{$info['EXPIRE_DATE']}" class="Wdate" type="text" size="12" onClick="WdatePicker()"> 
+				</div></div>
+
+			</div>
+
+			<div class="row ">
+				<div class="col col3 nborder"><label for="text">返回地址:</label><div class="in">
+					<input width="100%" name="back_url" type="text" value="{$info['BACK_URL']}"></div></div>
+			</div>
+
+			<div class="row ">
+				<div class="col col3 nborder"><label for="text">需求人/说明:</label><div class="in">
+					<textarea name="requester" rows=3 style="width:100%;">{$info['REQUESTER']}</textarea>
+				</div></div>
+			</div>
+
+			<div class="row ">
+				<div class="col col3 nborder"><label for="text">负责人/备注:</label><div class="in">
+					<textarea name="answer" rows=3 style="width:100%;">{$info['ANSWER']}</textarea>
+				</div></div>
+			</div>
+
+
+			<div class="row ">
+				<div class="col col1 nborder"><label for="text">主题:</label><div class="in">
+					<select name="theme" id="">
+						<option value="default">默认</option>
+						<option value="blue">天空蓝</option>
+						<option value="green">草原绿</option>
+						<option value="red">高原红</option>
+						<option value="grey">低调灰</option>
+					</select>
+				</div></div>
+				<div class="col col2 nborder"><label for="text"></label><div class="in"></div></div>
+			</div>
+
+			<div class="row">
+				<div class="col col3 nborder">
+					<label></label>
+					<a class="a_btn a_btn_primary" href="javascript:;">
+						<input type="button" name="save" value="保存信息" />
+					</a>
+
+					<a class="a_btn a_btn_default" href="javascript:;">
+						<input type="button" name="reset" value="重新填写" />
+					</a>
+				</div>
+			</div>
+		</div>		
+	</div>	
+	</form>
+
+
+	<script type="text/javascript">
+	$(function(){
+		$("input[name=save]").click(function(){
+			theForm.submit();	
+		});
+	});
+	</script>
+	</body>
+</html>

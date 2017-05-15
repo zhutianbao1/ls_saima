@@ -1,0 +1,585 @@
+ 
+ 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		<META HTTP-EQUIV="Expires" CONTENT="0">
+		<meta http-equiv="pragma" content="no-cache">	 
+<style type="text/css"> 
+		html body {
+			margin: 0px;
+			padding: 0px;
+			overflow: auto;
+			width:100%;
+			font-size:12px;
+			scrollbar-face-color: #ddd;
+		   scrollbar-shadow-color: #235475;
+		   scrollbar-highlight-color: #235475;
+		   scrollbar-3dlight-color: #ddd;
+		   scrollbar-darkshadow-color: #ddd;
+		   scrollbar-track-color: #ddd;
+		   scrollbar-arrow-color: #ddd;
+		}		
+		.border{border:solid 0px red;}
+		#wrap {}
+		#head-tips{background-color:rgb(35,84,117);color:#fff;}
+		.tip{margin:0; padding:0; list-style:none;border:solid 1px red;overflow:auto;margin-top:-10px;}
+		.tip li{display:line-block;float:left;list-style:none;height:50px;width:120px;margin:5px;border:solid 1px red;text-align:center;font-weight:600;}				
+		.tags{margin:0; padding:0; list-style:none;border:solid 0px red;overflow:auto;text-align:center;margin-left:5px;margin-top:5px;}
+		.tags li{display:line-block;float:left;list-style:none;height:70px; width:70px;margin:2px;border:solid 1px #bbb;text-align:center;font-weight:600;cursor:pointer;margin-top:5px;}				
+		.tags li a{display:line-block;width:100%;height:100%;color:rgb(251,228,119);text-align:center;margin-top:10px;font-size: 12px;}
+		.tags li a font{font-size:22px;display:block;margin-top:-6px;margin-left:-28px;color:rgb(251,228,119);}	
+		
+		.warning{margin:0; padding:0; list-style:none;border:solid 0px red;overflow:auto;margin-left:-40px;margin-top:-10px;list-style:none;}
+		.warning li{cursor:pointer;list-style:none;font-size: 12px;}				
+		
+		.depts{margin:0; padding:0; list-style:none;margin-top:2px;}
+		.depts li{cursor:pointer;list-style:none;float:left;width:12%;border:solid 0px red;text-align:center;font-size;11px;}				
+		
+		#cont-infos{}
+		.cont-info1{overflow:auto;}
+		.cont-info2{overflow:auto;margin-top:5px;}
+		#notice{}	
+		.title{height:25px; line-height:25px;text-indent:1px;border-bottom:solid 1px #ddd;font-weight:bold; font-size:12px;
+		
+		background-color:rgb(35,84,117);color:#fff;padding-left:20px;}
+		.l{float:left;} .r{float:right;} .clear{clear:both;} .hide{display:none;} .flow{overflow:hidden;}
+		.gzbb{}
+		.gzbb table{table-layout:fixed;}
+		.gzbb th{font-size:12px;border:solid 1px #ddd;border-top:0px;border-left:0px;}
+		.gzbb td{font-size:12px;overflow:hidden; height:22px;
+			    line-height: 22px;
+			    overflow: hidden;
+			    text-align: left;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;}
+		.sc{background:url(../images/icon/desktop_folder.png) -42px 0px no-repeat;}
+		.gz{background:url(../images/icon/bookmarks_folder_alt.png) -42px 0px no-repeat;}
+		.zr{background:url(../images/icon/videos_folder.png) -42px 0px no-repeat;}
+		.zx{background:url(../images/icon/bookmarks_folder.png) -42px 0px no-repeat;}
+		
+		.gx{background:url(../images/icon/folder_options.png) -42px 0px no-repeat;}
+		.zz{background:url(../images/icon/windows_8_folder.png) -42px 0px no-repeat;}
+		.xy{background:url(../images/icon/music_folder.png) -42px 0px no-repeat;}
+		.jz{background:url(../images/icon/windows_folder.png) -42px 0px no-repeat;}
+		
+		.sc2{background:url(../images/icon/desktop_folder.png) -32px 0px no-repeat;}
+		.gz2{background:url(../images/icon/bookmarks_folder_alt.png) -32px 0px no-repeat;}
+		.zr2{background:url(../images/icon/videos_folder.png)  -32px 0px no-repeat;}
+		.zx2{background:url(../images/icon/bookmarks_folder.png) -32px 0px no-repeat;}
+		
+		.gx2{background:url(../images/icon/folder_options.png) -32px 0px no-repeat;}
+		.zz2{background:url(../images/icon/windows_8_folder.png) -32px 0px no-repeat;}
+		.xy2{background:url(../images/icon/music_folder.png) -32px 0px no-repeat;}
+		.jz2{background:url(../images/icon/windows_folder.png) -32px 0px no-repeat;}
+		
+		
+		.picScroll{ position:relative;  height:140px;  background:#fff; margin-bottom:10px; overflow:hidden;   }
+		.picScroll ul{ overflow:hidden; zoom:1;margin-left:15px;}
+		/*.picScroll ul li{ float:left; margin: 0 6px;  width:101px; overflow:hidden; display:inline; }*/
+		.picScroll ul li{ float:left; margin: 0 6px;  width:111px; overflow:hidden; display:inline; }
+		.picScroll ul li img{ width:122px; height:124px; }
+		.picScroll .prev,
+		.picScroll .next{ position:absolute;  left:10px; top: 60px; display:block; width:18px; height:28px; overflow:hidden; background:url(../org/css/images/icons.png) -40px 0 no-repeat; cursor:pointer;  }
+		.picScroll .next{ left:auto; right:10px; background-position:-120px 0; }
+		.picScroll .prevStop{ background-position:0 0; }
+		.picScroll .nextStop{ background-position:-80px 0; }
+		.picScroll .tempWrap{width:560px;height:205px;margin-left:80px;}
+		.picScroll table{width:100%;font-size:10px;border:solid 1px #f7f7f7;background:#FFF;}
+		.picScroll table th {font-weight:bold;color:#5f5f5f;font-family:"Microsoft Yahei","微软雅黑","SimHei"}
+		.picScroll table td {font-weight:bold;color:#5f5f5f;font-family:"Microsoft Yahei","微软雅黑","SimHei";overflow:hidden;}
+		.picScroll table td img{height:80px;width:80px;margin-left:15px;}
+		.picScroll table:hover{background-color:#f7f7f7;cursor:hand;}
+		
+		
+		/*编辑头像*/
+		.user_pic{display:block;width:60px;height:60px;border-radius:40px;margin-left:30px;border:solid 1px #0f8ee2 ;
+		position:relative; overflow:hidden;cursor:pointer;
+		-moz-border-radius:40px;
+		-webkit-border-radius:40px;
+		-ms-border-radius:40px;
+		-o-border-radius:40px;}
+		
+		.user_pic_model{display:block;width:80px;height:80px;border-radius:40px;right:19px;top:-10px;border:solid 2px #0f8ee2 ;
+		position:absolute;z-index:1001;overflow:hidden;background-color:#ddd;text-align:center;line-heigt:200%;font-weight:600;color:#0f8ee2;
+		-moz-border-radius:40px;
+		-webkit-border-radius:40px;
+		-ms-border-radius:40px;
+		-o-border-radius:40px;}
+		
+		.user_pic_model a{display:block;width:80px;height:80px;margin-top:40px;}
+		
+		.user_pic img{width:59px;height:59px;border-radius:40px;}
+		
+		.user_pic_update{display:block;width:200px;height:200px;border-radius:5px;right:83px;top:-10px;border:solid 1px #0f8ee2;
+		position:absolute;z-index:1000;background-color:#fff;
+		-moz-border-radius:5px;
+		-webkit-border-radius:5px;
+		-ms-border-radius:5px;
+		-o-border-radius:5px;}
+		
+		.user_info p{padding-left:30px;}
+		.user_info lable{font-size:12px;}
+</style>
+<script type="text/javascript" src="/js/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/js/FusionCharts/FusionCharts.js"></script>
+<script type="text/javascript" src="../js/superSlider/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="/org/js/picPriview.js"></script>
+ 
+<script> 
+function mzTab(id,content,link){
+	var targetObj = parent;	
+	if(targetObj.mzFexistTab(id)==false){
+		if(targetObj.mzGetTabCount()<=12){
+				targetObj.document.getElementById('tid').innerHTML+="<li id='"+id+"' style='cursor:pointer;' title='"+content+"'  onClick='mzFrameDis("+id+");' class='tab_li_active'><span>"+content+"<a href='#' title='关闭标签' onclick='mzDeleObj("+id+");'>&nbsp;&nbsp;X&nbsp;&nbsp;</a></span></li>";
+				targetObj.document.getElementById('secMenu').innerHTML+="<span class='slist' onClick='mzFrameDis("+id+");'>"+content+"</span><br>";
+		}else{
+				alert('TAB显示数目已达上限，请关闭已打开TAB后继续操作');
+				return;
+		}
+		
+		if(targetObj.mzFexistFrame(id)==false){
+			targetObj.mzAddTabContent(id,link);
+		 }
+	}		
+		targetObj.mzFrameDis(id);
+		//targetObj.openWaitingTipWithTop(200);
+}
+ 
+</script>
+</head>
+<body>
+<div id="wrap" >
+<!--添加-->
+<div class="head-tips hide">
+	<div class="tip">
+	</div>
+</div>
+主页正在开发中.. 
+<table cellspacing=0 cellpadding=0 style="display:none;"> 
+<tr>
+<td valign="top">
+<div id="cont-infos" class="l">
+	<div class="cont-info1 border">
+		<div class="r" style="width:44%;border-left:solid 1px rgb(35,84,117);">
+			<div class="title">
+				&nbsp;县市访问人数占比
+			</div>
+			<div id="countyPercent" style="height:260px;">			
+			</div>
+			 
+		</div>
+		
+		
+		<div class="l" style="width:55.8%;">
+			<div class="title">
+				&nbsp;最需关注报表
+			</div>
+			<div class="gzbb">
+				<table width="100%">
+					<tr>
+						<th style="width:110px;">
+							编号
+						</th>
+						<th>
+							报表名称
+						</th>
+						<th style="width:110px;">
+							创建时间
+						</th>
+						<th style="width:100px;">
+							需求人
+						</th>
+					</tr>
+					<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20150707172029','重点结果性指标关注报表（县市）','rpt_priview.jsp?id=20150707172029');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150707172029' value='重点结果性指标关注报表（县市）'>
+<td>20150707172029</td>
+<td>重点结果性指标关注报表（县市）</td>
+<td>2015-07-07 17:26</td>
+<td>陈奕清</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20150707171338','重点结果性指标关注报表（地市）','rpt_priview.jsp?id=20150707171338');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150707171338' value='重点结果性指标关注报表（地市）'>
+<td>20150707171338</td>
+<td>重点结果性指标关注报表（地市）</td>
+<td>2015-07-07 17:26</td>
+<td>陈奕清</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20150908165236','重点结果性指标关注报表（片区）','rpt_priview.jsp?id=20150908165236');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150908165236' value='重点结果性指标关注报表（片区）'>
+<td>20150908165236</td>
+<td>重点结果性指标关注报表（片区）</td>
+<td>2015-09-08 16:53</td>
+<td>吕苗峰</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20151207162939','4G+高清语音客户日报（县市）','rpt_priview.jsp?id=20151207162939');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20151207162939' value='4G+高清语音客户日报（县市）'>
+<td>20151207162939</td>
+<td>4G+高清语音客户日报（县市）</td>
+<td>2015-12-07 16:38</td>
+<td>胡观华</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20151210170731','用户新增质量指标关注报表','rpt_priview.jsp?id=20151210170731');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20151210170731' value='用户新增质量指标关注报表'>
+<td>20151210170731</td>
+<td>用户新增质量指标关注报表</td>
+<td>2015-12-11 10:20</td>
+<td>吕苗峰</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='无访问权限请联系管理员' onClick="javascript:alert('无访问权限请联系管理员');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150120142853' value='四领先-县市'>
+<td>20150120142853</td>
+<td>四领先-县市</td>
+<td>2015-04-09 15:16</td>
+<td>市场部</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='无访问权限请联系管理员' onClick="javascript:alert('无访问权限请联系管理员');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150330110222' value='新版丽水信息日报-4g发展'>
+<td>20150330110222</td>
+<td>新版丽水信息日报-4g发展</td>
+<td>2015-04-09 15:14</td>
+<td>mz_新温州日报_4g_daily</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='无访问权限请联系管理员' onClick="javascript:alert('无访问权限请联系管理员');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150401093828' value='新版丽水信息日报-市场大势'>
+<td>20150401093828</td>
+<td>新版丽水信息日报-市场大势</td>
+<td>2015-04-09 15:15</td>
+<td>陈浩</td>
+</tr>
+ 
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cont-info1 border clear flow" style="margin-top:2px;">
+		<div class="l" style="width:100%;border:solid 1px rgb(35,84,117);border-left:0px;" >
+			<div class="title"  >
+				&nbsp;最热报表
+			</div>
+			<div class="gzbb">
+				<table width="100%">
+					<tr>
+						<th style="width:110px;">
+							编号
+						</th>
+						<th>
+							报表名称
+						</th>
+						<th style="width:80px;">
+							访问次数
+						</th>
+						<th style="width:80px;">
+							访问人数
+						</th>
+						<th style="width:200px;">
+							菜单位置
+						</th>
+						<th style="width:60px;">
+							需求人
+						</th>
+						<th style="width:60px;">
+							维护人
+						</th>
+					</tr>
+					<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20150115103005','销售清单跟踪-系统登记4G终端销售清单','rpt_priview.jsp?id=20150115103005');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150115103005' value='销售清单跟踪-系统登记4G终端销售清单'>
+<td>20150115103005</td>
+<td>销售清单跟踪-系统登记4G终端销售清单</td>
+<td>6842</td>
+<td>121</td>
+<td>[报]终端运营</td>
+<td>徐黎霞</td>
+<td>温永亮</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20160721114315','龙泉全量查询清单（营业员）','rpt_priview.jsp?id=20160721114315');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20160721114315' value='龙泉全量查询清单（营业员）'>
+<td>20160721114315</td>
+<td>龙泉全量查询清单（营业员）</td>
+<td>5017</td>
+<td>40</td>
+<td>[报]其他</td>
+<td>叶听听</td>
+<td>陈浩</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20150318203940','渠道放号清单','rpt_priview.jsp?id=20150318203940');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150318203940' value='渠道放号清单'>
+<td>20150318203940</td>
+<td>渠道放号清单</td>
+<td>3826</td>
+<td>74</td>
+<td>[报]渠道运营</td>
+<td>朱晓丽</td>
+<td>温永亮</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20150424170809','IMEI手机互查清单','rpt_priview.jsp?id=20150424170809');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150424170809' value='IMEI手机互查清单'>
+<td>20150424170809</td>
+<td>IMEI手机互查清单</td>
+<td>2546</td>
+<td>81</td>
+<td>[报]支撑一线常用查询</td>
+<td>陈浩</td>
+<td>陈浩</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20160812153550','50元及以上流量包营销报表','rpt_priview.jsp?id=20160812153550');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20160812153550' value='50元及以上流量包营销报表'>
+<td>20160812153550</td>
+<td>50元及以上流量包营销报表</td>
+<td>2483</td>
+<td>42</td>
+<td>[报]资费运营</td>
+<td>胡秋芳</td>
+<td>熊润富</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20130407100417','预缴清单表','rpt_priview.jsp?id=20130407100417');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20130407100417' value='预缴清单表'>
+<td>20130407100417</td>
+<td>预缴清单表</td>
+<td>2419</td>
+<td>63</td>
+<td>[报]用户信息,[报]业务受理信息,[报]支撑一线常用查询</td>
+<td>王菲--预缴清单表--3485</td>
+<td>该清单全量数据900W+，如需要导出过20W数据请联系管理13867060919</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20150707162223','4G用户指标关注（县市）','rpt_priview.jsp?id=20150707162223');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20150707162223' value='4G用户指标关注（县市）'>
+<td>20150707162223</td>
+<td>4G用户指标关注（县市）</td>
+<td>2022</td>
+<td>67</td>
+<td>[报]市场信息日报</td>
+<td>陈奕清</td>
+<td>陈浩/胡曙辉</td>
+</tr>
+<tr style='color:#a2a2a2;cursor:pointer;' title='点击浏览数据' onClick="javascript:mzTab('20160819103848','目标客户4G渗透率跟踪报表（县市）','rpt_priview.jsp?id=20160819103848');" onmouseover="this.style.background='#f0efe6';" onmouseout="this.style.background='#ffffff'">
+<input type=hidden id='20160819103848' value='目标客户4G渗透率跟踪报表（县市）'>
+<td>20160819103848</td>
+<td>目标客户4G渗透率跟踪报表（县市）</td>
+<td>1941</td>
+<td>33</td>
+<td>[报]4G发展</td>
+<td>叶剑虹</td>
+<td>陈浩</td>
+</tr>
+ 
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	<div class="cont-info1 border clear flow hide">
+		<div class="l picScroll pic_all" style="width:100%;border:solid 1px rgb(35,84,117);border-left:0px;height:230px;" >
+			<div class="title"  >
+				&nbsp;营业计件排名TOP30
+			</div>
+			<ul>	
+				数据加载中..		
+			</ul> 
+			<a class="prev"></a><a class="next"></a>
+		</div>
+	</div>
+ 
+	<div class="cont-info2 border clear hide">
+		    <div class="r" style="width:100%;border:solid 1px rgb(35,84,117);">
+			<div class="title">
+				&nbsp;部门报表统计
+			</div>
+			<div id="deptRpts">
+			</div>
+			<div>
+			<ul class="depts">
+				<li>市场部</li>
+				<li>财务部</li>
+				<li>综合部</li>
+				<li>网络部</li>
+				<li>工程建设部</li>
+				<li>人力资源部</li>
+				<li>党群办</li>
+				<li>政企部</li>
+			</ul>
+			</div>
+			 
+		</div>
+	</div>
+</div>
+</td>
+<td width="320px" valign="top">
+<div  id="notice" class="l" style="border:solid 1px rgb(35,84,117);border-top:0px;margin-left:2px;padding:0px;" >
+  
+	<div class="user_info hide">
+	  <p>
+	  <div class="user_pic"><img style="cursor:hand;" alt="点击编辑头像" title="点击编辑头像" src="/upload/headImg/admin.jpg"/>
+                 </div>     
+                 
+                 <span class="user_pic_model" style="display:none;"><br>编辑头像
+                 </span>
+                 
+                 <div class="user_pic_update" style="display:none;">
+                 	<div>
+                 		<form name="theForm_head" action="/user_pic.jsp" method="post" ENCTYPE="multipart/form-data">
+                 		<img src="/upload/headImg/admin.jpg" style="width:80px;height:80px;" alt="已保存图像"/>&nbsp;&nbsp;<img alt="预览图像" id="ImgPr" width="80" height="80" />
+                 		<div style="overflow:hidden;"><input type="file" name="file1" id="pic_up" /></div>
+                 		<div>
+                 		<input type="button" onclick="upload();" id="sub" value=" 确 定 " style="width:100%;background-color:rgb(35,84,117);;color:#fff;border:0px;height:28px;"/><br> 
+                 		<input type="button" onclick="upCansole();" id="sub" value=" 取 消 " style="width:100%;background-color:#AAA;color:#fff;border:0px;height:28px;margin-top:3px;"/>
+                 		</div>
+                 		</form>
+                 	</div>
+                 </div>
+ 
+                 <script type="text/javascript">
+                 //首页头像上传更新 
+					function upload(){
+						var file = document.getElementById("pic_up").value;
+						if(file.isEmpty()){
+							alert('请先选择上传图片');
+							return;
+						}
+						document.getElementById("sub").disabled=true;
+						document.getElementById("sub").value=" 正在上传中 .";
+						theForm_head.submit();
+					}
+ 
+					function upCansole(){
+						$(".user_pic_update").fadeToggle();
+					}
+ 
+					$(function () {
+									
+						$(".user_pic").click(function(){
+							$(".user_pic_update").fadeToggle();
+						});
+						
+						$("#pic_up").uploadPreview({ Img: "ImgPr", Width: 120, Height: 120 });
+					});
+				 </script>
+	  </p>
+	  <p><label>管理员</label><label>admin</label></p>
+	  <p><label></label>
+	</div>	
+	<div class="title" style="background-color:rgb(251,228,119)">
+		&nbsp;应用视图
+	</div>
+	<div>
+	<ul class="tags">
+		<li class="sc" onclick="javascript:mzTab(2,'我的收藏','/rpt/rpt_save.jsp');"><a  title="单击查看详情" ><span >我的收藏<font id="1"></font></span></a></li>
+		<li class="gz" onclick="javascript:mzTab(3,'最需关注','/rpt/rpt_notice_gz.jsp');" ><a  title="单击查看详情"    ><span>最需关注<font id="2"></font></span></a></li>
+		<li class="zr" onclick="javascript:mzTab(4,'最热点数据','/rpt/rpt_hot.jsp');"><a  title="单击查看详情"    ><span>最热数据<font id="3"></font></span></a></li>
+		<li class="zx" onclick="javascript:mzTab(5,'最新添加','/rpt/rpt_notice.jsp');"><a  title="单击查看详情"  ><span >最新添加<font id="4"></font></span></a></li>
+		
+		<li class="gx" onclick="javascript:mzTab(2,'最新共享','/input/notice/main.jsp');"><a  title="单击查看详情"  ><span >最新共享<font id="5"></font></span></a></li>
+		<li class="zz" onclick="javascript:mzTab(99999999,'人力自助','/input/hr/user_info.jsp');"><a  title="单击查看详情"  ><span >人力自助<font id="6"></font></span></a></li>
+		<li class="xy" onclick="alert('功能准备中..');"><a  title="单击查看详情"  ><span >知行喜阅<font id="7"></font></span></a></li>
+		<li class="jz" onclick="javascript:mzTab(4,'营业集中','/org/index.jsp');"><a  title="单击查看详情"  ><span >营业集中<font id="8"></font></span></a></li>
+		
+		<li class="gz hide" onclick="javascript:mzTab(100000,'绩效考核','/input/jxkh/index.jsp');"><a  title="单击查看详情"  ><span >绩效考核<font id="8"></font></span></a></li>
+		
+	</ul>
+	</div>	
+	<div class="clear title" style="margin-top:20px;">
+		&nbsp;公告通知
+	</div>
+	<div class="warning">
+		<ul>
+<li><a href="http://211.140.167.12:9000/moa/Moa/android/rank_markets" target="_blank">万场进驻营销汇总</a></li>
+<li><a href='/input/notice/notice_priview.jsp?mid=11376'>客户经理相关说明</a></li>
+<li><a href='/input/notice/notice_priview.jsp?mid=11375'>销售经理相关说明</a></li>
+<li><a href='/input/notice/notice_priview.jsp?mid=11335'>营业集中化相关使用说明</a></li>
+<li><a class="left" href="javascript:;">新增通过OA登陆本地85系统功能</a></li>
+<li><font  size=2><b>公共账号 13900000000 密码OOoo88abc123</b></font></li>
+<li><a class="left" href="javascript:;">如有需求和建议请联系支撑中心909室</a></li>
+<li><a class="left" href="javascript:;">中国移动丽水分公司信息服务平台2.0测试上线</a></li>
+<li><a class="left" href="javascript:;"><font color=red>如有问题请联系13867060919更新维护</font></a></li>
+</ul>
+ 
+	</div>
+</div>
+</td>
+</tr>
+</table>
+ 
+</div>
+ 
+<script type="text/javascript"> 
+	$(function(){
+		$(".title").fadeTo("slow",0.9);
+		
+		$("#notice ul li img").each(function(){
+			$(this).remove();
+		});
+		
+		
+		
+		$(".tags li").each(function(){
+			var e = $(this),
+				className = e.attr("class");
+			e.mouseover(function(){
+				e.toggleClass(className+"2");
+				//e.find("a").css('margin-left','10px').css('margin-top','5px');
+			});
+			
+			e.mouseout(function(){
+				e.toggleClass(className+"2");
+				//e.find("a").css('margin-left','0px').css('margin-top','0px');
+			});
+			
+		});
+		
+		//计件排行
+		//heroList('pic_all',"heroData",false);
+		
+		$(".warning").find("li").each(function(){
+			var i = $(this).index(),
+				h = $(this).html();
+			//$(this).html(i + h);
+			$(this).css('padding-top','5px');
+			$(this).css('padding-bottom','5px');
+			$(this).css('padding-left','5px');
+			if(i%2===0){
+				$(this).css('background-color','#ddd');
+				$(this).css('color','#ccc');
+			}
+		});
+		
+		
+	});
+	
+	
+	heroList     = function(target,model,autoPlay){
+	var model = (model==null?'heroData':model);
+	
+	var loading = "<div style='position:absolute;left:45%;top:70px;font-size:11px;'>正在加载数据</div>";
+	$("."+target+" ul").html(loading);
+	
+	$.ajax({
+		url:"../org/ajax.jsp?clazz="+model+"&random="+Math.random(),
+		type:'post',
+		dataType:'json',
+		success:function(res){
+			var result = eval(res);
+			//alert(result.flag);
+			if(result.flag){
+				$("."+target+" ul").html(result.msg);
+				$("."+target).slide({ mainCell:"ul",autoPlay:autoPlay,scroll:0,effect:"left", vis:6, scroll:2, autoPage:true, pnLoop:false });
+			}else{
+			    $("."+target+" ul div").html(result.msg);				
+			}
+		},
+		error:function(e){
+			$("."+target+" ul div").html("数据加载异常");			
+		},
+		complete:function(e){
+		}		
+	});
+}
+</script>
+</body>
+</html>
+ 
+ 
+

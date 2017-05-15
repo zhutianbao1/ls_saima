@@ -1,0 +1,55 @@
+<extend name="tmp"/>
+<block name="css">
+<style>
+.node{color:#000000 !important;}
+ .left_tree{font-size: 12px;width:100%;height:100%;overflow:auto;padding-left:10px;padding-top:10px;border-right:solid 1px #535353;}  
+</style>
+</block>
+<block name="body">
+<form name="form1" method="post" action="{:U('role_edit')}"> 
+<input type="hidden" name="id" value="{$role['ROLE_ID']}"/>
+<table height="100%" width="100%" border="0">
+<tr  style="border:0px;">
+<td height="80px">
+<table width="98%" border="0" cellspacing="0"> 
+  <tbody>
+   <tr> 
+    <td>角色Id：</td> 
+    <td>{$role['ROLE_ID']}</td> 
+   
+    <td>角色名称：</td> 
+    <td> <input type="text" name="role_name" size="20" value="{$role['ROLE_NAME']}" /> </td> 
+   
+    <td>描述：</td> 
+    <td> <input type="text" name="role_remark" size="40" value="{$role['ROLE_REMARK']}" /> </td>    
+    </tr>
+    <tr>
+    <td colspan="6"> 
+      <input type="submit" class="bottom" name="sub" value=" 保  存 " /> &nbsp; 
+      <input class="bottom" type="button" name="button1" value=" 新 增 " onclick="javascript:location.href='{:U('role_edit')}';" />&nbsp;
+      <input type="button" class="bottom" name="sub" onclick="role_tree({$role['ROLE_ID']})" value=" 权 限 " /> &nbsp;
+    </td> 
+   </tr> 
+  </tbody>
+ </table>     
+</td>
+</tr>
+
+<tr>
+<td valign="top">
+<iframe frameborder="no"  width="100%" height="350px" src="{:U('role_opers?id='.$role['ROLE_ID'])}"  scrolling="yes"></iframe>  
+</td>
+</tr>
+ </table>
+</form>
+</block>
+
+<block name="js">
+<script type="text/javascript">
+role_tree = function(id){
+    // openDialog("{:U('DEPT_select')}",'400px','600px');
+    //openWindow(,'菜单权限','400','600','800','100');
+    open("{:U('role_tree')}?role_id="+id);
+  }
+</script>
+</block>

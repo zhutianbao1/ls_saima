@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>
+    <block name="title"></block>
+    </title>
+    <link href="__CSS__/global.css" rel="stylesheet" />
+    <link href="__CSS__/index.css" rel="stylesheet" />
+    <link href="__CSS__/ext.css" rel="stylesheet" />
+    <block name="css"></block>
+</head>
+<body>
+   <!--  <h2 style="position:absolute;bottom:20px;right:20px;"><a style="display:block;border:solid 1px #ddd;border-radius:10px;" href="javascript:location.reload();">刷新</a></h2> -->
+    <div class="loading_box load_box" style="display:none;">
+        <div class="loading_bg"></div>
+        <div class="loading_icon"></div>
+        <div class="loading_text hide">加载数据中..</div>
+    </div>
+
+    <div class="loading_box confirm_box" style="display: none;">
+        <div class="loading_bg"></div>
+        <div class="alert_txt">
+            <span></span>
+            <p><button class="m_btn confirm_box_sure">确定</button><button class="m_btn confirm_box_cancel">取消</button></p>
+        </div>
+    </div>
+
+    <div class="loading_box alert_box" style="display: none;">
+        <div class="loading_bg"></div>
+        <div class="alert_txt">
+            <span></span>
+            <p><button class="m_btn alert_box_sure">确定</button></p>
+        </div>
+    </div>
+
+    <block name="head"></block>
+    <block name="body"></block>
+ 
+</body>
+   
+    <script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/util.js"></script>
+    <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+    <script type="text/javascript" src="__STATIC__/jquery.cookie.js"></script>
+    <script>
+
+    //组织加载url 
+    var get_dept_url= "{:U('dept_subs')}";
+    
+    //html5 localStorage 获取存储当前用户信息
+    var user_auth = null; 
+    $(function(){
+        localStorage.removeItem('user_auth');
+        user_item = localStorage.user_auth;
+        if(!(user_item=='undefined' || user_item==undefined)){
+            user_auth = JSON.parse(user_item);
+        }
+        if(user_auth==null){
+            // alert_box('账户信息获取异常，请重新登录');
+        }
+        //console.info('user_auth : '+user_auth);
+        //console.info(' user_auth : '+user_auth.NAME+' POSITION : '+user_auth.POSITION); 
+    });
+
+    var storage = window.localStorage;
+    function showStorage(){
+     for(var i=0;i<storage.length;i++){
+      //key(i)获得相应的键，再用getItem()方法获得对应的值
+      //console.info(storage.key(i)+ " : " + storage.getItem(storage.key(i)) + "<br>");
+     }
+    }
+    </script>
+
+    <script type="text/javascript">
+    //提示层操作返回结果
+    var box_flag_status = false;
+    var e = null;
+
+    $(function(){
+        load_hide();
+    });
+
+    //页面加载效果
+    function load_show(){
+        $(".load_box").show();
+    }
+
+    //隐藏加载效果
+    function load_hide(){
+        $(".load_box").hide();
+    }
+
+    //确认效果
+    function confirm_box(msg){
+        $(".confirm_box").show().find('span').html(msg);
+    }
+
+    $(".confirm_box_sure").click(function(){
+        box_flag_status = true;
+        $(".confirm_box").hide();
+    });
+
+    $(".confirm_box_cancel").click(function(){
+        box_flag_status = false;
+        $(".confirm_box").hide();
+    });
+
+    //提示效果
+    function alert_box(msg){
+        $(".alert_box").show().find('span').html(msg);
+    }
+
+    $(".alert_box_sure").click(function(){
+        box_flag_status = false;
+        $(".alert_box").hide();
+    });
+
+    //返回
+    $(".btn_back").click(function(){
+        history.back();
+    });
+    var wv=plus.webview.open('url','id',{'popGesture':'close'});
+
+    $(".btn_home").click(function(){
+        location.href="{:U('index')}";
+    });
+
+    
+    //打印本地localStorage
+    function get_storage(){
+        var storage = window.localStorage;
+        console.info(storage);
+        for(var i=0;i<storage.length;i++){
+          //key(i)获得相应的键，再用getItem()方法获得对应的值
+          console.info(storage.key(i)+ " : " + storage.getItem(storage.key(i)) + "<br>");
+         }
+    }
+
+    $(".creating").click(function(){
+        layer.msg('功能尚未启用');
+    });
+
+    </script>    
+    <block name="js"></block>
+</html>

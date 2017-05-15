@@ -1,0 +1,223 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">会员管理</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css"> 
+ *{
+  margin:0;
+  padding: 0;
+ }
+
+  .fl{
+    float: left;
+  }
+  .fr{
+    float: right;
+  }
+  .need_left{
+    width: 100px;
+    border: 1px solid #ccc;
+  }
+
+  .need_left h3{
+    height: 30px;
+    line-height: 30px;
+   
+    font-size: 15px;
+    color: #666;
+    text-align: center;
+    background-color: #eee;
+  }
+  .need_left ul{
+    width: 80px;    
+    margin-left: 20px;
+  }
+  .need_left ul li{
+    height: 25px;
+    line-height: 25px;
+    
+  }
+  .need_left ul li a{
+     font-size: 14px;
+    color: #666;
+    display: block;
+  }
+  .need_left ul li a:hover{
+    background-color: #eee;
+    color: #333;
+  }
+  .need_right{
+    width: 825px;
+    border:1px solid #ccc;
+  }
+
+   .search{width: 300px;height: 30px;line-height: 30px;margin:0 auto;
+   }
+    .search .search_btn .sbtn,.search .search_btn .rbtn{
+      outline: none;
+      border:none;
+      text-align: center;
+      padding: 4px 15px;
+      display: block;
+      font-size: 12px;
+      color:#666;
+      margin-left: 20px;
+      border:1px solid #666;
+      background-color: #eee;
+      margin-top: 2px;
+    }
+
+    .show{
+      width: 100%;
+      margin-top: 10px;
+      background-color: #fffff9;
+    }
+
+    .show fieldset{
+      margin:10px;
+      border: 1px solid #ccc;
+    }
+    .show_text{
+      width: 100%;
+    }
+    .show_text div{
+       width: 90%;
+       margin: 5px auto 0;
+       height: 30px;
+       line-height: 30px;
+       
+    }
+
+    .show_text div label{
+      display: inline-block;
+      width: 20%;
+      height: 30px;
+      line-height: 30px;
+      font-size: 14px;
+      color: #666;
+      text-align: right;
+     }
+     .show_text div input{
+      display: inline-block;
+      border:1px solid #ccc;
+      outline: none;
+      height: 18px;
+      line-height: 18px;
+      margin-bottom: 3px;
+      width: 50%;
+      font-size: 14px;
+      color: #666;
+      text-indent: 5px;
+
+     }
+</style>
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+
+  </div>
+</div>
+</block> 
+<!--
+    <div class="div_nav">
+       {:W('Side/oper_tab')}
+    </div>
+    -->
+<block name="main_right">
+<div class="need_left fl">
+  <h3>我的工作台</h3>
+  <ul>
+      <li><a href="#">会员管理</a></li>
+      <li><a href="#">推荐管理</a></li>
+      <li><a href="#">管理员</a></li>
+      <li><a href="#">请假管理</a></li>
+      <li><a href="{:U('Manager/manager_score')}">积分管理</a></li>
+  </ul>
+</div>
+
+    
+<div class="need_right fr"> 
+    <div class="show">
+      <form id="theForm" action="{:U('Manager/manager_score_modify')}" method="post" >
+        <fieldset>
+          <legend>积分信息:</legend>
+          <div class="show_text">
+            <div >
+              <label>月份:</label>
+              <input type="text" name="smonth" value="{$list[0]['smonth']}" 
+              onClick="WdatePicker({dateFmt:'yyyyMM'})"/>
+            </div>
+
+            <div >
+              <label>姓名:</label>
+              <input type="text" name="oper_name" value="{$list[0]['oper_name']}"/>
+            </div>
+
+            <div >
+              <label>部门:</label>
+              <input type="text" name="oper_city" value="{$list[0]['oper_city']}"/>
+            </div>
+
+             <div >
+              <label>编号:</label>
+              <input type="text" name="oper_num" value="{$list[0]['oper_num']}"/>
+            </div>
+
+             <div >
+              <label>手机号码:</label>
+              <input type="text" name="oper_phone" value="{$list[0]['oper_phone']}"/>
+            </div>
+
+             <div >
+              <label>阅读会名称:</label>
+              <input type="text" name="sc_name" value="{$list[0]['sc_name']}" />
+            </div>
+
+            <div >
+              <label>积分类型:</label>
+              <input type="text" name="sc_reason" value="{$list[0]['sc_reason']}"/>
+            </div>
+
+            <div style="margin-bottom: 5px;">
+              <label>积分:</label>
+              <input type="text" name="score"  value="{$list[0]['score']}" />
+            </div>
+
+            <div style="margin-bottom: 5px;">
+              <label>导入时间:</label>
+              <input type="text" name="im_date"  value="{$list[0]['im_date']}" 
+                onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+            </div>
+
+
+            <input type="hidden" name="score_id" value="{$list[0]['id']}">
+          </div>
+        </fieldset>
+       
+        <div class="search">
+            <div class="search_btn">
+              <input type="button" value="提 交" class="sbtn fl">
+            </div>
+            <div class="search_btn">
+              <input type="reset" value="重 置" class="rbtn fr">
+            </div>
+        </div>
+      </form>
+    </div>
+   
+  
+</div> 
+</block>
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+  <script >
+    $('.sbtn').click(function() {
+          $('#theForm').submit();
+    });
+  </script>
+</block>

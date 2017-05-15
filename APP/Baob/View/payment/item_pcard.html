@@ -1,0 +1,111 @@
+<extend name="pub/tpl3"/>
+<block name="title">营销案赠卡清单</block>
+<block name="css"></block>
+<block name="header">
+	<input type="button"  class="back_btn" value="返 回" />
+	<a class="title">营收资金稽核工单列表</a>
+</block>
+<block name="show">
+	<form action="{:U('Payment/item_pcard')}" method="post" id="theForm">
+		<div class="search_div">
+			<div class="group">
+				<label>起始:</label>
+				<input type="text" name="start_date" id="start_date"  
+				 onClick="WdatePicker({dateFmt:'yyyyMMdd'})"  value="{$start_date}" />
+			</div>
+
+			<div class="group">
+				<label>结束:</label>
+				<input type="text" name="end_date" id="end_date"  
+				 onClick="WdatePicker({dateFmt:'yyyyMMdd'})"  value="{$end_date}" />
+			</div>
+			<div class="group">
+				<label>县市:</label>
+				<select name="county_name" id="county_name">
+					<if condition="$_SESSION['payment']['COUNTY_CODE']  eq '5780' ">
+    					<option value="全部" {$county_name=='全部'?selected:''}>全部</option>
+    					<option value="丽水" {$county_name=='丽水'?selected:''}>丽水</option>
+    					<option value="缙云" {$county_name=='缙云'?selected:''}>缙云</option>
+    					<option value="青田" {$county_name=='青田'?selected:''}>青田</option>
+    					<option value="云和" {$county_name=='云和'?selected:''}>云和</option>
+    					<option value="庆元" {$county_name=='庆元'?selected:''}>庆元</option>
+    					<option value="龙泉" {$county_name=='龙泉'?selected:''}>龙泉</option>
+    					<option value="遂昌" {$county_name=='遂昌'?selected:''}>遂昌</option>
+    					<option value="松阳" {$county_name=='松阳'?selected:''}>松阳</option>
+    					<option value="景宁" {$county_name=='景宁'?selected:''}>景宁</option>
+    					<option value="南城" {$county_name=='南城'?selected:''}>南城</option>
+    				<else/>
+    					<option value="{$_SESSION['payment']['COUNTY_NAME']}" {$county_name==$_SESSION['payment']['COUNTY_NAME']?selected:''}>
+    					{$_SESSION['payment']['COUNTY_NAME']}</option>
+    				</if>
+				</select>
+			</div>
+			<div class="group1">
+				<input type="button" class="search_btn" value="搜 索"/>
+			</div>
+			<div class="group1">
+				<input type="button" class="exp_btn" value="导 出"/>
+			</div>
+		</div>
+	</form>
+	<div class="show_div" style="width: 940px;overflow-x:scroll;">
+		<table style="overflow: scroll;width: 150%;">
+			<tr>
+				<th style="width: 70px;">时间</th>
+				<th style="width: 50px;">县市</th>
+				<th style="width: 300px;">营销案名称</th>
+				<th style="width: 150px;">营销案编号</th>
+				<th style="width: 170px;">规则编号</th>
+				<th style="width: 100px;">充值卡类型</th>
+				<th style="width: 120px;">充值卡卡号</th>
+				<th style="width: 80px;">充值卡面值</th>
+				<th style="width: 60px;">用户手机</th>
+				<th style="width: 80px;">用户名字</th>
+				<th style="width: 60px;">是否稽核</th>
+			</tr>
+			<empty name="lists" >
+				<tr>
+					<td colspan="11" class="tl ti">暂无数据!</td>
+				</tr>
+			<else />
+				<volist  name="lists" id="list" >
+					<tr>
+    					<td>{$list['PAYMENT_DATE']}</td>
+    					<td>{$list['COUNTY_NAME']}</td>
+    					<td>{$list['CASE_NAME']}</td>
+    					<td>{$list['CASE_ID']}</td>
+    					<td>{$list['APPLY_ID']}</td>
+    					<td>{$list['CARD_TYPE']}</td>
+    					<td>{$list['START_CARD']}</td>
+    					<td>{$list['CARD_PRICE']}</td>
+    					<td>{$list['BILL_ID']}</td>
+    					<td>{$list['USER_NAME']}</td>
+    					<td>{$list['PAYMENT_STATUS']}</td>
+					</tr>
+				</volist >
+			</empty>
+		</table>	
+	</div>
+</block>
+
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+			/**
+			$('.back_btn').click(function(){
+				window.location="{:U('Login/payment_index')}";
+			});
+			**/
+			$('.search_btn').click(function(){
+				$('#theForm').submit();
+			});
+
+			$('.exp_btn').click(function(){
+				window.location.href="{:U('Payment/item_pcard_exp')}?start_date={$start_date}&end_date={$end_date}&county_name={$county_name}";
+			});
+		});
+	</script>
+</block>
+
+
+

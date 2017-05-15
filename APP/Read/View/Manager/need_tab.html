@@ -1,0 +1,32 @@
+<h3>我的工作台</h3>
+<ul>
+    <li class="{$tabb==1?'cur':''}">
+        <a href="{:U('Manager/manager_vip')}?tabb=1">会员管理</a>
+    </li>
+      <!--
+    <li><a href="{:U('Manager/manager_book_tuijian')}">推荐管理</a></li>
+      -->
+    <li class="{$tabb==2?'cur':''}">
+        <a href="{:U('Manager/manager_list')}?tabb=2">管理员</a>
+      </li>
+
+    <li class="{$tabb==3?'cur':''}">
+        <if condition="$list['manager_op'] eq 1 ">
+            <a href="{:U('manager/manager_qingjia_list1')}?tabb=3" class="left_link" >请假审核</a>
+        <elseif condition="$list['manager_op'] eq 2 " />
+            <a href="{:U('manager/manager_qingjia_list2')}?tabb=3" class="left_link" >请假审核</a>
+        <elseif condition="$list['manager_op'] eq 3 " />
+            <a href="{:U('manager/manager_qingjia_list3')}?tabb=3" class="left_link" >请假审核</a>    
+        </if> 
+    <!--
+      <a href="{:U('Manager/manager_qingjia_gl')}">请假管理</a>
+      -->
+
+    </li>
+    <li class="{$tabb==4?'cur':''}">
+        <a href="{:U('Manager/manager_score')}?tabb=4">积分管理</a>
+    </li>
+</ul>
+
+
+ 

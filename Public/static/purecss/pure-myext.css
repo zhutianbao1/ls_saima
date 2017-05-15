@@ -1,0 +1,223 @@
+.wrapper {
+  position: absolute;
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+.wrapper-default {
+  min-height: 100%;
+  background-color: #efefef;
+}
+
+
+.navbar{
+  line-height: 50px;
+  color: #fff;
+  background-color: #3993c1;
+}
+.horizontal-center{
+  /*设置div水平居中宽度一定要固定,这样设置还是会有问题，当有些地方需要水平居中的内容宽度超过一定宽度，就没法居中*/
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.horizontal-center:hover{
+  cursor:pointer;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3Fffffff',endColorstr='#3Fffffff');/*IE8及以下版本*/
+  background-color: rgba(245, 245, 245, .1);/*加上蒙版灰色效果*/
+  /*background-color: rgba(255, 255, 255, .1);*//*加上蒙版灰色效果*/
+  /*background-color: rgba(0, 0, 0, .1);*//*颜色加深*/
+  /*background-color: transparent;*/
+}
+.horizontal-center a{
+  color:#fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.user-info{
+  position:absolute;
+  top:0;
+  right:15px;
+}
+
+.container {
+  width: 100%;
+  min-height: 100%;
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 5px;
+}
+
+.btn-group,.data-list{
+  margin-top:8px;
+  width:100%;
+}
+
+.form1 {
+  width: 892px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.form-block {
+  display:block;
+  margin-bottom:10px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border:1px solid #e5e5e5;
+  background-color: #fff;
+}
+
+.form-block  .form-head {
+  font-weight: 600;
+  text-align: center;
+}
+.pure-form label {
+  display: inline-block;
+  width: 100px;
+  margin: 0.8em 0 0.8em 0.8em;
+  font-size:80%;
+  text-align: left;
+}
+.pure-form input[type="text"],
+.pure-form input[type="password"],
+.pure-form input[type="email"],
+.pure-form input[type="url"],
+.pure-form input[type="date"],
+.pure-form input[type="month"],
+.pure-form input[type="time"],
+.pure-form input[type="datetime"],
+.pure-form input[type="datetime-local"],
+.pure-form input[type="week"],
+.pure-form input[type="number"],
+.pure-form input[type="search"],
+.pure-form input[type="tel"],
+.pure-form input[type="color"],
+.pure-form select,
+.pure-form textarea {
+  font-size: 90%;
+  padding: 0.4em 0.48em;
+}
+.pure-form select {
+  height: 2.2em;
+}
+
+
+/* jquery-validate扩展css start */
+label.error {
+    margin-top:6px;
+    padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left:5px;
+	position: absolute;
+	margin-left: 2px;
+	font-size: 75%;
+	color: #fff;
+	border-radius: 3px;
+	background-color: #f96;
+  }
+  /*
+  label.error:before,label.error:after{
+    content:"";
+	display:block; 
+    border-width:7px; 
+    position:absolute;
+	top:5px;
+	left:-12px;
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #f96 transparent  transparent;
+    font-size:0; 
+    line-height:0;
+  }
+  */
+  input.error {
+    border: 1px solid #f00 !important;
+  }
+  
+
+  /*
+  input.valid {
+    border: 1px solid #090 !important;
+  }
+  */
+/* jquery-validate扩展css end */
+
+.loginForm {
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -160px;
+  margin-top: -100px;
+  padding: 20px 50px;
+  border: 1px solid #a3c;
+  border-radius: 3px;
+  background-color: #eee;
+}
+.loginForm .form-header {
+  text-align:center;
+  border-bottom: 1px dotted #333;
+  margin-bottom: 10px;
+  padding-bottom:5px;
+}
+.loginForm label {
+  width: 50px;
+  display:inline-block;
+  text-align: right;
+}
+.loginForm .submit {
+  width: 251px;
+}
+.loginForm input{
+  margin-bottom:6px;
+}
+
+
+
+.btn-group{
+  display:block;
+}
+.pure-button {/*样式重写,当按钮嵌套a标签这种很不好处理，应该扩展个a标签充当button使用*/
+  padding: 0.4em 0.8em;
+  font-size:85%;
+}
+
+
+table td input{
+  margin:0 !important;
+}
+.pure-table td,
+.pure-table th{
+  font-size:13px;
+}
+.pure-table td{
+  padding:0;
+}
+.pure-table th{
+  padding: 0.3em 0.6em;
+}
+/*thinkphp分页样式*/
+.think_page{
+  padding-top:10px;
+  /*text-align: center;*/
+}
+.think_page .num,.first,.end,
+.next,.current,.prev {
+  position: relative;
+  margin-right: 5px;
+  padding: 5px 9px;
+  font-size: 12px;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  color:#000;
+  background-color: #eee;
+}
+.think_page .current {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-width: 0px;
+}

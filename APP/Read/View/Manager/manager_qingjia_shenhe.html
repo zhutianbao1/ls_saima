@@ -1,0 +1,200 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">请假管理</block>
+<block name="css"> 
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css">
+	.fl{ float: left; }
+    .fr{ float: right; }
+    .need_left{ width: 100px; border: 1px solid #ccc;  }
+    .need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;text-align: center; 
+                        background-color: #eee; }
+    .need_left ul{ width: 80px; margin-left: 20px; }
+    .need_left ul li{ height: 25px;  line-height: 25px;}
+    .need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+    .need_left ul li a:hover{ background-color: #eee; color: #333; } 
+    .need_right{ width: 825px; border:1px solid #ccc; }
+    .cur{background-color: #eee;border-right: 2px solid #ae807e;}
+    .show{
+    	margin:10px;
+    }
+    .show h3{
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #666;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+    .show table{
+    	width: 100%;
+    	border-collapse: collapse;
+    	text-align: center;
+    	font-size: 13px;
+    	color: #666;
+    }
+    .show table tr{
+    	height: 20px;
+    	line-height: 20px;
+    }
+    .show table tr th{
+    	text-align: center;
+    	height: 25px;
+    	line-height: 25px;
+    }
+
+    .show table tr td{
+    	border:1px solid #ccc;
+    	height: 20px;
+    	line-height: 20px;
+    }
+    .show .left_td{
+    	width: 10%;
+    }
+    .show table td input[type='text']{
+    	width: 96%;
+    	height: 20px;
+    	line-height: 20px;
+    	border:none;
+    }
+    .show table td select{
+    	width: 98%;
+    	height: 20px;
+    	line-height: 20px;
+    	border:none;
+    	font-size: 13px;
+    	color: #666;
+    }
+    .show table td textarea{
+    	width: 98%;
+    	border:none;
+    }
+    .btn_div{
+    	width: 200px;
+    	height: 30px;
+    	margin:10px auto;
+    	position: relative;
+    }
+    .btn_div input[type='button']{
+    	border:1px solid #666;
+    	padding: 3px 15px;
+    	font-size: 14px;
+    	color: #666;
+    }
+    .btn_div input[type='reset']{
+    	border:1px solid #666;
+    	padding: 3px 15px;
+    	font-size: 14px;
+    	color: #666;
+    	margin-left: 68px;
+    }
+</style>	
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+</div>
+</block>
+
+<block name="main_right">
+<div class="need_left fl">
+  {:W('Side/need_tab')}
+</div>
+<div class="need_right fr">
+	<div class="show">
+	    <h3>阅读会请假员工信息</h3>
+		<form method="post"  id="theForm" >
+		    <input type="hidden" name="oper_city" value="{$arr[0]['oper_city']}" />
+		    <input type="hidden" name="qingjia_id" value="{$arr[0]['id']}" />
+		    <input type="hidden" id="manager_op" value="{$manager_op}" />
+			<table >
+			<tr>
+				<td class="left_td">姓名</td>
+				<td class="right_td">
+					<input type="text" name="oper_name"  value="{$arr[0]['oper_name']}" readonly="true" />
+				</td>				
+				<td  class="left_td">员工手机</td>
+				<td >
+				   <input type="text" name="oper_phone"    value="{$arr[0]['oper_phone']}" readonly="true" />
+				</td>			
+			</tr>
+			<tr>			
+				<td  class="left_td">阅读会名称</td>
+				<td  >
+					<input  type="text" name="meeting_name" value="{$meeting}" readonly="true"/>
+				</td>
+				<td class="left_td">审核意见</td>
+				<td >
+					<select name="shenhe_result" id="shenhe_result">
+						<option value=''>---请选择---</option>
+						<option value='1'>同意</option>
+						<option value='0'>不同意</option>
+					</select>					
+				</td>								
+			</tr>					
+			
+			<tr>
+			    <td class="left_td">请假原因</td>
+				<td colspan="3">
+					<textarea  rows="5" name="qingjia_reason" readonly="true">{$arr[0]['qingjia_reason']}</textarea>
+				</td>
+			</tr>					
+			</table>
+			<div class="btn_div">
+				<input type="button" id="btn"  value="提 交"  />
+				<input type="reset" value="重 置" />	
+			</div>	
+		</form>
+	</div>
+</div>	
+</block>
+
+<block name="js">
+<script src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script> 
+
+ </script>
+ <script type="text/javascript">
+	$(function(){
+		$("#btn").click(function(){
+			//alert("aaaa");
+		var flag=true;
+		var shenhe_result=$("#shenhe_result").val(); 	   
+        if(shenhe_result.isEmpty()){ 
+        	flag= false;
+       	    $("#shenhe_result").css('backgroundColor','infobackground');   
+       	    layer.alert('请选择审核结果!');   	     
+	          
+        }
+        var manager_op=$("#manager_op").val();
+
+         if(manager_op=='1'){
+         	var url="{:U('manager/manager_qingjia_sh_result')}";
+         }else if(manager_op=='2'){
+         	var url="{:U('manager/manager_qingjia_sh_result2')}";
+         }else if(manager_op=='3'){
+         	var url="{:U('manager/manager_qingjia_sh_result3')}";
+         }
+
+        if(flag){         	
+        	$("#theForm").attr('action',url); 
+			$("#theForm").submit();
+        }
+		});
+	});
+
+</script>
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

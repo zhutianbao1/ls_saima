@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		<block name="title"></block>
+	</title>
+	<style type="text/css">
+		*{margin:0px;padding: 0px;text-decoration: none;list-style-type: none;}
+		body{
+			width:960px;margin: auto;background: #fff url("__PUBLIC__/images/bg1.png") no-repeat fixed 0 0;
+		}
+		.nav{border: 0px solid red;}
+		.nav-div-top{width:100%;height: 90px;border: 0px solid red;text-align: center;}
+		.nav-div-bottom{width: 100%;margin-top: 10px;}
+		.menu{overflow: hidden;zoom:1;background:#ff6f02;}
+		.menu ul>li{float: left;}
+		.menu ul li a,.m{display: block;height:35px;line-height:35px;width:120px;text-align:center;color:white;font-weight: 600}
+		.menu ul li a:hover,.sm:hover{background:orange; }
+		.menu ul ul{position: absolute;display: none;}
+		.menu ul ul li{float: none;background:#ff6f02;}
+		.menu ul li:hover ul{display: block;}
+		.sm{width:125px;height:120px;background:#ff6f02;text-align:center;line-height:120px;margin-top:5px;float: left;margin-right: 10px;}
+		.sm a{color: white;display: block;}
+		.content{margin-top: 10px;width: 600px;float: left;margin-left: 50px;}
+		.content-title{width: 100%;height: 25px;line-height: 25px;color: white;background:#ff6f02;margin: 5px 0px;padding-left: 20px;}
+		.content-mod .img{width: 200px;float: left;text-align: center; height:300px;background-size: 100%;background-repeat: no-repeat;}
+		.content-mod .first{background-image: url('__IMG__/first.png');}
+		.content-mod .second{background-image: url('__IMG__/second.png');}
+		.content-mod .third{background-image: url('__IMG__/third.png');}
+		.content .content-mod img{width: 150px;height: 160px;margin-top: 70px;}
+		.content-mod span{display: block;width: 150px;height: 40px;background: white;margin: auto;border: 1px solid #ccc}
+		.selected{background: orange;display: block;color: white;}
+	</style>
+</head>
+<body>
+<div class="nav">
+	<div class="nav-div-top">
+		<div class="log">
+			<img src="__IMG__/top.jpg" style="width:960px;">
+		</div>
+	</div>
+	<div class="nav-div-bottom">
+		<div class="menu">
+			<ul>
+				<li><span class="m">月度赛马</span>
+					<ul>
+						<li><a href="?month=201601">2016年1月</a></li>
+						<li><a href="#">2016年2月</a></li>
+						<li><a href="#">2016年3月</a></li>
+						<li><a href="#">2016年4月</a></li>
+						<li><a href="#">2016年5月</a></li>
+						<li><a href="#">2016年6月</a></li>
+						<li><a href="#">2016年7月</a></li>
+						<li><a href="#">2016年8月</a></li>
+						<li><a href="#">2016年9月</a></li>
+						<li><a href="?month=201610">2016年10月</a></li>
+						<li><a class="selected" href="?month=201611">2016年11月</a></li>
+					</ul>
+				</li>
+				<li><a href="{:U('NewRank/ls_index')}">年度赛马</a></li>
+				<li><a href="#">年度千里马</a></li>
+				<li><a href="#">月度骏马</a></li>
+				<li><a href="#">月度黑马</a></li>
+			</ul>
+		</div>
+		<div style="width:270px;float:left;font-weight:600">
+			<div class="sm" style="width:260px;margin-top:15px;"><a class="selected" href="#">全市赛马</a></div>
+			<div class="sm"><a href="#">莲都赛马</a></div>
+			<div class="sm"><a href="#">缙云赛马</a></div>
+			<div class="sm"><a href="#">青田赛马</a></div>
+			<div class="sm"><a href="#">云和赛马</a></div>
+			<div class="sm"><a href="#">庆元赛马</a></div>
+			<div class="sm"><a href="#">龙泉赛马</a></div>
+			<div class="sm"><a href="#">遂昌赛马</a></div>
+			<div class="sm"><a href="#">松阳赛马</a></div>
+			<div class="sm"><a href="#">静宁赛马</a></div>
+			<div class="sm"><a href="#">南城赛马</a></div>
+		</div>
+		<div class="content">
+			<!-- <div style="display:block;width:100%;height:340px;">
+				<div class="content-title">dddd</div>
+				<div class="content-mod">
+					<div class="first"><img src="__HEAD_IMG__13884383277.jpg"><span>dddddddddddd</span></div>
+					<div class="second"><img src=""></div>
+					<div class="third"><img src=""></div>
+				</div>
+			</div> -->
+			<?php
+				$currMonth = '201611';
+				$month = ($month==null?$currMonth:$month);
+			?>
+			{:W('NewRank/ls_index',array($month))}
+		</div>
+	</div>
+</div>
+</body>
+	<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+$('.sm a').click(function(){
+	$('.sm a.selected').removeClass('selected');
+	$(this).addClass('selected');
+});
+
+$('ul li a').click(function(){
+	$('ul li a.selected').removeClass('selected');
+	$(this).addClass('selected');
+})
+</script>
+</html>

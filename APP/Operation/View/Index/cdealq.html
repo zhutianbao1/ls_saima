@@ -1,0 +1,74 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 投诉处理记录表</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('Index/cdeali')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="form">
+    <table>
+      <thead>
+        <tr>
+        <th colspan="6">投诉处理记录表</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label" style="width:120px">序号</td>
+          <td style="width:170px">{$cdeal['ID']}</td>
+          <td class="label" style="width:120px">记录人</td>
+          <td style="width:170px">{$cdeal['OPER_NAME']}</td>
+          <td class="label" style="width:120px">投诉来源</td>
+          <td style="width:170px">{$cdeal['COME_FROM']}</td>
+        </tr>
+        
+        <tr>
+          <td class="label">县市</td><td>{$cdeal['COUNTY_NAME']}</td>
+          <td class="label">投诉站点</td><td>{$cdeal['FROM_SITE']}</td>
+          <td class="label">业务类型</td><td>{$cdeal['BUSI_TYPE']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">业务现象</td><td>{$cdeal['RESULT_TYPE']}</td>
+          <td class="label">是否派单</td>
+          <td colspan="3">{$cdeal['HAS_POST']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">投诉内容</td>
+          <td colspan="5">{$cdeal['CONTENT']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">问题原因及解决办法</td>
+          <td colspan="5">{$cdeal['DEAL_WAY']}</td>
+        </tr>
+
+        <tr>
+          <td class="label">备注</td>
+          <td colspan="5">{$cdeal['REMARK']}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</block>

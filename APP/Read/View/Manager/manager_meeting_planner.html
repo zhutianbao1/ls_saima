@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>确认策划人</title>
+	<style type="text/css">
+	    .box{margin: 0 auto;width: 90%;}
+		.theTable{width:100%;border-collapse: collapse;text-align: center;color: #666;letter-spacing: 1px;}
+		.theTable td{height:30px;line-height: 30px; border:1px solid #ccc;font-size: 16px;	}       
+		.sub_btn{font-size: 14px;margin-top: 20px;border:1px solid #666; padding:3px 15px;}
+		.theTable td input[type='text']{width: 90%;text-align: center;border:none;color: #666; } 
+		.notice{color: #666;}
+		.notice1{margin-top:20px;color: #666;letter-spacing: 1px;}
+		
+	</style>
+</head>
+<body>
+	<div class="">
+		<div class="box">
+			<if condition="$list1[0]['num']  gt 0 ">
+				<p class="notice">暂时没有课操作的数据!</p>
+			<else/>
+				<form  id="theForm"  method="post" action="{:U('manager/manager_meeting_planner')}">
+					<table  class="theTable ">
+						<tr>	     		    
+							<td style="width: 100px;">阅读会编号</td>
+							<td style="width: 300px;">阅读会名称</td>
+							<td style="width: 100px;">策划人姓名</td>
+							<td style="width: 200px;">策划人单位</td>
+							<td style="width: 100px;">策划人编号</td>
+							<td style="width: 100px;">策划人手机</td>	     		
+						</tr>
+						<if condition="$planner_no  eq '1' ">
+							<tr>
+								<td>
+									<input type="text" name="meeting_id[]" value="{$list['id']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_title[]" value="{$list['title']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_planner[]" value="{$meeting_planner1[0]}" />
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_dept[]" id="user_dept1" />
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_num[]" id="user_num1" />
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_phone[]" id="user_phone1"/>
+								</td>
+							</tr>
+						</if>
+					
+
+						<if condition="$planner_no  eq '2' ">
+							<tr>
+								<td>
+									<input type="text" name="meeting_id[]" value="{$list['id']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_title[]" value="{$list['title']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_planner[]" value="{$meeting_planner1[0]}" />
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_dept[]" id="user_dept1" />
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_num[]" id="user_num1" />
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_phone[]" id="user_phone1"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="text" name="meeting_id[]" value="{$list['id']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_title[]" value="{$list['title']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_planner[]" value="{$meeting_planner1[1]}" />
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_dept[]"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_num[]"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_phone[]"/>
+								</td>
+							</tr>		     		
+						</if>
+
+						<if condition="$planner_no  eq '3' ">
+							<tr>
+								<td>
+									<input type="text" name="meeting_id[]" value="{$list['id']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_title[]" value="{$list['title']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_planner[]" value="{$meeting_planner1[1]}"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_dept[]"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_num[]"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_phone[]"/>
+								</td>
+								</tr>
+								<tr>
+								<td>
+									<input type="text" name="meeting_id[]" value="{$list['id']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_title[]" value="{$list['title']}" /  >
+								</td>
+								<td>
+									<input type="text" name="meeting_planner[]" value="{$meeting_planner1[2]}"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_dept[]"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_num[]"/>
+								</td>
+								<td>
+									<input type="text" name="meeting_planner_phone[]"/>
+								</td>
+							</tr>			     		
+						</if>
+					
+					</table>
+					<div class="notice1">策划人缺席,清除策划人的姓名项,提交即可!</div>
+					<button type="button" id="sub_btn" class="sub_btn">提 交</button> 	
+				</form>
+			</if>
+		</div>
+	</div> 
+</body>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+
+		//alert("{$planner_no}");
+		$('#sub_btn').click(function(){
+			if(!$('#user_num1').val().isEmpty() && !$('#user_phone1').val().isEmpty() &&
+				 !$('#user_dept1').val().isEmpty()){
+				layer.confirm('确定要提交数据吗?', {icon: 3, title:'提示'}, function(index){
+	           $('#theForm').submit();
+	           layer.close(index);
+	        });
+			}else{
+				layer.alert('请将策划人的编号和手机号填写完整!');
+			}
+		});
+	});
+</script> 
+</html>
+
+
+
+
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

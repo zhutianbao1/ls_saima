@@ -1,0 +1,66 @@
+<extend name="pub/base" />
+<block name="title">
+	<title>无线网基站规划建设平台首页</title>
+</block>
+<block name="css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/index.css"/>
+	<style type="text/css">
+		
+	</style>
+</block>
+<block name="main_right">
+	<div class="main_right">
+	    <h3>流程跟踪</h3>
+	    <div class="div_li">
+	    	<table>
+	    		<tr>
+	    			<td>工单号</td>
+	    			<td>申请人</td>
+	    			<td>待审核节点</td>
+	    			<td>待审核人员姓名</td>
+	    			<td>待审核人员电话</td>
+	    			<td>到达时间</td>
+	    			<td>工单状态</td>
+	    		</tr>
+	    		<volist name="items" id="item">
+	    			<tr>
+	    				<td>   				   
+		    				<a href="{:U('Index/flows_track_list?item_id='.$item['ITEM_ID'])}?tab=3">		    					{$item.ITEM_ID}
+		    				</a>			
+	    				</td>
+	    				<td>{$item.APPLIY_NAME}</td>
+	    				<td>{$item.NEXT_NODE_NAME}</td>
+	    				<td>{$item.NEXT_NODE_USERNAME}</td>
+	    				<td>{$item.NEXT_BILL_ID}</td>
+	    				<td>{$item.NODE_DATE}</td>
+	    				<td>{$item.ITEM_STATUS}
+	    				</td>
+	    			</tr>
+	    		</volist> 
+	    	</table>
+	    </div>
+	</div>
+</block>
+<block name="js">
+	<script >
+		$(function(){
+			$('.del_btn').click(function(event) {
+				var item_id =$(this).attr('para');
+				layer.confirm('确定要删除这个工单吗?', {icon: 3, title:'提示'}, function(index){
+				 url="{:U('Index/item_del')}";
+				 $.ajax({
+				  	url: url,
+				  	type: 'POST',
+				  	dataType: 'json',
+				  	data: {item_id: item_id},
+				  	success:function(re){
+                       layer.alert(re);                       
+				  	}
+				  });
+				 layer.close(index);
+				});
+			});
+		});
+	</script>
+</block>
+

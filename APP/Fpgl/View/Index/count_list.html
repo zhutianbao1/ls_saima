@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>财务发票管理平台</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Fpgl/style/count_list.css" />
+  <script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+  <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/Fpgl/js/index.js"></script>
+  <link rel="shortcut icon" href="__PUBLIC__/Fpgl/favicon.ico" />
+</head>
+<body id="main">
+<ol>
+  <li><form class="search" action="{:U('Index/count_list')}" method="post">
+  <span>录入开始时间</span><input type="text" name="input_date1" onclick="WdatePicker()" />
+  <span>录入结束时间</span><input type="text" name="input_date2" onclick="WdatePicker()" />
+  <input type="submit" class="submit" name="send" value="查询" />
+  </form></li>
+</ol>
+
+<form method="post" action="">
+<h2>发票录入统计</h2>
+<table cellspacing="0">
+  <tr><th>部门</th><th>总发票数</th><th>正常</th><th>退回</th><th>待作废</th><th>作废</th><th>核销中</th><th>已核销</th></tr>
+  <if condition = "$count_list[0] neq ''">
+  <volist name="count_list" id="cl">
+  <tr>
+    <td>{$cl['EMPL_DEPT']}</script></td>
+    <td>{$cl['ALL_INVOICE']}</td>
+    <td>{$cl['NORMAL']}</td>
+    <td>{$cl['BACK']}</td>
+    <td>{$cl['WAIT_CANCEL']}</td>
+    <td>{$cl['CANCEL']}</td>
+    <td>{$cl['WRITEOFF']}</td>
+    <td>{$cl['WRITEOFF_OK']}</td>
+  </tr>
+  </volist>
+  <else/>
+  <tr><td colspan="8">没有任何数据！</td></tr>
+  </if>
+</table>
+</form>
+<div id="page">{$_page}</div>
+</body>
+</html>

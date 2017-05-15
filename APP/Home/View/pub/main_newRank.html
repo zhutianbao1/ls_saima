@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><block name='title'></block></title>
+<link rel="stylesheet" type="text/css" href="__CSS__/newRank_style.css">
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+	<block name="css"></block>
+</head>
+<body>
+	<block name='body'></block>
+</body>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script type="text/javascript">
+	var oa = "{$_SESSION['user_auth']['OA']}";
+	if(oa.isEmpty()){
+		alert('操作会话超时，请重新OA登陆刷新进入');
+		window.opener = null;
+		window.close();
+		if(window){
+		   window.location.href="about:blank";
+		}
+	}
+</script>
+<script type="text/javascript">
+$('.ryTab span').click(function(){
+	$('.ryTab span.active-y').removeClass('active-y');
+	$(this).addClass('active-y');
+});
+$('.xfTab span').click(function(){
+	$('.xfTab span.active-x').removeClass('active-x');
+	$(this).addClass('active-x');
+});
+$('.rig-title span').click(function(){
+	$('.rig-title span.active').removeClass('active');
+	$(this).addClass('active');
+})
+$('.menu ul li a').click(function(){
+	$('ul li a.selected').removeClass('selected');
+	$(this).addClass('selected');
+});
+$('#{$month}').addClass('selected');
+$("#qlm").click(function(){
+	$('#demo_qlm').show();
+	$('#demo_jm').hide();
+	$('#demo_hm').hide();
+});
+$("#jm").click(function(){
+	$('#demo_qlm').hide();
+	$('#demo_jm').show();
+	$('#demo_hm').hide();
+});
+$("#hm").click(function(){
+	$('#demo_qlm').hide();
+	$('#demo_jm').hide();
+	$('#demo_hm').show();
+});
+
+$("#yyy").click(function(){
+	$('#demo_yyy').show();
+	$('#demo_xsjl').hide();
+	$('#demo_khjl').hide();
+});
+$("#xsjl").click(function(){
+	$('#demo_yyy').hide();
+	$('#demo_xsjl').show();
+	$('#demo_khjl').hide();
+});
+$("#khjl").click(function(){
+	$('#demo_yyy').hide();
+	$('#demo_xsjl').hide();
+	$('#demo_khjl').show();
+});
+$("#avd-pre").click(function(){
+	$('#avd-pre1').show();
+	$('#avd-tem1').hide();
+});
+$("#avd-tem").click(function(){
+	$('#avd-pre1').hide();
+	$('#avd-tem1').show();
+});
+$(document).ready(function(){
+	$(".td2 li:nth-child(2n)").css("background","#F0F4FA");
+});
+
+</script>
+
+
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '赛马程序', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+
+<block name='js'></block>
+</html>

@@ -1,0 +1,497 @@
+<extend name="pub/base" />
+<block name="title">
+	<title>无线网基站规划建设平台首页</title>
+</block>
+<block name="css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/review.css"/>
+	<style type="text/css">
+	    
+	</style>
+</block>
+<block name="main_right">
+	<div class="right_contain">
+	<h3>无线网基站规划建设申请</h3>
+	<div class="right_item">
+	    <form id="theForm" action="{:U('Index/review_item4')}" method="post">
+	    <fieldset>
+	    <legend>基本信息</legend>
+	  	<div class="group">
+	  	   <div class="group_div">
+	  	    	<label>工单编号</label>
+	  			<input type="text" name="item_id" value="{$items[0]['ITEM_ID']}" class="readonly" />
+	  			</div>
+	  	    <div class="group_div">
+	  	        <label>申请人:</label>
+	  			<input type="text" name="project_name" value="{$items[0]['APPLIY_NAME']}" class="readonly"/>
+	  	    </div>
+	  	    <div class="group_div">
+	  	        <label>项目名称</label>
+	  			<input type="text" name="project_name" value="{$items[0]['PROJECT_NAME']}" class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  	    	<label>预规划站名</label>
+	  			<input type="text" name="station_name" value="{$items[0]['STATION_NAME']}" class="readonly"/>
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>县区</label>
+	  			<input type="text" name="county_name" value="{$items[0]['COUNTY_NAME']}" class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>一二三类区域</label>
+	  			<input type="text" name="area_name" value="{$items[0]['AREA_NAME']}" class="readonly"/>
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>基站类型</label>
+	  			<input type="text" name="station_type" value="{$items[0]['STATION_TYPE']}" class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>网络制式</label>
+	  			<input type="text" name="network_type" value="{$items[0]['NETWORK_TYPE']}" class="readonly"/>
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>建站方式</label>
+	  			<input type="text" name="station_con" value="{$items[0]['STATION_CON']}" class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>建设目标</label>
+	  			<input type="text" name="con_target" value="{$items[0]['CON_TARGET']}" class="readonly"/>
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>经度</label>
+	  			<input type="text" name="jindu" value="{$items[0]['JINDU']}" class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>纬度</label>
+	  			<input type="text" name="weidu" value="{$items[0]['WEIDU']}" class="readonly"/>
+	  	  
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>网络问题同步</label>
+	  			<input type="text" name="network_syn" value="{$items[0]['NETWORK_SYN']}" class="readonly"/>
+	  			</div>
+	  	    <div class="group_div">
+	  			<label>网路问题</label>
+	  			<input type="text" name="network_pro" value="{$items[0]['NETWORK_PRO']}" class="readonly"/>
+	  	    </div>
+
+	  	    <div class="group_div">
+	  	    	<label>审核结果</label>
+	  	    	<!--
+	  	    	<input type="text" name="cur_node_result"  class="cur_node_result req"  
+	  	    	title="退回请输入0,同意请输入1." />
+	  	    	-->
+	  	    	<select name="cur_node_result" class="req">
+                	<option value=''>---请选择---</option>
+                	<!--
+                	<option value='0|退回修改'>退回修改</option>
+                	-->
+                	<option value='1|同意'>同意</option>
+                </select>
+	  	    	</div>
+	  	    <div class="group_div">
+	  	    	<label>下一节点</label>
+	  	    	<!--
+	  	    	<input type="text" name="next_node"  class="next_node req" />
+	  	    	-->
+	  	    	<select name="next_node" class="req">
+	  	    	    <option value="">---请选择---</option>
+	  	    	    <volist name="nodes" id="node">
+	  	    		<option value="{$node['NODE_NO']}|{$node['NODE_LOGIN_CODE']}|{$node['NODE_NAME']}|{$node['NODE_USERNAME']}|{$node['BILL_ID']}|{$node['COUNTY_CODE']}">{$node['NODE_NO']}|{$node['NODE_LOGIN_CODE']}|{$node['NODE_NAME']}|
+	  	    		{$node['NODE_USERNAME']}|{$node['BILL_ID']}|{$node['COUNTY_CODE']}
+	  	    		</option>
+	  	    		</volist>
+	  	    	</select>
+	  	    </div>
+        
+	  	    <div class="group_div1" >
+	  	       <label>审核意见</label>	  	       
+	  	       <textarea name="review_suggest" class="req"></textarea>	  	       	  	    	
+	  	    </div>
+	  	    <div class="clear"></div>
+
+	  	    <div class="group_div1" >
+	  	       <label>备注</label>	  	       
+	  	       <textarea name="remark2"></textarea>	  	       	  	    	
+	  	    </div>
+	  	    <div class="clear"></div>
+	  	    <div style="height: 10px;"></div>
+	  	</div>
+	  	</fieldset>
+	  	
+	  	<fieldset>
+	  		<legend>附件</legend>
+	  		<div class="group_div1">
+		  	    <label>附件:</label>
+		  		<a href="{$items[0]['FILES_PATH']}">
+				  	<?php 
+				  	$path=$items[0]['FILES_PATH'];
+				  	$pos      = strripos($path,'/');
+				  	$filename=substr($path,$pos+1);
+				  	echo  $filename;
+				  	?>
+		  	    </a>
+	  	</div>
+
+	  	</fieldset>
+	  	
+	  	
+	  	
+        <fieldset>
+        <legend>报告信息:</legend>
+        <div class="group">
+                <div class="group_div">
+                	<label>报告单编号</label>
+		  	    	<input type="text" name="report_id"  class="req readonly" value="{$items[0]['ITEM_ID']}"  />
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>设备厂家(建议)</label>
+		  	    	<input type="text" name="device_factory" class="req"  value="{$reports[0]['DEVICE_FACTORY']}" />
+                </div>
+		  	    <div class="group_div">
+		  	    	<label>BBU数量</label>
+		  	    	<input type="text" name="bbb_no"  class="req" value="{$reports[0]['BBB_NO']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>板卡数量</label>
+		  	    	<input type="text" name="board_no"  class="req" value="{$reports[0]['BOARD_NO']}"/>
+		  	    </div>
+
+		  	    <div class="group_div">
+		  	    	<label>RRU通道数</label>
+		  	    	<input type="text" name="rru_aisle_no"  class="req" value="{$reports[0]['RRU_AISLE_NO']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>RRU数量</label>
+		  	    	<input type="text" name="rru_no"  class="req" value="{$reports[0]['RRU_NO']}"/>
+		  	    </div>
+
+		  	    <div class="group_div">
+		  	    	<label>小区数量</label>
+		  	    	<input type="text" name="xq_no"  class="req" value="{$reports[0]['XQ_NO']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>每个小区RRU配置</label>
+		  	    	<input type="text" name="xq_rru"  class="req" value="{$reports[0]['XQ_RRU']}"/>
+		  	    </div>
+
+		  	     <div class="group_div">
+		  	    	<label>小区一规划信息</label>
+		  	    	<input type="text" name="xq_no1"  class="req" value="{$reports[0]['XQ_NO1']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>小区二规划信息</label>
+		  	    	<input type="text" name="xq_no2"  class="req" value="{$reports[0]['XQ_NO2']}"/>
+		  	    </div>
+
+		  	    <div class="group_div">
+		  	    	<label>小区三规划信息</label>
+		  	    	<input type="text" name="xq_no3"  class="req" value="{$reports[0]['XQ_NO3']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>天线型号</label>
+		  	    	<input type="text" name="tx_type"  class="req" value="{$reports[0]['TX_TYPE']}"/>
+		  	    </div>
+		  	    
+
+
+
+
+                <if condition="$items[0]['STATION_TYPE']  eq '宏站'"> 
+		  	    <div class="group_div">
+		  	    	<label>省管配套(万元)</label>
+		  	    	<input type="text" name="sgpt"  class="req" value="{$reports[0]['SGPT']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>分管配套(万元)</label>
+		  	    	<input type="text" name="fgpt"  class="req" value="{$reports[0]['FGPT']}"/>	
+		  	    </div>
+		  	     <div class="group_div">
+		  	    	<label>配套投资合计(万元)</label>
+		  	    	<input type="text" name="pt_totle"  class="req" value="{$reports[0]['PT_TOTLE']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>主设备费用(万元)</label>
+		  	    	<input type="text" name="zsbfy"  class="req" value="{$reports[0]['ZSBFY']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>综合柜费用(万元)</label>
+		  	    	<input type="text" name="zhg"  class="req" value="{$reports[0]['ZHG']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	   
+		  	    	<label>电源配套设备费用(万元)</label>
+		  	    	<input type="text" name="power"  class="req" value="{$reports[0]['POWER']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>天馈保护盒(万元)</label>
+		  	    	<input type="text" name="tkbhh"  class="req" value="{$reports[0]['TKBHH']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>环境评价费(万元)</label>
+		  	    	<input type="text" name="hjpj"  class="req" value="{$reports[0]['HJPJ']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>无线设计费(万元)</label>
+		  	    	<input type="text" name="wxsj"  class="req" value="{$reports[0]['WXSJ']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>土建设计费(万元)</label>
+		  	    	<input type="text" name="tjsj"  class="req" value="{$reports[0]['TJSJ']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>建安费(万元)</label>
+		  	    	<input type="text" name="jaf"  class="req" value="{$reports[0]['JAF']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>市电引入费(万元)</label>
+		  	    	<input type="text" name="sdyr"  class="req" value="{$reports[0]['SDYR']}"/>
+		  	    </div>
+		  	    <div class="group_div">
+		  	    	<label>征地赔补费(万元)</label>
+		  	    	<input type="text" name="zdpc"  class="req" value="{$reports[0]['ZDPC']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>灭火器(万元)</label>
+		  	    	<input type="text" name="mhf"  class="req" value="{$reports[0]['MHF']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>站址协调费(万元)</label>
+		  	    	<input type="text" name="zzxtf"  class="req" value="{$reports[0]['ZZXTF']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>机房费用(万元)</label>
+		  	    	<input type="text" name="jff"  class="req" value="{$reports[0]['JFF']}"/>
+		  	    </div>
+		  	    <div class="group_div">
+		  	    	<label>塔桅基础费用(万元)</label>
+		  	    	<input type="text" name="twjcf"  class="req" value="{$reports[0]['TWJCF']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>基础监理费用(万元)</label>
+		  	    	<input type="text" name="jcjlf"  class="req" value="{$reports[0]['JCJLF']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>塔桅费用(万元)</label>
+		  	    	<input type="text" name="twf"  class="req" value="{$reports[0]['TWF']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>塔桅监理费用(万元)</label>
+		  	    	<input type="text" name="twjlf"  class="req" value="{$reports[0]['TWJLF']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>基站接地费用(万元)</label>
+		  	    	<input type="text" name="jzjdf"  class="req" value="{$reports[0]['JZJDF']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>基站勘探费用(万元)</label>
+		  	    	<input type="text" name="jzktf"  class="req" value="{$reports[0]['JZKTF']}"/>
+		  	    </div>
+		  	    <div class="group_div" > 
+		  	         <label >其他材料费(分公司采购)(万元)</label>
+		  	    	<input type="text" name="qtclf"  class="req" value="{$reports[0]['QTCLF']}" />
+		  	    </div>
+		  	    </if>
+
+
+
+
+                <if condition="$items[0]['STATION_TYPE']  eq '室分'">
+		  	    <div class="group_div">
+		  	    	<label>分布系统投资</label>
+		  	    	<input type="text" name="fbtz"  class="req" value="{$reports[0]['FBTZ']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>每平米造价(含主设备)</label>
+		  	    	<input type="text" name="mpmzj"  class="req" value="{$reports[0]['MPMZJ']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>分布系统每平米造价</label>
+		  	    	<input type="text" name="fbxtmpmzj"  class="req" value="{$reports[0]['FBXTMPMZJ']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>RRU经度</label>
+		  	    	<input type="text" name="rrujd"  class="req" value="{$reports[0]['RRUJD']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>RRU纬度</label>
+		  	    	<input type="text" name="rruwd"  class="req" value="{$reports[0]['RRUWD']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>开关电源</label>
+		  	    	<input type="text" name="kgpower"  class="req" value="{$reports[0]['KGPOWER']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>天馈等器件</label>
+		  	    	<input type="text" name="tkqj"  class="req" value="{$reports[0]['TKQJ']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>集成施工费</label>
+		  	    	<input type="text" name="jcsgf"  class="req" value="{$reports[0]['JCSGF']}"/>
+		  	    </div> 
+		  	    <div class="group_div">
+		  	    	<label>设计费</label>
+		  	    	<input type="text" name="sjf"  class="req" value="{$reports[0]['SJF']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>监理费</label>
+		  	    	<input type="text" name="jlf"  class="req" value="{$reports[0]['JLF']}"/>
+		  	    </div>
+		  	    <div class="group_div">
+		  	    	<label>天馈测试费</label>
+		  	    	<input type="text" name="tkcsf"  class="req" value="{$reports[0]['TKCSF']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>电力费用</label>
+		  	    	<input type="text" name="dlf"  class="req" value="{$reports[0]['DLF']}"/>
+		  	    </div>
+		  	    <div class="group_div" >
+		  	    	<label>塔桅土建费用</label>
+		  	    	<input type="text" name="twtjf"  class="req" value="{$reports[0]['TWTJF']}"/>
+		  	    </div>
+		  	    </if>
+
+
+                <if condition="$items[0]['STATION_TYPE']  eq '小微站'">
+		  	    <div class="group_div">
+		  	    	<label>主设备(不含税)</label>
+		  	    	<input type="text" name="zsbbhs"  class="req" value="{$reports[0]['ZSBBHS']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>基站配置施工费</label>
+		  	    	<input type="text" name="jzpzsgf"  class="req" value="{$reports[0]['JZPZSGF']}"/>
+		  	    </div>
+		  	    <div class="group_div">
+		  	    	<label>配套设备费用(不含税)</label>
+		  	    	<input type="text" name="ptfybhs"  class="req" value="{$reports[0]['PTFYBHS']}"/>
+		  	    	 </div>
+	  	    <div class="group_div">
+		  	    	<label>设计监理费</label>
+		  	    	<input type="text" name="sjjlf"  class="req" value="{$reports[0]['SJJLF']}"/>
+		  	    </div>
+		  	    </if>
+
+		  	    <div class="group_div1" >
+		  	       <label>备注</label>	  	       
+		  	       <textarea name="remark2">{$reports[0]['REMARK']}</textarea>	
+		  	    </div>
+		  	    <div class="clear"></div>
+		  	    <div style="width: 100%;height: 10px;"></div> 
+		  	</div>
+		  	
+		
+	  	</fieldset>
+	  	<div class="div_btn">
+	  		<input type="button" class="sub_btn"  value="提 交"/>
+	  	</div>
+	  	</form>	
+	  	</div>
+	</div>
+	<div class="div_flow">
+		<h3>无线网基站规划建设流程审批信息</h3>
+		<fieldset>
+			<legend>流程信息:</legend>
+		<div class="flow_content">
+			<table>
+				<tr>
+				    <td>节点编号</td>
+					<td>节点名称</td>
+					<td>处理人</td>
+					<td>审批意见</td>
+					<td>处理时间</td>
+					<td>下一处理人</td>
+				</tr>
+				<volist name="flows" id="flow">
+					<tr>
+					    <td>{$flow.CUR_NODE_STEP}</td>
+						<td>{$flow.CUR_NODE_NAME}</td>
+						<td>{$flow.CUR_NODE_USERNAME}</td>
+						<td>{$flow.CUR_NODE_SUGGEST}</td>
+						<td>{$flow.NODE_DATE}</td>
+						<td>{$flow.NEXT_NODE_USERNAME}</td>
+					</tr>
+				</volist>
+			</table>
+		</div>
+		</fieldset>
+	</div>
+	
+</block>
+<block name="js">
+	<script >
+		$(function(){
+            $('.sub_btn').click(function() {
+           	  var flag=true;              
+	          $(".req").each(function(index, el) {
+	          	 if($(this).val().isEmpty()){
+	          	 	flag=false;
+	          	 	$(this).css('background-color','#ffffe1');
+	          	 	layer.alert('请将数据填写完整!');
+	          	 }
+	          });
+	          if(flag){
+	          	layer.confirm('确定要提交数据吗?', {icon: 3, title:'提示'}, function(index){
+                  $('#theForm').submit();
+				  layer.close(index);
+				});
+	          }
+            });
+
+            $(".req").each(function(index, el) {
+	          	 $(this).focus(function(event) {
+	          	  $(this).css('background-color','');
+	          	 });
+	        });
+
+
+
+            /**
+            $('.cur_node_result').tooltip();
+            var result=[
+               '0|退回修改',
+               '1|同意'
+			];
+			$(".cur_node_result").autocomplete({
+		      source: result,
+		      messages: {
+              noResults:'',
+              results: function() {}        
+             }
+		    });
+
+		    
+
+			var nodes=[            
+                <?php 
+                   $node='';
+		           for ( $i=0;$i<count($nodes); $i++) { 
+		              if($i==count($nodes)-1){
+		                  $node .=('"'.$nodes[$i]['NODE_NO'].'|'.$nodes[$i]['NODE_LOGIN_CODE'].'|'.$nodes[$i]['NODE_NAME'].
+		                  	'|'.$nodes[$i]['NODE_USERNAME'].'|'.$nodes[$i]['BILL_ID'].'|'.$nodes[$i]['COUNTY_CODE'].'"');
+		              }else{
+		                  $node .= ('"'.$nodes[$i]['NODE_NO'].'|'.$nodes[$i]['NODE_LOGIN_CODE'].'|'.$nodes[$i]['NODE_NAME'].'|'
+		                  	.$nodes[$i]['NODE_USERNAME'].'|'.$nodes[$i]['BILL_ID'].'|'.$nodes[$i]['COUNTY_CODE'].'"'.',');
+		              }
+		           }
+		           echo $node;
+                ?>
+			];
+
+			$(".next_node").autocomplete({
+		      source: nodes,
+		      messages: {
+              noResults:'',
+              results: function() {}        
+             }
+		    });
+		    
+	**/	   
+
+		});
+	</script>
+</block>
+

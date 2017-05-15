@@ -1,0 +1,25 @@
+<extend name="tmp"/>
+<block name="css">
+<style type="text/css">
+    td:hover{background: #fff;color:#000;cursor:pointer;}
+</style>
+</block>
+<block name="body">
+<table  width="98%" border="0" cellspacing="1" cellpadding="0"> 
+<volist name="roles" id="role">
+<tr>   
+  <td title="{$role['ROLE_NAME']}" id="{$role['ROLE_ID']}"> {$role['ROLE_NAME']}</td>
+</tr>
+</volist>
+</table> 
+</block>
+
+<block name="js">
+<script type="text/javascript">
+  $("td").click(function(){
+    var e = $(this),
+        id = e.attr('id');
+    $("#edit_form",window.parent.document).attr('src',"{:U('role_edit')}"+"?id="+id);
+  });
+</script>
+</block> 

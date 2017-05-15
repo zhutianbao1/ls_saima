@@ -1,0 +1,159 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>业务综合受理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+
+<link rel="stylesheet" href="__PUBLIC__/comm.css">
+<link rel="stylesheet" href="__PUBLIC__/global.css"> 
+<link rel="stylesheet" href="__CSS__/index.css">
+<link rel="stylesheet" href="__JS__/dtree.css"> 
+<script type="text/javascript">var imgSrc = "__CSS__/images";</script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script type="text/javascript" src="__JS__/dtree.js"></script>
+
+<body style="overflow: hidden;">
+<div class="wrap">
+<div class="head hide">
+	<div class="h_left">头左</div>
+	<div class="h_right">
+		<div class="h_right_top">头右上</div>
+		<div class="h_right_bottom">头右下</div>
+	</div>	
+</div>
+
+
+<div class="c_left">
+	<div class="c_left_top b102 hide">
+		<div><input type="text" name="menuName"/><input type="button" value="搜索"></div>
+	</div>
+	<div class="c_left_menu b102 hide">菜单导航</div>
+	<div class="c_left_tree" style="background-color:rgb(35,84,117);padding:10px 0 0 10px;">
+		<script type="text/javascript">
+			d = new dTree('d');
+			d.add(10,-1,"菜单","javascript:void(-1);","菜单","","","",false);
+			<?php 
+				foreach ($menuList as $key => $m) {
+					if(empty($m['MENU_URL'])){
+						$link = "mzTab('".$m['MENU_ID']."','".$m['MENU_NAME']."','')";
+					}else{
+						$link = "mzTab('".$m['MENU_ID']."','".$m['MENU_NAME']."','".U($m['MENU_URL'])."')";
+					}
+					echo "d.add(".$m['MENU_ID'].",".$m['MENU_PARENT_ID'].",\"".$m['MENU_NAME']."\",\"javascript:".$link.";\",\"".$m['MENU_NAME']."\",\"\",\"\",\"\",false);"; 
+
+				}
+			?>
+			document.write(d);
+		</script>
+	</div>
+</div>
+
+<!-- mzTab('5000109092','通路','/rpt/rpt_priview_tab.jsp?menuId=5000109092&menuFunc=A&objName=通路');  -->
+
+<div class="c_middel"></div>
+
+
+<div class="content">
+<div class="c_right">
+	<div class="c_right_top">
+
+		<ul id="top_tab">
+			<li class="curr" style="margin-left:0px;"><a href="javascript:;">首页</a></li>
+		</ul>
+
+		<div class="top_tab_control" >
+			<span><input type="button" class="scroll_left" value="<"></span>
+			<span><input type="button" class="scroll_right" value=">"></span>
+			<span><input type="button" class="more_menu" value="^"></span>
+		</div>
+	</div>
+	<div class="c_right_main">
+		<iframe src="{:U('manage/index')}" width="100%;" height="100%" frameborder="0" scrolling="auto"></iframe> 
+	</div>
+</div>
+</div>	
+
+
+<div class="clear"></div>
+<div class="footer"></div>
+</div>
+ 
+<SCRIPT type="text/javascript">
+$(function(){
+	autoHight();
+ 
+	$(document).resize(function(event) {
+		autoHight();
+	});
+
+	$("#top_tab li").live('click',function(){
+		var e = $(this),
+			i = e.index();
+		$(".c_right_main").find("iframe").eq(i).show().siblings('iframe').hide();
+		e.addClass('curr').siblings('li').removeClass('curr');
+	});
+
+	//关闭标签
+	$("#top_tab").find(".close").live('click',function(){
+		var index = $(this).parent().index();
+		var prev  = $(this).parent().prev();
+		var curr_flag = $(this).parent().hasClass('curr');
+		$(this).parent().remove();
+		$(".c_right_main").find("iframe").eq(index).remove();
+		if(curr_flag){
+			$(".c_right_main").find("iframe").hide();
+			$(".c_right_main").find("iframe").eq(prev.index()).show();
+			prev.siblings('li').removeClass('curr');
+			prev.addClass('curr');
+		}
+	});
+
+});
+
+mzTab = function(id , name , link){	
+	//tab中最多8个TAB
+	var lis = $("#top_tab").find('li');
+	if(lis.length>=8){
+		alert('tab中最多8个TAB，请关闭不用的栏目重试');
+		return;
+	}
+
+	if(empty(link)){
+		return;
+	}
+
+	if($("#lis_"+id).length>0){
+		$("#lis_"+id).click();
+	}else{
+		var top_tab = $("#top_tab"),
+			li      = '<li id="lis_'+id+'" class="curr"><a href="javascript:;">'+name+'</a><span class="close">x</span></li>',
+			c_right_main = $(".c_right_main:eq(0)");
+			iframe  = '<iframe src="'+link+'" width="100%;" height="100%" frameborder="0" scrolling="auto"></iframe>';
+			top_tab.children('li').removeClass('curr');
+			top_tab.append(li);
+			c_right_main.children('iframe').hide();
+			c_right_main.append(iframe);
+			//autoHight();
+	}
+	autoHight();
+}
+
+ autoHight = function(){
+ 	// 	$(".c_left_tree").height($(document).height()-$(".head").height()-5);
+	// $(".content").height($(document).height()-$(".head").height()-5);
+	// $(".c_right_main iframe").height($(document).height()-$(".head").height()-$(".c_right_top").height());
+	$(".c_left_tree").height($(document).height());
+	$(".content").height($(document).height());
+	$(".c_middel").height($(document).height());
+	$(".c_right_main iframe").height($(document).height()-$(".c_right_top").height());
+ }
+</SCRIPT>
+</body>
+</head>
+</html>

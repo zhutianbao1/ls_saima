@@ -1,0 +1,70 @@
+<!-- 左侧图片版本 -->
+<!-- <div class="hd lined">
+<h3>读书心得
+  <span class="help-tip"></span></h3>
+  <a class="more" href="{:U('index/xinde')}">更多>></a>
+</div>
+<div class="bd">
+  <ul class="list-lined ebook-list column-list">
+    <volist name="xindes" id="xin">
+      <li class="item" style="border-bottom:dashed 1px #eee;clear:both;padding-bottom:35px;height:120px;">
+      <div class="cover shadow-cover" style="height:140px;width:100px;">
+        <a class="pic" href="/ranking/Read/index/book_info/id/5.html">
+          <img width="100%" height="100%" itemprop="image" alt="" src="/ranking/Uploads/Picture/1468462382.jpg" tmpsrc="__ROOT__/{$xin['img']}"></a>
+      </div>
+
+        <div class="info">
+          <div class="title">
+            <h4 style="font-size:16px;"><a href="{:U('index/book_xinde?id='.$xin['id'])}">{$xin['title']}</a></h4></div>
+          <p class="">
+            <span class="">
+              <span class="label">作者：<a href="javascript:;" class="author-item">管理员</a></span>
+            </span>
+            &nbsp;&nbsp;&nbsp;
+            <span class="category">
+              <span class="label">类别：<a href="javascript:;">学习</a></span>
+            </span>
+          </p>
+          <div class="article-desc-brief">{$xin['text']|mb_substr=###,0,150,'utf-8'}...
+            <a  href="{:U('index/book_xinde?id='.$xin['id'])}">（更多）</a></div>
+        </div>
+      </li>
+    </volist>
+  </ul>
+</div> -->
+
+<div class="hd lined">
+<h3>读书心得
+  <span class="help-tip"></span></h3>
+
+  <a class="more a-btn" href="{:U('index/xinde_edit')}">发表心得</a>
+
+  <a class="more" href="{:U('index/xinde')}">更多>></a>
+</div>
+<div class="bd">
+  <empty name="xindes">
+  暂无数据
+  <else/>
+  <ul class="list-lined ebook-list column-list">
+    <volist name="xindes" id="xin">
+      <li class="item" style="border-bottom:dashed 1px #eee;clear:both; height:100px;">
+        <div class="info">
+          <div class="title">
+            <h4 style="font-size:14px;"><a href="{:U('index/book_xinde?id='.$xin['id'])}">
+            {$xin['title']}</a></h4>
+            &nbsp;&nbsp;<span class="label">作者：<a href="javascript:;" class="author-item">
+            <?php 
+                $info = R('ls/get_oper_info',array($xin['oper_id']));
+                echo $info['OPER_NAME'];
+            ?>
+            </a></span>
+            <span class="label">类别：<a href="javascript:;">学习</a></span>
+            </div>
+          <div class="article-desc-brief">{$xin['text']|mb_substr=###,0,170,'utf-8'}...
+            <a  href="{:U('index/book_xinde?id='.$xin['id'])}">（更多）</a></div>
+        </div>
+      </li>
+    </volist>
+  </ul> 
+  </empty>
+</div>

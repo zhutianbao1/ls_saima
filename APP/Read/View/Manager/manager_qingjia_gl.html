@@ -1,0 +1,55 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">请假管理</block>
+<block name="css"> 
+<link rel="stylesheet" href="__CSS__/tag.css">
+  <style type="text/css"> 
+    .left_link{width: 200px;height: 50px;font-size: 20px;padding: 10px;} 
+      .fl{ float: left; }
+  .fr{ float: right; }
+  .need_left{ width: 100px; border: 1px solid #ccc;  }
+
+  .need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;
+    text-align: center; background-color: #eee; }
+
+  .need_left ul{ width: 80px; margin-left: 20px; }
+  .need_left ul li{ height: 25px;  line-height: 25px;}
+
+  .need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+  .need_left ul li a:hover{ background-color: #eee; color: #333; }
+ 
+  .need_right{ width: 825px; border:1px solid #ccc; }
+  </style>  
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+
+<block name="main_right">
+  <div class="need_left fl">
+    {:W('Side/need_tab')}
+  </div>
+  <div class="need_right fr"> 
+  <div>
+      <if condition="$list['manager_op'] eq 1 ">
+        <a href="{:U('manager/manager_qingjia_list1')}" class="left_link" >请假审核</a>
+      <elseif condition="$list['manager_op'] eq 2 " />
+        <a href="{:U('manager/manager_qingjia_list2')}" class="left_link" >请假审核</a>
+      <elseif condition="$list['manager_op'] eq 3 " />
+        <a href="{:U('manager/manager_qingjia_list3')}" class="left_link" >请假审核</a>    
+      </if> 
+  </div>
+  </div>
+</block>
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+ <script type="text/javascript">
+  
+ </script> 
+</block>

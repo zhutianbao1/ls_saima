@@ -1,0 +1,133 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<link href="__CSS__/laydate.css" rel="stylesheet" />
+<style type="text/css">
+body{width: 1000px;margin: 0 auto;font-size: 14px;}
+  .dl{width:100%;}
+  .dt dt{float: left;background: #647a9f;color: white;height: 35px;line-height: 35px;}
+  .dd dd{float: left;height: 20px;height: 35px;line-height: 35px;}
+  .times{width: 100%;height:95px;background:#EDF6FD;line-height: 95px;margin-top: 54px; }
+  .times input,.times select{border: 1px solid #eee;height: 25px;position: relative;line-height: 25px;}
+  .btn{background:#1FA5E4;color:#fff;padding:6px 10px;height:10px;line-height:10px;}
+</style>
+</block>
+    
+<block name="body"> 
+<div class="header" style="width:1000px;">
+  <h2>万场进驻营销汇总</h2>
+</div>
+    <section class="sections list_con_2" style="height:90px;">
+    <div class="times">
+      <span>选择县市</span><select id="countyName" name="countyName" style="width: 130px;">
+        <option value="" >全部</option>
+        <option value="莲都" >莲都</option>
+        <option value="青田" >青田</option>
+        <option value="景宁" >景宁</option>
+        <option value="缙云" >缙云</option>
+        <option value="遂昌" >遂昌</option>
+        <option value="庆元" >庆元</option>
+        <option value="龙泉" >龙泉</option>
+        <option value="松阳" >松阳</option>
+        <option value="云和" >云和</option>
+        <option value="南城" >南城</option>
+      </select>
+      <span>类型</span><select name="mode" id="mode" style="width: 130px;">
+         <option value="">全部</option>
+         <option value="万场服务进农村">万场服务进农村</option>
+         <option value="万场服务进社区">万场服务进社区</option>
+         <option value="万场服务进集团">万场服务进集团</option>
+       </select> 
+      <span>开始时间</span><input id="homeDate" value="<?php echo date('Y-m-d',time())?>" onClick="WdatePicker({isShowWeek:true})">
+      <span>截止时间</span><input id="endDate" value="<?php echo date('Y-m-d',time())?>" onClick="WdatePicker()"/>
+      <a style="margin-left:50px;" href="javascript:;" id="btn" class="btn">查询</a>
+      <a href="javascript:;" class="export btn">导出表单</a>
+    </div>
+        <dl class="dt">
+            <dt style="width:140px;text-align: center;">县市</dt>
+            <dt style="width:200px;text-align: center;">类型</dt>
+            <dt style="width:130px;text-align: center;">设摊数量</dt>
+            <dt style="width:130px;text-align: center;">终端销量</dt>
+            <dt style="width:200px;text-align: center;">孝道机销量</dt>
+            <dt style="width:200px;text-align: center;">2/3G迁移量</dt>
+        </dl>
+        <div class="mon"></div>
+    </section>
+ 
+</block>
+
+<block name="js">
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript">
+var num=1;
+var btnDate={};
+seach(num,btnDate);
+function seach(num,btnDate){
+    $(".mon").each(function() {
+        var e = $(this);
+        var url="{:U('rank_market')}"+"?num="+num;
+        e.html('');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data:btnDate,
+            success:function(result){
+                var html='';
+                $.each(result, function(index, el) {
+                    html += '<a href="javascript:;" style="color:black;"><dl class="dd">';
+                    html += '<dd style="width:140px;text-align: center;">'+el['COUNTY_NAME']+'</dd>';
+                    html += '<dd style="width:200px;text-align: center;">'+el['服务类型']+'</dd>';
+                    html += '<dd style="width:130px;text-align: center;">'+el['设摊数量']+'</dd>';
+                    html += '<dd style="width:130px;text-align: center;">'+el['终端销量']+'</dd>';
+                    html += '<dd style="width:200px;text-align: center;">'+el['孝道机销量']+'</dd>';
+                    html += '<dd style="width:200px;text-align: center;">'+el['G2G3迁移量']+'</dd>';
+                    html += '</dl></a>';
+                });
+                e.html(html);
+                $(".mon a dl:odd dd").css('background','#eee');
+                if(result.length==0){
+                    layer.msg('未找到任何数据');
+                }
+            },
+            error:function(e) {
+               layer.msg('数据加载错误');
+            }
+        });      
+    });
+}
+
+$('#btn').click(function(){
+   btnDate={
+    homeDate:$("#homeDate").val(),
+    endDate:$("#endDate").val(),
+    countyName:$("#countyName").val(),
+    mode:$("#mode").val()
+  }
+  seach(num,btnDate);
+});
+$('.export').click(function(){
+  if(btnDate.countyName==undefined){
+    btnDate.countyName='';
+  }
+  if(btnDate.mode==undefined){
+    btnDate.mode='';
+  }
+  if(btnDate.homeDate==undefined){
+    btnDate.homeDate='';
+  }
+  if(btnDate.endDate==undefined){
+    btnDate.endDate='';
+  }
+  var url="{:U('file')}"+"?countyName="+btnDate.countyName+"&mode="+btnDate.mode+"&homeDate="+btnDate.homeDate+"&endDate="+btnDate.endDate;
+  location.href= url; 
+})
+
+  
+</script>
+</block>

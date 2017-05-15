@@ -1,0 +1,19 @@
+<ul>
+	<li class="{$tabbs==1?'curr':''}">
+		<a href="{:U('Payment/payment_by_case?tabbs=1')}">结算汇总表(分活动名称)</a>
+	</li>
+
+	<li class="{$tabbs==2?'curr':''}">
+		<a href="{:U('Payment/payment_by_org?tabbs=2')}">结算汇总表(分渠道类型)</a>
+	</li>
+
+	<li class="{$tabbs==3?'curr':''}">
+		<a href="{:U('Payment/payment_org_list?tabbs=3')}">渠道级的清单</a>
+	</li>
+	<li class="{$tabbs==4?'curr':''}">
+		<a href="{:U('Payment/payment_amount_list?tabbs=4')}">结算全量清单</a>
+	</li>
+	<li class="{$tabbs==5?'curr':''}">
+		<a href="{:U('Payment/payment_statistics_list?tabbs=5')}">营销资源掌控</a>
+	</li>
+</ul>

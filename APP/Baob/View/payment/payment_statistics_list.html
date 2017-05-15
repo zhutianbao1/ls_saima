@@ -1,0 +1,103 @@
+<extend name="pub/tpl"/>
+<block name='main_show'>
+<form action="{:U('Payment/payment_statistics_list')}" method="post" id="theForm">
+	<input type="hidden" name="tabbs" value="5">
+	<div class="search_div">
+		<div class="group" style="width: 140px;">
+			<label style="width: 50px;">县市:</label>
+			<select name="county_code" id="county_code" style="width: 80px;">
+				<option value="" {$county_code==''?selected:''}>全部</option>
+				<option value="5781" {$county_code=='5781'?selected:''}>丽水</option>
+				<option value="5782" {$county_code=='5782'?selected:''}>缙云</option>
+				<option value="5783" {$county_code=='5783'?selected:''}>青田</option>
+				<option value="5784" {$county_code=='5784'?selected:''}>云和</option>
+				<option value="5785" {$county_code=='5785'?selected:''}>庆元</option>
+				<option value="5786" {$county_code=='5786'?selected:''}>龙泉</option>
+				<option value="5787" {$county_code=='5787'?selected:''}>遂昌</option>
+				<option value="5788" {$county_code=='5788'?selected:''}>松阳</option>
+				<option value="5789" {$county_code=='5789'?selected:''}>景宁</option>
+				<option value="578B" {$county_code=='578B'?selected:''}>南城</option>
+			</select>	
+		</div>
+		<div class="group">
+			<label>营销方案:</label>
+			<input type="text" name="case_name" id="case_name" value="{$case_name}" />
+		</div>
+		<div class="group">
+			<label>预缴名称:</label>
+			<input type="text" name="prepay_name"  value="{$prepay_name}" />
+		</div>
+		<div class="group1">
+			<input type="button" class="search_btn" value="搜 索"/>
+		</div>
+		<div class="group1">
+			<input type="button" class="exp_btn" value="导 出"/>
+		</div>
+	</div>
+</form>
+<div class="show_div" style="width: 940px;overflow-x:scroll;">
+	<table style="width: 300%;overflow: scroll;">
+		<tr>
+			<th style="width: 80px;">日期</th>
+			<th style="width: 60px;">县市</th>
+			<th>营销案编号</th>
+			<th>营销案名称</th>
+			<th>预缴编号</th>
+			<th>预缴名称</th>
+			<th>累计受理业务数量</th>
+			<th>应赠送缴费卡金额</th>
+			<th>已打印缴费卡金额</th>
+			<th>已充值缴费卡金额</th>
+			<th>已充值占比</th>
+			<th>充值在浙江的金额</th>
+			<th>充值在浙江占比</th>
+			<th>充值在外省金额</th>
+			<th>充值到外省占比</th>
+		</tr>
+		<empty name="lists" >
+			<tr >
+				<td colspan="5">暂无数据</td>
+			</tr>
+		<else/>	
+		<volist name="lists" id="list">
+			<tr>
+				<td>{$list['COUNTY_NAME']}</td>
+				<td>{$list['COUNTY_NAME']}</td>
+				<td>{$list['CASE_ID']}</td>
+				<td>{$list['CASE_NAME']}</td>
+				<td>{$list['OFFER_ID']}</td>
+				<td>{$list['PREPAY_NAME']}</td>
+				<td>{$list['受理量3']}</td>
+				<td>{$list['应赠金额']}</td>
+				<td>{$list['已打印']}</td>
+				<td>{$list['总金额']}</td>
+				<td>{$list['总金额']/$list['已打印']}</td>
+				<td>{$list['本省金额']}</td>
+				<td>{$list['本省金额']/$list['总金额']}</td>
+				<td>{$list['外省金额']}</td>
+				<td>{$list['外省金额']/$list['总金额']}</td>
+			</tr>
+		</volist>
+		</empty>
+	</table>
+</div>
+<div style="height: 30px;">
+	{$_page}
+</div>
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$(function(){
+			$('.back_btn').click(function(){
+				window.location="{:U('Login/payment_index')}";
+			});
+			$('.search_btn').click(function(){
+				$('#theForm').submit();
+			});
+			$('.exp_btn').click(function(){
+				window.location.href="{:U('Payment/payment_statistics_list_exp')}?county_code={$county_code}&case_name={$case_name}&prepay_name={$prepay_name}";
+			});
+		});
+	</script>
+</block>
+

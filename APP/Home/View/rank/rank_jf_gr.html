@@ -1,0 +1,378 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">{$gr[0]['USER_NAME']}-信息</block>
+
+	
+<block name="css">
+	<style type="text/css">
+	
+	.model-list{line-height: 28px;margin-bottom:2px !important;}
+	.model-list li{position:relative;list-style: none;float: left;width:208px;padding-left: 4px;margin-left: 18px;font-weight: 600;margin-bottom: 4px;color: #000;font-size: 14px;}
+	.model-list li span{width:120px;padding-left: 4px;font-weight: 400;position: absolute;right:0px;font-size: 14px;}
+
+	.model-list .li{
+		position: relative;
+		margin-bottom: 2px;
+		padding-left:20px;
+		margin-left: -1px;
+		height:60px;
+		color: #172c45;
+		width: 214px;
+		border-bottom:solid 1px #ccc;
+
+		background: #f4f4f4;
+		font-size: 12px;
+	}
+	.model-list .li span{
+		position: absolute;
+		z-index: 100;
+		width: 213px;
+		left:0px;bottom: 0px;
+		height:35px;line-height: 35px;font-size: 16px;
+		padding-left:20px !important;
+		display: block;border-top:solid 0px #666ccc;
+		background: #fff;
+		color: navy;
+	}
+
+	.headImg{border: 1px solid #ccc;
+    margin-left: 715px;
+    position: absolute;
+    top: 58px;}
+	.headTitle{position: absolute;left:0px;bottom: 0px;height:24px;line-height: 24px;text-align: center;width: 100%;font-weight: 600;color: tan;border-top: solid 1px #ccc;margin-left: -1px;}
+	.pcontainer{float:left;height:30px;line-height:30px;background:rgb(15, 142, 226);color:#fff;font-weight:600;text-align:center;width: 536px;margin-left: 12px;overflow: hidden;}
+	.float table tr td{text-align: center;}
+
+
+	.model-foot,.model-foot1,.model-foot2,.model-foot3{position:absolute;left:200px;background:#ddd;padding:0px 10px 10px 10px;width:600px;border-radius:7px;z-index:999999;display: none;}
+	.close_btn{font-family:arial;font-size:30px;font-weight:700;color:#999;text-decoration:none;float:right;padding-right:4px;}
+	.mask{margin:0px;padding:0px;width:100%;height:100%;background:#333;position:fixed;z-index:9999;opacity:0.6;filter:alpha(opacity=60);top:0;left: 0;display: none;}
+	</style>
+</block>
+
+
+
+<block name="img">
+	<img style="margin-left:0px;width:959px;margin-bottom: -4px;" src="__IMG__/topjf.jpg">
+</block>
+<block name="nav"></block>
+<block name="month"><div style="margin-bottom: 10px;"></div></block>
+
+
+<block name="body">
+<div id="mask" class="mask"></div>
+<div style="background:#fff;">
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">{$gr[0]['USER_NAME']}</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div class="model-con">
+			<div class="model-con-title">
+				<b>基础信息</b>
+			</div>
+
+			<div class="model-con-sub">
+				 <ul class="model-list">
+				 	<li class="li">单位:<span>{$gr[0]['POS_NAME']}</span></li>
+				 	<li class="li"><if condition="($gr[0]['CONFIG_ID'] lt 200)">员工编号:<span>{$gr[0]['OPER_CODE']}</span><else/>县市:<span>{$gr[0]['COUNTY_NAME']}</span></if></li>
+				 	<li class="li">姓名:<span>{$gr[0]['USER_NAME']}</span></li>
+				 </ul>
+				 <ul class="model-list clear">
+				 	
+				 	<li class="li">手机:<span>{$gr[0]['BILL_ID']}</span></li>
+					<li class="li">总积分<span>{$gr[0]['个人总积分']*1}</span></li>
+					<li class="li">排名<span>第{$gr[0]['PM']}名</span></li>
+				</ul>
+				<ul class="model-list clear">
+					<if condition="($gr[0]['CONFIG_ID'] lt 200)">
+					<li class="li">是否党员<span>{$gr[0]['CC']==null?'否':'是'}</span></li>
+					<li class="li">是否参加过赛马<span>{$gr[0]['DD']==null?'否':'是'}</span></li>
+					</if>
+				</ul>
+			</div>
+
+			<div class="headImg" style="width:144px;height:175px;padding:2px;">
+				<img src="__HEAD_IMG__{$gr[0]['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" alt="{$gr[0]['USER_NAME']}" width="100%" height="150px">
+			<div class="headTitle">
+				{$gr[0]['POS_NAME']} - {$gr[0]['USER_NAME']}
+			</div>	
+			<div class="mask1"></div>
+			</div>
+		</div>
+
+	</div>
+	<div class="model-foot">
+	    <div>
+	        <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+	    </div>
+		<table style="width: 100%;padding-bottom: 10px;" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">月份</td>
+				<td class="rank-title">同岗位排名</td>
+				<td class="rank-title">同岗位人数</td>
+				<td class="rank-title">N</td>
+				<td class="rank-title">全员赛马积分</td>
+			</tr>
+			<volist name="xqs" id="xq">
+				<tr>
+					<td>{$xq.RPT_MONTH}</td>
+					<td>{$xq.同岗位排名}</td>
+					<td>{$xq.同岗位人数}</td>
+					<td>{$xq.N}</td>
+					<td>{$xq['全员赛马积分']*1}</td>
+				</tr>
+			</volist>
+		</table>
+		<p style="background: yellow;margin-top: 5px;">同岗位人员数在100人以下的：前50%名次（N名）的获得积分，第1名10分，第2名8分，第3名7分，第4名至第N名得分为（N-名次+1）/（N-3）*5。</p>
+	</div>
+
+	<div class="model-foot1">
+	    <div >
+	        <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+	    </div>
+		<table style="width: 100%;padding-bottom: 10px;" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">月份</td>
+				<td class="rank-title">姓名</td>
+				<td class="rank-title">荣誉名称</td>
+				<td class="rank-title">级别</td>
+				<td class="rank-title">文件号</td>
+				<td class="rank-title">荣誉积分</td>
+			</tr>
+			<volist name="ry" id="ry">
+				<tr>
+					<td>{$ry.RPT_MONTH}</td>
+					<td title="{$ry.USER_NAME}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$ry.USER_NAME}</div></td>
+					<td title="{$ry.名称}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$ry.名称}</div></td>
+					<td>{$ry.级别}</td>
+					<td title="{$ry.文件号}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$ry.文件号}</div></td>
+					<td>{$ry.RY积分}</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+	<div class="model-foot2">
+	    <div >
+	        <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+	    </div>
+		<table style="width: 100%;padding-bottom: 10px;" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">月份</td>
+				<td class="rank-title">姓名</td>
+				<td class="rank-title">荣誉名称</td>
+				<td class="rank-title">级别</td>
+				<td class="rank-title">文件号</td>
+				<td class="rank-title">竞赛积分</td>
+			</tr>
+			<volist name="js" id="js">
+				<tr>
+					<td>{$js.RPT_MONTH}</td>
+					<td title="{$js.USER_NAME}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$js.USER_NAME}</div></td>
+					<td title="{$js.名称}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$js.名称}</div></td>
+					<td>{$js.级别}</td>
+					<td title="{$js.文件号}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$js.文件号}</div></td>
+					<td>{$js.JS积分}</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+	<div class="model-foot3">
+	    <div >
+	        <a href="javascript:void(0)" title="关闭窗口" class="close_btn" id="closeBtn">×</a>
+	    </div>
+		<table style="width: 100%;padding-bottom: 10px;" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">月份</td>
+				<td class="rank-title">姓名</td>
+				<td class="rank-title">荣誉名称</td>
+				<td class="rank-title">级别</td>
+				<td class="rank-title">文件号</td>
+				<td class="rank-title">创新积分</td>
+			</tr>
+			<volist name="cx" id="cx">
+				<tr>
+					<td>{$cx.RPT_MONTH}</td>
+					<td title="{$cx.USER_NAME}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$cx.USER_NAME}</div></td>
+					<td title="{$cx.名称}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$cx.名称}</div></td>
+					<td>{$cx.级别}</td>
+					<td title="{$cx.文件号}"><div style="white-space:nowrap;width:12em;overflow:hidden;text-overflow:ellipsis ">{$cx.文件号}</div></td>
+					<td>{$cx.CX积分}</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">积分详情</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div style="padding:10px;height: 400px;">
+			<div class="float">
+				<table class="rank_line" border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td class="rank-title">月份</td>
+					<td class="rank-title">单位</td>
+					<!-- <td class="rank-title">员工编号</td> -->
+					<td class="rank-title">姓名</td>
+					<td class="rank-title">手机号码</td>
+					<td class="rank-title">全员赛马积分</td>
+					<if condition="($gr[0]['CONFIG_ID'] lt 200)"><td class="rank-title">绩效积分</td></if>
+					<td class="rank-title">竞赛积分</td>
+					<td class="rank-title">荣誉积分</td>
+					<td class="rank-title">创新积分</td>
+					<if condition="($year eq 2017)"><td class="rank-title">学习积分</td></if>
+					<td class="rank-title">小计</td>
+				</tr>
+				<volist name="gr_det" id="line">
+				<tr>
+					<td>{$line.RPT_MONTH}</td>
+					<td>{$line.POS_NAME}</td>
+					<!-- <td>{$line.员工编号}</td> -->
+					<td>{$line.USER_NAME}</td>
+					<td>{$line.BILL_ID}</td>
+					<if condition="($xqs[0]['BILL_ID'] neq null)"><td><a class="example">{$line['赛马积分']*1}</a></td><else/><td>{$line.赛马积分}</td></if>
+					<if condition="($gr[0]['CONFIG_ID'] lt 200)"><td>{$line.个人绩效积分}</td></if>
+					<td><a class="js">{$line.JS积分}</a></td>
+					<td><a class="ry">{$line.RY积分}</a></td>
+					<td><if condition="($line['CX积分'] eq null)"><a>{$line.CX积分}</a><else/><a class="cx">{$line['CX积分']*1}</a></if></td>
+					<if condition="($year eq 2017) and $line['XX积分'] neq null"><td>{$line['XX积分']*1}</td><elseif condition="($year eq 2016)"/><else/><td>{$line['XX积分']}</td></if>
+					<td>{$line['赛马积分']+$line['个人绩效积分']+$line['JS积分']+$line['RY积分']+$line['CX积分']+$line['XX积分']}</td>
+				</tr>
+				</volist>
+				<tr>
+					<td colspan="4">合计</td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($gr_det);$i++){
+							$jf += $gr_det[$i]['赛马积分'];
+						}
+						echo $jf;
+					?></td>
+					<if condition="($gr[0]['CONFIG_ID'] lt 200)">
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($gr_det);$i++){
+							$jf += $gr_det[$i]['个人绩效积分'];
+						}
+						echo $jf;
+					?></td>
+					</if>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($gr_det);$i++){
+							$jf += $gr_det[$i]['JS积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($gr_det);$i++){
+							$jf += $gr_det[$i]['RY积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($gr_det);$i++){
+							$jf += $gr_det[$i]['CX积分'];
+						}
+						echo $jf;
+					?></td>
+					<if condition="($year eq 2017)">
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($gr_det);$i++){
+							$jf += $gr_det[$i]['XX积分'];
+						}
+						echo $jf;
+					?></td>
+					</if>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($gr_det);$i++){
+							$jf += $gr_det[$i]['赛马积分']+$gr_det[$i]['个人绩效积分']+$gr_det[$i]['JS积分']+$gr_det[$i]['RY积分']+$gr_det[$i]['CX积分']+$gr_det[$i]['XX积分'];
+						}
+						echo $jf;
+					?></td>
+				</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	</div>
+</block>
+<block name="js">
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 	
+	<script type="text/javascript">
+	$(function () {
+		//弹出登录
+		$(".example").hover(function () {
+			$(this).stop().animate({
+				opacity: '1'
+			}, 600);
+		}, function () {
+			$(this).stop().animate({
+				opacity: '0.6'
+			}, 1000);
+		}).on('click', function () { 
+			$(".mask").css({ display: 'block' });
+			$(".model-foot").fadeIn("slow");
+		});
+
+
+		$(".ry").hover(function () {
+			$(this).stop().animate({
+				opacity: '1'
+			}, 600);
+		}, function () {
+			$(this).stop().animate({
+				opacity: '0.6'
+			}, 1000);
+		}).on('click', function () { 
+			$(".mask").css({ display: 'block' });
+			$(".model-foot1").fadeIn("slow");
+		});
+		$(".js").hover(function () {
+			$(this).stop().animate({
+				opacity: '1'
+			}, 600);
+		}, function () {
+			$(this).stop().animate({
+				opacity: '0.6'
+			}, 1000);
+		}).on('click', function () { 
+			$(".mask").css({ display: 'block' });
+			$(".model-foot2").fadeIn("slow");
+		});
+		$(".cx").hover(function () {
+			$(this).stop().animate({
+				opacity: '1'
+			}, 600);
+		}, function () {
+			$(this).stop().animate({
+				opacity: '0.6'
+			}, 1000);
+		}).on('click', function () { 
+			$(".mask").css({ display: 'block' });
+			$(".model-foot3").fadeIn("slow");
+		});
+		//关闭
+		$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#999' }) }).on('click', function () {
+			$(".model-foot").fadeOut("fast");
+			$(".model-foot1").fadeOut("fast");
+			$(".model-foot2").fadeOut("fast");
+			$(".model-foot3").fadeOut("fast");
+			$("#mask").css({ display: 'none' });
+		});
+
+	});
+	</script>
+</block>

@@ -1,0 +1,81 @@
+<div class="events hide" style="margin-bottom:10px;">
+	<div class="hd lined events-heading">
+		<h3>读者活动</h3>
+		<a class="more" href="{:U('index/ploy')}">更多>></a>
+	</div>
+	<div class="bd">
+	<ul>
+	  <volist name="ploys" id="po">
+	  <li class="item">
+	    <h4>
+	      <a href="{:U('index/ploy_info?id='.$po['id'])}">{$po['title']}</a></h4>
+	    <div class="info">
+	      <p class="status">进行中</p>
+	      <p class="date hide">将于&nbsp;7月11日 00:00&nbsp;结束</p> 
+
+	      <p class="date">{$po['content']|mb_substr=###,0,25,'utf-8'}..</p></div>
+
+	  </li>
+	  </volist>
+	</ul>
+	</div>
+</div>
+<style>
+	.block-list li {float:left;margin-right:2px;margin-top:2px;}
+	.block-list li a{display:block;text-align: center;vertical-align: center;line-height: 80px;border:solid 0px #666;color: #656565;font-weight: bold;border:solid 0px #eee;background: rgb(246,246,241);}
+	.block-list li a:hover{font-size: 18px;color: #fff;background: rgb(160,113,111);}
+	.block-list li .curr{font-size: 18px;background: rgb(160,113,111);color: #fff;}
+</style>
+<div class="categories" style="margin-top:0px;">
+	<div class="hd lined">
+		<h3>县市会场</h3>
+	</div>
+	<div class="bd">
+		<ul class="block-list">
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5780'?'curr':''}" style="width:190px;height:80px;" href="?cty=5780">市公司读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5781'?'curr':''}" style="width:94px;height:80px;" href="?cty=5781">莲都读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5782'?'curr':''}" style="width:94px;height:80px;" href="?cty=5782">缙云读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5783'?'curr':''}" style="width:94px;height:80px;" href="?cty=5783">青田读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5784'?'curr':''}" style="width:94px;height:80px;" href="?cty=5784">云和读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5785'?'curr':''}" style="width:94px;height:80px;" href="?cty=5785">庆元读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5786'?'curr':''}" style="width:94px;height:80px;" href="?cty=5786">龙泉读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5787'?'curr':''}" style="width:94px;height:80px;" href="?cty=5787">遂昌读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5788'?'curr':''}" style="width:94px;height:80px;" href="?cty=5788">松阳读书会</a></li>	
+			<li><a class="{$_SESSION['COUNTY_CODE']=='5789'?'curr':''}" style="width:94px;height:80px;" href="?cty=5789">景宁读书会</a></li>
+			<li><a class="{$_SESSION['COUNTY_CODE']=='578B'?'curr':''}" style="width:94px;height:80px;" href="?cty=578B">南城读书会</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<!-- <div class="categories" style="margin-top:20px;">
+	<div class="hd lined">
+		<h3>活跃会员</h3>
+	</div>
+	<div class="bd">
+		<ul class="list categories-list">
+			<li><a href="#">201606</a></li>
+			<li><a href="#">201605</a></li>
+			<li><a href="#">201604</a></li>
+			<li><a href="#">201606</a></li>
+			<li><a href="#">201605</a></li>
+			<li><a href="#">201604</a></li>
+		</ul>
+	</div>
+</div> -->
+
+<!-- <div class="categories" style="margin-top:20px;">
+	<div class="hd lined">
+		<h3>阅读月份</h3>
+	</div>
+	<div class="bd">
+		<ul class="list categories-list">
+			<li><a href="#">201606</a></li>
+			<li><a href="#">201605</a></li>
+			<li><a href="#">201604</a></li>
+			<li><a href="#">201606</a></li>
+			<li><a href="#">201605</a></li>
+			<li><a href="#">201604</a></li>
+		</ul>
+	</div>
+</div> -->

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><block name="title">能力测试报告</block></title>
+	<link rel="stylesheet" href="__CSS__/hr.css">
+<style type="text/css">
+	.userinfo{margin:0 auto;width: 1000px;height:40px;line-height:40px;text-align: right;}
+	.fmenu{position:relative;margin:0 auto;width: 1000px;border-bottom:solid 1px #0081CC;background: #fff;height:100px;}
+	.fmenu .info{position: absolute;top:0px;height:40px;line-height: 40px;background: #0081CC;width: 1000px;color: #fff;}
+	.fmenu .title{position: absolute;top:0px;left:60px;height:50px;line-height: 50px;font-size: 24px;font-weight: bold;color: #0081cc;letter-spacing: 1px;font-family: 黑体;}
+	.nav{position: absolute;padding: 0px;margin:0px;padding-left: 20px;bottom:0px;left:0px;}
+	li{list-style-type: none;}
+	.nav > li{float: left;margin-top:0px;margin-right:2px;}
+	.nav > li > ul{display: none;}
+	.nav > li > a{display: block;padding:4px 25px;font-weight: 600;font-size: 12px;text-decoration: none;color:#0081cc;line-height: 30px;}
+	.nav > li > a:hover{background: #0081CC;color:#fff;}
+	.nav > li .selected{background: #0081CC;color:#fff;}
+	.leftSid{width: 180px; float: left; border-top: 1px solid #0081CC;}
+	.leftSid h2{padding-left: 20px; font-size: 14px;color: #0081CC;margin-top: 10px;}
+	.content{float: right;width: 780px;}
+	.leftSid ul {padding-left: 0px;background: #eee;margin-left: 0px;padding-top: 0px;}
+	.leftSid ul li{position: relative;}
+	.leftSid ul li a{display: block;padding:6px 25px;text-decoration: none;color: #0081CC}
+	.leftSid ul li a:hover{background: #fff;}
+	.leftSid ul li .selected2{background: #ccc;}
+	.model-list1 li{float: left;width:200px;margin-bottom: 13px;}
+	.check td{border-bottom: 1px solid #ccc;line-height: 25px;}
+	.query1{background:rgb(240,246,249);padding:10px 0px;width: 780px;}
+	.xq1{background-color: #f0f6f9;position:relative; height: 350px; overflow:auto;}
+	.query-table input{width: 95px;}
+	.model-cons1{float: right;width: 640px;}
+	.model-list1 .ls{color:#32cd32;font-weight:600;font-size: 20px;padding-top: 15px; width: 180px;}
+	.errMsg1{padding:100px; text-align: center;font-weight: 600;font-size: 24px;color: #ccc;background:rgb(240,246,249);margin:0 auto;}
+
+	.hmenu{height:37px;background: #0081cc;padding:2px 0px;
+	   margin:0 auto;width: 1000px;position: relative;}
+	.hmenu ul{ position:absolute;top:1px;left: 0px;padding:0px;margin:0px;margin-left: 10px;}
+	.hmenu ul li{list-style: none;float: left;margin-right:2px;margin-top:1px;}
+	.hmenu ul li a{font-size: 12px;text-decoration: none;display: block;height:18px;line-height:18px;width: 100%;padding:4px 5px;color:#0081cc;background: #fff;margin-top:5px;border:solid 1px #0081cc;}
+	.hmenu ul li a:hover{background: #eee;}
+
+	#wrap{margin:0 auto;width: 1000px;padding-top:10px;}
+	.model{margin-bottom: 5px;}
+
+	.tit tr{text-align: center;}
+	.tit td{ line-height: 22px;padding-top: 10px;padding-bottom: 10px; border:solid 1px rgb(245,248,252);text-align: left;padding-left:5px;}
+	#kh{position:absolute; width:980px; overflow:auto; left: 50%;margin-left:-490px}
+	.hmenu ul ul {margin-top: -6px;margin-left: 0px;display: none;float: none;position: relative;z-index: 99}
+	.hmenu ul ul li{float: none;width: 80px;margin-top: -5px;}
+	.hmenu ul li:hover ul{display: block;}
+	.kcbm{margin-left: 160px;}
+	.footer{background:#fff;}
+</style>
+<block name="css"></block>
+</head>
+<body>
+<block name="top">
+<?php $pp=$_SERVER["QUERY_STRING"];?>
+	<div class="fmenu">
+		<div class="info"><span style="font-family: '华文行楷';font-size: 20px;">员工能力测评</span>
+			<if condition="$_SESSION['user_auth'] eq null">
+				<a href="">登陆</a>
+				<else/>
+				<span style="float: right;margin-right: 50px;">{$_SESSION['user_auth']['OA']} </span><!-- , <a href="javascript:;">退出</a> -->
+			</if>
+		</div>
+
+		<div class="clear" style="overflow: hidden;">
+			<block name="fmenu">
+			<ul class="nav">
+				<li id="sy"><a class="selected" href="{:U('hr/index')}" onclick="">首页</a>
+					<ul>
+						<li style="background:yellow;width:102%;height:34px;width:986px;margin-left:-8px;line-height:34px;padding-left:10px;">
+							您好! {$_SESSION['user_auth']['OPER_NAME']} ,欢迎使用能力测试报表
+						</li>
+					</ul>
+				</li>
+				<li id="jj"><a href="javascript:;">客户经理</a>
+					<ul>
+						<li><a href="{:U('hr_kh_index')}?billId={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测报告">能力评测报告</a></li>
+						<li><a href="{:U('hr_kh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测汇总">能力评测汇总</a></li>
+						<li><a href="{:U('hr_kh_mba')}" title="准入退出管理机制">准入退出管理机制</a></li>
+						<li><a href="{:U('hr_kh_policy')}" title="宽级化相关政策">宽级化相关政策</a></li>
+						<li><a href="{:U('hr_kh_policy1')}" title="宽级化考核内容">宽级化考核内容</a></li>
+						<li><a href="{:U('hr_kh_pie')}" title="计件内容">计件内容</a></li>
+						<li><a href="{:U('hr_kh_shouce')}" title="学习手册">学习手册</a></li>
+
+						<li style="float:right;"><a style="background:#0081cc;color:#fff;" href="{:U('group/index')}" title="客户经理管理平台">>>进入&nbsp;&nbsp;客户经理管理平台</a></li>
+					</ul>
+				</li>
+				<li id="ts"><a href="javascript:;">项目经理</a>
+					<ul>
+						<li><a href="{:U('hr_xm_index')}?billId={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测报告">能力评测报告</a></li>
+						<li><a href="{:U('hr_xm_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测汇总">能力评测汇总</a></li>
+						<li><a href="{:U('hr_xm_mba')}" title="准入退出管理机制">准入退出管理机制</a></li>
+						<li><a href="{:U('hr_xm_ict')}" title="ICT项目实施">ICT项目实施</a></li>
+						<li><a href="{:U('hr_xm_assess')}" title="星级评定管理">星级评定管理</a></li>
+						<li><a href="{:U('hr_xm_photo')}" title="工作全景图">工作全景图</a></li>
+						<li><a href="{:U('hr_xm_shouce')}" title="学习手册">学习手册</a></li>
+					</ul>
+				</li>
+				<li id="jt"><a href="javascript:;">社会渠道经理</a>
+					<ul>
+						<li><a href="{:U('hr_xs_index')}?billId={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测报告">能力评测报告</a></li>
+						<li><a>能力评测汇总</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_xs_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}">15年10月测评</a>
+							</li>
+							<li>
+								<a href="{:U('hr_xs_que2')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}">16年6月测评</a>
+							</li>
+						</ul>
+						</li>
+						<li><a href="{:U('hr_xs_pos')}" title="岗位职责">岗位职责</a></li>
+						<li><a href="{:U('hr_xs_policy')}" title="宽级化相关政策">宽级化相关政策</a></li>
+						<li><a href="{:U('hr_xs_policy1')}" title="宽级化考核内容">宽级化考核内容</a></li>
+						<li><a href="{:U('hr_xs_shouce')}" title="学习手册">学习手册</a></li>
+					</ul>
+				</li>
+				<li id="gj"><a href="javascript:;">营业主管</a>
+					<ul>
+						<li><a href="{:U('hr_yy_index')}?billId={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测报告">能力评测报告</a></li>
+						<li><a href="{:U('hr_yy_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测汇总">能力评测汇总</a></li>
+						<li><a href="{:U('hr_yy_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=1" title="二次能力评测汇总">二次能力评测汇总</a></li>
+						<li><a href="{:U('hr_yy_pos')}" title="岗位职责">岗位职责</a></li>
+						<li><a href="{:U('hr_yy_policy')}" title="宽级化相关政策">宽级化相关政策</a></li>
+						<li><a>宽级化考核内容</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_yy_policy1')}">营业主管</a>
+							</li>
+							<li>
+								<a href="{:U('hr_yy_policy2')}">营业店长</a>
+							</li>
+							<li>
+								<a href="{:U('hr_yy_policy3')}">营业员</a>
+							</li>
+						</ul>
+						</li>
+						<li><a href="{:U('hr_yy_pie')}" title="计件内容">计件内容</a></li>
+						<li><a href="{:U('hr_yy_shouce')}" title="学习手册">学习手册</a></li>
+					</ul>
+				</li>
+				<li id="qyw"><a href="javascript:;">全业务维护</a>
+					<ul>
+						<li><a href="{:U('hr_qyw_index')}?billId={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测报告">能力评测报告</a></li>
+						<li><a>能力评测汇总</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_qyw_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=1">全业务主管</a>
+							</li>
+							<li>
+								<a href="{:U('hr_qyw_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=2">家客维护员</a>
+							</li>
+							<li>
+								<a href="{:U('hr_qyw_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=3">集客维护员</a>
+							</li>
+						</ul>
+						</li>
+						<li><a>二次能力评测汇总</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_qyw_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=4">全业务主管</a>
+							</li>
+							<li>
+								<a href="{:U('hr_qyw_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=5">家客维护员</a>
+							</li>
+							<li>
+								<a href="{:U('hr_qyw_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=6">集客维护员</a>
+							</li>
+						</ul>
+						</li>
+						<li><a href="{:U('hr_qyw_pos')}" title="岗位职责">岗位职责</a></li>
+						<li><a href="{:U('hr_qyw_mba')}" title="准入退出管理机制">准入退出管理机制</a></li>
+						<li><a href="{:U('hr_qyw_post')}" title="全业务队伍岗位建设方案">全业务队伍岗位建设方案</a></li>
+						<li><a>全业务工作全景图</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_qyw_photo')}?id=1">全业务主管</a>
+							</li>
+							<li>
+								<a href="{:U('hr_qyw_photo')}?id=2">家客维护员</a>
+							</li>
+							<li>
+								<a href="{:U('hr_qyw_photo')}">集客维护员</a>
+							</li>
+						</ul>
+						</li>
+						<li><a href="{:U('hr_qyw_shouce')}" title="学习手册">学习手册</a></li>
+					</ul>
+				</li>
+				<li id="zh"><a href="javascript:;">综合维护</a>
+					<ul>
+						<li><a href="{:U('hr_zh_index')}?billId={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测报告">能力评测报告</a></li>
+						<li><a>能力评测汇总</a>
+						<ul>
+							<li>
+								<a title="综合维护主管（无线）" href="{:U('hr_zh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=1">综合维护主管</a>
+							</li>
+							<li>
+								<a title="综合维护主管（传输）" href="{:U('hr_zh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=2">综合维护主管</a>
+							</li>
+							<li>
+								<a href="{:U('hr_zh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=3">综合维护(无线)</a>
+							</li>
+							<li>
+								<a href="{:U('hr_zh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=4">综合维护(传输)</a>
+							</li>
+						</ul>
+						</li>
+						<li><a>二次能力评测汇总</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_zh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=5">综合维护主管</a>
+							</li>
+							<li>
+								<a href="{:U('hr_zh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=6">综合维护(无线)</a>
+							</li>
+							<li>
+								<a href="{:U('hr_zh_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=7">综合维护(传输)</a>
+							</li>
+						</ul>
+						</li>
+						<li><a href="{:U('hr_zh_pos')}" title="岗位职责">岗位职责</a></li>
+						<li><a href="{:U('hr_zh_mba')}" title="准入退出管理机制">准入退出管理机制</a></li>
+						<li><a href="{:U('hr_zh_post')}" title="综合维护队伍岗位建设方案">综合维护队伍岗位建设方案</a></li>
+						<li><a href="{:U('hr_zh_shouce')}" title="学习手册">学习手册</a></li>
+					</ul>
+				</li>
+				<li id="gc"><a href="javascript:;">工程事务</a>
+					<ul>
+						<li><a href="{:U('hr_gc_index')}?billId={$_SESSION['user_auth']['OPER_LOGIN_CODE']}" title="能力评测报告">能力评测报告</a></li>
+						<li><a>能力评测汇总</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_gc_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=1">工程事务主管</a>
+							</li>
+							<li>
+								<a href="{:U('hr_gc_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=2">工程事务(有线)</a>
+							</li>
+							<li>
+								<a href="{:U('hr_gc_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=3">工程事务(无线)</a>
+							</li>
+						</ul>
+						</li>
+						<li><a>二次能力评测汇总</a>
+						<ul>
+							<li>
+								<a href="{:U('hr_gc_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=4">工程事务(有线)</a>
+							</li>
+							<li>
+								<a href="{:U('hr_gc_que')}?bill_id={$_SESSION['user_auth']['OPER_LOGIN_CODE']}&id=5">工程事务(无线)</a>
+							</li>
+						</ul>
+						</li>
+						<li><a href="{:U('hr_gc_shouce1')}" title="评价体系">评价体系</a></li>
+						<li><a href="{:U('hr_gc_mba')}" title="准入退出管理机制">准入退出管理机制</a></li>
+						<li><a href="{:U('hr_gc_step')}" title="县市工程事务胜任力提升帮扶机制及">提升帮扶机制及惩奖措施</a></li>
+						<li><a href="{:U('hr_gc_shouce')}" title="学习手册">学习手册</a></li>
+					</ul>
+				</li>
+				<li id="gl"><a href="javascript:;">帮助说明</a>
+					<ul>
+						<li>尚未添加</li>
+					</ul>
+				</li>
+				<!-- <li class="kcbm"><a href="{:U('hr/hr_que')}">课程报名详情</a></li> -->
+			</ul>
+			</block>
+		</div>
+	</div>
+
+	<div class="hmenu">
+		<ul>
+			<li style="background:yellow;width:102%;height:34px;width:1000px;margin-left:-8px;line-height:34px;padding-left:10px;">
+				您好! {$_SESSION['user_auth']['OPER_NAME']} ,欢迎使用能力测试报表
+			</li>
+		</ul>
+	</div>
+
+</block>
+<?php
+$select_value = isset($_POST['rpt_month']) ? $_POST['rpt_month'] : '';
+?>
+
+<div id="wrap">
+<block name="body">
+</block>
+</div>
+
+<block name="footer">
+<div class="footer">
+  技术支持:丽水业务支撑中心
+</div>
+</block>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__STATIC__/jquery.cookie.js"></script>
+<script type="text/javascript">
+ var url=window.location.pathname.substring(12,17);
+ if(url=="index"){
+	$(function(){
+		//当前主菜单光标
+		try{
+			var obj = $(".nav > li").eq(0);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }else if(url=="hr_kh"){
+ 	$(function(){
+		try{
+			var obj = $(".nav > li").eq(1);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }else if(url=="hr_xm"){
+ 	$(function(){
+		try{
+			var obj = $(".nav > li").eq(2);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }else if(url=="hr_xs"){
+ 	$(function(){
+		try{
+			var obj = $(".nav > li").eq(3);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }else if(url=="hr_yy"){
+ 	$(function(){
+		try{
+			var obj = $(".nav > li").eq(4);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }else if(url=="hr_qy"){
+ 	$(function(){
+		try{
+			var obj = $(".nav > li").eq(5);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }else if(url=="hr_zh"){
+ 	$(function(){
+		try{
+			var obj = $(".nav > li").eq(6);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }else if(url=="hr_gc"){
+ 	$(function(){
+		try{
+			var obj = $(".nav > li").eq(7);
+			show_menu(obj);
+
+			$(".nav > li > a").removeClass('selected');
+			obj.children('a').addClass('selected');
+
+		}catch(e){
+			show_menu($(".nav > li").eq(0));
+		}
+	});
+ }
+/*$(function(){
+	//当前主菜单光标
+	var menu_index = $.cookie('show_menu');
+	alert(menu_index);
+	try{
+		var obj = $(".nav > li").eq(menu_index);
+		show_menu(obj);
+
+		$(".nav > li > a").removeClass('selected');
+		obj.children('a').addClass('selected');
+
+	}catch(e){
+		show_menu($(".nav > li").eq(0));
+	}
+});*/
+
+$(".nav > li").click(function(){
+	var e = $(this);
+	var index = e.index();
+	//$.cookie('show_menu',index);
+	show_menu($(this));
+	$(".nav > li").children('a').removeClass('selected');
+	$(".nav > li").eq(index).children('a').addClass('selected');
+});
+
+
+show_menu = function(obj){
+	var e = obj,
+		cul = e.find('ul:eq(0)').html();
+	if(cul!=null || cul!=undefined){
+		$(".hmenu").show();
+		$(".hmenu ul").html(cul);
+	}else{
+		//$(".hmenu").hide();
+		$(".hmenu ul").html('');
+	}
+}
+</script>
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '员工能力评测', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+
+
+<block name="js"></block>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>业务综合受理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+
+<link rel="stylesheet" href="__PUBLIC__/comm.css">
+<link rel="stylesheet" href="__PUBLIC__/global.css"> 
+<link rel="stylesheet" href="__PUBLIC__/form/js/dtree.css"> 
+<style>
+.node{color:#000000 !important;}
+ .left_tree{font-size: 12px;width:100%;height:100%;overflow:auto;padding-left:10px;padding-top:10px;background: rgb(219,239,249);}  
+</style>
+<script type="text/javascript">var imgSrc = "__PUBLIC__/Form/css/images";</script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Form/js/dtree.js"></script>
+</head>
+<body style="overflow: hidden;">
+<table width="100%" height="100%" border="0">
+<tr>
+<td width="180px" style="border-right:solid 0px rgb(217,211,175);">
+<div class="left_tree">
+  <script type="text/javascript">
+    d = new dTree('d');
+    d.add(10,-1,"菜单","javascript:void(-1);","菜单","","","",false);
+    <?php 
+      foreach ($deptList as $key => $m) {
+        $link = "oper_list('".$m['DEPT_ID']."','".$m['DEPT_NAME']."')";
+        echo "d.add(".$m['DEPT_ID'].",".$m['DEPT_PARENT_ID'].",\"".$m['DEPT_NAME']."\",\"javascript:".$link.";\",\"".$m['DEPT_NAME']."\",\"\",\"\",\"\",false);"; 
+
+      }
+    ?>
+    document.write(d);
+  </script>
+</div>
+</td>
+<td style="width:7px;background:url('__PUBLIC__/Form/images/border_bg.gif');"></td>
+<td>
+<iframe id="edit_form" src="{:U('oper_list')}" width="100%" height="100%" scrolling="auto" frameborder="no"></iframe>  
+</td>
+</tr>
+</table>
+</body>
+
+<script type="text/javascript">
+  oper_list = function(id , name){
+    document.getElementById('edit_form').src = "{:U('oper_list')}"+"?dept_id="+id;
+  }
+</script>
+</html>

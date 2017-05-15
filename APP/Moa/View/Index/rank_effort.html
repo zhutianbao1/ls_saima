@@ -1,0 +1,84 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style type="text/css">
+    
+    .model-list li{float: left;width: 33.33%;text-align: center;background: #f4f4f4;font-size: 0.8em;padding-top:5px;}
+    .model-list p{background: #fff;line-height: 4em;height: 4em;border-bottom: 1px solid #eee;font-size: 0.7em;}
+    .nav{background: #647a9f;color: #fff;line-height: 1.8em;margin-top: 30px;font-size: 0.9em;padding:1px 0;}
+    .rank_line{width: 100%;margin-bottom: 20px;}
+</style>
+</block>
+    
+<block name="body">   
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>人力信息自助查询</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+<if condition="($info neq null)">
+    <section class="sections">
+        <div class="nav" style="font-size:12px;padding-left:5px;">{$info['USER_NAME']}</div>
+        <div class="model-con-sub">
+            <ul class="model-list">
+                <li style="width:25%;">员工编号<p>{$info['USER_ID']}</p></li>
+                <li style="width:25%">手机号码<p>{$info['BILL_ID']}</p></li>
+                <li style="width:50%">岗位<p>{$info['POSITION']}</p></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="sections" >
+        <div class="nav"><i>《I》职等分位信息</i></div>
+        <div class="model-con-sub">
+            <ul class="model-list">
+                <li>个人职等<p>{$info['USER_LVL']}</p></li>
+                <li>绩效分位<p>{$info['JX']}</p></li>
+                <li>工龄分位<p>{$info['GL']}</p></li>
+            </ul>
+            <ul class="model-list">
+                <li>职称分位<p>{$info['ZC']}</p></li>
+                <li>总分位<p>{$info['ZONG']}</p></li>
+                <li>基薪<p>{$info['TOTAL']}</p></li>
+            </ul>
+        </div>
+    </section>
+ 
+    <section class="sections"  >
+        <div class="nav"><i>《II》保险公积金信息</i></div>
+        <div class="model-con-sub">
+            <ul class="model-list">
+                <li>养老保险<p>{$info['BX_YANGL']}</p></li>
+                <li>医疗保险<p>{$info['BX_YIL']}</p></li>
+                <li>失业保险<p>{$info['BX_SHIY']}</p></li>
+            </ul>
+            <ul class="model-list">
+                <li>公积金<p>{$info['BX_GONGJJ']}</p></li>
+                <li>企业年金<p>{$info['BX_NIANJ']}</p></li>
+                <li>补充医疗特需金额度<p>{$info['BX_BUC']}</p></li>
+            </ul>
+        </div>
+    </section>
+ 
+    <section class="sections"  >
+        <div class="nav"><i>《III》绩效信息</i></div>
+        <div class="model-con-sub">
+            <ul class="model-list">
+                <li style="width:25%">2012年绩效<p>{$info['JX_12']}</p></li>
+                <li style="width:25%">2013年绩效<p>{$info['JX_13']}</p></li>
+                <li style="width:25%">2014年绩效<p>{$info['JX_14']}</p></li>
+                <li style="width:25%">2015年绩效<p>{$info['JX_15']}</p></li>
+            </ul>
+        </div>
+    </section> 
+<else/>
+   <div style="margin-top:4em">未找到 您 相关信息数据,请核对您在人力登记的号码</div> 
+</if>  
+
+</block>
+
+<block name="js">
+</block>

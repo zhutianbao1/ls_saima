@@ -1,0 +1,9 @@
+$(function(){
+	$(".menu").click(function(){
+		if($(this).next('dl').is(":hidden")){
+			$(this).next('dl').slideDown();
+		}else{
+			$(this).next('dl').slideUp();
+		}
+	});
+});

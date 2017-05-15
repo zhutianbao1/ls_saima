@@ -1,0 +1,201 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style>
+    body{padding-top: 5px;}
+    .model-list li{float: left;width: 33.33%;text-align: center;background: #f4f4f4;}
+    .model-list p{background: #fff;line-height: 40px;border-bottom: 1px solid #eee;font-size: 10px;}
+    .nav{background: rgb(15, 142, 226);color: #fff;line-height: 30px;margin-top: 30px;}
+    .rank_line{width: 100%;margin-bottom: 20px;}
+    .rank_title{background:#1FA5E4;border-right:1px solid #fff;color:#fff;padding-left:5px;text-align:center;}
+    .lin td{border-bottom: 1px solid #eee;text-align:center;font-size: 12px;}
+
+</style>
+</block>
+    
+<block name="body">  
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>全员赛马</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+    <section class="sections">
+    	<div class="nav">基础信息</div>
+    	<if condition="($id lt 200)">
+	    	<div class="model-con-sub">
+	    		<ul class="model-list">
+	    			<li>职位<p>{$users[0]['单位']}</p></li>
+	    			<li>员工编号<p>{$rankUser[0]['员工编号']}</p></li>
+	    			<li>姓名<p>{$rankUser[0]['姓名']}</p></li>
+	    		</ul>
+	    		<ul class="model-list">
+	    			<li>手机号码<p>{$rankUser[0]['BILL_ID']}</p></li>
+	    			<li>总积分<p>{$rankUser[0]['个人总积分']}</p></li>
+	    			<li>排名<p>{$rankUser[0]['PM']}</p></li>
+	    		</ul>
+	    	</div>
+	    <else/>
+	    	<div class="model-con-sub">
+	    		<ul class="model-list">
+	    			<li>职位<p>{$users[0]['单位']}</p></li>
+	    			<li>县市<p>{$rankUser[0]['县市']}</p></li>
+	    			<li>团队<p>{$rankUser[0]['团队']}</p></li>
+	    		</ul>
+	    		<ul class="model-list">
+	    			<li>手机号码<p>{$rankUser[0]['BILL_ID']}</p></li>
+	    			<li>总积分<p>{$rankUser[0]['团队总积分']}</p></li>
+	    			<li>排名<p>{$rankUser[0]['PM']}</p></li>
+	    		</ul>
+	    	</div>
+	    </if>
+    </section>
+
+    <section class="sections ">
+    	<div class="nav">积分详情</div>
+    	<div style="margin-top: 5px;">
+    	<if condition="($id lt 200)">
+    		<table class="rank_line" border="0" cellpadding="2" cellspacing="1">
+    			<tr>
+					<td class="rank_title">月份</td>
+					<td class="rank_title">姓名</td>
+					<td class="rank_title">赛马积分</td>
+					<td class="rank_title">绩效..</td>
+					<td class="rank_title">竞赛..</td>
+					<td class="rank_title">荣誉..</td>
+					<td class="rank_title">创新..</td>
+    			</tr>
+    			<volist name="users" ID="user">
+    				<tr class="lin">
+    					<td>{$user['月份']}</td>
+    					<td>{$user['姓名']}</td>
+    					<td>{$user['全员赛马积分']*1}</td>
+    					<td>{$user['个人绩效积分']*1}</td>
+    					<td>{$user['竞赛积分']*1}</td>
+    					<td>{$user['荣誉积分']*1}</td>
+    					<td>{$user['创新积分']*1}</td>
+    				</tr>
+    			</volist>
+    			<tr class="lin">
+					<td colspan="2">合计</td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['全员赛马积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['个人绩效积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['竞赛积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['荣誉积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['创新积分'];
+						}
+						echo $jf;
+					?></td>
+				</tr>
+    		</table>
+    	<else/>
+    		<table class="rank_line" border="0" cellpadding="2" cellspacing="1">
+    			<tr>
+					<td class="rank_title">月份</td>
+					<td class="rank_title">团队</td>
+					<td class="rank_title">赛马积分</td>
+					<td class="rank_title">竞赛..</td>
+					<td class="rank_title">荣誉..</td>
+					<td class="rank_title">创新..</td>
+    			</tr>
+    			<volist name="users" ID="user">
+    				<tr class="lin">
+    					<td>{$user['月份']}</td>
+    					<td>{$user['团队']}</td>
+    					<td>{$user['全员赛马积分']*1}</td>
+    					<td>{$user['竞赛积分']*1}</td>
+    					<td>{$user['荣誉积分']*1}</td>
+    					<td>{$user['创新积分']*1}</td>
+    				</tr>
+    			</volist>
+    			<tr class="lin">
+					<td colspan="2">合计</td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['全员赛马积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['竞赛积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['荣誉积分'];
+						}
+						echo $jf;
+					?></td>
+					<td><?php
+						$jf=0;
+						for($i=0;$i<count($users);$i++){
+							$jf += $users[$i]['创新积分'];
+						}
+						echo $jf;
+					?></td>
+				</tr>
+    		</table>
+    	</if>
+    	</div>
+    </section>
+
+    <section class="sections" >
+    </section>
+ 
+    <section class="sections list_con_2 hide"  >
+    </section>
+
+    <section class="sections detail_con hide" >
+        模块111
+    </section>
+
+    <section class="sections detail_con info_con hide" id="fcxx">
+        模块1111 
+    </section>
+
+    
+
+    <section class="sections list_con_2 hide" id="zfxq" style="padding:10px;">
+        <dl class="no-data">
+            请选择指定 
+        </dl>
+    </section>
+
+</block>
+
+<block name="js">
+</block>

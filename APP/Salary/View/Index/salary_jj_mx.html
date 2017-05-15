@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>奖金明细</title>	
+		<link rel="stylesheet" href="__STATIC__/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__STATIC__/font-awesome4.2/css/font-awesome.min.css"> 
+      	<link rel="stylesheet" href="__STATIC__/font-awesome4.2/css/font-awesome-ie7.min.css">	
+		<link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+			<script src="__STATIC__/jquery-1.8.3.min.js"></script>	
+
+		<style type="text/css">
+						
+		</style>			
+	</head>
+	<body>
+		<div class="content">
+			<div class="header">
+				<div class="header_img"></div>
+				<div class="header_title">奖金项</div>
+			</div>	
+			<div class="con_title">
+					<div class="daohang">{$list[0]['FAFANG_MONTH']}&nbsp;奖金明细</div>						
+			</div>		
+			<div class="main">
+				<div class="xiaoji">
+					<div class="xiaoji_f">小计</div>
+					<div class="xiaoji_l">{$list[0]['JIANGJIN']}&nbsp;元</div>
+				</div>
+				<div class="mingxi">
+					<div class="mingxi_f">奖金项</div>
+					<div class="jiben">
+						<div class="jiben_f">绩效奖金</div>
+						<div class="jiben_l">{$list[0]['JX_JJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+					
+					<div class="jiben">
+						<div class="jiben_f">量化奖金</div>
+						<div class="jiben_l">{$list[0]['LIANGHUA_JJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+
+					<div class="jiben">
+						<div class="jiben_f">赛马奖</div>
+						<div class="jiben_l">{$list[0]['SAIMA_JJ']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>		
+
+					<div class="jiben">
+						<div class="jiben_f">先进及劳动</div>
+						<div class="jiben_l">{$list[0]['XIANJIN_LAODONG']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+
+					<div class="jiben">
+						<div class="jiben_f">加班费</div>
+						<div class="jiben_l">{$list[0]['JIABAN']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>
+
+					<div class="jiben">
+						<div class="jiben_f">其他应发</div>
+						<div class="jiben_l">{$list[0]['QT_YF']}&nbsp;元</div>
+						<div class="jiben_c"></div>
+					</div>									
+				</div>				
+			</div>			
+		</div>
+		
+			
+	</body>
+	<script >
+		$(function(){
+			$('.header_img').click(function(){
+            window.location="{:U('Index/salary_jiangjin')}";  
+         });
+		});
+	</script>
+</html>

@@ -1,0 +1,85 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style type="text/css">
+  body{line-height: 35px;}
+  span{display:inline-block;width:100px;}
+  .fo{font-size: 1em;}
+  select{font-size: 1em;border: 1px solid #eee;}
+  input,select{font-size: 1em;border: 1px solid #eee;height:30px;line-height: 30px;width:9em;}
+</style>
+</block>
+    
+<block name="body">   
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>服务计划录入</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+
+    <section class="sections fo">
+      <span style="font-size:1em">计划类型: </span><select name="plan_type" id="mode"  >
+         <option value="千场服务进农村"  >千场服务进农村</option>
+         <option value="千场服务进社区" >千场服务进社区</option>
+         <option value="千场服务进集团"  >千场服务进集团</option>
+         <option value="千家互联网村建设"  >千家互联网村建设</option>
+       </select><br>
+      <span style="font-size:1em">时间: </span><input name="plan_date" id="endDate" type="date" value="<?php echo date('Y-m-d',time())?>"/><font style="color:red;">*</font><br>
+      <span style="font-size:1em">地点:</span><input id="st" type="text" name="address"  ><font style="color:red;">*</font><br/>
+      <span style="font-size:1em">负责人:</span><input id="xdj" type="text" name="man"  ><font style="color:red;">*</font><br/>
+      <span style="font-size:1em">负责村:</span><input id="zd" type="text" name="county"  ><br/>
+      <input type="submit" name="" style="width:100%;height:2em;border: 0;background: #1FA5E4;color:#fff;margin-top:1em" id="btn">
+    </section>
+ 
+</block>
+
+<block name="js">
+<script type="text/javascript">
+
+$("#btn").click(function(){
+
+      var plan_type=$("select[name=plan_type]").val(),
+          plan_date=$("input[name=plan_date]").val(),
+          address=$("input[name=address]").val(),
+          man=$("input[name=man]").val(),
+          county=$("input[name=county]").val();
+
+
+      var submitData={
+        plan_type:plan_type,
+        plan_date:plan_date,
+        address:address,
+        man:man,
+        county:county
+      };
+
+
+      if(plan_type.isEmpty() || plan_date.isEmpty() || address.isEmpty() || man.isEmpty()){
+        layer.msg('信息填写不完整，请完善');
+        return false;
+      }
+
+      $.ajax({  
+            url: "{:U('plan_new')}",  
+            type: "POST",  
+            data:submitData,  
+            dataType: "json",   
+            error: function(){  
+              layer.msg("系统错误");  
+            },  
+           success: function(re){ 
+              layer.msg(re.msg);
+              if(re.success){
+                $("input[name=address]").val('');
+                $("input[name=man]").val('');
+                $("input[name=county]").val('');
+              }
+            }  
+      });
+ 
+}); 
+</script>
+</block>

@@ -1,0 +1,44 @@
+<block name="css">
+	<style>
+       form {
+       	margin-top:20px ; 
+       }
+      
+	</style>
+
+</block>
+
+<block name="body">
+    <form  method="post" action="{:U('index/file')}" enctype="multipart/form-data">	  
+	   <font >模板下载:<a href="__PUBLIC__/files/导入模板.xlsx">下载模板</a></font>
+	   <p align="center"><font class="STYLE2">导入数据</font></p>	     
+	       <table width="99%" border="0px" cellspacing="1" cellpadding="0" align="center" bgcolor="#000000">	 
+			 <tr bgcolor="#E8E8E8">
+			    <td colspan="2" class="STYLE2"> 
+			      <div align="center">
+				  　　 批量录入
+			      </div>
+			    </td>
+			 </tr>
+
+			<tr bgcolor="#FFFFFF" class="STYLE2">
+				<td>
+				  请选择文件:<input type="file" name="file_stu">
+				</td>
+				<td align="center">
+					<input type="submit" value="导 入" >
+				</td>
+			 </tr>
+	   </table>
+	  
+	</form>
+</block>
+
+
+
+
+
+
+
+
+

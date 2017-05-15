@@ -1,0 +1,46 @@
+<extend name='./prize_base'/>
+<block name='title'>领奖记录</block>
+<block name='css'>
+	<style type="text/css">
+	.sa td{text-align: center;line-height: 25px;border-bottom:1px dashed #28A0FF;background: #D9FFFF;}
+	.sa th{line-height: 30px;background: #3ED8FF;border-right: 1px solid #fff;}
+	</style>
+</block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<div style="line-height:50px;margin-top:-10px">
+		<form action="{:U('prize_sa')}" method="post" style="width:100%">
+			<span>姓名：</span>
+			<input type="text" name="user_name" style="width:200px;height:22px">
+			<span>手机号码：</span>
+			<input type="text" name="phone" style="width:200px;height:22px">
+			<input type="submit" value="查询" style="width:100px;">
+		</form>
+	</div>
+	<table style="width:100%;" cellspacing="0" cellpadding="1" border="0px" class="sa">
+		<tr>
+			<th>领奖人姓名</th>
+			<th>联系方式</th>
+			<th>单位</th>
+			<th>奖项名称</th>
+			<th>奖品</th>
+			<th>领取状态</th>
+		</tr>
+		<volist name='sa' id='sa'>
+			<tr>
+				<td>{$sa['user_name']}</td>
+				<td>{$sa['bill_id']}</td>
+				<td>{$sa['pos_name']}</td>
+				<td>{$sa['prize_name']}</td>
+				<td>{$sa['prizes_name']}</td>
+				<if condition="($sa['status'] eq 2)"><td>已领取</td><else/><td>未领取</td></if>
+			</tr>
+		</volist>
+	</table>
+	{$_page}
+</block>
+<block name='bottom'></block>
+<block name='js'>
+</block>
+ 

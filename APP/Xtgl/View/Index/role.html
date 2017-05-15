@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>业务综合受理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+
+
+<link rel="stylesheet" href="__PUBLIC__/comm.css">
+<link rel="stylesheet" href="__PUBLIC__/global.css"> 
+<link rel="stylesheet" href="__PUBLIC__/form/js/dtree.css"> 
+<style>
+.node{color:#000000 !important;}
+.left_tree{font-size: 12px;height:100%;overflow:auto;}	
+.systems{display:block;width:100%;height:20px;line-height:20px;text-align: center;background: rgb(219,239,249);margin-bottom:2px;color:#535353;width:100%;}
+</style>
+<script type="text/javascript">var imgSrc = "__PUBLIC__/Form/css/images";</script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Form/js/dtree.js"></script>
+</head>
+<body style="overflow: hidden;">
+<table width="100%" height="100%" border=0 cellspacing="0" cellpadding="0">
+<tr>
+<td width="180" style="border-right:solid 0px red;">
+<div class="left_tree"> 
+<iframe src="{:U('role_list')}" width="100%" height="100%" scrolling="auto" frameborder="no"></iframe>
+</div>
+</td>
+<td style="width:7px;background:url('__PUBLIC__/Form/images/border_bg.gif');"></td>
+<td>
+<iframe id="edit_form" src="{:U('role_edit')}" width="100%" height="100%" scrolling="auto" frameborder="no"></iframe>	
+</td>
+</tr>
+</table>
+</body>
+
+<script type="text/javascript">
+	menu_edit = function(id , name){
+		document.getElementById('edit_form').src = "{:U('role_edit')}"+"?id="+id;
+	}
+</script>
+</html>

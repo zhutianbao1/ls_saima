@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+          user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>基本信息</title> 
+    <link rel="stylesheet"  href="__STATIC__/bootstrap/css/bootstrap.min.css">
+    <script src="__STATIC__/jquery-1.8.3.min.js"></script>
+    <script  src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>        
+    <div class="content" >
+        <div class="header">               
+            <div class="header_img"></div> 
+            <div class="header_title">基本信息</div>                   
+        </div>
+
+        <if condition="$_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '13900000000'">
+        <div class="show_user">
+            <table class="table table-responsive table-hover">
+                <tr class="info ">
+                    <td colspan="3">13900000000</td>
+                </tr>
+                <tr>                  
+                    <td>员工编号</td>
+                    <td>手机号码</td>
+                    <td>工作岗位</td>
+                </tr>
+                <tr>                  
+                    <td>00000000</td>
+                    <td>13900000000</td>
+                    <td>演示</td>
+                </tr>
+                <tr class="info">
+                    <td colspan="3">I&nbsp;职等分位信息</td>
+                </tr>
+                <tr>                  
+                    <td>个人职等</td>
+                    <td>绩效分位</td>
+                    <td>工龄分位</td>
+                </tr>
+                <tr>                  
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+
+                    <tr>                  
+                    <td>职称分位</td>
+                    <td>总分位</td>
+                    <td>基薪</td>
+                </tr>
+                <tr>                  
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr class="info">
+                    <td colspan="3">II&nbsp;保险公积金信息</td>
+                </tr>
+                <tr>                  
+                    <td>养老保险</td>
+                    <td>医疗保险</td>
+                    <td>失业保险</td>
+                </tr>
+                <tr>                  
+                    <td>100</td>
+                    <td>100</td>
+                    <td>100</td>
+                </tr>
+                <tr>                  
+                    <td>公积金</td>
+                    <td>企业年金</td>
+                    <td>补充医疗特需金额度</td>
+                </tr>
+                <tr>                  
+                    <td>100</td>
+                    <td>100</td>
+                    <td>100</td>
+                </tr>
+                <tr class="info">
+                    <td colspan="3">III&nbsp;绩效信息</td>
+                </tr>
+                <tr>                  
+                    <td>2015年绩效</td>
+                    <td>2014年绩效</td>
+                    <td>2013年绩效</td>
+                </tr>
+                <tr>                  
+                    <td>优秀</td>
+                    <td>优秀</td>
+                    <td>优秀</td>
+                </tr>
+                <tr>                  
+                    <td>2012年绩效</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>                  
+                    <td>优秀</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <else/>
+            <if condition="($list[0] neq null)">
+            <div class="show_user">
+                <table class="table table-responsive table-hover">
+                    <tr class="info ">
+                        <td colspan="3">{$list[0]['USER_NAME']}</td>
+                    </tr>
+                    <tr>                  
+                        <td>员工编号</td>
+                        <td>手机号码</td>
+                        <td>工作岗位</td>
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['USER_ID']}</td>
+                        <td>{$list[0]['BILL_ID']}</td>
+                        <td>{$list[0]['POSITION']}</td>
+                    </tr>
+                    <tr class="info">
+                        <td colspan="3">I&nbsp;职等分位信息</td>
+                    </tr>
+                    <tr>                  
+                        <td>个人职等</td>
+                        <td>绩效分位</td>
+                        <td>工龄分位</td>
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['USER_LVL']}</td>
+                        <td>{$list[0]['JX']}</td>
+                        <td>{$list[0]['GL']}</td>
+                    </tr>
+
+                    <tr>                  
+                        <td>职称分位</td>
+                        <td>总分位</td>
+                        <td>基薪</td>
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['ZC']}</td>
+                        <td>{$list[0]['ZONG']}</td>
+                        <td>{$list[0]['TOTAL']}</td>
+                    </tr>
+                    <tr class="info">
+                        <td colspan="3">II&nbsp;保险公积金信息</td>
+                    </tr>
+                    <tr>                  
+                        <td>养老保险</td>
+                        <td>医疗保险</td>
+                        <td>失业保险</td>
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['BX_YANGL']}</td>
+                        <td>{$list[0]['BX_YIL']}</td>
+                        <td>{$list[0]['BX_SHIY']}</td>
+                    </tr>
+                    <tr>                  
+                        <td>公积金</td>
+                        <td>企业年金</td>
+                        <td>补充医疗特需金额度</td>
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['BX_GONGJJ']}</td>
+                        <td>{$list[0]['BX_NIANJ']}</td>
+                        <td>{$list[0]['BX_BUC']}</td>
+                    </tr>
+                    <tr class="info">
+                        <td colspan="3">III&nbsp;绩效信息</td>
+                    </tr>
+                    <tr>                  
+                        <td>2015年绩效</td>
+                        <td>2014年绩效</td>
+                        <td>2013年绩效</td>
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['JX_15']}</td>
+                        <td>{$list[0]['JX_14']}</td>
+                        <td>{$list[0]['JX_13']}</td>
+                    </tr>
+                    <tr>                  
+                        <td>2012年绩效</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['JX_12']}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="info">
+                        <td colspan="3">IV&nbsp;上年度工资总额(含公积金)及人工成本(含福利)</td>
+                    </tr>
+                    <tr>                  
+                        <td>上年度工资总额(含公积金)</td>
+                        <td>上年度人工成本(含福利)</td>                   
+                    </tr>
+                    <tr>                  
+                        <td>{$list[0]['GZ_Z']}</td>
+                        <td>{$list[0]['CB_Z']}</td>                   
+                    </tr>
+                </table>
+            </div>
+            <else/>
+                <div style="margin-top:20px;text-align: center;">
+                  未找到您相关信息数据,请核对您在人力登记的号码
+                </div>
+            </if>               
+        </if>
+        
+    </div>   
+</body>
+<script type="text/javascript">
+  $(function(){
+    $('.header_img').click(function(event) {
+       window.location="{:U('Index/salary_index')}";
+    });
+
+  });
+</script>
+</html>
+
+

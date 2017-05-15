@@ -1,0 +1,303 @@
+ 
+ 
+ 
+ 
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>2016丽水移动宽级化模拟评定</title>
+		<link type="text/css" rel="stylesheet" href="/js/bootstrap/css/bootstrap.min.css">
+	
+	<link type="text/css" rel="stylesheet" href="__CSS__/kjh/comm.css">
+	<link type="text/css" rel="stylesheet" href="__CSS__/kjh/main.css">
+	<link type="text/css" rel="stylesheet" href="__CSS__/kjh/index_page.css">
+	<link type="text/css" rel="stylesheet" href="__CSS__/kjh/org_index.css">
+	<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/jquery.cookie.js"></script>
+	<script type="text/javascript" src="__STATIC__/StringUtil.js"></script>
+	<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+	
+	
+	
+	
+	
+	<style type="text/css">
+	 
+	.list-info{background:#fff;}
+	.list-info li{float:left !important;width:206px;position:relative;margin-left:12px;border:0px !important;}
+	.list-info li span{margin-left:2px !important;position:absolute;right:20px;}
+	.data-title{clear:both;padding: 15px 0 15px 10px;color:#1463b4;margin-bottom:5px;}
+
+	.man_list{position: fixed;left:0px;bottom:0px;width:150px;border:solid 1px #ccc;overflow-y:auto;height:570px;}
+	.man_list ul li{list-style-type:none;}
+	.man_list ul li a{background: #fff;color:#535353;display: block;padding:5px 20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+	.man_list ul li a:hover{background: #ccc;color:green;}
+	.man_list ul li .curr{color:green;}
+	.man_list ul li .gang{color:green;background: #ccc;font-weight: bold;}
+	.man_title{position: fixed;left:0px;bottom:570px;padding:10px 0px;background: green;color: #fff;width:150px;text-align: center;font-weight: bold;}
+
+	.man_left{width:40px;position: fixed;left:151px;bottom:0px;z-index: 999999;}
+	.man_left ul li{list-style-type:none;}
+	.man_left ul li a{background: #fff;color:#535353;display: block;padding:10px 5px;font-size:11px;border:solid 1px #ccc;margin-top:1px;}
+	.man_left ul li a:hover{background:green;color:#fff !important;border-right:0px;}
+	.man_left ul li .curr{background:green;color:#fff;border-right:0px;font-weight: bold;}
+	</style>
+	
+</head>
+ 
+<body style="background:url('__PUBLIC__/images/shuangxie.jpg');"> 
+
+	<div class="man_title">
+		参与用户列表
+	</div>
+	<div class="man_left">
+		<ul>
+			<?php 
+				$gan = '其他';
+			?>
+			<volist name="mans"  id="m">
+			<?php 
+				if($m['岗位']!=$gan){
+					echo "<li><a  href='#".$m['岗位']."'>".$m['岗位']."</a></li>";
+					$gan = $m['岗位'];
+				}
+			?>		
+			</volist>	 
+		</ul>
+	</div>
+	<div class="man_list">
+		<ul>
+			<?php 
+				$gang = '其他';
+			?>
+			<volist name="mans"  id="man">
+			<?php 
+				if($man['岗位']!=$gang){
+					echo "<li><a  name='".$man['岗位']."' href='javascript:;' class='gang'>".$man['岗位']."</a></li>";
+					$gang = $man['岗位'];
+				}
+			?>
+			<li para="{$man['BILL_ID']}"><a href="javascript:;" title="{$man['部门']}/{$man['岗位']}/{$man['姓名']}" >{$man['部门']}/{$man['姓名']}</a></li>
+			</volist>
+		</ul>
+	</div>
+
+	<!-- 主体内容 -->
+	<div class="wrap"> 
+		<div class="main clearfix">   
+			<!-- 中 start  -->
+			<div class="fr colum02">
+				<div class="col02_1 clearfix">
+					<div class="stock_detail fl" style="width:420px;">
+						<h4 class="clearfix border" style="border:0px;">
+							<span class="name01" id="stock_cname">2017丽水移动宽级化模拟评定</span>
+							<span id="stock_sy" class="hide">00941.HK</span>
+							<span id="stock_ename" title="CHINA MOBILE">(CHINA MOBILE)</span>
+						</h4>
+					</div>
+					<!-- 中 end  -->
+				</div>
+				
+				<!-- 综合得分 排名-->
+				<div class="deta01" style="width:410px;margin-top:20px;font-size:18px;">
+					<span id="mts_stock_hk_price" class="cd_g price fl">综合得分:<font id="ttl_score">--</font> 
+					&nbsp; 同类排名:<font id="lvl_pai">--</font>
+					&nbsp; 总排名:<font id="region_pai">--</font>
+					&nbsp; 模拟录取结果:<font id="luqu">--</font>
+					</span>
+				</div>
+					
+			</div>
+			
+			<div class="fr column02" style="margin-top:10px;border:0px !important;">
+
+				<div class="col02_2">
+ 					<div class="deta03 clearfix" style="width:950px;border:solid 0px red !important;margin-bottom: 30px;
+    padding-bottom: 50px;">
+    				<div style="color:#535353;padding-left:10px;padding-top:5px;">1-3星级主要评分依据：绩效（45%）+技能（40%）+学历（15%）+突出表现+其他加分<br>
+4-5星级主要评分依据：绩效（35%）+技能（25%）+面试（25%）+学历（15%）+突出表现+其他加分 
+</div>
+ 						<div class="data-title"><b>员工信息</b></div>
+	                 	<ul  class="data-info list-info">
+	                 		<li>部门<span class="部门">--</span></li>
+							<li>姓名<span class="姓名">--</span></li>
+							<li>员工编号<span class="员工编号">--</span></li>
+							<li>手机号<span class="bill_id">--</span></li>
+							<li>岗位<span class="岗位">--</span></li>
+							<li>性别<span class="性别">--</span></li>
+							<li>出生日期<span class="出生日期">--</span></li>
+							<li>年龄<span class="年龄">--</span></li>
+							<li>类型<span class="类型">--</span></li>
+			
+							<li>入职时间<span class="入职时间">--</span></li>
+							<li>是否可报考上一星级<span class="是否可报考上一星级">--</span></li>
+							<li>报考星级<span class="报考星级">--</span></li>
+							<li>2014年绩效<span class="a2014年绩效">--</span></li>
+							<li>2015年绩效<span class="a2015年绩效">--</span></li>
+							<li>2016年绩效<span class="a2016年绩效">--</span></li>							
+	                   </ul>
+	                   <div class="data-title"><b>绩效</b> &nbsp;&nbsp;(1-3星级占比45%，4-5星级占比35%)</div>
+	                   <ul  class="data-info list-info">	
+ 	                 		<li>综合绩效得分<span class="综合绩效得分">--</span></li>
+							<li>2015年绩效得分<span class="a2015年绩效得分">--</span></li>
+							<li style="width:290px;">2016年绩效得分（1-12月宽级化）<span class="a2016年绩效得分">--</span></li>
+							 
+							<li>2016年1月<span class="a2016年1月">--</span></li>
+							<li>2016年2月<span class="a2016年2月">--</span></li>
+							<li>2016年3月<span class="a2016年3月">--</span></li>
+							<li>2016年4月<span class="a2016年4月">--</span></li>
+							<li>2016年5月<span class="a2016年5月">--</span></li>
+							<li>2016年6月<span class="a2016年6月">--</span></li>
+							<li>2016年7月<span class="a2016年7月">--</span></li>
+							<li>2016年8月<span class="a2016年8月">--</span></li>
+							<li>2016年9月<span class="a2016年9月">--</span></li>
+							<li>2016年10月<span class="a2016年10月">--</span></li>
+							<li>2016年11月<span class="a2016年11月">--</span></li>
+							<li>2016年12月<span class="a2016年12月">--</span></li>
+							<li>2017年1月<span class="a2017年1月">--</span></li>
+							<li>2017年2月<span class="a2017年2月">--</span></li>
+							<li>2017年3月<span class="a2017年3月">--</span></li>
+	                   </ul>
+  
+	                   <div class="data-title"><b>技能</b>&nbsp;&nbsp;(1-3星级占比40%，4-5星级占比25%)；&nbsp;&nbsp;其中业务知识占比70%，技能实操占比30%；</div>
+	                   <ul  class="data-info list-info">
+	                   		<li>技能得分<span class="技能得分">--</span></li>
+							<li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li>	
+	                   </ul>
+ 						
+ 					   <div class="data-title"><b>学历</b>&nbsp;&nbsp;(占比15%)</div>
+	                   <ul  class="data-info list-info">
+	                   		<li>学历得分<span class="学历得分">--</span></li>
+	                   		<li>学历<span class="学历">--</span></li>
+							<li>毕业院校<span class="毕业院校">--</span></li>
+							<li>学历类型<span class="学历类型">--</span></li>
+	                   </ul>
+
+	                   <div class="data-title"><b>面试</b>&nbsp;&nbsp;(4-5星级占比25%)</div>
+	                   <ul  class="data-info list-info">
+	                   		<li>面试得分<span class="面试得分">--</span></li>
+							<li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li>
+	                   </ul>
+					   <div style="border-top:dashed 1px #ccc;clear:both;margin:20px 5px;display:none;"></div>
+	                   <div class="data-title"><b>突出表现</b> (上限10分)</div>
+	                   <ul  class="data-info list-info">
+							<li>突出得分<span class="突出得分">--</span></li>	
+							<li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li>
+	                   </ul>
+ 
+	                   <div class="data-title"><b>其他加分</b> (1-3星级上限5分,4-5星级上限6分)</div>
+	                   <ul  class="data-info list-info">	
+							<li>其他得分<span class="工龄得分">--</span></li>
+							<li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li><li>&nbsp;<span class="">&nbsp;</span></li>
+	                   </ul>
+ 
+						<div style="display:none;clear:both;text-align:right;margin-right:80px;padding-bottom:5px;">
+							<a class="btn btn-success kjh-rpt" href="#">查看更多信息</a>
+						</div>	                   
+	               </div>
+				</div>
+			</div>
+  
+ 
+		</div>
+	</div>
+	<!-- 主体内容 end -->
+
+ <script type="text/javascript">
+ var mobile1 = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+ //yunxu chakan qita ren de
+ var adm  = ["13867059550", "13884399868", "13905786009","13867060919", "13905788030", "18805780039","13957075330","admin","ls_admin","13906788806","13905780007","13957092345","13957085601","13957088870","13957085601","13666556050","13957092345"];
+
+ $(function(){ 
+
+ 	$(".man_list , .man_title , .man_left").hide();
+
+ 	$.each(adm,function(index,el){
+ 		if(el==mobile1){
+ 			$(".man_list , .man_title, .man_left").show();
+ 		}
+ 	});
+
+ 	$(".man_list").find('li').click(function(){
+ 		var bill_id = $(this).attr('para');
+ 		var e = $(this);
+
+ 		e.find('a').addClass('curr');
+ 		e.siblings('li').find('a').removeClass('curr');
+ 		initData(bill_id);
+ 	});
+
+ 	$(".man_left").find('li').click(function(){ 		 
+ 		var e = $(this);
+ 		e.find('a').addClass('curr');
+ 		e.siblings('li').find('a').removeClass('curr');
+ 	});
+
+ 	$(".man_left li:eq(0)").find('a').addClass('curr');
+
+ 	initData(mobile1);
+
+ });
+
+initData = function(bill){
+	layer.load(2, {shade: [0.8,'#fff'] });
+ 
+	//宽级化用户信息	 
+	$.ajax({
+		url: "{:U('hr/hr_kjh_data')}",
+		type: 'post',
+		dataType: 'json',
+		data: {mobile:bill},
+		success:function(data){
+			layer.closeAll();
+			var xsdata = data;
+			if(!(xsdata==null || xsdata=='' || xsdata==undefined)){			
+				$("#ttl_score").html(xsdata['综合总得分']);
+				$("#region_pai").html('第'+xsdata['REGION_PAI']+"名/共"+xsdata['REGION_CNT']+"人");
+				$("#lvl_pai").html("第"+xsdata['LVL_PAI']+"名/共"+xsdata['LVL_CNT']+"人<small style='font-size:12px'>("+xsdata['岗位']+"/"+xsdata['现个人职等2016']+"等/"+xsdata['现星级']+"星级)</small>");
+				$("#luqu").html(xsdata['模拟录取']);
+				
+				for(var key in xsdata){
+					$(".data-info").find("."+key.toLowerCase()).css({'color':'green','border':'solid 0px red','clear':'both'}).eq(0).html(xsdata[key]);		
+				}				
+			}else{
+				if(bill=='' || bill==null){
+					layer.msg('未获取用户信息，请重新OA刷新进入页面',{icon:2});
+				}else{
+					layer.msg('库内未查询到 '+bill+' 相关信息 ',{icon:2});
+				}
+			}
+		},
+		error:function(){
+			layer.msg('库内未查询到 '+bill+' 相关信息 ',{icon:2});
+		}
+	});
+
+
+	layer.msg("该主页仅提供人力资源-吕英提供的人员数据（含营业员、客户经理、销售经理）展示;如未显示本人相关信息，请联系支撑中心或者人力吕英",{shift:1,offset: 'rb',icon:0,time:2000});
+}
+
+ </script>
+
+
+ <script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '宽极化管理平台', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+
+ 
+</body>
+</html>

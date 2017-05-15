@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>业务受理列表</title>
+		<include file="Form/form_js_css"/>
+
+		<style type="text/css">
+		body{
+			background: rgb(219,234,249);
+		}
+		.form_list{padding:10px 10px;}
+		.form_list li{list-style: none;list-style-type:none;background: rgb(219,234,249);}
+		.form_list li a{display:block;border:solid 2px rgb(35,84,117);width:250px;}
+		.form_list .title,.form_list .description{cursor: pointer;}
+		.form_list .title{padding:20px 10px;height:40px;font-size: 18px;font-weight: bold;font-family: 'Microsoft YaHei';color:rgb(35,84,117);}
+		.form_list .description{width:100%;height:40px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;border-top:dashed 1px rgb(35,84,117);color:rgb(35,84,117);}
+		</style>
+	</head>
+
+	<body> 
+		<div class="form_list">
+			<ul>
+				<li>
+					<!-- <a href="{:U('Manage/form_priview?form_id=20161215094341')}"> -->
+					<?php 
+						$form_url = U('ext/ext_zx_person');
+					?>
+					<a class="tab_a" onclick="mzTab('20160804171042','直销业务员资料','{:U('manage/form_objs_view?rpt_id=20160804171042')}?form_url={$form_url}')" href="javascript:;">
+						<div class="title" title="直销业务员资料">直销业务员资料</div>
+						<div class="description" title="直销业务员资料编辑直销业务员资料编辑直销业务员资料编辑直销业务员资料编辑直销业务员资料编辑">直销业务员资料编辑直销业务员资料编辑直销业务员资料编辑直销业务员资料编辑直销业务员资料编辑</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body> 
+<script type="text/javascript">
+mzTab = function(id , name , link){	
+ window.parent.mzTab(id,name,link);
+}	
+</script>	
+</html>
+ 
+
+
+

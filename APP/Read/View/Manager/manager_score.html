@@ -1,0 +1,237 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">积分管理</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<link rel="stylesheet"  
+            href="__STATIC__/jquery-ui-10/css/base/jquery-ui-1.10.4.custom.min.css">
+<style type="text/css"> 
+    *{margin:0; padding: 0; }
+    ul{list-style: none;list-style-type: none;} 
+    .fl{ float: left; }
+    .fr{ float: right; }
+    .need_left{ width: 100px; border: 1px solid #ccc;  }
+    .need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;
+        text-align: center; background-color: #eee; }
+    .need_left ul{ width: 80px; margin-left: 20px; }
+    .need_left ul li{ height: 25px;  line-height: 25px;}
+    .need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+    .need_left ul li a:hover{ background-color: #eee; color: #333; }
+    .need_right{ width: 825px; border:1px solid #ccc; }
+    .search1{width: 100%;height: 30px;line-height: 30px; }
+    .search1 div{float: left;}
+    .search1 .search_div label{display: inline-block; height: 30px;line-height: 30px;
+        margin-left: 10px;color: #666; font-size: 12px;letter-spacing: 1px; }
+    .search1 .search_div input{height: 18px; line-height: 18px;border:none;font-size: 12px;
+        color: #666;text-indent: 5px;border:1px solid #666;width: 110px;}
+    .search1 .search_div select{ width: 120px;font-size: 13px; color: #666;height: 27px;line-height: 27px;
+        display: inline-block; margin-top: 2px;}
+    .search1 .search_btn input{outline: none;text-align: center; padding: 4px 15px;display: block;
+            font-size: 12px; color:#666; margin-left: 15px; border:1px solid #666; 
+            background-color: #eee; margin-top: 2px; }
+    .show{width: 100%; margin-top: 10px;background-color: #fffff9;}
+    .show table{width: 100%; border:1px solid #ccc; font-size: 13px; color:#666; border-collapse: collapse;
+            text-align: center; }
+    .show table tr:hover{ background-color: #eee; }
+    .show table tr th{ border:1px solid #ccc; text-align: center; height: 25px; line-height: 25px;  }
+    .show table tr td{ font-weight: normal; border:1px solid #ccc; height: 25px; line-height: 25px; color: #666;  }
+    .show a{ font-size: 13px; color: #666; text-decoration: none; letter-spacing: 1px;  }
+    .show a:hover{ color: #000000; background-color: #ccc; }
+    .cur{ background-color: #eee;border-right: 2px solid #ae807e; } 
+
+    
+
+</style>
+</block>
+
+<block name="main_top">
+    <div class="page-title">
+        {:W('Side/manager_tab')}
+        <div class="alternative">
+        </div>
+    </div>
+</block> 
+
+<block name="main_right">
+    <div class="need_left fl">
+      {:W('Side/need_tab')}
+    </div>
+
+    
+<div class="need_right fr"> 
+    <div class="search1">
+      <form id="theForm" action="{:U('Manager/manager_score')}" method="post" >
+        <div class="search_div">
+           <label for="node_login_code" >月份:</label>
+           <input type="text" name="smonth" id="smonth" 
+           onClick="WdatePicker({dateFmt:'yyyyMM'})"/>
+        </div>
+
+        <div class="search_div">
+           <label for="node_login_code">县市:</label>
+           <select name="county_name">
+             <option value=''>---请选择---</option>
+             <option value="莲都" {$county_name=='莲都'?'selected':''}>莲都</option>
+             <option value="青田">青田</option>
+             <option value="缙云">缙云</option>
+             <option value="龙泉">龙泉</option>
+             <option value="遂昌">遂昌</option>
+             <option value="松阳">松阳</option>
+             <option value="云和">云和</option>
+             <option value="景宁">景宁</option>
+             <option value="庆元">庆元</option>
+             <option value="南城">南城</option>
+             <option value="市场经营部">市场经营部</option>
+             <option value="政企客户部">政企客户部</option>
+             <option value="网络部">网络部</option>
+             <option value="工程建设部">工程建设部</option>
+             <option value="综合部">综合部</option>
+             <option value="财务部">财务部</option>
+             <option value="人力资源部">人力资源部</option>
+             <option value="纪检监察室">纪检监察室</option>
+             <option value="工会">工会</option>
+             <option value="党委办公室（党群工作部）">党委办公室(党群工作部)</option>
+           </select>
+        </div>
+
+        <div class="search_div">
+           <label for="bill_id" >手机号码:</label>
+           <input type="text" name="bill_id" id="bill_id" />
+        </div>
+
+        <div class="search_btn">
+          <input type="button" value="搜 索" class="sbtn">
+        </div>
+
+        <div class="search_btn">
+          <input type="reset" value="重 置" class="rbtn">
+        </div>
+
+        <div class="search_btn">
+          <input type="button" value="导 出" class="dbtn">
+        </div>
+        <if condition="$_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '13957057515' ">
+          <div class="search_btn">
+            <input type="button" value="导 入" class="drbtn">
+          </div>
+        </if> 
+
+      </form>
+    </div>
+    <div class="show">
+      <empty name='scores'>
+       暂时没有要审核的数据!
+      <else/>   
+          <table >
+            <tr>
+              <th style="width: 50px;">月份</th>
+              <th >部门</th>
+              <th style="width: 50px;">姓名</th>
+              <th style="width: 70px;">编号</th>
+              <th style="width: 100px;">手机</th>
+              <th >读书会名称</th>
+              <th style="width: 80px;">积分类型</th>
+              <th style="width: 30px;">积分</th>
+              <th style="width: 90px;">导入时间</th>
+              <th style="width: 70px;">操作</th>
+            </tr>        
+            <volist name="scores" id="score" >
+              <tr>
+                  <td>{$score.smonth}</td>
+                  <td >
+                    <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 70px;" 
+                    title="{$score.oper_city}">
+                      {$score.oper_city}
+                    </div>
+                  </td>
+                  <td>{$score.oper_name}</td>
+                  <td>{$score.oper_num}</td>
+                  <td>{$score.oper_phone}</td>
+                  <td  >
+                  <div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 200px;" 
+                     title="{$score.sc_name}">{$score.sc_name}</div>
+                  </td>
+                  <td>{$score.sc_reason} </td>
+                  <td>{$score.score} </td>
+                  <td>{$score.im_date} </td>
+                  <td>
+                    <a para="{$score.id}" href="javascript:;" class="btn_del">删除</a>                    |
+                    <a href="{:U('Manager/manager_score_modify?score_id='.$score['id'])}" >修改</a>
+                  </td>
+              </tr>                  
+               </volist>         
+          </table> 
+        <div class="ft">
+          {$_page}
+        </div> 
+      </empty> 
+    </div>
+</div>
+
+ 
+
+
+
+
+</block>
+<block name="js">
+
+<script src="__STATIC__/date/WdatePicker.js"></script>
+  <script >
+    $('.sbtn').click(function() {
+        $('#theForm').submit();
+    });
+
+    $('#bill_id').val('{$bill_id}');
+    $('#county_name').val('{$county_name}');
+    $('#smonth').val('{$smonth}');
+
+
+    $('.btn_del').click(function(event) {
+        var score_id=$(this).attr('para');
+        layer.confirm('确定要删除此条记录吗?', {icon: 3, title:'提示'}, function(index){           
+            url="{:U('Manager/score_del')}";
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: {score_id:score_id},          
+                success: function(re) {
+                    if(re=='1'){
+                        layer.alert('删除成功!',{icon: 1, title:'提示'},function(index){
+                            window.location.reload();
+                        });
+                    }else{
+                        layer.alert('删除失败',{icon: 2, title:'提示'});
+                    }
+                },
+                error: function() {
+                    layer.alert('系统请求出错!');
+                }
+            });
+            layer.close(index);
+        });
+    });
+
+
+  
+    $('.dbtn').click(function(event) {
+     window.location.href="{:U('Manager/user_score_exp')}?smonth={$smonth}&county_name={$county_name}&bill_id={$bill_id}";
+    });
+
+  
+
+     //导入积分
+        $('.drbtn').click(function(){
+            layer.open({
+                type: 2,
+                title: '积分导入',
+                area: ['900px', '600px'],
+                content:"{:U('Manager/manager_score_import')}",
+                btn: ['关闭'],           
+                cancel: function(index, layero){                
+                   layer.close();
+                }
+            });
+        });
+  </script>
+</block>

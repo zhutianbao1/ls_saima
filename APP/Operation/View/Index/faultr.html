@@ -1,0 +1,170 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 故障处理记录表</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="main-content">
+    <form id="theForm1" class="" action="{:U('Index/faults')}" method="post">
+      <div class="hidden">
+      <label>报障单号:</label>
+      <input class="readonly" type="text" name="id" value="{$fault['ID']}"/>
+      <label>记录人:</label>
+      <input class="readonly" type="text" name="recorder" value="{$fault['RECORDER']}"/>
+      </div>
+      
+      <div class="form">
+      <div class="form-header">故障处理记录表</div>
+      <div>
+        <label>故障系统：<font color="#ff0000">*</font></label>
+        <select name="fault_system">
+          <option value=""></option>
+          <option value="0" {$fault[FAULT_SYSTEM]=='0'?'selected':''}>CRM</option>
+          <option value="1" {$fault[FAULT_SYSTEM]=='1'?'selected':''}>渠道</option>
+          <option value="2" {$fault[FAULT_SYSTEM]=='2'?'selected':''}>其他</option>
+        </select>
+
+        <label>报障方式：<font color="#ff0000">*</font></label>
+        <select name="notify_way">
+          <option value=""></option>
+          <option value="0" {$fault[NOTIFY_WAY]=='0'?'selected':''}>邮件</option>
+          <option value="1" {$fault[NOTIFY_WAY]=='1'?'selected':''}>电话</option>
+          <option value="2" {$fault[NOTIFY_WAY]=='2'?'selected':''}>故障单</option>
+          <option value="3" {$fault[NOTIFY_WAY]=='3'?'selected':''}>故障群</option>
+        </select>
+
+        <label>是否发故障单：<font color="#ff0000">*</font></label>
+        <select name="has_post">
+          <option value=""></option>
+          <option value="0" {$fault[HAS_POST]=='0'?'selected':''}>否</option>
+          <option value="1" {$fault[HAS_POST]=='1'?'selected':''}>是</option>
+        </select>
+      </div>
+
+      <div>
+        <label>故障发生时间：<font color="#ff0000">*</font></label>
+        <input type="text" name="happen_time" value="{$fault['HAPPEN_TIME']}" class="date Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+
+        <label>报障时间：<font color="#ff0000">*</font></label>
+        <input type="text" name="notify_time" value="{$fault['NOTIFY_TIME']}" class="date Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+
+        <label>故障处理时间：<font color="#ff0000">*</font></label>
+        <input type="text" name="deal_time" value="{$fault['DEAL_TIME']}" class="date Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+      </div>
+
+      <div>
+        <label>影响范围：<font color="#ff0000">*</font></label>
+        <input type="text" name="effect_scope" value="{$fault['EFFECT_SCOPE']}"/>
+      </div>
+
+      <div>
+        <label>故障描述：<font color="#ff0000">*</font></label>
+        <textarea name="describ">{$fault['DESCRIB']}</textarea>
+      </div>
+
+      <div>
+        <label>故障原因：<font color="#ff0000">*</font></label>
+        <textarea name="happen_reason">{$fault['HAPPEN_REASON']}</textarea>
+      </div>
+
+      <div>
+        <label>解决方案：</label>
+        <textarea name="solution">{$fault['SOLUTION']}</textarea>
+      </div>
+
+      <div class="btn-box">
+        <div class="btn-group">
+          <input type="button" class="btn tj" value="提交"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+  $(".tj").click(function(){
+    var fault_system = $("select[name='fault_system']").val();
+    if(fault_system==''){
+      alert("故障系统不能为空");
+      return false;
+    }
+
+    var notify_way = $("select[name='notify_way']").val();
+    if(notify_way==''){
+      alert("报障方式不能为空");
+      return false;
+    }
+
+    var has_post = $("select[name='has_post']").val();
+    if(has_post==''){
+      alert("是否发故障单不能为空");
+      return false;
+    }
+
+    var happen_time = $("input[name='happen_time']").val();
+    if(happen_time==''){
+      alert("故障发生时间不能为空");
+      return false;
+    }
+
+    var notify_time = $("input[name='notify_time']").val();
+    if(notify_time==''){
+      alert("报障时间不能为空");
+      return false;
+    }
+
+    var deal_time = $("input[name='deal_time']").val();
+    if(deal_time==''){
+      alert("故障处理时间不能为空");
+      return false;
+    }
+
+    var effect_scope = $("input[name='effect_scope']").val();
+    if(effect_scope==''){
+      alert("影响范围不能为空");
+      return false;
+    }
+
+    var describ = $("textarea[name='describ']").val();
+    if(describ==''){
+      alert("故障描述不能为空");
+      return false;
+    }
+
+    var happen_reason = $("textarea[name='happen_reason']").val();
+    if(happen_reason==''){
+      alert("故障原因不能为空");
+      return false;
+    }
+    
+    $(".tj").attr("disabled", true);
+    $("#theForm1").submit();
+    
+  });
+});
+</script>
+</block>

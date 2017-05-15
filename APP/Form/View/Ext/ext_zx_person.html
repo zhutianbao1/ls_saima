@@ -1,0 +1,411 @@
+<html>
+	<head>
+		<title>业务员资料</title>
+		<include file="Form/form_js_css"/>
+	</head>
+
+	<body> 		 
+		<form name="global_form" action="{:U('ext/ext_zx_person')}" method="post">
+			  <input type="hidden" name="id" value="" /> 
+			  <div style="DISPLAY: block" class="row_title ">
+			   基础信息管理
+			  </div> 
+			  <div class="col col1">
+			   <label>姓名:</label> 
+			   <div class="in" _input="1" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="employee_name" />
+			    <em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>工号:</label> 
+			   <div class="in" _input="1" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="employee_id" />
+			    <em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>性别:</label> 
+			   <div class="in" _input="0" _validtor="" _validtor2="" _tip="valid_default" _check_sql="">
+			    <select name="sex">
+			    	<?php 
+			    		R('Admin/Util/select',array(array('男'=>'男','女'=>'女'),$info['SEX']));
+			    	?>
+			    </select> 
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>身份证号:</label> 
+			   <div class="in" _input="0" _validtor="card null unique" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="id_card" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div> 			   
+			  <div class="col col1">
+			   <label>建行账号:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="">
+			    <input width="1" height="1" type="text" name="acc_id" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>学历:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="">
+			    <select name="diploma">
+			    <?php 
+		    		R('Admin/Util/select',array(array('大专以上'=>'大专以上','高中'=>'高中','其他'=>'其他'),$info['DIPLOMA']));
+		    	?>		 
+			    </select> 
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>工作性质:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="">
+			    <select name="formal">			 
+		    	<?php 
+		    		R('Admin/Util/select',array(array('专职'=>'专职','兼职'=>'兼职','离职'=>'离职'),$info['FORMAL']));
+		    	?>
+			    </select> 
+			   </div>
+			  </div>
+			  <div class="col col1">
+			   <label>入司时间:</label> 
+			   <div class="in" _input="0" _validtor="null date" _validtor2="" _tip="valid_default" _check_sql="">
+			    <input class="date " class="Wdate" type="text" size="12" onClick="WdatePicker()" name="ru_date" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div>
+			  <div class="col col1">
+			   <label>重入司:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="">
+			    <select name="isback">
+			    <?php 
+		    		R('Admin/Util/select',array(array('否'=>'0','是'=>'1'),$info['ISBACK']));
+		    	?>
+			    </select>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>离职时间:</label> 
+			   <div class="in" _input="0" _validtor="" _validtor2="" _tip="valid_default" _check_sql="">
+			    <input class="date " class="Wdate" type="text" size="12" onClick="WdatePicker()" name="li_date" /><em style="COLOR: grey">*</em>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>联系电话:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="phone" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>地址:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="address" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>推荐人:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="commend" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+
+			  <div style="DISPLAY: block" class="row_title ">
+			   班组信息
+			  </div> 
+			  <div class="col col1">
+			   <label>分部:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="">
+			    <select name="county_code">
+		    	<?php 
+		    		$ar['莲都1部']='5781';
+				    $ar['莲都2部']='57812';
+				    $ar['缙云']='5782';
+				    $ar['青田']='5783';
+				    $ar['云和']='5784';
+				    $ar['庆元']='5785';
+				    $ar['龙泉']='5786';
+				    $ar['遂昌']='5787';
+				    $ar['松阳']='5788';
+				    $ar['景宁']='5789';
+				    $ar['南城']='578B';
+	    			R('Admin/Util/select',array($ar,$_SESSION['user_auth']['COUNTY_CODE']));
+		    	?>
+			    </select> 
+			   </div>
+			  </div> 
+			    
+			  <div class="col col1">
+			   <label>业务组:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="group_id" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+			  <div class="col col1">
+			   <label>组长:</label> 
+			   <div class="in" _input="0" _validtor="null" _validtor2="" _tip="valid_default" _check_sql="undefined">
+			    <input width="1" height="1" type="text" name="super_man" /><em style="COLOR: red">*</em>
+			   </div>
+			  </div> 
+			   
+			  <div style="DISPLAY: block" class="row_title ">
+			   数据保存
+			  </div> 
+			  <div style="DISPLAY: block" class="row_submit ">
+			   <a class="a_btn a_btn_primary form_submit" href="javascript:;"><input name="baocun" value="保存" type="button" /></a>
+			   <a class="a_btn" href="javascript:;"><input value="重置" type="reset" /></a>
+			  </div> 
+			  <div class="clr"></div>  
+		</form>
+	</body> 
+</html>
+
+<script type="text/javascript">
+ 
+ 	var region_code = "{$_SESSION['user_auth']['COUNTY_CODE']}";
+
+	$(function(){
+		var form_data = '{$form_data}';		
+
+		//编辑初始化
+		$("input , select ,textarea").each(function(){
+			var e = $(this),
+				name = e.attr('name');
+				if(form_data!=''){
+					$.each($.parseJSON(form_data),function(key,el){
+						if(name!=null && name!='' && name!=undefined){
+							if(name.toUpperCase()==key){
+								e.val(el);
+							}
+						}
+					});
+				}
+		}).keyup(function(){
+			var flag = validtor();
+		});
+	});
+
+	$(".form_submit").click(function(){
+		layer.load(2,{shade:[0.5,'#ccc']});
+		var flag = validtor(); 
+		var flag2 = true;
+		var card_id = $("input[name=id_card]").val();
+		var baocun = $("input[name=baocun]");
+		var flag2 = true;
+		if(!empty(card_id)){
+			baocun.attr('value','重入司验证中..');
+			baocun.attr('disabled','true');
+			$("select[name=isback]").find('option').eq(0).attr('selected','selected');
+
+			$.ajax({
+				type:'get',
+				url:"{:U('ext/ext_chongrusi')}",
+				dataType:'json',
+				async:false,
+				data:{card_id:card_id},
+				success:function(re){
+					console.info(re);
+					if(re.success){
+						if(re.obj.formal=='离职'){
+							$("select[name=isback]").find('option').eq(1).attr('selected','selected');
+							if(region_code=='5780' || region_code=='578'){
+								if(confirm('重入司用户时候继续添加信息？')){
+									flag2=true;
+								}else{
+									flag2=false;
+								}
+							}else{
+								flag2 = false;
+								var err = $("<font class='err_msg' style='color:red;'></font>");
+								err.text('重入司用户须市公司审核');
+								$("select[name=isback]").parent().find('.err_msg').remove();
+								$("select[name=isback]").parent().append(err);
+							}
+						}else{
+							flag2=false;
+							var err = $("<font class='err_msg' style='color:red;'></font>");
+							err.text('证件号已经存在');
+							$("input[name=id_card]").parent().find('.err_msg').remove();
+							$("input[name=id_card]").parent().append(err);
+						}						
+					}else{
+						flag2 = true;
+					}
+					baocun.removeAttr('disabled');
+					baocun.attr('value','保存');
+				},
+				error:function(){
+					var err = $("<font class='err_msg' style='color:red;'></font>");
+							err.text('重入司验证失败');
+							$("select[name=isback]").parent().find('.err_msg').remove();
+							$("select[name=isback]").parent().append(err);
+				},complete:function(){
+					baocun.removeAttr('disabled');
+					baocun.attr('value','保存');
+				}
+				});
+		}
+
+		if(flag && flag2){
+			if(confirm('是否确认执行提交')){
+				global_form.submit();
+			}
+		}
+		layer.closeAll();
+	});
+
+	chongrusi = function(){
+		
+	}
+
+	validtor = function(){
+		var flag = true;
+		$(".in").each(function(){
+			var e = $(this),
+				_input = e.attr('_input'), //是否必填
+				_validtor = e.attr('_validtor'),  //验证选项1
+				_validtor2= e.attr('_validtor2'), //验证选项2
+				_tip = e.attr('_tip'),    //验证提示消息类型
+				_sql = e.attr('_check_sql'),
+				_val = e.find('input:eq(0) , select:eq(0) , textarea:eq(0)').val(); //需要验证的值
+			e.find(".err_msg").eq(0).remove();
+			var err = $("<font class='err_msg' style='color:red;'></font>");
+			//必填
+			if(_input==1 || _validtor.indexOf('null')>=0){
+				if(empty(_val)){
+					err.text('必须填写');
+					flag = false;
+				}
+			}
+			// <option value="">不验证</option>
+			// <option value="null">非空验证</option>
+			// <option value="int">正整数验证</option>
+			// <option value="flot">正浮点验证</option>
+			// <option value="length">字符长度验证</option>
+			// <option value="mobile">手机号码验证</option>
+			// <option value="email">邮箱验证</option>
+			// <option value="card">身份证验证</option>
+
+			// * Trim 删除首位空格   
+			// * Occurs 统计指定字符出现的次数   
+			// * isDigit 检查是否由数字组成   
+			// * isAlpha 检查是否由数字字母和下划线组成   
+			// * isNumber 检查是否为数   
+			// * lenb 返回字节数   
+			// * isInChinese 检查是否包含汉字   
+			// * isEmail 简单的email检查   
+			// * isDate 简单的日期检查，成功返回日期对象   
+			// * isInList 检查是否有列表中的字符字符   
+			// * isInList 检查是否有列表中的字符字符   
+			// * isEmpty 是否为空
+			// * getByteLength 获取字节长度
+			// * isInteger 是否整数
+			// * isFloat 是否浮点数
+			// * isDate 是否日期
+			// * isPhone 是否电话号码
+			// *　isIdCardNo 身份证
+			// * isMobilePhone 手机号码
+			// * isPostcode 邮编
+			// *　isEnglish 纯字母
+
+			if(empty(_val)==false){
+				//正整数
+				if(_validtor.indexOf('int')>=0){
+					if(!(_val.isInteger() && parseInt(_val)>0)){
+						err.text('必须正整数');
+						flag = false;
+					}
+				}
+				//正浮点
+				if(_validtor.indexOf('float')>=0 ){
+					if(!( _val.isFloat() && parseInt(_val)>0)){
+						err.text('必须正浮点数');
+						flag = false;
+					}
+				}
+
+				//字符长度
+				if(_validtor.indexOf('length')>=0 ){
+					if(!( _val.length<=20)){
+						err.text('必须长度少于'+20);
+						flag = false;
+					}
+				}
+
+				//手机号码
+				if(_validtor.indexOf('mobile')>=0 ){
+					if(!( _val.isMobilePhone())){
+						err.text('手机格式不准确');
+						flag = false;
+					}
+				}
+
+				//邮箱
+				if(_validtor.indexOf('email')>=0 ){
+					if(!( _val.isEmail())){
+						err.text('邮箱格式不准确');
+						flag = false;
+					}
+				}
+
+				//date
+				if(_validtor.indexOf('date')>=0 ){
+					if(!( _val.isDate())){
+						err.text('日期格式不准确');
+						flag = false;
+					}
+				}
+
+				//身份证
+				if(_validtor.indexOf('card')>=0 ){
+					if(!( _val.isIdCardNo())){
+						err.text('证件格式不准确');
+						flag = false;
+					}
+				}
+
+				// //身份证
+				// if(_validtor.indexOf('unique')>=0 ){
+				// 	$.ajax({
+				// 	type:'get',
+				// 	url:"{:U('ext/ext_id_card')}",
+				// 	dataType:'json',
+				// 	async:false,
+				// 	data:{card_id:card_id},
+				// 	success:function(re){
+				// 			if(re.success){
+				// 			  err.text('已经存在');
+				// 			  flag = false;	 
+				// 			  e.append(err);
+				// 			} 
+				// 		},
+				// 	error:function(){
+						 
+				// 	} 
+				// 	});
+				// }
+
+				//sql验证
+				if(_validtor.indexOf('checkSql')>=0 ){
+					flag=false;
+					$.ajax({
+						type:'post',
+						dataType:'json',
+						url:"",
+						data:{sql:_check_sql,val:val},
+						success:function(){
+							if(re.success){
+								flag=true;
+							}
+						},
+						error:function(){}
+					});
+				}
+			}
+
+			e.append(err);
+		});
+		return flag;
+	}
+</script>
+
+
+ 
+

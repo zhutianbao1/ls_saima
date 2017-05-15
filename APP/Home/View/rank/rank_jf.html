@@ -1,0 +1,79 @@
+﻿<extend name="pub/msg_base"/>
+
+<block name="title">成长积分首页</block>
+<block name="css">
+	<style type="text/css">
+		.jf{border-right: 1px solid #0F8EE2;text-align: center;}
+		tr td{line-height: 20px;}
+		.tit{line-height: 28px;background:#0F8EE2;color: white;font-weight: 600; }
+		.rank a{color: #0f8ee2;text-decoration: none;font-family: '微软雅黑';}
+		.p{color: grey;}
+		.xq span{color: #808080;}
+		.sc{background: #eee;padding: 10px;font-weight: 600;}
+		.sc a{color: black;text-decoration: none;}
+		.y:hover{color:red;}
+	</style>
+</block>
+
+<block name="img">
+	<img style="margin-left:0px;width:959px;margin-bottom: -4px;" src="__IMG__/topjf.jpg">
+</block>
+<block name="nav">
+	<div class="sc"><a href="{:U('index/rank_jf_sc')}">成长积分规则</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:{$year==2016?'red':''}" class="y" href="?year=2016">16年成长积分</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:{$year==2017?'red':''}" class="y" href="?year=2017">17年成长积分</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- <a href="{:U('index/rank_unions')}" target="_blank">工会活动积分</a> --></div>
+</block>
+<block name="month"><div style="margin-bottom: 10px;"></div></block>
+<block name="body">
+	<table class="rank" cellpadding="2" cellspacing="0" style="border:solid 1px #0F8EE2;border-bottom:0px;border-top:0px;">
+		<tr>
+			<td class="tit" style="width: 150px;">大类</td>
+			<td class="tit" style="width: 250px;">单位</td>
+			<td class="tit">第一名</td>
+			<td class="tit">第二名</td>
+			<td class="tit">第三名</td>
+			<td class="tit">第四名</td>
+			<td class="tit">第五名</td>
+			<td class="tit">操作</td>
+		</tr>
+		<tr>
+			<td class="jf" rowspan="11">团队积分</td>
+			<volist name="czjf" id="td">
+			<if condition="($td.CONFIG_ID gt 200)">
+				<tr class="xq">
+					<td>{$td.POS_NAME}</td>
+					<td title="{$td.P1}"><div class="p">{$td.P1}</div></td>
+					<td title="{$td.P2}"><div class="p">{$td.P2}</div></td>
+					<td title="{$td.P3}"><div class="p">{$td.P3}</div></td>
+					<td title="{$td.P4}"><div class="p">{$td.P4}</div></td>
+					<td title="{$td.P5}"><div class="p">{$td.P5}</div></td>
+					<td><a href="{:U('index/rank_jf_info?year='.$year)}?id={$td.CONFIG_ID}" target="_blank">详情</a> &nbsp;<a href="{:U('rank_jf_question')}?config_id={$td.CONFIG_ID}">答疑</a></td>
+				</tr>
+			</if>
+			</volist>
+		</tr>
+		<tr>
+			<td class="jf" rowspan="21">个人积分</td>
+			<volist name="czjf" id="gr">
+			<if condition="($gr.CONFIG_ID lt 200)">
+				<tr class="xq">
+					<td>{$gr.POS_NAME}</td>
+					<td title="{$gr.P1}"><div class="p">{$gr.P1}</div></td>
+					<td title="{$gr.P2}"><div class="p">{$gr.P2}</div></td>
+					<td title="{$gr.P3}"><div class="p">{$gr.P3}</div></td>
+					<td title="{$gr.P4}"><div class="p">{$gr.P4}</div></td>
+					<td title="{$gr.P5}"><div class="p">{$gr.P5}</div></td>
+					<td><a href="{:U('index/rank_jf_info?year='.$year)}?id={$gr.CONFIG_ID}" target="_blank">详情</a> &nbsp;<a href="{:U('rank_jf_question')}?config_id={$gr.CONFIG_ID}">答疑</a></td>
+				</tr>
+			</if>
+			</volist>
+		</tr>
+	</table>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">业务负责人：戴云，联系电话：13957072889</a><br/><br/>
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>
+
+

@@ -1,0 +1,140 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>赛马首页-详情</block>
+<block name='css'>
+	<style type="text/css">
+		.td-data{width: 100px;}
+		.frame ul li{border-top: 1px solid #ccc;line-height: 30px;list-style-type: none;text-align: center;background: #eee;}
+		.frame ul li ul li{background: #fafafa}
+		.frame ul li a{text-align: center;color: red;background: #fff;display: block;}
+		.frame ul li a:hover{color: #619DF2}
+	</style>
+</block>
+<block name='body'>
+	<div class="body">
+		<div class="menu">
+			<ul>
+				<li><span class="m">月度赛马</span>
+					<ul>
+						<!-- <li><a id="201601" href="201601">2016年1月</a></li>
+						<li><a id="201602" href="201602">2016年2月</a></li>
+						<li><a id="201603" href="201603">2016年3月</a></li>
+						<li><a id="201604" href="201604">2016年4月</a></li>
+						<li><a id="201605" href="201605">2016年5月</a></li>
+						<li><a id="201606" href="201606">2016年6月</a></li>
+						<li><a id="201607" href="201607">2016年7月</a></li>
+						<li><a id="201608" href="201608">2016年8月</a></li>
+						<li><a id="201609" href="201609">2016年9月</a></li>
+						<li><a id="201610" href="201610">2016年10月</a></li>
+						<li><a id="201611" href="201611">2016年11月</a></li>
+						<li><a id="201612" href="201612">2016年12月</a></li> -->
+						<li><a id="201701" href="201701">2017年1月</a></li>
+						<li><a id="201702" href="201702">2017年2月</a></li>
+					</ul>
+				</li>
+				<li><a id="201703" href="201703">2017年3月</a></li>
+				<li><span class="m">历史年度</span>
+					<ul>
+						<li><a id="2016year" href="2016year">2016年年度赛马</a></li>
+					</ul>
+				</li>
+				<li><a id="2017year" href="2017year">2017年年度赛马</a></li>
+				<!-- <li><a href="#">年度千里马</a></li>
+				<li><a href="#">月度骏马</a></li>
+				<li><a href="#">月度黑马</a></li> -->
+			</ul>
+		</div>
+		<div style="margin-top:20px;"><h2 class="rig-title"><if condition="(substr($month,4) eq 'year')">年度赛马-<?php echo substr($month,0,4);?><else/>月度赛马-{$month}</if></h2>
+			<div style="width:100%;" class="con">
+				<div class="table-title">
+					<div style="width:190px;float:left;text-align: center;">部门线条</div>
+					<ul>
+						<li style="list-style-type: none;">
+							<div class="td-data">前三马</div><div class="td-data">县市</div><div class="td-data"><if condition="(substr($month,4) eq 'year')">总积分<else/>得分</if></div><div class="td-data">排名</div><div class="td-data">后三马</div><div class="td-data">县市</div><div class="td-data"><if condition="(substr($month,4) eq 'year')">总积分<else/>得分</if></div><div class="td-data">排名</div>
+						</li>
+					</ul>
+				</div>
+				<volist name="con" id="cons">
+					<div class="table" id="{$cons['ID']}">
+						<div class="td"><span>{$cons['NAME']}</span><if condition="(substr($month,4) eq 'year')"><a href="{:U('NewRank/rank_year_info',array('month'=>$month,'id'=>$cons['ID']))}" target="_blank">详情</a><else/><a href="{:U('NewRank/rank_info',array('month'=>$month,'id'=>$cons['ID']))}" target="_blank">详情</a></if><a href="{:U('msg/msg_priview',array('id'=>$cons['CONFIG_ID']))}">目标</a><a href="{:U('index/rank_question',array('config_id'=>$cons['ID']))}">答疑</a><span style="font-size:12px;">点击量:{$cons['ZAN']|intval}</span></div>
+						<ul class="td2">
+							<volist name='user_front' id='user'>
+								<if condition="($cons['ID'] eq $user['CONFIG_ID'])">
+									<li style="color:#ff6f02">
+										<div class="td-data nor" title="{$user['USER_NAME']}">{$user['USER_NAME']}</div><div class="td-data nor">{$user['COUNTY_NAME']}</div><div class="td-data">{$user['AMOUNT']}</div><div class="td-data">第{$user['PM']}名</div>
+									</li>
+								</if>
+							</volist>
+						</ul>
+						<ul class="td2">
+							<volist name='user_back' id='user'>
+								<if condition="($cons['ID'] eq $user['CONFIG_ID'])">
+									<li>
+										<div class="td-data nor" title="{$user['USER_NAME']}">{$user['USER_NAME']}</div><div class="td-data nor">{$user['COUNTY_NAME']}</div><div class="td-data">{$user['AMOUNT']}</div><div class="td-data">倒数第{$user['PM']}名</div>
+									</li>
+								</if>
+							</volist>
+						</ul>
+					</div>
+				</volist>
+			</div>
+		</div>
+	</div>
+	<!-- 赛马线条锚点链接 -->
+	<div class="frame" style="position: fixed;top:0px;right:0px;width:200px;border-top:0px">
+		<ul>
+			<li><span  class="inactive">团队条线</span>
+				<ul style="display:none">
+				<volist name='con' id='cons'>
+					<if condition="($cons['SEC_TYPE'] eq '县市团队')"><li><a href="#{$cons['ID']}">{$cons['NAME']}</a></li></if>
+				</volist>
+				</ul>
+			</li>
+			<li><span  class="inactive">个人条线</span>
+				<ul>
+					<li><span  class="inactive">县公司管理层</span>
+						<ul style="display:none">
+						<volist name='con' id='cons'>
+							<if condition="($cons['SEC_TYPE'] eq '管理人员')"><li><a href="#{$cons['ID']}">{$cons['NAME']}</a></li></if>
+						</volist>
+						</ul>
+					</li>
+					<li><span  class="inactive">市场条线</span>
+						<ul style="display:none">
+						<volist name='con' id='cons'>
+							<if condition="($cons['SEC_TYPE'] eq '市场人员')"><li><a href="#{$cons['ID']}">{$cons['NAME']}</a></li></if>
+						</volist>
+						</ul>
+					</li>
+					<li><span  class="inactive">政企条线</span>
+						<ul style="display:none">
+						<volist name='con' id='cons'>
+							<if condition="($cons['SEC_TYPE'] eq '政企类')"><li><a href="#{$cons['ID']}">{$cons['NAME']}</a></li></if>
+						</volist>
+						</ul>
+					</li>
+					<li><span  class="inactive">网络条线</span>
+						<ul style="display:none">
+						<volist name='con' id='cons'>
+							<if condition="($cons['SEC_TYPE'] eq '网络类')"><li><a href="#{$cons['ID']}">{$cons['NAME']}</a></li></if>
+						</volist>
+						</ul>
+					</li>
+					<li><span  class="inactive">综合条线</span>
+						<ul style="display:none">
+						<volist name='con' id='cons'>
+							<if condition="($cons['SEC_TYPE'] eq '综合类')"><li><a href="#{$cons['ID']}">{$cons['NAME']}</a></li></if>
+						</volist>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$('.inactive').click(function(){
+			$(this).siblings('ul').slideToggle(100);
+		})
+	</script>
+</block>

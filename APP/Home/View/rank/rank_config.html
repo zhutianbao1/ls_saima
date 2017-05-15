@@ -1,0 +1,37 @@
+<extend name="pub/msg_base"/>
+
+<block name="title"><title>配置管理</title></block>
+
+<block name="body">
+	<div style="height:40px;line-height:40px;">
+		<a href="http://localhost/input/rankMsg.jsp" class="a-btn">查询</a>
+	</div>
+	<div>
+		<table class="rank" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">编号</td>
+				<td class="rank-title">一级分类</td>
+				<td class="rank-title">二级分类</td>
+				<td class="rank-title">名称</td>
+				<td class="rank-title">目标映射</td>
+				<td class="rank-title">状态</td>
+				<td class="rank-title">操作</td>
+			</tr>
+			<volist name="configs" id="config">
+			<tr>
+				<td >{$config.ID}</td>
+				<td >{$config.FST_TYPE}</td>
+				<td >{$config.SEC_TYPE}</td>
+				<td >{$config.NAME}</td>
+				<td >{$config.INFO_LINK}</td>
+				<td >{$config.STATUS}</td>
+				<td>
+					<a href="{:U('msg_priview?id='.$config['ID'])}">查看</a>
+					<a href="{:U('msg_new?id='.$config['ID'])}">编辑</a>
+					<a href="{:U('msg_delete?id='.$config['ID'])}">删除</a>
+				</td>
+			</tr>
+			</volist>
+		</table>
+	</div>
+</block>

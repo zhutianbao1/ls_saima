@@ -1,0 +1,54 @@
+<extend name="./base"/>
+<block name='title'>绩效考核详情</block>
+<block name='login'>绩效考核详情</block>
+<block name='body'>
+<div class="a_mask" id="a_mask"></div>
+	<div>
+		<div class="queryGroup">
+			<form action="{:U('main')}" method="post">
+				<div class="font">
+					<label>请假月份：</label>
+					<input type='text' name='birth_date' onClick="WdatePicker()" value="{$da['BIRTH_DATE']}" />
+				</div>
+				<button class="btn">查询</button>
+			</form>
+		</div>
+		<div class="btnGroup">
+		</div>
+		<div style="overflow: auto;">
+			<table class="table" border="0" cellpadding="1" cellspacing="0" width="100%">
+				<tr>
+				    <th>请假月份</th>
+				    <th>姓名</th>
+				    <th>员工编号</th>
+				    <th>县市</th>
+				    <th>入职时间</th>
+				    <th>联系方式</th>
+				    <th>岗位</th>
+				    <th>请假类型</th>
+				    <th>上传凭证</th>
+				    <th>假期开始时间</th>
+				    <th>假期结束时间</th>
+				    <th>请假原因</th>
+				</tr>
+				<volist name='user' id='el'>
+				<tr>
+					<td>{$el['RPT_MONTH']}</td>
+					<td>{$el['USER_NAME']}</td>
+					<td>{$el['USER_ID']}</td>
+					<td>{$el['COUNTY_NAME']}</td>
+					<td>{$el['SERVICE_START']}</td>
+					<td>{$el['BILL_ID']}</td>
+					<td>{$el['DEPT']}</td>
+					<td>{$el['LEAVE_TYPE']}</td>
+					<td>{$el['ACE']}</td>
+					<td>{$el['HOME_DATE']}</td>
+					<td>{$el['END_DATE']}</td>
+					<td>{$el['LEAVE_REASON']}</td>
+				</tr>
+				</volist>
+			</table>
+		</div>
+		{$_page}
+	</div>
+</block>

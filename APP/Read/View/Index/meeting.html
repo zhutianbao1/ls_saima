@@ -1,0 +1,125 @@
+<extend name="Tpl/base"/>
+<block name="title">阅读会</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+
+</block>
+
+<block name="main_top">
+
+<div class="hd tag-heading">
+<h3>最新读书会</h3>
+<div class="hd-nav">
+  <!--
+  <ul class="filter-tabs filter-type-tabs">
+    <li class="tab ">
+      <a href="?sort=new&amp;cat=all">全部</a></li>
+   <?php 
+    foreach ($book_types as $key => $value) {
+      echo "<li class='tab'><a href=''>".$value."</a></li>";
+    }
+  ?>
+  
+  </ul>
+  -->
+</div>
+</div>
+
+
+<!-- 滚动书籍 -->
+<div class="showcase featured-books slide-5-items clear">
+  <div class="bd">
+    <div class="sl">
+      <div class="slide-list">
+        <empty name="meetings">
+        暂无数据信息,联系县市管理员 
+        <else/>
+        <ul class="slide-item list-col list-col5 cover-list left meeting-list">
+          <volist name="meetings" id="meeting" key="k">
+          <li style="width:150px;height:240px;padding-bottom:0px;margin-bottom:28px;" class="">
+            <div class="border-wrap" style="height:100%;border:solid 1px #eee;box-shadow:0px 0px 1px #eee;">
+              <div class="cover" style="width:100%;">
+                <a href="{:U('index/book_meeting?id='.$meeting['id'])}" class="pic" target="_self">
+                  <img src="__IMG__/22325617.jpg" alt="" tmpsrc="__ROOT__/{$meeting['img']}" itemprop="image" height="100%" width="100%">
+                </a>
+              </div>              
+
+              <div class="info" style="height:60px;">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$meeting['id'])}">{$meeting['title']}</a></h4>
+                
+                <div class="author" style="position:absolute;top:45px;left:0px;">
+                  <span class="orig-author">{$meeting['meet_date']}</span> 
+                </div>
+                <if condition="$k eq 1 and ($p elt 1)">
+                  <if condition="$meeting['meet_date'] gt $current ">
+                  <if condition="$meeting['county_code'] eq $_SESSION['user_auth']['COUNTY_CODE']">     
+                      <a  para="{$meeting['id']}" href="javascript:;" style="background:#6e839a;border-color:#6e839a;position:absolute;top:45px;right:0px;padding: 1px 4px !important;" class="btn baoming">报名</a>                        
+                  <else/>
+                  <a href="javascript:alert('非所属县市书籍，不予报名');" style="background:#6e839a;border-color:#6e839a;position:absolute;top:45px;right:0px;padding: 1px 4px !important;" class="btn">报名</a>
+                  </if>
+                  </if> 
+                </if>
+              </div>
+
+            </div>
+          </li>
+          </volist>
+        </ul>
+        </empty>
+      </div>
+    </div>
+ </div>
+
+  <div class="clear"></div>
+ {$_page}
+</div>
+<!-- 滚动书籍 END -->
+</block>
+
+
+<block name="js">
+<script>
+  $(".baoming").click(function(){
+    var oper_login_code = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+    if(oper_login_code.isEmpty()){
+       layer.msg('未获取登录信息，请登录后操作');
+       return;
+    }
+    
+    if(confirm('提交报名后将以读书会召开具体安排事项为准，时候继续报名？')){
+        var e = $(this),
+          meeting_id = e.attr("para"),
+          url = "{:U('manager/manager_meeting_bao')}";
+      $.ajax({
+         type:'post',
+         url:url,
+         dataType:'json',
+         data:{meeting_id:meeting_id},
+         success:function(re){
+            layer.msg(re.msg);
+         },
+         error:function(){
+            layer.msg('系统错误，请稍后重试');
+         }
+      });
+    }
+
+ });
+
+ $(".meeting-list li").mouseover(function(event) {
+    var e = $(this);
+    e.css({
+      background:'#f6f6f1'
+    })
+ });
+
+ $(".meeting-list li").mouseout(function(event) {
+    var e = $(this);
+    e.css({
+      background:'#fffff9'
+    })
+ });  
+</script>
+</block>

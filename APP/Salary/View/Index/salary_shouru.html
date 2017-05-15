@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+		    user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	    <block name='title'>
+	    	<title></title>
+	    </block>
+		<title>收入</title>
+		<script   src="__STATIC__/jquery-1.7.2.min.js"></script>		
+		<script   src="__STATIC__/layer/layer.js"></script>	
+		<link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+		<block name="css"></block>			
+	</head>
+	<body>
+		<div class="content">
+			<div class="header">
+			    <div class="header_img"></div>
+				<div class="header_title">收入</div>
+				<div class="header_bj" >比较</div>
+				<div style="clear: both;"></div>			
+			</div>
+
+			<div class="main">
+				<div class="main_nav">
+				{:W('Side/title_tab')}
+				</div>
+				<div class="main_show">
+					<block name="main_right">					
+					</block>				
+				</div>
+			</div>	
+
+			<div class="footer">
+			{:W('Side/footer_tab')}									
+			</div>			
+		</div>
+		<script type="text/javascript">
+		    $(function(){
+			   	$('.header_bj').click(function() {
+			   		if($('.che:checked').length<2){
+						layer.alert('请选择两个月份进行比较.');
+						return false;
+					}else{	
+						var che=$('.che:checked');                    
+						var month1=che[0].value;
+						var month2=che[1].value;
+		window.location='http://10.78.1.85:9000/ranking/Salary/Index/salary_qb_bj/month1/'+month1+'/month2/'+month2+'.html';
+					}
+			   	});
+
+			   	$(".header_img").click(function(event) {
+			   		window.location="{:U('Index/salary_index')}";
+			   	});
+		    });			
+		</script>
+		<script type="text/javascript">
+		
+		</script>		
+		<block name="js">							
+		</block>		
+	</body>
+</html>

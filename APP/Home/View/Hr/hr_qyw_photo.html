@@ -1,0 +1,24 @@
+<extend name="pub/main_hr"/>
+    <block name="title">全业务工作全景图</block>
+    <block name="body">
+    <div class="model">
+    <div>
+        <if condition="($id eq 1)">
+	        <div class="hr_info_title_l">
+	            <span>全业务主管职责</span>
+	        </div>
+			<img src="__PUBLIC__/images/全业务主管职责.jpg" width="1000px;">
+        <elseif condition="($id eq 2)"/>
+	        <div class="hr_info_title_l">
+	            <span>家客维护员职责</span>
+	        </div>
+        	<img src="__PUBLIC__/images/家客维护员职责.jpg" width="1000px;">
+        <else/>
+	        <div class="hr_info_title_l">
+	            <span>集客维护员职责</span>
+	        </div>
+        	<img src="__PUBLIC__/images/集客维护员职责.jpg" width="1000px;">
+        </if>
+    </div>
+	</div>
+	</block>

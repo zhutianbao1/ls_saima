@@ -1,0 +1,168 @@
+<extend name="Tpl/base"/>
+<block name="title">阅读会</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+
+</block>
+
+<block name="main_top">
+
+<div class="article-profile-section article-profile-primary ">
+      <div class="cover shadow-cover" style="width:180px;height:200px;">
+        <if condition="(substr($book['img'],0,5) eq 'https')">
+            <img width="110px" height="164px" itemprop="image" alt="" src="__IMG__/22325617.jpg" 
+            tmpsrc="{$book['img']}">
+        <else/>
+        <img width="100%" height="100%" src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$book['img']}" 
+               alt="" itemprop="image">
+        </if>
+      </div>
+      <div class="article-profile-bd">
+        <h4 itemprop="name" class="article-title">{$book['book_name']}</h4>
+        <div class="article-meta">
+          <p class="author">
+            <span class="label">作者:</span>
+            <span class="labeled-text">
+              <a class="author-item" href="javascript:;">{$book['author']}</a></span>
+            <span class="label">类别:</span>
+            <span class="labeled-text">
+              <span itemprop="genre">
+                <?php 
+                  $type  = R('para/attr_book_type',array($book['book_type']));
+                  echo $type;
+                ?>
+              </span></span>
+          </p>
+           
+          <if condition="$meeting['title'] eq null">
+          	<p><font color=red>尚未开展阅读会</font></p>
+          	<else/>
+       		  <p class="author">
+	            <span class="label">阅读会:</span>
+	            <span class="labeled-text">
+	              <a class="author-item" href="javascript:;">{$meeting['title']}</a></span>
+	          </p>
+          	  <p class="author">
+	            <span class="label">开展时间:</span>
+	            <span class="labeled-text">
+	              <a class="author-item" href="javascript:;">{$meeting['meet_date']}</a></span>
+	          </p>
+
+            <p>
+            <span class="label">应到人数:</span>
+              <span class="labeled-text">
+                <a class="author-item" href="javascript:;">{$meeting['ying']}</a></span>
+              <span class="label">实到人数:</span>
+              <span class="labeled-text">
+                <a class="author-item" href="javascript:;">{$meeting['shi']}</a></span>
+            </p>
+	          
+          </if>
+        </div>
+        <div class="rating rating-light hide">
+          <span title="4.6" class="stars-context stars-45">
+            <span class="stars-active"></span>
+          </span>
+          <span class="score">9.2</span>
+          <span class="amount">|
+            <a href="/ebook/21856869/ratings">585人评价</a></span>
+        </div>
+        <div class="profile-reading-actions">
+          <a href="#dushuxinde"  class="btn btn-read">
+            <span class="icon-read"></span>
+            <span class="text">读书心得</span></a>
+          <a href="#bmqk"  class="btn btn-read">
+            <span class="icon-read"></span>
+            <span class="text">报名情况</span></a>
+          <a href="#hyjs"  class="btn btn-read">
+            <span class="icon-read"></span>
+            <span class="text">图书简介</span></a>
+		  <a href="{:U('index/book_info?id='.$book['id'])}"  class="btn btn-read">
+            <!-- <span class="icon-read"></span> -->
+            <!-- <span class="text">阅读</span></a> -->
+            <!-- <a href="/reader/ebook/21856869/" target="_blank" class="btn btn-read"> -->
+            <span class="icon-read"></span>
+            <span class="text">书籍信息</span></a>
+
+          <div class="qrcode"></div>
+        </div>
+      </div>
+    </div>
+
+<div id="content-div" class="showcase featured-books slide-5-items clear">
+  <div class="hd lined">
+    <h3>{$meeting['title']}
+      <span class="help-tip"></span> 
+	<a href="javascript:;">{$meeting['meet_date']}</a>
+    </h3>
+    <span class="more">应到 <a href="javascript:;">{$meeting['ying']}</a> 人 , 实到 <a href="javascript:;">{$meeting['shi']}</a> 人</span>
+  </div>
+  <div style="padding:10px;">     
+  	{$meeting['content']}    
+  </div>
+
+  <div class="hd lined clear">
+    <h3 id="hyjs">图书简介</h3>
+  </div>
+  <div style="border:dashed 1px #ddd;background:#f6f6f1;padding:10px;line-height:150%;text-indent:20px;font-size:14px;">
+	{$meeting['description']}
+  </div>
+  <br>
+  <div class="hd lined clear">
+    <h3 id="bmqk">报名情况 <a class="right more" href="{:U('base/meeting_bao_exp?meet_id='.$book['meet_id'])}">导出报名</a></h3>
+  </div>
+  <div>
+  <style>
+  .bm-list li{float:left;width:250px;padding:0px 20px 20px 0px;}
+  </style>
+  <div class="data_table clear">
+    <div class="section">    
+    <div class="bd">
+      <ul class="bm-list">
+      <volist name="bms" id="bm" offset="0" key="k">
+        <li><b>{$k})&nbsp;</b>{$bm['bao_oper_name']}{$bm['bao_oper']|substr=###,0,3}****{$bm['bao_oper']|substr=###,7,11} &nbsp;&nbsp;{$bm['bao_date']|date='Y-m-d',###} 已报名</li>
+      </volist>
+    </ul>
+    </div>
+  </div>
+  </div>
+</div>
+
+<br>
+  <div class="hd lined clear">
+    <h3 id="dushuxinde">读书心得 </h3>
+  </div>
+  <div>
+  <table width="100%">
+    <tr height="22px">
+    <th style="background:#6e839a;color:#fff;">会员</th>
+    <th style="background:#6e839a;color:#fff;">标题</th>
+    <th style="background:#6e839a;color:#fff;">发表时间</th>
+    <th style="background:#6e839a;color:#fff;">信息</th>
+    </tr>
+    <volist name="xindes" id="xinde">
+    <tr>
+      <td>  <?php 
+          $info = R('ls/get_oper_info',array($xinde['oper_id']));
+          echo $info['OPER_NAME'];
+        ?></td>
+      <td><a href="{:U('index/book_xinde?id='.$xinde['id'])}">{$xinde['title']}</a></td>
+      <td>{$xinde['oper_date']|date='Y-m-d',###}</td>
+      <td></td>
+    </tr>
+    </volist>
+  </table>
+  </div>
+</div>
+</block>
+
+
+<block name="js">
+<script type="text/javascript">
+ $("#content-div").find("[src$='.jpg']").css('width','600px');
+ $("#content-div").find("[src$='.jpg']").css('height','400px');
+</script>
+</block>
+
+

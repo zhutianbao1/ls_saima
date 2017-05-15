@@ -1,0 +1,115 @@
+<extend name="pub/main_group"/>
+<block name="css">
+	<style type="text/css">
+		
+	.tag{display:line-block;padding:10px;height:20px;line-height: 20px;}
+	.tag label{padding-left:10px;padding-right:20px;}
+	.tag font{font-weight: bold;color:#000;}
+
+	.tempWrap{position: relative;overflow:hidden; width:1000px;padding-top:10px;color: #000;}
+	.tempWrap ul{padding: 0;margin: 0;position: relative;}
+	.tempWrap li{float: left;border: 1px dashed infobackground; list-style-type: none;width:195px;background: rgb(251, 252, 254);margin-bottom: 5px;margin-right: 3px}
+	.tempWrap li .span{padding-left: 20px;padding-top: 10px; float: left;}
+	.tempWrap li .span span{height: 5px;display: block;color:#000;}
+	.tempWrap a{color:#000;}
+	.kjh_table tr{ background: #C3DDE0 }
+	.kjh_table th{background: #02B9F9;height: 30px;line-height: 30px;color: #fff}
+	.kjh_table td{height: 25px;text-align: center;}
+	</style>
+</block>
+<block name="body">
+	  
+	<div class="model">
+		<div>
+			<div class="hr_info_title_l">
+				<span>计件排名</span>
+			</div>
+			<div style="width:100%;height:30px;line-height:30px">
+				<form method="post" action="{:U('kjh_jj_rank')}">
+					姓名：<input class="text" value="{$user_name}" name="user_name">
+					手机号码：<input class="text" value="{$bill_ids}" name="bill_ids">	
+					<input type="submit" value="查询" style="padding:5px 10px">
+				</form>
+			</div>
+			<empty name="jj_pai">
+			<div class="no-data">未找到任何数据</div>
+			<else/>
+			<div class="grid_rank">
+				<!-- <div class="rank_yy" id="f_khjj">
+					<div class="tempWrap" id="g_khjj">
+						<ul id="khjj">
+						<volist name="jj_pai" id="u">
+							<li class="" title="{$u['县市']}-{$u['姓名']}">
+								<a href="{:U('ls/wid_jj')}?bill_id={$u['手机号码']}" target="_blank" class="link">
+									<img class="aimg" data-src="__HEAD_IMG__1.jpg" src="__HEAD_IMG__{$u['手机号码']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" width="35%" height="80px" style="float: left;">
+									<div class="score"><span style="margin-left:20px;">第{$u['全市排名']}&nbsp;{$u['姓名']}</span></div>
+									<div class="span"><span>分值：{$u['总金额']}</span><br/>
+									<span>{$u['县市']}</span></div>
+								</a>
+							</li>
+						</volist>
+						</ul>
+					</div>
+				</div> -->
+				<table class="kjh_table" cellpadding="0" cellspacing="0" width="100%">
+					<tr>
+						<th>县市</th>
+						<th>姓名</th>
+						<th>工号</th>
+						<th>手机号码</th>
+						<th>岗位</th>
+						<th>性质</th>
+						<th>1月计件</th>
+						<th>2月计件</th>
+						<th>3月计件</th>
+						<if condition="($khjl[0]['M4月计件'] neq null)"><th>4月计件</th></if>
+						<if condition="($khjl[0]['M5月计件'] neq null)"><th>5月计件</th></if>
+						<if condition="($khjl[0]['M6月计件'] neq null)"><th>6月计件</th></if>
+						<if condition="($khjl[0]['M7月计件'] neq null)"><th>7月计件</th></if>
+						<if condition="($khjl[0]['M8月计件'] neq null)"><th>8月计件</th></if>
+						<if condition="($khjl[0]['M9月计件'] neq null)"><th>9月计件</th></if>
+						<if condition="($khjl[0]['M10月计件'] neq null)"><th>10月计件</th></if>
+						<if condition="($khjl[0]['M11月计件'] neq null)"><th>11月计件</th></if>
+						<if condition="($khjl[0]['M12月计件'] neq null)"><th>12月计件</th></if>
+						<th>平均分</th>
+						<th>排名</th>
+					</tr>
+					<volist name="jj_pai" id="u">
+						<tr>
+							<td>{$u['COUNTY_NAME']}</td>
+							<td>{$u['USER_NAME']}</td>
+							<td>{$u['USER_ID']}</td>
+							<td>{$u['BILL_ID']}</td>
+							<td>{$u['POS_NAME']}</td>
+							<td>{$u['性质']}</td>
+							<td>{$u['M1月计件']}</td>
+							<td>{$u['M2月计件']}</td>
+							<td>{$u['M3月计件']}</td>
+							<if condition="($khjl[0]['M4月计件'] neq null)"><td>{$u['M4月计件']}</td></if>
+							<if condition="($khjl[0]['M5月计件'] neq null)"><td>{$u['M5月计件']}</td></if>
+							<if condition="($khjl[0]['M6月计件'] neq null)"><td>{$u['M6月计件']}</td></if>
+							<if condition="($khjl[0]['M7月计件'] neq null)"><td>{$u['M7月计件']}</td></if>
+							<if condition="($khjl[0]['M8月计件'] neq null)"><td>{$u['M8月计件']}</td></if>
+							<if condition="($khjl[0]['M9月计件'] neq null)"><td>{$u['M9月计件']}</td></if>
+							<if condition="($khjl[0]['M10月计件'] neq null)"><td>{$u['M10月计件']}</td></if>
+							<if condition="($khjl[0]['M11月计件'] neq null)"><td>{$u['M11月计件']}</td></if>
+							<if condition="($khjl[0]['M12月计件'] neq null)"><td>{$u['M12月计件']}</td></if>
+							<td>{$u['平均分']}</td>
+							<td>{$u['PM']}</td>
+						</tr>
+					</volist>
+				</table>
+				{$_page}
+			</div>
+			</empty>
+		</div>
+	</div> 
+ 
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".kjh_table tr:nth-child(2n) td").css("background","#D4E3E5");
+		});
+	</script>
+</block>

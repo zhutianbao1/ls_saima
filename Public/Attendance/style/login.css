@@ -1,0 +1,20 @@
+@CHARSET:"UTF-8";
+#login{
+	padding: 6px 0 0 0;
+}
+#login p{
+	height: 22px;
+	line-height: 22px;
+	padding: 4px 0 0 45px;
+}
+.textbox{
+	height: 22px;
+	width: 150px;
+	padding: 0 2px;
+}
+#btn{
+	text-align: center;
+}
+.easyui-linkbutton{
+	padding: 0 10px;
+}

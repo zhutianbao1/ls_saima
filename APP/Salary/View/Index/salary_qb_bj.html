@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, 
+		             user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>工资项</title>
+		<link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">
+		<script src="__STATIC__/jquery-1.8.3.min.js"></script>
+		<style type="text/css">	
+		.show .fl,.show .fr{width: 49%;border:1px solid #ccc;
+		}
+		.show .fl h3,.show .fr h3{
+			text-align: center;color:#666;font-weight: 600;
+		}
+		.show .xiaoji{
+			height: 40px;
+		}
+		.show .xiaoji .xiaoji_l{
+			font-size: 14px;color: #666;
+		}
+
+		.show .xiaoji .xiaoji_f{
+			font-size: 14px;color: #666;
+		}
+		.show .mingxi .jiben_f{
+			font-size: 14px;color: #666;
+		}
+		</style>				
+	
+		
+	</head>
+	<body>
+		<div class="content">
+			<div class="header">			    
+				<div class="header_img"></div>
+				<div class="header_title">全部</div>
+			</div>
+			<div class="con_title">
+				<div class="daohang">
+					<div>全部明细比较</div>
+				</div>
+			</div>
+			<div class="show" >
+	    			<div class="fl" >
+	    				<h3 >{$list[0]['FAFANG_MONTH']}</h3>   
+		    			<div class="main">		    				
+							<div class="xiaoji" >
+								<div class="xiaoji_f">实发合计</div>
+								<div class="xiaoji_l" >{$list[0]['MONTH_SF']}&nbsp;元</div>
+							</div>
+							<div class="mingxi">
+								<div class="mingxi_f">合计项</div>					
+								<div class="jiben">
+									<div class="jiben_f">应发合计</div>
+									<div class="jiben_l">{$list[0]['YINGFA_HJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">扣款合计</div>
+									<div class="jiben_l">{$list[0]['KK']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>					
+								<div class="mingxi_f">工资项</div>
+								<div class="jiben">
+									<div class="jiben_f">基本工资</div>
+									<div class="jiben_l">{$list[0]['FAFANG_JX']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+
+			 					<div class="mingxi_f">奖金项</div>
+								<div class="jiben">
+									<div class="jiben_f">绩效奖金</div>
+									<div class="jiben_l">{$list[0]['JX_JJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">量化奖金</div>
+									<div class="jiben_l">{$list[0]['LIANGHUA_JJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">赛马</div>
+									<div class="jiben_l">{$list[0]['SAIMA_JJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">先进及劳动竞赛</div>
+									<div class="jiben_l">{$list[0]['XIANJIN_LAODONG']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">加班费</div>
+									<div class="jiben_l">{$list[0]['JIABAN']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">其他应发</div>
+									<div class="jiben_l">{$list[0]['QT_YF']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+			  					<div class="mingxi_f">补贴项</div>
+								<div class="jiben">
+									<div class="jiben_f">水电补贴</div>
+									<div class="jiben_l">{$list[0]['SHUIDIAN_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">误餐补贴</div>
+									<div class="jiben_l">{$list[0]['WUCAN_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">话费补贴</div>
+									<div class="jiben_l">{$list[0]['HUAFEI_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>					
+								<div class="jiben">
+									<div class="jiben_f">住房补贴</div>
+									<div class="jiben_l">{$list[0]['ZHUFANG_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="mingxi_f">个人扣款项</div>					
+								<div class="jiben">
+									<div class="jiben_f">养老保险(个人)</div>
+									<div class="jiben_l">{$list[0]['GR_BX_YL']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">医疗保险(个人)</div>
+									<div class="jiben_l">{$list[0]['GR_BX_YILIAO']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">失业保险(个人)</div>
+									<div class="jiben_l">{$list[0]['GR_BX_SY']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>						
+								<div class="jiben">
+									<div class="jiben_f">公积金(个人)</div>
+									<div class="jiben_l">{$list[0]['GR_BX_GJJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">企业年金(个人)</div>
+									<div class="jiben_l">{$list[0]['GR_BX_NJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">个税</div>
+									<div class="jiben_l">{$list[0]['GESHUI']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">考勤扣款</div>
+									<div class="jiben_l">{$list[0]['KQ_KK']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">其他应扣</div>
+									<div class="jiben_l">{$list[0]['KQ_KK']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="mingxi_f">绩效</div>
+
+								<div class="jiben">
+									<div class="jiben_f">绩效奖金所属单位</div>
+									<div class="jiben_l">{$list[0]['JX_JJ_DEPT']}</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">团队绩效系数</div>
+									<div class="jiben_l">{$list[0]['TEAM_JX_XS']}</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">个人绩效</div>
+									<div class="jiben_l">{$list[0]['GR_JX']}</div>
+									<div class="jiben_c"></div>
+								</div>						
+					        </div>
+				        </div>
+					</div>  
+
+    			<div class="fr" >
+	    			<h3 >{$list[1]['FAFANG_MONTH']}</h3>   
+	    			    <div class="main">
+							<div class="xiaoji" >
+								<div class="xiaoji_f">实发合计</div>
+								<div class="xiaoji_l"  >{$list[1]['MONTH_SF']}&nbsp;元</div>
+							</div>
+						    <div class="mingxi">
+							    <div class="mingxi_f">合计项</div>					
+								<div class="jiben">
+									<div class="jiben_f">应发合计</div>
+									<div class="jiben_l">{$list[1]['YINGFA_HJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">扣款合计</div>
+									<div class="jiben_l">{$list[1]['KK']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>					
+								<div class="mingxi_f">工资项</div>
+								<div class="jiben">
+									<div class="jiben_f">基本工资</div>
+									<div class="jiben_l">{$list[1]['FAFANG_JX']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+
+			 					<div class="mingxi_f">奖金项</div>
+								<div class="jiben">
+									<div class="jiben_f">绩效奖金</div>
+									<div class="jiben_l">{$list[1]['JX_JJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">量化奖金</div>
+									<div class="jiben_l">{$list[1]['LIANGHUA_JJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">赛马</div>
+									<div class="jiben_l">{$list[1]['SAIMA_JJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">先进及劳动竞赛</div>
+									<div class="jiben_l">{$list[1]['XIANJIN_LAODONG']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">加班费</div>
+									<div class="jiben_l">{$list[1]['JIABAN']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">其他应发</div>
+									<div class="jiben_l">{$list[1]['QT_YF']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+
+
+			  					<div class="mingxi_f">补贴项</div>
+								<div class="jiben">
+									<div class="jiben_f">水电补贴</div>
+									<div class="jiben_l">{$list[1]['SHUIDIAN_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">误餐补贴</div>
+									<div class="jiben_l">{$list[1]['WUCAN_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">话费补贴</div>
+									<div class="jiben_l">{$list[1]['HUAFEI_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>					
+								<div class="jiben">
+									<div class="jiben_f">住房补贴</div>
+									<div class="jiben_l">{$list[1]['ZHUFANG_BT']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="mingxi_f">个人扣款项</div>
+								
+								<div class="jiben">
+									<div class="jiben_f">养老保险(个人)</div>
+									<div class="jiben_l">{$list[1]['GR_BX_YL']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">医疗保险(个人)</div>
+									<div class="jiben_l">{$list[1]['GR_BX_YILIAO']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">失业保险(个人)</div>
+									<div class="jiben_l">{$list[1]['GR_BX_SY']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>						
+								<div class="jiben">
+									<div class="jiben_f">公积金(个人)</div>
+									<div class="jiben_l">{$list[1]['GR_BX_GJJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">企业年金(个人)</div>
+									<div class="jiben_l">{$list[1]['GR_BX_NJ']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">个税</div>
+									<div class="jiben_l">{$list[1]['GESHUI']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>									
+								<div class="jiben">
+									<div class="jiben_f">考勤扣款</div>
+									<div class="jiben_l">{$list[1]['KQ_KK']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="jiben">
+									<div class="jiben_f">其他应扣</div>
+									<div class="jiben_l">{$list[1]['KQ_KK']}&nbsp;元</div>
+									<div class="jiben_c"></div>
+								</div>
+								<div class="mingxi_f">绩效</div>
+
+								<div class="jiben">
+									<div class="jiben_f">绩效奖金所属单位</div>
+									<div class="jiben_l">{$list[1]['JX_JJ_DEPT']}</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">团队绩效系数</div>
+									<div class="jiben_l">{$list[1]['TEAM_JX_XS']}</div>
+									<div class="jiben_c"></div>
+								</div>	
+								<div class="jiben">
+									<div class="jiben_f">个人绩效</div>
+									<div class="jiben_l">{$list[1]['GR_JX']}</div>
+									<div class="jiben_c"></div>
+								</div>													
+				            </div>
+					</div>
+	    		</div>	
+
+			</div>						
+		</div>				
+	</body>
+		<script src="__STATIC__/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('.header_img').click(function(event) {
+					window.location="{:U('Index/salary_quanbu')}";
+				});
+                   
+			});
+		</script>
+	
+</html>

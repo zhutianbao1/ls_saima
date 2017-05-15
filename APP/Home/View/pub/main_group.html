@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><block name="title">客户经理管理平台</block></title>
+	<link rel="stylesheet" href="__CSS__/comm.css">
+	<link rel="stylesheet" href="__CSS__/hr.css">
+<style type="text/css">
+	.userinfo{margin:0 auto;width: 1000px;height:40px;line-height:40px;text-align: right;}
+	.fmenu{position:relative;margin:0 auto;width: 1000px;border-bottom:solid 1px #0081CC;background: #fff;height:100px;}
+	.fmenu .info{position: absolute;top:0px;right:10px;height:40px;line-height: 40px;}
+	.fmenu .title{position: absolute;top:0px;left:60px;height:50px;line-height: 50px;font-size: 24px;font-weight: bold;color: #0081cc;letter-spacing: 1px;font-family: 黑体;}
+	.nav{position: absolute;padding: 0px;margin:0px;padding-left: 40px;bottom:0px;left:0px;}
+	li{list-style-type: none;}
+	.nav > li{float: left;margin-top:0px;margin-right:2px;}
+	.nav > li > ul{display: none;}
+	.nav > li > a{display: block;padding:4px 25px;font-weight: 600;font-size: 12px;text-decoration: none;color:#0081cc;line-height: 30px;}
+	.nav > li > a:hover{background: #0081CC;color:#fff;}
+	.nav > li .selected{background: #0081CC;color:#fff;}
+	.leftSid{width: 180px; float: left; border-top: 1px solid #0081CC;}
+	.leftSid h2{padding-left: 20px; font-size: 14px;color: #0081CC;margin-top: 10px;}
+	.content{float: right;width: 780px;}
+	.leftSid ul {padding-left: 0px;background: #eee;margin-left: 0px;padding-top: 0px;}
+	.leftSid ul li{position: relative;}
+	.leftSid ul li a{display: block;padding:6px 25px;text-decoration: none;color: #0081CC}
+	.leftSid ul li a:hover{background: #fff;}
+	.leftSid ul li .selected2{background: #ccc;}
+	.model-list1 li{float: left;width:200px;margin-bottom: 13px;}
+	.check td{border-bottom: 1px solid #ccc;line-height: 25px;}
+	.query1{background:rgb(240,246,249);padding:10px 0px;width: 780px;}
+	.xq1{background-color: #f0f6f9;position:relative; height: 350px; overflow:auto;}
+	.query-table input{width: 95px;}
+	.model-cons1{float: right;width: 640px;}
+	.model-list1 .ls{color:#32cd32;font-weight:600;font-size: 20px;padding-top: 15px; width: 180px;}
+	.errMsg1{padding:100px; text-align: center;font-weight: 600;font-size: 24px;color: #ccc;background:rgb(240,246,249);margin:0 auto;}
+
+	.hmenu{overflow: hidden;height:37px;background: #0081cc;padding:2px 0px;
+	   margin:0 auto;width: 1000px;position: relative;}
+	.hmenu ul{ position:absolute;top:1px;left: 0px;padding:0px;margin:0px;margin-left: 10px;}
+	.hmenu ul li{list-style: none;float: left;margin-right:2px;margin-top:1px;}
+	.hmenu ul li a{font-size: 12px;text-decoration: none;display: block;height:18px;line-height:18px;width: 100%;padding:4px 5px;color:#0081cc;background: #fff;margin-top:5px;border:solid 1px #0081cc;}
+	.hmenu ul li a:hover{background: #eee;}
+
+	#wrap{margin:0 auto;width: 1000px;padding-top:10px;}
+	.model{margin-bottom: 5px;margin-top:20px;}
+
+	.tit tr{text-align: center;}
+	.tit td{ line-height: 22px;padding-top: 10px;padding-bottom: 10px; border:solid 1px rgb(245,248,252);text-align: left;padding-left:5px;}
+	#kh{position:absolute; width:980px; overflow:auto; left: 50%;margin-left:-490px}
+	.tool{width:700px;display:block;float:left}
+</style>
+<block name="css"></block>
+</head>
+<body>
+
+{:W('Login/login')}
+
+
+<?php
+if(empty($bill_id)){
+	$bill_id = $_SESSION['user_auth']['OPER_LOGIN_CODE'];
+}
+?>
+
+<block name="top">
+<?php $pp=$_SERVER["QUERY_STRING"];?>
+	<div class="fmenu">
+		<!-- <div class="title">
+			员工能力测试评估报告
+		</div> -->
+		<div class="info">
+			<if condition="$_SESSION['user_auth']['OPER_LOGIN_CODE'] eq null">
+				<a href="javascript:;" id="loginBtn">登陆</a>
+				<else/>
+				当前用户： {$_SESSION['user_auth']['OA']} , {$_SESSION['user_auth']['OPER_LOGIN_CODE']}  &nbsp; <a href="javascript:;" class="zhuxiao">注销</a>
+			</if>
+		</div>
+
+		<div class="clear" style="overflow: hidden;">
+			<block name="fmenu">
+			<ul class="nav">
+				<li id="sy"><a class="selected" href="javascript:;" url="{:U('group/index')}" onclick="">首页</a>
+					<ul>
+						<li style="background:infobackground;height:36px;width:985px;margin-left:-8px;line-height:34px;padding-left:10px;">
+							您好! {$_SESSION['user_auth']['OA']} ,欢迎使用政企客户经理平台
+						</li>
+					</ul>
+				</li>
+				<li id="jj"><a href="javascript:;">宽极化和计件</a>
+					<ul>
+						<li><a href="{:U('kjh_word')}?clck=11" title="宽级化/计件考核办法">宽级化/计件考核办法</a></li>
+						<li><a href="{:U('kjh_my')}?clck=12" title="我的宽级化">我的宽级化</a></li>
+						<li><a href="{:U('kjh_jj')}?clck=13" title="我的计件">我的计件</a></li>
+						<li><a href="{:U('kjh_rank')}?clck=14" title="宽级化考核排名">宽级化考核排名</a></li>
+						<li><a href="{:U('kjh_jj_rank')}?clck=15" title="计件考核排名">计件考核排名</a></li>
+					</ul>
+				</li>
+				<li id="ts"><a href="javascript:;">个人能力测评及提升</a>
+					<ul>
+						<li><a href="{:U('nl_info')}?clck=21" title="员工信息">员工信息</a></li>
+						<li><a href="{:U('hr/hr_kjh_index')}?clck=22" title="宽级化模拟评定" target="_blank">宽级化模拟评定</a></li>
+						<li><a href="{:U('nl_rpt')}?bill_id={$bill_id}&clck=23" title="个人能力评测报告">个人能力评测报告</a></li>
+						<li><a href="{:U('nl')}?clck=24" title="个人能力测评及提升">个人能力测评及提升</a></li>
+						<li><a href="{:U('scorep')}?clck=25" title="成绩分项表">成绩分项表</a></li>
+						<li><a href="{:U('scoreall')}?clck=26" title="科目成绩汇总表">科目成绩汇总表</a></li>
+					</ul>
+				</li>
+				<li id="jt"><a href="javascript:;">我的集团</a>
+					<ul>
+						<li><a href="{:U('my_group')}?bill_id={$bill_id}&clck=31" title="名下集团">名下集团</a></li>
+						<!-- <li><a href="{:U('my_user')}?bill_id={$bill_id}" title="名下集团成员">名下集团成员</a></li> -->
+					</ul>
+				</li>
+				<li id="gj"><a href="javascript:;">实用工具</a>
+					<ul>
+						<li><a href="{:U('tool_zchb')}?clck=41" title="政策汇编">政策汇编</a></li>
+						<!-- <li><a href="{:U('tool_group_query')}" title="集团查询">集团查询</a></li> -->
+						<li><a href="{:U('tool_price_query')}?clck=42" title="价格查询">价格查询</a></li>
+						<li><a href="{:U('tool_word')}?clck=43" title="管理办法">管理办法</a></li>
+						<li><a href="{:U('tool_ages')}?clck=44" title="优秀案例">优秀案例</a></li>
+						<li><a href="{:U('tool_table')}?clck=45" title="表格汇总">表格汇总</a></li>
+						<li><a href="{:U('tool_staff')}?clck=46" title="人员分工">人员分工</a></li>
+						<li><a href="{:U('tool_shouc')}?clck=47" title="学习手册">学习手册</a></li>
+					</ul>
+				</li>
+				<li id="gl"><a href="javascript:;">客户经理管理</a>
+					<ul>
+						<li><a href="{:U('gl_kjh')}?clck=51" title="客户经理宽极化汇总">客户经理宽极化汇总</a></li>
+						<li><a href="{:U('gl_jj')}?clck=52" title="客户经理计件汇总">客户经理计件汇总</a></li>
+						<li><a href="{:U('gl_nl')}?clck=53" title="客户经理能力测评汇总">客户经理能力测评汇总</a></li>
+						<li><a href="{:U('gl_group')}?clck=54" title="客客户经理集团发展汇总">客户经理集团发展汇总</a></li>
+					</ul>
+				</li>
+			</ul>
+			</block>
+		</div>
+	</div>
+
+	<div class="hmenu">
+		<ul>
+		</ul>
+	</div>
+
+</block>
+<?php
+$select_value = isset($_POST['rpt_month']) ? $_POST['rpt_month'] : '';
+?>
+
+<div id="wrap">
+<block name="body">
+</block>
+</div>
+
+<block name="footer">
+<div class="footer">
+  技术支持:丽水业务支撑中心
+</div>
+</block>
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script type="text/javascript">
+$(function(){
+	//当前主菜单光标
+	var menu_index = $.cookie('show_menu');
+	try{
+		var obj = $(".nav > li").eq(menu_index);
+		show_menu(obj);
+
+		$(".nav > li > a").removeClass('selected');
+		obj.children('a').addClass('selected');
+
+	}catch(e){
+		show_menu($(".nav > li").eq(0));
+	}
+});
+
+$(".nav > li").click(function(){
+	var e = $(this);
+		u = e.find('a:eq(0)').attr('url');
+	var index = e.index();
+	$.cookie('show_menu',index);
+
+	if(u!=undefined && u!='undefined'){
+		location.href=u;
+	}
+	show_menu($(this));
+	
+});
+
+show_menu = function(obj){
+	var e = obj,
+		cul = e.find('ul:eq(0)').html();
+	if(cul!=null || cul!=undefined){
+		$(".hmenu").show();
+		$(".hmenu ul").html(cul);
+	}else{
+		//$(".hmenu").hide();
+		$(".hmenu ul").html('');
+	}
+}
+
+$("#loginBtn").click(function(){
+	$(".mask").show();
+	$(".loginDiv").show();
+});
+
+$(".zhuxiao").click(function(){
+	if(confirm('是否继续执行注销?')){
+		$.ajax({
+			type:'post',
+			url:"{:U('Base/loginOut')}",
+			dataType:'json',
+			success:function(re){
+				layer.msg(re.msg);
+				if(re.success){
+					location.reload();
+				}
+			}
+		});
+	}
+});
+</script>
+
+
+<block name="js"></block>
+
+</body>
+</html>

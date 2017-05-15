@@ -1,0 +1,41 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">丽水移动-年度千里马</block>
+
+
+<block name="nav"></block>
+<block name="month"></block>
+
+<block name="body">
+	<div class="rank-info" style="overflow: hidden;">
+		<div class="top">
+		<a href="#">年度千里马</a>
+		</div>
+		<ul>
+		<volist name="qlm" id="u">
+			<li class="" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+				<a href="{:U('index/new_line?bill_id='.$u['BILL_ID'])}?id={$u['CONFIG_ID']}" target="_blank" class="link">
+					<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'" width="35%" height="80px" style="float: left;">
+					<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+					<div class="span"><span>{$u['POS_NAME']}</span><br/>
+					<span>{$u['COUNTY_NAME']}</span><br/>
+					<span>总积分：{$u['SCORE']}</span></div>
+				</a>
+			</li>
+		</volist>
+		</ul>
+		{$_page}
+	</div>
+	<div>年度千里马奖说明：
+	<p>赛马人数少于等于30人的，按照年度（3月-12月）累计积分设立一等奖1名，二等奖1名，三等奖1名。</p>
+	<p>赛马人数大于30人小于等于50人的，按照年度（3月-12月）累计积分设立一等奖1名，二等奖3名，三等奖5名。</p>
+	<p>赛马人数大于50人小于等于100人的，按照年度（3月-12月）累计积分设立一等奖2名，二等奖4名，三等奖6名。</p>
+	<p>赛马人数大于100人小于等于200人的，按照年度（3月-12月）累计积分设立一等奖5名，二等奖10名，三等奖15名。</p>
+	<p>赛马人数大于200人，按照年度（3月-12月）累计积分设立一等奖10名，二等奖20名，三等奖30名。</p></div>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>

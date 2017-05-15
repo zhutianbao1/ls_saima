@@ -1,0 +1,36 @@
+<extend name='pub/main_newRank'/>
+
+<block name='title'>丽水移动管理信息化——"4+1"平台</block>
+<block name='ext'>
+</block>
+<block name='body'>
+<div class="top">
+	<div class="body">
+		<fieldset style="border:0px solid #ccc">
+		<div class="button" style="background:#DAF1FF;height:30px;"><a style="color:white;background:#619df2;font-weight: bold;">(一)赛马平台2.0(正式版)</a><!-- <a style="" href="{:U('ls/ls_lishui')}" target="_blank">(一)赛马平台(大屏版)</a> --><a href="http://ls-webdev06.zj.chinamobile.com/uniflow/lsTaskManager/app_ls/pancm/ls_chinamobile_employee_month_audit.db/employeeMonthAudit.flow" target="_blank" style="">(二)绩效管理平台</a><a href="{:U('index/rank_jf?year=2017')}" target="_blank" style="">(三)员工成长积分</a><a href="http://10.78.1.85:9000/ranking/hr" target="_blank" style="">(四)员工能力成长平台</a><a href="{:U('index/rank_pc')}" target="_blank">(+1)市公司人员服务支撑评测平台</a><a href="http://10.78.1.85:9000/ranking/Prizes" target="_blank">奖品挑选平台</a></div>
+	    <!-- 头部个人属性 -->
+			<div style="width:100%;margin-top:0px;" class="my_info">
+			<?php
+				$bill_id = $_SESSION['user_auth']['OPER_LOGIN_CODE'];
+				$currMonth = '201703';
+				$month = ($month==null?$currMonth:$month);
+			?>
+			{:W('NewRank/rank_my_info',array($bill_id,$month))}
+			</div>
+	    </fieldset>
+	</div>
+</div>
+	<div class="body">
+		<h2 class="rig-title" style="margin-top:20px;">我的关注{$lines[0]['USER_NAME']}<a class="follow" href="{:U('newRank/rank_info',array('month'=>$month,'id'=>1001))}" target="_blank">更改关注</a><a class="follow" href="{:U('newRank/rank_new',array('month'=>$month))}" target="_blank">更多关注</a></h2>
+		<!-- 我的关注 -->
+		<div style="width:100%;height:150px;border:1px solid #eee">
+			{:W('NewRank/rank_follow',array(5,$month))}
+		</div>
+		<!-- 本月赛马 -->
+		<div style="margin-top:20px;">
+			{:W('NewRank/ls_index2',array($month))}
+		</div>
+		<div style="clear:both"></div>
+		<div style="margin-top:50px;display:block">&nbsp;</div>
+	</div>
+</block>

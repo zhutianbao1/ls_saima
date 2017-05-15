@@ -1,0 +1,149 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 排班表</block>
+<block name="css">
+  <style>
+    .nxtable{
+      position:absolute;
+      top:140px;
+      right:10px;
+    }
+    .nxtable td{min-width:24px;}
+  </style>
+</block>
+
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="sidebar">
+    <ul class="sidemenu">
+      <li><a href="{:U('Index/index')}">汇总报表</a></li>
+      <li><a href="{:U('Index/cdeali')}">投诉处理记录表</a></li>
+      <li><a href="{:U('Index/faulti')}">故障处理记录表</a></li>
+      <li><a href="{:U('Index/onlinei')}">上线类</a></li>
+      <li><a href="{:U('Index/repositoryi')}">知识库</a></li>
+      <li><a href="{:U('Index/ruleflowi')}">常规流程</a></li>
+      <li><a href="{:U('Index/schedulei')}" style="color:#f00">排班表</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <form class="form tjform" name="form1" action="{:U('Index/schedulei')}" method="post">
+      <div>
+        <label>年月：</label>
+        <input class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM'})"  type="text" name="ym"/>
+
+        <button class="btn query"/>查询</button>
+      </div>
+    </form>
+
+    <div class="btn-box">
+      <button class="btn scheduleu"/>修改</button>
+    </div>
+
+    <table class="altrowstable">
+      <div style="font-size:14px;font-weight:600">排班表：</div>
+      <tr>
+        <th style="width:20px"></th>
+        <th style="width:60px">日期</th>
+        <th style="width:27px">星期</th>
+        <!--
+        <th style="width:45px">易亮</th>
+        <th style="width:45px">蓝朱琳</th>
+        -->
+        <th style="width:45px">郑璐</th>
+        <th style="width:45px">包慧珍</th>
+        <th style="width:45px">陈小芳</th>
+        <!--
+        <th style="width:45px">金鑫</th>
+        <th style="width:70px">假日</th>
+        <th style="width:200px">注意事项</th>
+        -->
+      </tr>
+      <volist name="schedulelist" id="sl">
+      <tr>
+        <td><input class="scheduleid" type="checkbox" name="id" value="{$sl['ID']}"/>{$i}</td>
+        <td>{$sl['DAY']}</td>
+        <td>{$sl['WEEKDAY']}</td>
+        <!--
+        <td>{$sl['P1']}</td>
+        <td>{$sl['P2']}</td>
+        -->
+        <td>{$sl['P3']}</td>
+        <td>{$sl['P4']}</td>
+        <td>{$sl['P5']}</td>
+        <td>{$sl['P6']}</td>
+        <!--
+        <td>{$sl['HOLIDAY']}</td>
+        <td>{$sl['POINTER']}</td>
+        -->
+       
+      </tr>
+      </volist>
+    </table>
+    {$_page}
+
+    <table class="nxtable">
+      <tr>
+        <td></td><td>姓名</td><td>已排年休</td><td>未排年休</td><td>剩余调休</td>
+      </tr>
+
+      <volist name="holidayArrange" id="ha">
+      <tr>
+        <td>
+        <a class="holidayu" href="{:U('Index/holidayu')}?id={$ha['ID']}">{$i}</a>
+        </td>
+        <td>{$ha['USER_NAME']}</td><td>{$ha['HAS_DAY']/10}</td>
+        <td>{$ha['NOT_DAY']/10}</td><td>{$ha['SURPLUS_DAY']/10}</td>
+      </tr>
+      </volist>
+    </table>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+  var admin = "{$admin}";
+  if(!admin){
+    $(".scheduleu").css("display","none");
+    $(".scheduleid").css("display","none");
+    $(".holidayu").attr("href","#");
+    $(".holidayu").css("cursor","none");
+    $(".holidayu").css("text-decoration","none");
+  }
+
+  $(".scheduleu").click(function(){
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      window.location.href="{:U('Index/scheduleu')}?id="+id;
+    }
+  });
+
+  function selectRowid(){
+    var chk_value =[];//定义一个数组
+    $("input[name='id']:checked").each(function(){
+      chk_value.push($(this).val());
+    });
+    
+    if(chk_value.length>1){
+      alert("不能同时编辑多条记录");
+      return;
+    }else if(chk_value.length==0){
+      alert("请选择对应记录");
+      return;
+    }
+    return chk_value;
+  }
+});
+</script>
+</block>

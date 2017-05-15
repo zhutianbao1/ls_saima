@@ -1,0 +1,107 @@
+<extend name='./base'/>
+<block name='title'>后台管理</block>
+<block name='css'>
+	<style type="text/css">
+		.btn{padding:5px 8px;width:90px;float: left;border: 1px solid #28A0FF;background:#C8EAFF;cursor:pointer}
+		.frames label{font-size: 14px;line-height: 40px}
+	</style>
+</block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<div style="width:100%;padding-bottom:20px">
+		<div style="border-bottom:0px solid #ddd;height:20px;line-height:20px;width:100%;padding-bottom:3px">
+			<button class="btn add">添加奖品类型</button>
+			<button class="btn audit">修改奖品类型</button>
+			<button class="btn delete">删除奖品类型</button>
+		</div>
+		<table style="width:100%;" id="a" cellspacing="0" cellpadding="1" border="0px" class="rank">
+			<tr>
+				<th></th>
+				<th>编号</th>
+				<th style="text-align:left;padding-left:30px">奖品类型名称</th>
+			</tr>
+			<volist name='type' id='type'>
+			<tr class="{$type['id']}">
+				<td><input type="checkbox" name="line" param="{$type['id']}" style="background:#d9ffff;border:1px solid #d9ffff"></td>
+				<td>{$type['id']}</td>
+				<td style="text-align:left;padding-left:30px">{$type['type_name']}</td>
+			</tr>
+			</volist>
+		</table>
+		{$_page}
+	</div>
+	<div class="frames popup" style="display:none">
+		<form id="forms" method="post" style="width:100%">
+			<input type="hidden" name="id" id="id"/>
+			<label for="type_name">奖品类型名称：</label>
+			<input type="text" name="type_name" id="type_name" style="width:200px"><br/>
+			<input type="reset" value="取消" class="can" style="width:100px;margin-left:35%;margin-bottom:20px">
+			<input type="submit" value="提交" onclick="prizesNUM();" style="width:100px;">
+		</form>
+	</div>
+</block>
+<block name='bottom'></block>
+<block name='js'>
+	<script type="text/javascript">
+		$(".add").click(function(){
+				$(".popup").fadeIn("slow");
+		});
+		$(".delete").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				var id = $('input[name="line"]:checked').attr("param");
+				var url="{:U('main/prizes_type_delete')}?id="+id;
+				if(confirm('是否确定删除')){
+					$.ajax({
+						url:url,
+						type:'POST',
+						datatype:'json',
+						success:function(re){
+							alert(re.msg);
+							location.reload();
+						}
+					})
+				}else{
+					return;
+				}
+			}
+		});
+		$(".audit").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				$(".popup").fadeIn("slow");
+				var id = $('input[name="line"]:checked').attr("param");
+				var type=$("."+id+" td:eq(2)").html();
+				$("#id").val(id);
+				$("#type_name").val(type);
+			}
+		})
+		function dge(){
+			var len = $("input[name='line']:checked").length;
+		    if(len == 0){
+		      alert("未选中编辑数据");
+		      return false;
+		    }
+		    if(len > 1){
+		      alert("同时只允许编辑一条记录");
+		      return false;
+		    }
+		}
+		function prizesNUM(){ 
+			var url="{:U('main/prizes_type_mod')}";
+			$.ajax({
+				url:url,
+				type:'POST',
+				datatype:'json',
+				data:$("#forms").serializeArray(),
+				success:function(re){
+					alert(re.msg);
+				}
+			})
+		}
+		$(".can").click(function(){
+			$(".popup").hide(1);
+		})
+	</script>
+</block>

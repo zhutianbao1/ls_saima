@@ -1,0 +1,239 @@
+<extend name="./base"/>
+<block name='title'>员工花名册</block>
+<block name='login'>员工花名册</block>
+<block name='body'>
+<div class="a_mask" id="a_mask"></div>
+	<div>
+		<div class="queryGroup">
+			<form action="{:U('main')}" method="post">
+				<if condition="($tjGroup['dept'] neq 1)">
+				<div class="font">
+					<label>县市：</label>
+					<select name="county_name">
+						<option value=""></option>
+				        <option value="莲都" {$county_name=='莲都'?'selected':''}>莲都</option>
+				        <option value="缙云" {$county_name=='缙云'?'selected':''}>缙云</option>
+				        <option value="青田" {$county_name=='青田'?'selected':''}>青田</option>
+				        <option value="云和" {$county_name=='云和'?'selected':''}>云和</option>
+				        <option value="庆元" {$county_name=='庆元'?'selected':''}>庆元</option>
+				        <option value="龙泉" {$county_name=='龙泉'?'selected':''}>龙泉</option>
+				        <option value="遂昌" {$county_name=='遂昌'?'selected':''}>遂昌</option>
+				        <option value="松阳" {$county_name=='松阳'?'selected':''}>松阳</option>
+				        <option value="景宁" {$county_name=='景宁'?'selected':''}>景宁</option>
+				        <option value="南城" {$county_name=='南城'?'selected':''}>南城</option>
+					</select>
+				</div>
+				</if>
+				<div class="font">
+					<label>用户姓名：</label>
+					<input type="text" name="name" value="{$name}">
+				</div>
+				<div class="font">
+					<label>审批状态：</label>
+					<select name="state">
+						<option value=""></option>
+				        <option value="2" {$state=='2'?'selected':''}>已审批</option>
+				        <option value="3" {$state=='3'?'selected':''}>未审批</option>
+					</select>
+				</div>
+				<button class="btn">查询</button>
+			</form>
+		</div>
+		<div class="btnGroup">
+			<if condition="($btnGroup['全部'] neq 1)">
+				<if condition="($btnGroup['audit'] neq 1)"><button class="btn add">录入人员信息</button></if>
+				<if condition="($btnGroup['audit'] neq 1)"><button class="btn modify">修改</button></if>
+				<if condition="($btnGroup['audit'] eq 1)"><button class="btn audit">审批</button></if>
+				<button class="btn quit">离职</button>
+				<!-- <button class="btn exportexl">导出Excel</button> -->
+			</if>
+		</div>
+		<div style="overflow: auto;">
+			<table class="table" border="0" cellpadding="1" cellspacing="0" bgcolor="">
+				<tr>
+					<th></th>
+				    <th>编号</th>
+				    <th>姓名</th>
+				    <th>联系方式</th>
+				    <th>性别</th>
+				    <th>出生年月</th>
+				    <th>最高学历</th>
+				    <th>身份证号</th>
+				    <th>工作地点</th>
+				    <th>服务起始时间</th>
+				    <th>劳动合同起始日</th>
+				    <th>劳动合同到期日</th>
+				    <th>有无介绍信</th>
+				    <th>劳动合同（复印件）有无报备</th>
+				    <th>保密协议（复印件）有无报备</th>
+				    <th>《承诺书》（原件）有无报备</th>
+				    <th>月收入是否低于最低工资标准</th>
+				    <th>是否及时依法缴纳社会保险</th>
+				    <th>现住址</th>
+				    <th>户籍住址</th>
+				    <th>县市</th>
+				    <th>员工编号</th>
+				    <th>岗位</th>
+				    <th>民族</th>
+				    <th>毕业院校</th>
+				    <th>所学专业</th>
+				    <th>备注</th>
+				    <th>状态/操作</th>
+				</tr>
+				<volist name='user' id='el'>
+				<tr>
+					<td><input type="checkbox" name="line" param="{$el['USER_NAME']}" param1="{$el['BILL_ID']}" param2="{$el['USER_ID']}" style="width:13px;"></td>
+					<td>{$el['ID']}</td>
+					<td>{$el['USER_NAME']}</td>
+					<td>{$el['BILL_ID']}</td>
+					<td>{$el['SEX']}</td>
+					<td>{$el['BIRTH_DATE']}</td>
+					<td>{$el['EDU_DEGREE']}</td>
+					<td>{$el['ID_CARD']}</td>
+					<td>{$el['WORK_PLACE']}</td>
+					<td>{$el['SERVICE_START']}</td>
+					<td>{$el['CONTRACT_START']}</td>
+					<td>{$el['CONTRACT_END']}</td>
+					<td>{$el['REFERENCE']}</td>
+					<td>{$el['CONTRACT_REPORT']}</td>
+					<td>{$el['AGREEMENT_REPORT']}</td>
+					<td>{$el['PLEDGE_REPORT']}</td>
+					<td>{$el['INCOME']}</td>
+					<td>{$el['SAFE']}</td>
+					<td>{$el['ADDRESS']}</td>
+					<td>{$el['FAMILY_ADDRESS']}</td>
+					<td>{$el['COUNTY_NAME']}</td>
+					<td>{$el['USER_ID']}</td>
+					<td>{$el['DEPT']}</td>
+					<td>{$el['NATION']}</td>
+					<td>{$el['EDU_SCHOOL']}</td>
+					<td>{$el['EDU_MAJOR']}</td>
+					<td>{$el['REMARK']}</td>
+					<td><if condition="($el['STATE'] eq 2)"><a style="color:red" href="{:U('fail_reason?user_name='.$el['USER_NAME'].'&bill_id='.$el['BILL_ID'])}">未通过</a><else/><?php if($el['STATE']==1){echo "已通过";}else{echo "审核中";}?></if></td>
+				</tr>
+				</volist>
+			</table>
+		</div>
+		{$_page}
+
+		<!-- 审批弹窗 -->
+		<div class="pl">
+			<fieldset style="border: 0px;">
+				<div class="sj">
+					<div class="close_top">审批<a href="javascript:void(0)" title="关闭窗口" class="close_btn">×</a></div>
+					<p>姓名：<span id="name"></span></p>
+					<p>员工编号：<input type="text" name="uid" id="uid" style="border:1px solid #ccc"></p>
+					<p>审批是否通过：<input type="radio" name="sp" value="1" checked="checked">通过      <input type="radio" name="sp" value="2">不通过</p>
+					<p>审批意见：<textarea style="width:90%;height:80px;border:1px solid #ccc" id="content" name="content"></textarea></p>
+					<div style="left: 200px;position: relative;height:40px"><a href="javascript:;" class="tj">提交</a></div>
+				</div>
+			</fieldset>
+		</div>
+
+		<!-- 离职弹窗 -->
+		<div class="pl1">
+			<fieldset style="border: 0px;">
+				<div class="sj">
+					<div class="close_top">离职<a href="javascript:void(0)" title="关闭窗口" class="close_btn">×</a></div>
+					<p>姓名：<span id="name2"></span></p>
+					<p>员工编号：<span id="uid2"></span></p>
+					<p>缴费截止日期：<input type='text' name='pay_end' onClick="WdatePicker()" style="border:1px solid #ccc"/></p>
+					<p>合同终止/解除日期：<input type='text' name='contract_remove' onClick="WdatePicker()" style="border:1px solid #ccc"/></p>
+					<p>离职说明：<textarea style="width:90%;height:80px;border:1px solid #ccc" id="explain" name="explain"></textarea></p>
+					<div style="left: 200px;position: relative;height:40px"><a href="javascript:;" class="tj">提交</a></div>
+				</div>
+			</fieldset>
+		</div>
+	</div>
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$(".add").click(function(){
+			//location.href="{:U('index/add')}";
+			window.open("{:U('index/add')}");
+		});
+		function dge(){
+			var len = $("input[name='line']:checked").length;
+		    if(len == 0){
+		      alert("未选中编辑数据");
+		      return false;
+		    }
+		    if(len > 1){
+		      alert("同时只允许编辑一条记录");
+		      return false;
+		    }
+		}
+		$(".modify").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				var uname = $('input[name="line"]:checked').attr("param");
+				var bid = $('input[name="line"]:checked').attr("param1");
+				window.open("{:U('index/add')}?userName="+uname+"&billId="+bid+"");
+			}
+		});
+		$(".audit").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				var uname = $('input[name="line"]:checked').attr("param");
+				var bid = $('input[name="line"]:checked').attr("param1");
+				var uid = $('input[name="line"]:checked').attr("param2");
+    			$(".pl").fadeIn("slow");
+    			$(".a_mask").css({ display: 'block' });
+    			$("#uid").val(uid);
+    			document.getElementById('name').innerHTML=uname;
+    			$(".tj").click(function(){
+    				var c={uid:$('input[name=uid]').val(),sp:$('input[name=sp]:checked').val(),content:$('#content').val(),user_name:uname,bill_id:bid}
+    				$.ajax({
+    					type:'post',
+						url:"{:U('index/audit')}",
+						dataType:'json',
+						data:c,
+						success:function(re){
+							alert(re.msg);
+			 				location.replace(location.href);
+						},
+						error:function(e){
+							
+						}
+    				})
+    			})
+			}
+		});
+		$(".quit").click(function(){
+			var ab=dge();
+			if(ab!=false){
+				var uname = $('input[name="line"]:checked').attr("param");
+				var bid = $('input[name="line"]:checked').attr("param1");
+				var uid = $('input[name="line"]:checked').attr("param2");
+    			$(".pl1").fadeIn("slow");
+    			$(".a_mask").css({ display: 'block' });
+    			document.getElementById('uid2').innerHTML=uid;
+    			document.getElementById('name2').innerHTML=uname;
+    			$(".tj").click(function(){
+    				var c={pay_end:$('input[name=pay_end]').val(),contract_remove:$('input[name=contract_remove]').val(),explain:$('#explain').val(),user_name:uname,bill_id:bid}
+    				$.ajax({
+    					type:'post',
+						url:"{:U('index/quit')}",
+						dataType:'json',
+						data:c,
+						success:function(re){
+							alert(re.msg);
+			 				location.replace(location.href);
+						},
+						error:function(e){
+							
+						}
+    				})
+    			})
+			}
+		});
+
+		//关闭
+		$(".close_btn").hover(function () { $(this).css({ color: 'black' }) }, function () { $(this).css({ color: '#fff' }) }).on('click', function () {
+			$(".pl").fadeOut("fast");
+			$(".pl1").fadeOut("fast");
+			location.replace(location.href);
+			$("#a_mask").css({ display: 'none' });
+		}); 
+	</script>
+</block>

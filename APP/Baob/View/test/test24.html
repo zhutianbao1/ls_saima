@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/payment_six.css"/>
+	<style type="text/css"></style>
+</head>
+<body>
+	<div class="content">
+		<div class="box">
+			
+			<div class="header">
+				<input type="button"  class="back_btn" value="返 回" />
+				<a class="title">县市缴费卡打印汇总</a>
+			</div>
+			<div class="main">
+				<div  class="show">
+					<table>
+						<tr>
+							<td>县市</td>
+							<td>组织名称</td>
+							<td>组织编号</td>
+							<td>打印人</td>
+							<td>赠卡项目</td>
+							<td>缴费卡面值</td>
+							<td>缴费卡数量</td>
+							<td>缴费卡金额</td>
+						</tr>
+						<volist name="lists" id="list">
+							<tr>
+								<td>{$list['COUNTY_NAME']}</td>
+								<td>{$list['ORG_NAME']}</td>
+								<td>{$list['ORG_ID']}</td>
+								<td>{$list['OPER_NAME']}</td>
+								<td>{$list['CASE_NAME']}</td>
+								<td>{$list['CARD_PRICE']}</td>
+								<td>{$list['CARD_NO']}</td>
+								<td>{$list['CARD_AMOUNT']}</td>
+							</tr>
+						</volist>
+					</table>
+				</div>
+				<div style="height: 30px;">
+					{$_page}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

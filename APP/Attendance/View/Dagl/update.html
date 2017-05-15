@@ -1,0 +1,1029 @@
+<extend name="./base"/>
+
+<block name="title">中层廉政档案</block>
+<block name="css">
+
+  <style>
+    body{background-color: #efefef;}
+	  .form{margin-left:auto;margin-right:auto;width:920px;}
+    .form.bform {width:910px;background-color:#fff;border: 1px solid #ddd;}
+    .btn-box {width:910px;margin-left:auto;margin-right:auto;}
+    .btn-group{width:910px;}
+    .btn{background-color:#fff;}
+    .btn.zc{margin-left:20px;}
+    textarea{width:770px;}
+    table td{color:#000 !important;}
+    .xh{width:35px;}
+    .th:hover{background-color:#fff;}
+    .dynamic textarea{height:17px;margin:0;}
+  </style>
+
+</block>
+
+<block name="nav">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">中层干部廉政档案</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+</block>
+
+<block name="content">
+<form class="" action="#" method="post">
+<div class="hidden">
+  <label>编号id:</label>
+  <input class="readonly" type="text" name="id" value="{$da['ID']}"/>
+  <label>用户编号:</label>
+  <input class="readonly" type="text" name="user_id" value="{$da['USER_ID']}"/>
+</div>
+
+<div class="form bform">
+  <div class="form-header">中层干部人员基本情况</div>
+  <div>
+    <label>姓名:<font color="#ff0000">*</font></label>
+    <input type="text" name="user_name" value="{$da['USER_NAME']}" datatype="zw1-4" errormsg="请填写1-4位中文字符"/>
+    <label>档案年份:<font color="#ff0000">*</font></label>
+    <select name="year">
+      <option value=""></option>
+      <option value="2015">2015</option>
+      <option value="2016">2016</option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+      <option value="2020">2020</option>
+    </select>
+    <label>政治面貌：<font color="#ff0000">*</font></label>
+    <select name="political">
+      <option value=""></option>
+      <option value="党员">党员</option>
+      <option value="团员">团员</option>
+      <option value="群众">群众</option>
+    </select>
+  </div>
+  <div>
+    <label>单  位（部门）：<font color="#ff0000">*</font></label>
+    <input type="text" name="dept" value="{$da['DEPT']}" datatype="zw1-15" errormsg="请填写1-15位中文字符"/>
+    <label>职务：<font color="#ff0000">*</font></label>
+    <input type="text" name="curr_job" value="{$da['CURR_JOB']}" datatype="s1-15"/>
+    <label>入党时间：</label>
+    <input type="text" name="party_time" value="{$da['PARTY_TIME']}"  class="date Wdate" onClick="WdatePicker()" datatype="*"/>
+  </div>
+  
+  <div>
+    <label>参加工作时间：<font color="#ff0000">*</font></label>
+    <input type="text" name="hiredate" value="{$da['HIREDATE']}" class="date Wdate" onClick="WdatePicker()" datatype="*"/>
+    <label>任现职时间：<font color="#ff0000">*</font></label>
+    <input type="text" name="curr_worktime" value="{$da['CURR_WORKTIME']}"  class="date Wdate" onClick="WdatePicker()" datatype="*"/>
+    <label>出生年月：<font color="#ff0000">*</font></label>
+    <input type="text" name="birth" value="{$da['BIRTH']}" class="date Wdate" onClick="WdatePicker()"/>
+  </div>
+	  
+  <div>
+    <label>民  族：<font color="#ff0000">*</font></label>
+    <input type="text" name="nation" value="{$da['NATION']}" />
+    <label>婚姻状况：<font color="#ff0000">*</font></label>
+    <select name="marital">
+      <option value=""></option>
+      <option value="已婚">已婚</option>
+      <option value="未婚">未婚</option>
+      <option value="离异">离异</option>
+      <option value="丧偶">丧偶</option>
+    </select>
+    
+    <label>学  历：<font color="#ff0000">*</font></label>
+    <select name="edu_degree">
+      <option value=""></option>
+      <option value="中专">中专</option>
+      <option value="高中">高中</option>
+      <option value="大专">大专</option>
+      <option value="本科">本科</option>
+      <option value="研究生">研究生</option>
+    </select>
+  </div>
+  
+  <div>
+    <label>家庭住址：<font color="#ff0000">*</font></label>
+    <input type="text" name="family_address" value="{$da['FAMILY_ADDRESS']}" class="text" datatype="*"/>
+    <label style="margin-left:66px;">性  别：<font color="#ff0000">*</font></label>
+    <input type="radio" name="sex" value="男">&nbsp;男&nbsp;&nbsp;
+    <input type="radio" name="sex"value="女" datatype="*"/>&nbsp;女
+  </div>
+
+  <div>
+    <label>分管业务范围：<font color="#ff0000">*</font></label>
+    <textarea  name="busi_scope">{$da['BUSI_SCOPE']}</textarea>
+  </div>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">本人兼职情况（指在经济实体、社会团体等单位中兼职或兼职取酬）
+  <input type="button" class="but1" value="增加"/>
+  </div>
+  <table class="tab1">
+	  <tr>
+	    <th class="xh">序号</th>
+	    <th style="width:216px">起止时间</th>
+	    <th>职务</th>
+	    <th>单位</th>
+	    <th>单位性质</th>
+	    <th>取酬情况</th>
+	    <th>操作</th>
+	  </tr>
+    <tr>
+      <td class="xh">1</td>
+      <td>
+        <input type="text" name="start_time[]" value="{$plur['start_time'][0]}" class="date Wdate" onClick="WdatePicker()"/>--<input type="text" name="end_time[]" value="{$plur['end_time'][0]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="job[]" value="{$plur['job'][0]}"/></td>
+      <td><input type="text" name="company[]" value="{$plur['company'][0]}"/></td>
+      <td><input type="text" name="nature[]" value="{$plur['nature'][0]}"/></td>
+      <td><textarea name="reward[]">{$plur['reward'][0]}</textarea></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($plur['start_time'])">
+    <tr class="{$i+1}">
+      <td class="xh">{$i+1}</td>
+      <td>
+        <input type="text" name="start_time[]" value="{$plur['start_time'][$i]}" class="date Wdate" onClick="WdatePicker()"/>--<input type="text" name="end_time[]" value="{$plur['end_time'][$i]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="job[]" value="{$plur['job'][$i]}"/></td>
+      <td><input type="text" name="company[]" value="{$plur['company'][$i]}"/></td>
+      <td><input type="text" name="nature[]" value="{$plur['nature'][$i]}"/></td>
+      <td><textarea name="reward[]">{$plur['reward'][$i]}</textarea></td>
+      <td><a onclick="deltr1({$i+1})">删除</a></td>
+    </tr>
+    </for>
+  </table>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">配偶、子女及其配偶从业情况<input type="button" class="but2" value="增加"/></div>
+  <table class="tab2">
+	  <tr>
+	    <th class="xh">序号</th>
+	    <th>姓名</th>
+	    <th>与填表人关系</th>
+      <th>工作单位</th>
+      <th>单位性质</th>
+      <th>职务</th>
+	    <th>操作</th>
+	  </tr>
+    <tr>
+      <td class="xh">1</td>
+      <td>
+        <input type="text" name="family_name[]" value="{$fami['family_name'][0]}"/>
+      </td>
+      <td><input type="text" name="relation[]" value="{$fami['relation'][0]}"/></td>
+      <td><input type="text" name="work_com[]" value="{$fami['work_com'][0]}"/></td>
+      <td><input type="text" name="com_pro[]" value="{$fami['com_pro'][0]}"/></td>
+      <td><input type="text" name="position[]" value="{$fami['position'][0]}"/></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($fami['family_name'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>
+        <input type="text" name="family_name[]" value="{$fami['family_name'][$i]}"/>
+      </td>
+      <td><input type="text" name="relation[]" value="{$fami['relation'][$i]}"/></td>
+      <td><input type="text" name="work_com[]" value="{$fami['work_com'][$i]}"/></td>
+      <td><input type="text" name="com_pro[]" value="{$fami['com_pro'][$i]}"/></td>
+      <td><input type="text" name="position[]" value="{$fami['position'][$i]}"/></td>
+      <td><a onclick="deltr2({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="form bform">
+  <div class="form-header">党风廉政有关制度和“八项规定”精神执行情况</div>
+  <div class="textarea">
+    <label>“三重一大”制度执行情况：<font color="#ff0000">*</font></label>
+    <textarea name="insti31" datatype="*">{$da['INSTI31']}</textarea>
+  </div>
+
+  <div class="textarea">
+    <label>职务消费管理办法执行情况：<font color="#ff0000">*</font></label>
+    <textarea name="job_fee" datatype="*">{$da['JOB_FEE']}</textarea>
+  </div>
+
+  <div class="textarea">
+    <label>浙江公司廉洁从业“十不准”执行情况：<font color="#ff0000">*</font></label>
+    <textarea name="insti10" datatype="*">{$da['INSTI10']}</textarea>
+  </div>
+
+  <div class="textarea">
+    <label>集团公司“五个不准”、“两个禁止”执行情况：<font color="#ff0000">*</font></label>
+    <textarea name="insti52" datatype="*">{$da['INSTI52']}</textarea>
+  </div>
+
+  <div class="textarea">
+    <label>中央“八项规定”“六项禁令”、反“四风”执行情况：<font color="#ff0000">*</font></label>
+    <textarea name="insti864" datatype="*">{$da['INSTI864']}</textarea>
+  </div>
+</div>
+
+<div class="form bform">
+  <div class="form-header">年度落实“两个责任”的情况</div>
+  <div class="textarea">
+    <label>反腐倡廉教育开展情况：<font color="#ff0000">*</font></label>
+    <textarea  name="edu_rate" datatype="*">{$da['EDU_RATE']}</textarea>
+  </div>
+
+  <div class="textarea">
+    <label>主体责任书和监督责任书签订情况：<font color="#ff0000">*</font></label>
+    <textarea  name="duty_state" datatype="*">{$da['DUTY_STATE']}</textarea>
+  </div>
+
+  <div class="textarea">
+    <label>嵌入式廉洁风险防控建设组织落实情况：<font color="#ff0000">*</font></label>
+    <textarea  name="build_progress" datatype="*">{$da['BUILD_PROGRESS']}</textarea>
+  </div>
+
+  <div class="textarea">
+    <label>任前廉洁谈话、提醒谈话、诫勉谈话及约谈制度执行情况：<font color="#ff0000">*</font></label>
+    <textarea  name="insti" datatype="*">{$da['INSTI']}</textarea>
+  </div>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header"></div>
+  <div class="form-header">操办婚丧嫁娶有关事宜情况<input type="button" class="but3" value="增加"/></div>
+  <table class="tab3">
+    <tr>
+      <th class="xh">序号</th>
+      <th>操办事项</th>
+      <th>办理地点</th>
+      <th>办理时间</th>
+      <th>参加人数</th>
+      <th>收受礼金金额</th>
+      <th>操作</th>
+    </tr>
+    <tr>
+      <td class="xh" >1</td>
+      <td><textarea name="item[]">{$event['item'][0]}</textarea></td>
+      <td><input type="text" name="bladdress[]" value="{$event['bladdress'][0]}"/></td>
+      <td><input type="text" name="bltime[]" value="{$event['bltime'][0]}" class="date Wdate" onClick="WdatePicker()"/></td>
+      <td><input type="text" name="join_num[]" value="{$event['join_num'][0]}"/></td>
+      <td><input type="text" name="money[]" value="{$event['money'][0]}"/></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($event['item'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td><textarea name="item[]">{$event['item'][$i]}</textarea></td>
+      <td><input type="text" name="bladdress[]" value="{$event['bladdress'][$i]}"/></td>
+      <td><input type="text" name="bltime[]" value="{$event['bltime'][$i]}" class="date Wdate" onClick="WdatePicker()"/></td>
+      <td><input type="text" name="join_num[]" value="{$event['join_num'][$i]}"/></td>
+      <td><input type="text" name="money[]" value="{$event['money'][$i]}"/></td>
+      <td><a onclick="deltr3({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">礼金、礼品上交情况<input type="button" class="but4" value="增加"/></div>
+  <table class="tab4">
+	  <tr>
+	    <th class="xh">序号</th>
+	    <th>上交时间</th>
+	    <th>名称</th>
+      <th>数量</th>
+      <th>总价值</th>
+	    <th>操作</th>
+	  </tr>
+    <tr>
+      <td class="xh">1</td>
+      <td>
+        <input type="text" name="submit_time[]" value="{$subm['submit_time'][0]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="goods[]" value="{$subm['goods'][0]}"/></td>
+      <td><input type="text" name="sums[]" value="{$subm['sums'][0]}"/></td>
+      <td><input type="text" name="total_value[]" value="{$subm['total_value'][0]}"/></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($subm['submit_time'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>
+        <input type="text" name="submit_time[]" value="{$subm['submit_time'][$i]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="goods[]" value="{$subm['goods'][$i]}"/></td>
+      <td><input type="text" name="sums[]" value="{$subm['sums'][$i]}"/></td>
+      <td><input type="text" name="total_value[]" value="{$subm['total_value'][$i]}"/></td>
+      <td><a onclick="deltr4({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">参加廉洁教育情况<input type="button" class="but5" value="增加"/></div>
+  <table class="tab5">
+	  <tr>
+	    <th class="xh">序号</th>
+	    <th>时间</th>
+	    <th>地点</th>
+      <th>教育活动</th>
+      <th>组织单位</th>
+	    <th>操作</th>
+	  </tr>
+    <tr>
+      <td class="xh">1</td>
+      <td>
+        <input type="text" name="edu_time[]" value="{$edu['edu_time'][0]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="edu_address[]" value="{$edu['edu_address'][0]}"/></td>
+      <td><textarea name="edu_active[]">{$edu['edu_active'][0]}</textarea></td>
+      <td><input type="text" name="edu_com[]" value="{$edu['edu_com'][0]}"/></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($edu['edu_time'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>
+        <input type="text" name="edu_time[]" value="{$edu['edu_time'][$i]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="edu_address[]" value="{$edu['edu_address'][$i]}"/></td>
+      <td><textarea name="edu_active[]">{$edu['edu_active'][$i]}</textarea></td>
+      <td><input type="text" name="edu_com[]" value="{$edu['edu_com'][$i]}"/></td>
+      <td><a onclick="deltr5({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="form bform">
+  <div class="form-header">年度述职述廉情况</div>
+  <div>
+    <label>时间：</label>
+    <input type="text" name="intro_time" value="{$da['INTRO_TIME']}" class="date Wdate" onClick="WdatePicker()"/>
+    <label>地点：</label>
+    <input type="text" class="text" name="address" value="{$da['ADDRESS']}"/>
+  </div>
+
+  <div>
+    <label>主要内容：<font color="#ff0000">主要内容超2000字符问题已解决，可正常使用*</font></label>
+    <textarea style="height:200px" name="main_content" datatype="*">{$da['MAIN_CONTENT']}</textarea>
+  </div>
+
+  <div>
+    <label>意见和建议：<font color="#ff0000">*</font></label>
+    <textarea  name="suggestion" datatype="*">{$da['SUGGESTION']}</textarea>
+  </div>
+</div>
+
+<div class="form bform dynamic">  
+  <div class="form-header">市公司党委、纪委任职、提醒、诫勉等廉政谈话情况<input type="button" class="but6" value="增加"/></div>
+  <table class="tab6">
+	  <tr>
+	    <th class="xh">序号</th>
+	    <th>时间</th>
+	    <th>地点</th>
+      <th>谈话性质</th>
+      <th>谈话人及职务</th>
+      <th>主要谈话内容</th>
+	    <th>操作</th>
+	  </tr>
+    <tr>
+      <td class="xh">1</td>
+      <td>
+        <input type="text" name="talk_time[]" value="{$talk['talk_time'][0]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="talk_address[]" value="{$talk['talk_address'][0]}"/></td>
+      <td><input type="text" name="talk_nature[]" value="{$talk['talk_nature'][0]}"/></td>
+      <td><input type="text" name="talker[]" value="{$talk['talker'][0]}"/></td>
+      <td><textarea name="talk_content[]">{$talk['talk_content'][0]}</textarea></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($talk['talk_time'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>
+        <input type="text" name="talk_time[]" value="{$talk['talk_time'][$i]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="talk_address[]" value="{$talk['talk_address'][$i]}"/></td>
+      <td><input type="text" name="talk_nature[]" value="{$talk['talk_nature'][$i]}"/></td>
+      <td><input type="text" name="talker[]" value="{$talk['talker'][$i]}"/></td>
+      <td><textarea name="talk_content[]">{$talk['talk_content'][$i]}</textarea></td>
+      <td><a onclick="deltr6({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">信访举报情况<input type="button" class="but7" value="增加"/></div>
+  <table class="tab7">
+	  <tr>
+	    <th class="xh">序号</th>
+	    <th>信访举报编号</th>
+	    <th>时间</th>
+      <th>形式</th>
+      <th>反映问题</th>
+      <th>核查结果</th>
+	    <th>操作</th>
+	  </tr>
+    <tr>
+      <td class="xh">1</td>
+      <td><input type="text" name="petition_id[]" value="{$peti['petition_id'][0]}"/></td>
+      <td>
+        <input type="text" name="peti_time[]" value="{$peti['peti_time'][0]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="peti_form[]" value="{$peti['peti_form'][0]}"/></td>
+      <td><textarea name="reflect[]">{$peti['reflect'][0]}</textarea></td>
+      <td><textarea name="peti_result[]">{$peti['peti_result'][0]}</textarea></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($peti['petition_id'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>
+        <input type="text" name="petition_id[]" value="{$peti['petition_id'][$i]}"/>
+      </td>
+      <td><input type="text" name="peti_time[]" value="{$peti['peti_time'][$i]}" class="date Wdate" onClick="WdatePicker()"/></td>
+      <td><input type="text" name="peti_form[]" value="{$peti['peti_form'][$i]}"/></td>
+      <td><textarea name="reflect[]">{$peti['reflect'][$i]}</textarea></td>
+      <td><textarea name="peti_result[]">{$peti['peti_result'][$i]}</textarea></td>
+      <td><a onclick="deltr7({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="form bform dynamic">
+  <div class="form-header">违法违规违纪处理情况<input type="button" class="but8" value="增加"/></div>
+  <table class="tab8">
+	  <tr>
+	    <th class="xh">序号</th>
+	    <th>主要问题</th>
+	    <th>处理时间</th>
+      <th>处理单位</th>
+      <th>处理情况</th>
+	    <th>操作</th>
+	  </tr>
+    <tr>
+      <td class="xh">1</td>
+      <td><textarea name="deal_problem[]">{$deal['deal_problem'][0]}</textarea></td>
+      <td>
+        <input type="text" name="deal_time[]" value="{$deal['deal_time'][0]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="deal_com[]" value="{$deal['deal_com'][0]}"/></td>
+      <td><textarea name="deal_situa[]">{$deal['deal_situa'][0]}</textarea></td>
+      <td></td>
+    </tr>
+    <for start="1" end="count($deal['deal_problem'])">
+    <tr>
+      <td class="xh">{$i+1}</td>
+      <td>
+        <textarea name="deal_problem[]">{$deal['deal_problem'][$i]}</textarea>
+      </td>
+      <td>
+        <input type="text" name="deal_time[]" value="{$deal['deal_time'][$i]}" class="date Wdate" onClick="WdatePicker()"/>
+      </td>
+      <td><input type="text" name="deal_com[]" value="{$deal['deal_com'][$i]}"/></td>
+      <td><textarea name="deal_situa[]">{$deal['deal_situa'][$i]}</textarea></td>
+      <td><a onclick="deltr8({$i+1})">删除</a></td>
+    </tr>  
+    </for>
+  </table>
+</div>
+
+<div class="form bform view">  
+  <div>
+    <label>公司纪委审核意见：<font color="#ff0000">*</font></label>
+    <textarea  name="opinion" datatype="*">{$da['OPINION']}</textarea>
+  </div>
+  
+  <div class="hidden">
+    <label>录入时间：</label>
+    <input type="text" class="date readonly" name="lr_time" value="{$da['LR_TIME']}"/>
+    <label>当前操作：</label>
+    <input type="text" class="date readonly" name="cz"/>
+    <label>当前状态：</label>
+    <input type="text" class="readonly" name="tb_status" value="{$da['TB_STATUS']}"/>
+  </div>
+</div>
+
+<div class="form bform deal">
+  <label>处理意见</label>
+  <textarea name="deal_opin" datatype="*"></textarea>
+</div>
+
+<div class="btn-box">
+  <div class="btn-group">
+    <input type="button" class="btn zc" value="暂存"/>
+    <input type="button" class="btn tj" value="提交"/>
+    <input type="button" class="btn thng" value="退回拟稿"/>
+    <input type="button" class="btn thpre" value="退回上一节点"/>
+    <input type="button" class="btn thfsz" value="非实质性退回"/>
+  </div>
+</div>
+</form>
+
+<div class="form bform">
+  <div class="form-header">流程审批记录</div>
+  <table class="audit-record">
+    <tr>
+      <th class="xh">序号</th>
+      <th>上一节点</th>
+      <th>上一处理人</th>
+      <th>操作</th>
+      <th>处理意见</th>
+      <th>处理时间</th>
+      <th>当前节点</th>
+      <th>当前处理人</th>
+    </tr>
+    <volist name="frlist" id="fl">
+    <tr>
+      <td>{$i}</td>
+      <td>{$fl['LAST_NODE']}</td>
+      <td>{$fl['LAST_OPER']}</td>
+      <td>{$fl['OPER']}</td>
+      <td>{$fl['OPINION']}</td>
+      <td>{$fl['DEAL_TIME']}</td>
+      <td>{$fl['CURR_NODE']}</td>
+      <td>{$fl['CURR_OPER']}</td>
+    </tr>
+    </volist>
+  </table>
+</div>
+
+</block>
+
+<block name="jsfile">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  //默认值
+  var id="{$da['ID']}";
+  var user_id="{$da['USER_ID']}";
+  if(id==''){
+    //$("select[name='year']").val(new Date().getFullYear());//默认选中本年度
+    $("select[name='year']").val(2015);
+    if(user_id==''){
+      var user_id="<?=session('user_auth.OPER_ID')?>";
+      $("input[name='user_id']").val(user_id);
+    }
+    var year = $("select[name='year']").val();
+    $.ajax({
+        type:'post',
+        url:"{:U('dagl/canlr')}",
+        async : false,
+        data:{year:year},
+        dataType:'json',
+        success:function(re){
+          if(re.canlr){
+            alert("您本年度档案已录入，请确认");
+            $("select[name='year']").val("");
+          }
+        }
+      });
+  }else{
+    var year = "{$da['YEAR']}"; 
+    if(year!=''){
+      $("select[name='year']").val(year);
+      //$("select[name='year']").attr("disabled",true);
+    }
+  }
+  
+  $("input[name='sex'][value='{$da['SEX']}']").attr("checked", "checked");//radio选中数据库的值
+  $("select[name='marital']").val("{$da['MARITAL']}");//select选中数据库的值
+  $("select[name='edu_degree']").val("{$da['EDU_DEGREE']}");
+  $("select[name='political']").val("{$da['POLITICAL']}");
+  
+  //档案年份修改
+  $("select[name='year']").change(function(){
+    var year=$("select[name='year']").val();
+    var currYear = new Date().getFullYear();
+    
+    if(year==''){
+      alert("请选择年份");
+      return false;
+    }else if(year > currYear){
+      alert(year+"年未到，请勿录入 ");
+      $("select[name='year']").val("");
+      return false;
+    }else{
+      //每年只允许录入一条数据
+      $.ajax({
+        type:'post',
+        url:"{:U('dagl/canlr')}",
+        async : false,
+        data:{year:year},
+        dataType:'json',
+        success:function(re){
+          if(re.canlr){
+            alert("您本年度档案已录入，请确认");
+            $("select[name='year']").val("");
+          }
+        }
+      });
+    }
+  });
+  
+  read();//文档加载时
+  $(".zc").click(function(){
+    var year = $("select[name='year']").find("option:selected").val();
+    if(year == undefined || year == ''){
+      alert("档案年份必填");
+      return false;
+    }else{
+      $("form input").removeAttr("disabled");
+      $("form select").removeAttr("disabled");
+      $("form textarea").removeAttr("disabled");
+      $("input[name='cz']").val("zc");
+      $("form").attr("action","{:U('dagl/save')}");
+      $("form").submit();
+    }
+    $(".btn").attr("disabled",true);
+  });
+
+  $(".tj").click(function(){
+    if(year == undefined || year == ''){
+      alert("档案年份必填");
+      return false;
+    }else{     
+      $("form input").removeAttr("disabled");
+      $("form select").removeAttr("disabled");
+      $("form textarea").removeAttr("disabled");
+      $("input[name='cz']").val("tj");
+      $("form").attr("action","{:U('dagl/save')}");
+      $("form").submit();
+    }
+    $(".btn").attr("disabled",true);
+  });
+
+  $(".thng").click(function(){
+    $("form input").removeAttr("disabled");
+    $("form select").removeAttr("disabled");
+    $("form textarea").removeAttr("disabled");
+    $("input[name='cz']").val("thng");
+    $("form").attr("action","{:U('dagl/save')}");
+    $("form").submit();
+    $(".btn").attr("disabled",true);
+  });
+
+  $(".thpre").click(function(){
+    $("form input").removeAttr("disabled");
+    $("form select").removeAttr("disabled");
+    $("form textarea").removeAttr("disabled");
+    $("input[name='cz']").val("thpre");
+    $("form").attr("action","{:U('dagl/save')}");
+    $("form").submit();
+    $(".btn").attr("disabled",true);
+  });
+
+  $(".thfsz").click(function(){
+    $("form input").removeAttr("disabled");
+    $("form select").removeAttr("disabled");
+    $("form textarea").removeAttr("disabled");
+    $("input[name='cz']").val("thfsz");
+    $("form").attr("action","{:U('dagl/save')}");
+    $("form").submit();
+    $(".btn").attr("disabled",true);
+  });
+
+  //增加行
+  $(".but1").click(function(){
+		var len = $(".tab1 tr").length;
+	  $(".tab1").append("<tr><td class='xh'>"+len+"</td>"
+    +"<td><input type='text' name='start_time[]' class='date Wdate' onClick='WdatePicker()'/>--<input type='text' name='end_time[]' class='date Wdate' onClick='WdatePicker()'/></td>"
+    +"<td><input style='width:90px' type='text' name='job[]'/></td>"
+    +"<td><input style='width:190px' type='text' name='company[]'/></td>"
+    +"<td><input style='width:60px' type='text' name='nature[]'/></td>"
+    +"<td><textarea style='width:184px' name='reward[]'></textarea></td>"
+    +"<td><a href=\'#\' onclick=\'deltr1("+len+")\'>删除</a></td>"
+    +"</tr>");
+  });
+
+  $(".but2").click(function(){
+		var len = $(".tab2 tr").length; 
+	  $(".tab2").append("<tr><td class='xh'>"+len+"</td>"
+		+"<td><input style='width:133px' type='text' name='family_name[]'/></td>"
+    +"<td><input style='width:100px' type='text' name='relation[]'/></td>"
+    +"<td><input style='width:200px' type='text' name='work_com[]'/></td>"
+    +"<td><input style='width:140px' type='text' name='com_pro[]'/></td>"
+    +"<td><input style='width:170px' type='text' name='position[]' style='width:70px'/></td>"
+    +"<td><a href=\'#\' onclick=\'deltr2("+len+")\'>删除</a></td>"
+		+"</tr>");
+  });
+
+  $(".but3").click(function(){
+    var len = $(".tab3 tr").length; 
+    $(".tab3").append("<tr><td class='xh'>"+len+"</td>"
+    +"<td><textarea style='width:298px' name='item[]'></textarea></td>"
+    +"<td><input style='width:195px' type='text' name='lraddress[]'/></td>"
+    +"<td><input type='text' name='lrtime[]' class=\'date Wdate\' onClick=\'WdatePicker()\'/></td>"
+    +"<td><input style='width:60px' type='text' name='join_num[]'/></td>"
+    +"<td><input style='width:90px' type='text' name='money[]'/></td>"
+    +"<td><a href=\'#\' onclick=\'deltr3("+len+")\'>删除</a></td>"
+    +"</tr>");
+  });
+
+
+  $(".but4").click(function(){
+		var len = $(".tab4 tr").length; 
+	  $(".tab4").append("<tr><td class='xh'>"+len+"</td>"
+		+"<td><input type='text' name='submit_time[]' class='date Wdate' onClick='WdatePicker()'/></td>"
+    +"<td><input style='width:375px' type='text' name='goods[]'/></td>"
+    +"<td><input style='width:140px' type='text' name='sums[]'/></td>"
+    +"<td><input style='width:140px' type='text' name='total_value[]'/></td>"
+		+"<td><a href=\'#\' onclick=\'deltr4("+len+")\'>删除</a></td>"
+		+"</tr>");
+  });
+
+  $(".but5").click(function(){
+		var len = $(".tab5 tr").length; 
+	  $(".tab5").append("<tr><td class='xh'>"+len+"</td>"
+		+"<td><input type='text' name='edu_time[]' class='date Wdate' onClick='WdatePicker()'/></td>"
+    +"<td><input style='width:180px' type='text' name='edu_address[]'/></td>"
+    +"<td><textarea style='width:300px' name='edu_active[]'></textarea></td>"
+    +"<td><input style='width:177px' type='text' name='edu_com[]'/></td>"
+		+"<td><a href=\'#\' onclick=\'deltr5("+len+")\'>删除</a></td>"
+		+"</tr>");
+  });
+
+  $(".but6").click(function(){
+		var len = $(".tab6 tr").length; 
+	  $(".tab6").append("<tr><td class='xh'>"+len+"</td>"
+		+"<td><input type='text' name='talk_time[]' class='date Wdate' onClick='WdatePicker()'/></td>"
+    +"<td><input style='width:190px' type='text' name='talk_address[]'/></td>"
+    +"<td><input style='width:80px' type='text' name='talk_nature[]'/></td>"
+    +"<td><input style='width:123px' type='text' name='talker[]'/></td>"
+    +"<td><textarea style='width:250px' name='talk_content[]'></textarea></td>"
+		+"<td><a href=\'#\' onclick=\'deltr6("+len+")\'>删除</a></td>"
+		+"</tr>");
+  });
+
+  $(".but7").click(function(){
+		var len = $(".tab7 tr").length; 
+	  $(".tab7").append("<tr><td class='xh'>"+len+"</td>"
+		+"<td><input style='width:150px' type='text' name='petition_id[]'/></td>"
+    +"<td><input type='text' name='peti_time[]' class='date Wdate' onClick='WdatePicker()'/></td>"
+    +"<td><input style='width:100px' type='text' name='peti_form[]'/></td>"
+    +"<td><textarea style='width:197px' name='reflect[]'></textarea></td>"
+    +"<td><textarea style='width:197px' name='peti_result[]'></textarea></td>"
+		+"<td><a href=\'#\' onclick=\'deltr7("+len+")\'>删除</a></td>"
+		+"</tr>");
+  });
+
+  $(".but8").click(function(){
+		var len = $(".tab8 tr").length; 
+	  $(".tab8").append("<tr><td class='xh'>"+len+"</td>"
+		+"<td><textarea style='width:228px' name='deal_problem[]'></textarea></td>"
+    +"<td><input type='text' name='deal_time[]' class='date Wdate' onClick='WdatePicker()'/></td>"
+    +"<td><input style='width:200px' type='text' name='deal_com[]'/></td>"
+    +"<td><textarea style='width:228px' name='deal_situa[]'></textarea></td>"
+		+"<td><a href=\'#\' onclick=\'deltr8("+len+")\'>删除</a></td>"
+		+"</tr>");
+  });
+});
+
+//删除行
+var deltr1 =function(index){
+	var len = $(".tab1 tr").length;
+  $(".tab1 tr").eq(index).remove();//删除当前索引行
+	for(var i=index,j=len-1;i<j;i++){
+    $(".tab1 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr1("+(i)+")";
+    $(".tab1 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+	}
+}
+
+var deltr2 =function(index){
+	var len = $(".tab2 tr").length;
+  $(".tab2 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    $(".tab2 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr2("+(i)+")";
+    $(".tab2 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+  }
+}
+
+var deltr3 =function(index){
+  var len = $(".tab3 tr").length;
+  $(".tab3 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    $(".tab3 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr3("+(i)+")";
+    $(".tab3 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+  }
+}
+
+var deltr4 =function(index){
+	var len = $(".tab4 tr").length;
+  $(".tab4 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    $(".tab4 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr4("+(i)+")";
+    $(".tab4 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+  }
+}
+
+var deltr5 =function(index){
+	var len = $(".tab5 tr").length;
+  $(".tab5 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    $(".tab5 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr5("+(i)+")";
+    $(".tab5 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+  }
+}
+
+var deltr6 =function(index){
+	var len = $(".tab6 tr").length;
+  $(".tab6 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    $(".tab6 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr6("+(i)+")";
+    $(".tab6 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+  }
+}
+
+var deltr7 =function(index){
+	var len = $(".tab7 tr").length;
+  $(".tab7 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    $(".tab7 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr7("+(i)+")";
+    $(".tab7 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+  }
+}
+
+var deltr8 =function(index){
+	var len = $(".tab8 tr").length;
+  $(".tab8 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    $(".tab8 tr .xh").eq(i).html(i);//删除后将后面的索引都减1
+    var clickattr = "deltr8("+(i)+")";
+    $(".tab8 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+  }
+}
+
+function read(){
+  //按当前节点控制显示按钮组(暂存按钮、提交按钮在流程流转中始终显示)
+  $(".zc").css("display","inline-block");
+  $(".tj").css("display","inline-block");
+  var btnTbThng="{$btnTb['3']}";//退回拟稿按钮
+  if(btnTbThng=='1'){
+    $(".thng").css("display","inline-block");
+  }else{
+    $(".thng").css("display","none");
+  }
+  var btnTbThpre="{$btnTb['4']}";//退回上一节点按钮
+  if(btnTbThpre=='1'){
+    $(".thpre").css("display","inline-block");
+  }else{
+    $(".thpre").css("display","none");
+  }
+  var btnTbThfsz="{$btnTb['5']}";//非实质性退回按钮
+  if(btnTbThfsz=='1'){
+    $(".thfsz").css("display","inline-block");
+  }else{
+    $(".thfsz").css("display","none");
+  }
+  
+  //节点控制显示隐藏，是否可编辑等内容
+  //拟稿节点，不填写的内容不显示
+  var tb_status="{$da['TB_STATUS']}";
+  if(tb_status==''){
+    $("input[name='tb_status']").val("1");
+    tb_status = '1';
+  }
+
+  if(tb_status=='1'){
+    //拟稿节点，且是退回的状态则显示，否则不显示
+    $(".deal").css("display","none");
+    for(var i=3;i<8;i++){
+      if(i==4){
+        i+=2;
+      }
+      /* 3.礼金、礼品上交情况
+       * 4.参加廉洁教育情况
+       * 6.信访举报情况
+       * 7.违法违规违纪处理情况
+       */
+      $(".dynamic").eq(i).find("input").attr("disabled",true);
+      $(".dynamic").eq(i).find("textarea").attr("readonly","readonly");
+      $(".dynamic").eq(i).find(".date").removeClass("Wdate");
+      $(".dynamic").eq(i).find("select").attr("disabled",true);
+      $(".dynamic").eq(i).find("textarea").attr("disabled",true);
+      $(".dynamic").eq(i).find("th").css("background-color","#eee");
+      $(".dynamic").eq(i).find("td").css("background-color","#eee");
+      $(".dynamic").eq(i).find("input").css("background-color","#eee");
+      $(".dynamic").eq(i).find("textarea").css("background-color","#eee");
+      $(".dynamic").eq(i).find("a").attr("disabled",true);
+      $(".dynamic").eq(i).find("a").css("cursor","not-allowed");
+      $(".dynamic").eq(i).find("input[type='button']").css("display","none");
+    }
+  }else{
+    /*中层干部人员基本情况*/
+    $(".bform").eq(0).find("input").attr("disabled",true);
+    $(".bform").eq(0).find(".date").removeClass("Wdate");
+    $(".bform").eq(0).find("select").attr("disabled",true);
+    $(".bform").eq(0).find("textarea").attr("disabled",true);
+    /*本人兼职情况*/
+    $(".dynamic").eq(0).find("input").attr("disabled",true);
+    $(".dynamic").eq(0).find("textarea").attr("readonly","readonly");
+    $(".dynamic").eq(0).find(".date").removeClass("Wdate");
+    $(".dynamic").eq(0).find("th").css("background-color","#eee");
+    $(".dynamic").eq(0).find("td").css("background-color","#eee");
+    $(".dynamic").eq(0).find("input").css("background-color","#eee");
+    $(".dynamic").eq(0).find("textarea").css("background-color","#eee");
+    $(".dynamic").eq(0).find("a").attr("disabled",true);
+    $(".dynamic").eq(0).find("a").css("cursor","not-allowed");
+    $(".dynamic").eq(0).find("input[type='button']").css("display","none");
+    /*配偶、子女及其配偶从业情况*/
+    $(".dynamic").eq(1).find("input").attr("disabled",true);
+    $(".dynamic").eq(1).find("textarea").attr("readonly","readonly");
+    $(".dynamic").eq(1).find(".date").removeClass("Wdate");
+    $(".dynamic").eq(1).find("th").css("background-color","#eee");
+    $(".dynamic").eq(1).find("td").css("background-color","#eee");
+    $(".dynamic").eq(1).find("input").css("background-color","#eee");
+    $(".dynamic").eq(1).find("textarea").css("background-color","#eee");
+    $(".dynamic").eq(1).find("a").attr("disabled",true);
+    $(".dynamic").eq(1).find("a").css("cursor","not-allowed");
+    $(".dynamic").eq(1).find("input[type='button']").css("display","none");
+    /*党风廉政有关制度和“八项规定”精神执行情况*/
+    $(".bform").eq(3).find("textarea").attr("disabled",true);
+    /*年度落实“两个责任”的情况*/
+    $(".bform").eq(4).find("textarea").attr("disabled",true);
+    /*操办婚丧嫁娶有关事宜情况*/
+    $(".dynamic").eq(2).find("input").attr("disabled",true);
+    $(".dynamic").eq(2).find("textarea").attr("readonly","readonly");
+    $(".dynamic").eq(2).find(".date").removeClass("Wdate");
+    $(".dynamic").eq(2).find("th").css("background-color","#eee");
+    $(".dynamic").eq(2).find("td").css("background-color","#eee");
+    $(".dynamic").eq(2).find("input").css("background-color","#eee");
+    $(".dynamic").eq(2).find("textarea").css("background-color","#eee");
+    $(".dynamic").eq(2).find("a").attr("disabled",true);
+    $(".dynamic").eq(2).find("a").css("cursor","not-allowed");
+    $(".dynamic").eq(2).find("input[type='button']").css("display","none");
+    //年度述职述廉情况
+    $(".bform").eq(8).find("input").attr("disabled",true);
+    $(".bform").eq(8).find(".date").removeClass("Wdate");
+    $(".bform").eq(8).find("select").attr("disabled",true);
+    $(".bform").eq(8).find("textarea").attr("disabled",true);
+  }
+
+  var opinion="{$da['OPINION']}";
+  if(opinion !='' || tb_status=='4'){
+    $(".view").css("display","block");
+  }else{
+    $(".view").css("display","none");
+  }
+
+  if(tb_status!='4'){
+    $(".view textarea").attr("disabled",true);
+  }
+
+  //动态表字段宽度控制
+  $("input[name='job[]']").css("width","90px");
+  $("input[name='company[]']").css("width","190px");
+  $("input[name='nature[]']").css("width","60px");
+  $(".tab1 textarea").css("width","184px");
+
+  $("input[name='family_name[]']").css("width","133px");
+  $("input[name='relation[]']").css("width","100px");
+  $("input[name='work_com[]']").css("width","200px");
+  $("input[name='com_pro[]']").css("width","140px");
+  $("input[name='position[]']").css("width","170px");
+
+  $(".tab3 textarea").css("width","298px");
+  $("input[name='bladdress[]']").css("width","195px");
+  $("input[name='join_num[]']").css("width","60px");
+  $("input[name='money[]']").css("width","90px");
+  $("input[name='sums[]']").css("width","30px");
+  $("input[name='total_value[]']").css("width","40px");
+
+  $("input[name='goods[]']").css("width","375px");
+  $("input[name='sums[]']").css("width","140px");
+  $("input[name='total_value[]']").css("width","140px");
+
+  $("input[name='edu_address[]']").css("width","180px");
+  $(".tab5 textarea").css("width","300px");
+  $("input[name='edu_com[]']").css("width","177px");
+
+  $("input[name='talk_address[]']").css("width","190px");
+  $("input[name='talk_nature[]']").css("width","80px");
+  $("input[name='talker[]']").css("width","123px");
+  $(".tab6 textarea").css("width","250px");
+
+  $("input[name='petition_id[]']").css("width","150px");
+  $("input[name='peti_form[]']").css("width","100px");
+  $(".tab7 textarea").css("width","197px");
+  
+  $(".tab8 textarea").css("width","228px");
+  $("input[name='deal_com[]']").css("width","200px");
+  
+}
+</script>
+</block>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>流程审批分项统计test</title>
+	<style type="text/css">
+		*{padding: 0;margin: 0;font-size: 14px;font-family: "Microsoft Yahe,微软雅黑";}
+		.fl{float: left;}
+		.fr{float: right;}
+		.tc{text-align: center;}
+		.border{border:1px solid #ccc;}
+		ul,li{list-style: none;list-style-type: none;}		
+		.box{height: 245px;margin: 0 auto 2px;width: 100%;min-width:1190px;}		
+		.box_left{width: 25%;border:0px solid #666;}
+		.person{width: 100%;height: 140px;border:1px solid #D2EAF9;}
+		.person_flow{width: 100%;height: 95px;margin-top: 3px;border:1px solid #D2EAF9;}
+		.flow{width: 74%;border:1px solid #D2EAF9;height: 240px;}
+		.header{width: 100%;text-align: center;height: 27px;line-height: 30px;font-size: 14px;font-weight: bold;
+					letter-spacing: 1px;background-color: #B4D491;color: #fff;font-family: 'Microsoft Yahe,微软雅黑';}
+		.person_main{margin: 3px auto 0;width: 96%;font-size: 12px;font-family: 'Microsoft Yahe,微软雅黑';color:#333;}							
+		.group{width: 100%;height: 23px;line-height:23px;margin-bottom: 3px;font-size: 12px;}
+		.group>span{display: inline-block;width: 48%;font-size: 12px;background-color: #ECF1F5;}  
+		.group>div{text-align: center;} 
+		.person .group1 {width: 100%;height: 55px;margin-top: -2px;}
+		.person .group1>div{margin-top: 3px;width: 48%;}
+		.person .group1>div>span{display: block;height: 23px;line-height: 23px;font-size: 12px;
+													 background-color: #ECF1F5;margin-bottom: 3px;}
+		.person .group1>div>div{background-color: #ECF1F5;height:50px; } 
+		.person_flow .group span{margin-bottom: 2px;}
+		.flow .flow_main{width: 100%;margin-top: 3px;}
+		.flow .flow_div{float: left;width: 19%;margin-left: 6px;border:1px solid #eee;}
+		.flow .flow_div>span{display: block;height: 20px;background-color:#ECF1F5;margin-top: -5px;}	
+		.flow .flow_div>span>div{width: 95%;margin: 2px auto;text-align: center;font-family: 'Microsoft Yahe,微软雅黑';
+						font-size: 13px;letter-spacing: 1px;line-height: 20px;}	
+		.flow .flow_div>div{width: 100%;height: 186px;overflow: hidden;}	
+		.flow .flow_div table{width: 100%;border-collapse: collapse;}
+		.flow .flow_div table tr:hover{background-color: #eee;}
+		.flow .flow_div td{height: 17px;line-height: 17px;font-size: 11px;font-family: 'Microsoft Yahe,微软雅黑';
+									width: 50%;text-align: center;}
+		.backcolor{background-color: #ECF1F5;}	
+		.num_red{color:#FF0000;font-size:16px;}
+		.num_blue{color:#0000FF;font-size:16px;}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="box_left fl">
+			<div class="person ">
+				<div class="header">针对个人的流程评价</div>					
+				<div class="person_main">
+					<div class="group tc  backcolor" >各单位作业型流程数量及内容</div>
+					<div class="group" >
+						<span  class="fl">当月审批工单:<span class="num_blue"> {$list1[0]['COUNT_NUM']}</span>条</span>
+						<span  class="fr">平均时长:<span class="num_blue">{$list1[0]['AVG_NUM']}</span>小时</span>
+					</div>						
+					<div class="group1" > 
+						<div class="fl " >
+							<span >最短时长:<span class="num_blue">{$lists[0]['AVG_NUM']}</span>小时</span>
+							<span >最长时长:<span class="num_red">{$listl[0]['AVG_NUM']}</span>小时</span>
+						</div>
+						<div class="fr">
+							<span >在员工/干部中的排名</span>
+							<span class="tc">第<span class="num_blue">{$list1[0]['RANK']}</span>名</span>
+						</div>							
+					</div>						
+				</div>					
+			</div>							
+			<div class="person_flow ">
+				<div class="header">电子流总体使用情况评价</div>
+				<div class="person_main">
+					<div class="group">
+						<span class="fl">工单总量:<span class="num_blue">{$list3[0]['TOTAL_NUM']}</span>条</span>
+						<span class="fr">结单量:<span class="num_blue">{$list3[0]['FINISH_NUM']}</span>/<span class="num_blue">{$list3[0]['RATIO']}</span></span>
+					</div>
+					<div class="group">
+						<span class="fl">使用人数:<span class="num_blue">{$list4[0]['NUM']}</span>人</span>
+						<span class="fr">人均工单量:<span class="num_blue">{$list4[0]['AVG_NUM']}</span>条</span>
+					</div>
+				</div>					
+			</div>
+		</div>
+		
+
+		<div class="flow fr">
+			<div class="header">电子流审批时长评价</div>
+			<div class="flow_main">
+				<div class="flow_div" style="width: 21%;">
+					<span ><div>各单位平均审批时长排名</div></span>
+					<div >
+						<table>
+							<tr style="background-color: #eee;">
+								<td>审批部门</td>
+								<td>审批时长</td>
+							</tr>
+						</table>
+
+						<div id="demo1" style="height: 162px;overflow: hidden;">
+							<div id="demo11">
+								<table>
+								    <volist name="listd" id="list">
+									    <tr>
+											<td title="{$list['DEPT_NO']}">{$list['DEPT_NO']|substr=###,0,15}</td>
+											<td>{$list['AVG_NUM']}</td>
+										</tr>
+								    </volist>
+								</table>
+							</div>
+							<div id="demo12"></div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="flow_div" style="width: 22%">
+					<span><div>本月平均审批时长top10流程</div></span>
+					<div>
+						<table>
+							<tr style="background-color: #eee;">
+								<td style="width: 70%">流程名称</td>
+								<td>审批时长</td>
+							</tr>
+						</table>
+						<div >
+							<table>
+							    <volist name="list5" id="list">
+								    <tr>
+										<td  style="width: 70%" title="{$list['SUBJECT']}">
+											<if condition="mb_strlen($list['SUBJECT'],'utf-8') gt 5">
+												{$list['SUBJECT']|substr=###,0,15}...
+											<else /> 
+												{$list['SUBJECT']|substr=###,0,15}
+											</if>
+										</td>
+										<td>{$list['AVG_TIME']}</td>
+									</tr>
+							    </volist>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="flow_div" style="width: 23%;">
+					<span ><div>个人月度平均审批时长倒10</div></span>
+					<div>
+						<table>
+							<tr style="background-color: #eee;">
+								<td>员工</td>
+								<td>时长</td>
+							</tr>
+						</table>
+						<div >
+							<table>
+							    <volist name="list2" id="list">
+								    <tr>
+										<td>{$list['EMPL_NAME']}</td>
+										<td>{$list['AVG_NUM']}</td>
+									</tr>
+							    </volist>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<div class="flow_div" style="width: 30%">
+					<span ><div>本月时长最长的20个审批节点</div></span>
+					<div>
+						<table>
+							<tr style="background-color: #eee;">
+								<td style="width: 40%">流程</td>
+								<td style="width: 35%">审批节点</td>
+								<td style="width: 25%">审批时长</td>
+							</tr>
+						</table>	
+						<div id="demo40" style="height: 162px;overflow: hidden;">
+							<div id="demo41">
+								<table>
+								    <volist name="list6" id="list">
+									    <tr>
+											<td style="width: 40%" title="{$list['TEMPLATE_NAME']}">
+												<if condition="mb_strlen($list['TEMPLATE_NAME'],'utf-8') gt 5">
+													{$list['TEMPLATE_NAME']|substr=###,0,15}...
+												<else /> 
+													{$list['TEMPLATE_NAME']|substr=###,0,15}
+												</if>
+											</td>
+											<td style="width: 35%" title="{$list['NODE_NAME']}">
+												<if condition="mb_strlen($list['NODE_NAME'],'utf-8') gt 5">
+													{$list['NODE_NAME']|substr=###,0,15}...
+												<else /> 
+													{$list['NODE_NAME']|substr=###,0,15}
+												</if>
+											</td>
+											<td style="width: 25%" >{$list['AVG_NUM']}</td>
+										</tr>
+								    </volist>
+								</table>
+							</div>
+							<div id="demo42"></div>
+						</div>						
+					</div>
+				</div>
+				<!--
+				<div class="flow_div">
+					<span ><div>工单审批时长满意度最低的top10流程</div></span>
+					<div>
+						<table>
+							<tr>
+								<td>流程名称</td>
+								<td>满意度</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				-->
+			</div>
+		</div>
+	</div>
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+
+		var speed1=90;
+		//var demo1=document.getElementById("demo1");
+		var demo1=$("#demo1")[0];
+		var demo11=$("#demo11")[0];
+		var demo12=$("#demo12")[0];
+		demo12.innerHTML=demo11.innerHTML;
+		function Marquee1(){
+			if(demo12.offsetTop-demo1.scrollTop<=demo11.offsetTop)
+				demo1.scrollTop-=demo11.offsetHeight;
+			else{
+				demo1.scrollTop++;
+			}
+		}
+
+		var MyMar1=setInterval(Marquee1,speed1);
+		/**
+		demo1.onmouseover=function() {clearInterval(MyMar1)}
+		demo1.onmouseout=function() {MyMar1=setInterval(Marquee1,speed1)}
+        **/
+		$(demo1).mouseover(function(){
+			clearInterval(MyMar1);
+
+		}).mouseout(function(){
+			MyMar1=setInterval(Marquee1,speed1);
+
+		});
+
+
+
+       
+        
+        var speed4=90;
+		//var demo40=document.getElementById("demo40");
+		var demo40=$("#demo40")[0];
+
+		var demo41=$("#demo41")[0];
+		var demo42=$("#demo42")[0];
+		demo42.innerHTML=demo41.innerHTML;
+		function Marquee4(){
+			if(demo42.offsetTop-demo40.scrollTop<=demo41.offsetTop)
+				demo40.scrollTop-=demo41.offsetHeight;
+			else{
+				demo40.scrollTop++;
+			}
+		}
+		var MyMar4=setInterval(Marquee4,speed4);
+		/**
+		demo40.onmouseover=function() {
+			clearInterval(MyMar4);
+		};
+		demo40.onmouseout=function() {
+			MyMar4=setInterval(Marquee4,speed4);
+		};
+		**/
+
+		$(demo40).mouseover(function(){
+			clearInterval(MyMar4);
+
+		}).mouseout(function(){
+			MyMar4=setInterval(Marquee4,speed4);
+
+		});
+	});
+</script>
+</html>

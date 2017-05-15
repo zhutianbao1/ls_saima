@@ -1,0 +1,104 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 投诉处理记录表</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  .online_name{width:444px;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="main-content">
+    <form id="theForm1" enctype="multipart/form-data" class="" action="{:U('Index/onlines')}" method="post">
+      <div class="hidden">
+        <label>编号:</label>
+        <input class="readonly" type="text" name="id" value="{$online['ID']}"/>
+        <label>记录人:</label>
+        <input class="readonly" type="text" name="recorder" value="{$online['RECORDER']}"/>
+      </div>
+      
+      <div class="form">
+        <div class="form-header">上线类</div>
+        <div>
+          <label>上线名称:<font color="#ff0000">*</font></label>
+          <input type="text" class="online_name" name="online_name" value="{$online['ONLINE_NAME']}"/>
+
+          <label>上线时间:<font color="#ff0000">*</font></label>
+          <input class="date Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" type="text" name="online_time" value="{$online['ONLINE_TIME']}"/>
+        </div>
+
+        <div>
+          <label>附件上传:<font color="#ff0000">*</font></label>
+          <a href="{$path}{$online['FILE_NEW_NAME']}" target="_blank">{$online['FILE_OLD_NAME']}</a>
+          <input type="file" name="file_old_name" value="{$online['FILE_OLD_NAME']}"/>
+          <input type="hidden" name="file_new_name" value="{$online['FILE_NEW_NAME']}"/>
+          <font style="color:#f00">允许上传小于4M的文件</font>
+        </div>
+
+        <div>
+          <label>上线具体内容：<font color="#ff0000">*</font></label>
+          <textarea name="content">{$online['CONTENT']}</textarea>
+        </div>
+
+        <div>
+          <label>备注：</label>
+          <textarea name="remark">{$online['REMARK']}</textarea>
+        </div>
+
+        <div class="btn-box">
+          <div class="btn-group">
+            <input type="button" class="btn tj" value="提交"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+
+  $(".tj").click(function(){
+    var online_name = $("input[name='online_name']").val();
+    if(online_name==''){
+      alert("上线名称不能为空");
+      return false;
+    }
+    var online_time = $("input[name='online_time']").val();
+    if(online_time ==''){
+      alert("上线时间不能为空");
+      return false;
+    }
+    var content = $("textarea[name='content']").val();
+    if(content==''){
+      alert("上线具体内容不能为空");
+      return false;
+    }
+
+    $(".tj").attr("disabled", true);
+    $("#theForm1").submit();
+    
+  });
+});
+</script>
+</block>

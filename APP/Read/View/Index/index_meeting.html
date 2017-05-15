@@ -1,0 +1,42 @@
+<!-- 滚动书籍 -->
+  <div class="hd lined">
+    <h3>读书风采
+      <span class="help-tip"></span></h3>
+      <a class="more" href="{:U('index/meeting')}">更多>></a>
+  </div>
+  <div class="bd">
+   <empty name="meetings">
+    暂无数据<br><br>
+    <else/>
+    <div class="carousel" style="height:290px;">
+      <div style="width: 2784px;" class="slide-list">
+        <ul class="slide-item list-col list-col5 cover-list left">
+          <volist name="meetings" id="meeting" key="k" offset="0" length='5'>
+          <li style="width:140px;height:270px;margin-right:0px;">
+            <div class="border-wrap" style="height:240px;">
+              <div class="cover shadow-cover" style="width:90%;">
+                <a href="{:U('index/book_meeting?id='.$meeting['id'])}" class="pic" target="_self">
+                  <if condition="(substr($meeting['img'],0,5) eq 'https')">
+                  <img width="110px" height="164px" itemprop="image" alt="" src="__IMG__/22325617.jpg" 
+                    tmpsrc="{$meeting['img']}">
+                  <else/>
+                  <img src="__IMG__/22325617.jpg" alt="" tmpsrc="__ROOT__/{$meeting['img']}" 
+                    itemprop="image" height="164px" width="90%"/>
+                  </if> 
+                </a>
+              </div>
+              <div class="info" style="height:10px;">
+                <h4 class="title">
+                  <a href="{:U('index/book_meeting?id='.$meeting['id'])}">{$meeting['title']}</a></h4>
+                <div class="author">
+                  <span class="orig-author">{$meeting['meet_date']}</span></div>
+                </div>
+            </div>
+          </li>
+          </volist>
+        </ul>
+      </div>
+    </div>
+    </empty>
+ </div>
+<!-- 滚动书籍 END -->

@@ -1,0 +1,80 @@
+<!-- 滚动书籍 -->
+<div class="showcase featured-books slide-5-items clear xs_hei" >
+  <div class="hd lined">
+    <h3>各县市读书风采<span class="help-tip"></span></h3>
+  </div>
+  <div class="bd"  >
+    <!--
+    <a href="javascript:;" class="xs_prev">‹</a>
+    -->
+    <div class="carousel" style="height:600px;">
+      <div style="width: 700px;" class="slide-list auto_scoll" >
+       <volist name="countys" id="county" key="k" >
+         <div  class="xs_div" para="{$county[1]}">
+         <!--
+         <input type="hidden" name="" value='{$county[0]}'/>
+         <div class="xs_name_zan" >
+            <span class="xs_name" value="{$county[0]}">{$county[1]}</span>
+            <span class="xs_zan" id="xs_zan{$county[0]}" para="{$county[0]}">
+            <volist name="county_zans" id="county_zan">
+              <if condition="$county_zan['county_code'] eq $county[0] ">
+                赞({$county_zan['zan_num']})             
+              </if>
+            </volist>
+            </span>
+         </div>
+         -->
+          <volist name="lists" id="list" key="k1" >          
+          <if condition="$list['county_code'] eq $county[0]">
+              <div class="border-wrap" style="height:280px;" >
+                <div class="cover shadow-cover xs_img" >
+                  <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" 
+                    class="pic" target="_self" >
+                  <if condition="(substr($list['img'],0,5) eq 'https')">
+                  <img width="110px" height="164px" itemprop="image" alt="" 
+                      src="__IMG__/22325617.jpg" tmpsrc="{$list['img']}">
+                  <else/>
+                  <img width="110px" height="164px" itemprop="image" alt="" 
+                      src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$list['img']}">
+                  </if>                  
+                  </a>
+                </div>
+                <div style="clear:both;"></div>              
+                <div class="info xs_info" style="height: 140px;">
+                  <h4 class="title xs_title" >
+                    <a href="{:U('index/book_meeting?id='.$list['meeting_id'])}" >
+                      {$list['title']}
+                    </a>
+                  </h4> 
+                  <div class="xs_name_zan" >
+                    <span class="xs_name" value="{$county[0]}">{$county[1]}</span>
+                    <span class="xs_zan" id="xs_zan{$county[0]}" para="{$county[0]}">
+                      <volist name="county_zans" id="county_zan">
+                        <if condition="$county_zan['county_code'] eq $county[0] ">
+                          赞({$county_zan['zan_num']})             
+                        </if>
+                      </volist>
+                    </span>
+                  </div>                                   
+                  <div class="author"  >
+                    <span class="orig-author xs_date">开展时间</span>
+                    <span class="orig-author xs_date">{$list['meet_date']}</span>
+                  </div>
+                  <div  class="xs_more">
+                    <a class="more_link" para="{$list['county_code']}" href="javascript::">
+                    更多信息</a>
+                  </div>                             
+                </div>
+            </div>            
+          </if>
+          </volist>
+        </div>
+       </volist>
+      </div>     
+    </div>
+    <!--
+    <a href="javascript:;" class="xs_next">›</a>
+    -->
+  </div>
+</div>
+<!-- 滚动书籍 END -->

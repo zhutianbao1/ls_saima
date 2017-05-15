@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title>表单存储</title>
+		<include file="Form/form_js_css"/>
+		<style>
+		.list_attrs_table{width:800px;}
+		.list_attrs_table td{background: #fff;text-align: right;padding-right:2px;}
+		.list_attrs_table td input{border:solid 1px grey;}
+		select{border:solid 1px grey;background:#ccc;padding:3px 0px;}
+		.his_tables li a{display: block;width:100%;padding:10px 0px;border-bottom: solid 1px #ccc;}
+		.his_tables li a:hover{background: rgb(219,234,239);color:#000;font-weight: bold;}
+		.his_tables li .curr{background: rgb(219,234,239);color:#000;font-weight: bold;}
+		th{background: rgb(219,234,239) !important;border-bottom: solid 1px #ccc;border-right:solid 1px #ccc;}
+		.checkbox{border:0px;margin:0px;-webkit-appearance:none;}
+		</style>
+		<include file="Form/for_js_css"/>
+	</head>
+
+	<body>
+	<form name="table_form" action="{:U('form_table')}" method="post">
+	<input type="hidden" name="form_id" value="{$info['ID']}"/>
+	<div class="form_wrap">
+		
+		<include file="Form/form_design_menu" />
+		<div class="clr"></div>
+
+		<div class="wrap">
+			<div class="row_title" style="margin-bottom:0px;">存储表格</div>			
+		</div>
+		
+		<table border=0 width="100%" height="600px">
+			<tr>
+				<td width="120px" valign="top" style="border-right:solid 1px #ccc;">
+					<ul class="his_tables">						 
+						<volist name="his" id="hi" offset="0" length='5'>
+							<if condition="$hi['TABLE_NAME']  eq $info['TABLE_NAME']">
+							<li><a class="curr" href="javascript:;">{$hi['TABLE_NAME']}</a></li>
+							<else/>
+							<li><a href="javascript:;">{$hi['TABLE_NAME']}</a></li>
+							</if>
+						</volist>
+					</ul>
+				</td>
+				<td valign="top" align="left;" style="padding-left:10px;">
+					<iframe src="{:U('form_table_design?form_id='.$info['ID'])}" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe>	
+				</td>
+			</tr>
+		</table>
+	</div>	
+	</form>
+	</body>
+
+	<script type="text/javascript">
+	var table_flag = false;
+	$(function(){
+		//选择当前版本表格 
+		$(".his_tables li a").click(function(){
+			 var e = $(this);
+			 e.addClass('curr');
+			 e.parent().siblings('li').children('a').removeClass('curr');
+		});		 
+	});
+	</script>
+</html>

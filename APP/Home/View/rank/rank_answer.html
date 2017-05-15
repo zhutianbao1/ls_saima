@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+	<style>
+	.wrap{background: #fff;padding:10px 10px;
+  		  
+ 	}
+	.question-sub{padding:40px;text-align: center;}
+	.question-content{border:solid 3px rgb(248,248,248);margin-top:2px;height:151px;}
+	.question-content textarea{width:100%;height:150px;border:solid 1px #ddd;line-height: 150%;letter-spacing: 1px;}
+	.list-ul {padding:20px 2px;}
+	.list-ul ul li{list-style: none;}
+	.list-ul li{position:relative;height:25px;line-height: 25px;font-size: 14px;border:solid 0px red;margin-bottom: 1px;padding-right:160px;
+		overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width:770px;}
+	.list-ul li a{font-size: 13px;text-decoration: none;display: block;width:100%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+	.list-ul li a:hover{text-decoration: underline;}
+	.list-ul li span{position: absolute;right:0px;top:0px;padding-right:4px;}
+	h2{padding:5px;font-size: 18px;margin-bottom: 10px;color: rgb(15, 142, 226);font-family: icon,elvetica,elvetica;}
+	</style>
+	<link rel="stylesheet" href="__CSS__/rank_style.css"/>
+</HEAD>
+<BODY>
+	<div class="wrap effect">
+	 <fieldset>
+	 	<legend>答疑提问</legend>
+	 	<div class="question-content">
+	 	  	{$ques['CONTENT']}
+	 	</div>
+	 </fieldset>
+	<br>
+	 <fieldset>
+	 	<legend>解答内容</legend>
+	 	<div class="question-content">
+	 	  	{$ques['ANSWER']}
+	 	</div>
+	 	解答人：{$ques['ANSWER_MAN']} - 联系电话:{$ques['ANSWER_BILL']}
+	 </fieldset>
+ 
+	</div>
+</BODY>
+</HTML>

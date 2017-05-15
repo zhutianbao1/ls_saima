@@ -1,0 +1,39 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">丽水移动-月度黑马</block>
+
+
+<block name="nav"></block>
+<block name="month"></block>
+
+<block name="body">
+	<div class="rank-info" style="overflow: hidden;">
+		<div class="top">
+		<a href="#">月度黑马</a>
+		</div>
+		<ul>
+		<volist name="hm" id="u">
+			<li class="" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+				<a href="{:U('index/rank_line?bill_id='.$u['BILL_ID'])}?id={$u['CONFIG_ID']}&month={$u['RPT_MONTH']}" target="_blank" class="link">
+					<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__no.jpg'" width="35%" height="80px" style="float: left;">
+					<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+					<div class="span"><span>{$u['POS_NAME']}</span><br/>
+					<span>{$u['COUNTY_NAME']}</span><br/><span style="color: #979797;">排名提升：{$u['RANK_MINUS']}</span></div>
+				</a>
+			</li>
+		</volist>
+		</ul>
+		{$_page}
+	</div>
+	<div>月度黑马奖说明：<p>赛马人数少于等于15人的，月度排名环比提升4名及其以上</p>
+	<p>赛马人数大于15人少于等于30人的，月度排名环比提升8名及其以上</p>
+	<p>赛马人数大于30人小于等于100人的，月度排名环比提升15名及其以上</p>
+	<p>赛马人数大于100人小于等于200人的，月度排名环比提升50名及其以上</p>
+	<p>赛马人数大于200人的，月度排名环比提升100名及其以上</p></div>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>

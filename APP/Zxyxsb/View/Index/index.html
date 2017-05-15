@@ -1,0 +1,149 @@
+<extend name="./base"/>
+<block name="title">直销员直销装备管理 | 首页</block>
+<block name="css">
+<style>
+.widget{
+  width:371px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:240px;
+}
+.panel-group {
+  display: block;
+}
+.panel {
+  display:inline-block;
+  font-size:100%;
+  margin:8px 7px;
+  height:90px;
+  border:1px solid #dedede;
+  border-radius:6px;
+  -moz-border-radius:6px;/*老的firefox*/
+  box-shadow: 3px 3px 2px #888;
+}
+.panel-container {
+  display: table;
+  height: 90px;
+}
+.panel-content{
+  vertical-align:middle; 
+  display:table-cell; 
+  width:147px;
+  text-align:center;
+  padding-left:10px;
+  padding-right:10px;
+  background-color:#cbe8f7;
+}
+.panel:hover{
+  color:#f00;
+  cursor:pointer;
+}
+</style>
+</block>
+
+<block name="wrapper">
+<div class="wrapper">
+  <nav class="navbar pure-menu pure-menu-horizontal pure-menu-fixed" role="navigation">
+    <div class="horizontal-center">
+    <a href="{:U('index/index')}">直销员直销装备管理</a>
+    </div>
+    <div class="user-info"><?php echo session('user_auth.OA')?></div>
+  </nav>
+
+  <div class="container">
+    <div class="widget">
+      <div class="panel-group">
+        <div class="panel devM">
+          <div class="panel-container">
+            <div class="panel-content">
+              装备管理(市公司)
+            </div>
+          </div>
+        </div>
+
+        <div class="panel devMl">
+          <div class="panel-container">
+            <div class="panel-content">
+              装备管理清单<br>(市公司)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-group">
+        <div class="panel devGr">
+          <div class="panel-container">
+            <div class="panel-content">
+              借还装备(内勤录入)
+            </div>
+          </div>
+        </div>
+
+        <div class="panel devGrl">
+          <div class="panel-container">
+            <div class="panel-content">
+              借还记录清单
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-group">
+        
+
+        <div class="panel devTotal">
+          <div class="panel-container">
+            <div class="panel-content">
+              部门物资统计表
+            </div>
+          </div>
+        </div>
+
+        <div class="panel devBs">
+          <div class="panel-container">
+            <div class="panel-content">
+              装备报损
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  $(".devM").click(function(){
+    //装备管理(市公司)
+    window.location.href="{:U('index/devM')}";
+  });
+
+  $(".devMl").click(function(){
+    //装备管理清单(市公司) 
+    window.location.href="{:U('index/devMl')}";
+  });
+
+  $(".devGr").click(function(){
+    //借还装备(内勤录入) 
+    window.location.href="{:U('index/devGr')}";
+  });
+  
+  $(".devGrl").click(function(){
+    //借还记录清单 
+    window.location.href="{:U('index/devGrl')}";
+  });
+
+  $(".devTotal").click(function(){
+    //部门物资统计表
+    window.location.href="{:U('index/devTotal')}";
+  });
+
+  $(".devBs").click(function(){
+    //报损记录清单
+    window.location.href="{:U('index/devBs')}"
+  });
+});
+</script>
+</block>

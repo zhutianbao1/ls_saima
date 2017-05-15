@@ -1,0 +1,563 @@
+<extend name='pub/main_newRank'/>
+
+<block name='title'>{$user['USER_NAME']}的个人主页</block>
+<block name='css'>
+<style type="text/css">
+	.type_title{
+		overflow:hidden;float:left;border-top:solid 20px rgb(244, 244, 244);margin-top:-1px;
+	}
+</style>
+</block>
+<block name='ext'>
+</block>
+<block name='body'>
+<div class="body">
+	<div style="background:#F7FAFF;width:100%;height:300px;">
+		<div style="width:960px;height:100px;border-bottom:1px solid #E9EDF0;margin-bottom:20px;margin-left:20px;">
+			<!-- <div style="float:left;padding-right:20px;">
+			<span style="font-size:16px;font-weight:bold;padding-top:20px;display:block">总得分</span>
+			<span style="color:red;font-size:36px;font-weight:bold;display:block;float:left;">{$user['AMOUNT']}</span>
+			</div> -->
+			<div style="float:left;">		 
+			<span style="font-size:16px;font-weight:bold;padding-top:20px;display:block">所在条线最近赛马最高分</span>
+			<span style="color:red;font-size:36px;font-weight:bold;display:block;float:left;">{$user['A']}</span>
+			<span style="color:#808080;margin-left:40px;position: relative;top:20px;">同最高分相差：<?php echo sprintf("%.2f",$user['AMOUNT']-$user['A'])?></span>
+			</div>
+			<a id="fl"></a>
+		</div>
+		<if condition="($user['BILL_ID'] eq null)">
+		<img src="" class="pic" width="120px" height="150px" style="float:left;margin-left:20px;"/>
+		<div class="pinfo">
+			<ul>
+				<li><span>姓名</span><span class="op_name" id="op_name">--</span></li>
+				<li><span>职位</span>没有参加赛马</li>
+				<li><span>县市</span>没有参加赛马</li>
+				<li><span>手机号码</span><span class="oper_login_code" id="oper_login_code">--</span></li>
+				<li><span>员工编号</span>没有参加赛马</li>
+				<li><span>最近赛马总分</span>没有参加赛马</li>
+			</ul>
+		</div>
+		<else/>
+		<img src="__HEAD_IMG__{$user['BILL_ID']}.jpg" width="120px" height="150px" style="float:left;margin-left:20px;">
+		<div class="pinfo">
+			<ul>
+				<li><span>姓名</span>{$user['USER_NAME']}</li>
+				<li><span>职位</span>{$user['POS_NAME']}</li>
+				<li><span>县市</span>{$user['COUNTY_NAME']}</li>
+				<li><span>手机号码</span>{$user['BILL_ID']}</li>
+				<li><span>员工编号</span>{$user['OPER_CODE']}</li>
+				<li><span>最近赛马得分</span>{$user['AMOUNT']}</li>
+				<li><span>当月积分</span>{$jf['全员赛马积分']}</li>
+				<li><span>当月排名</span>{$jf['同岗位排名']}</li>
+				<li><span>总积分</span>{$jf['总积分']}</li>
+				<li><span>总积分排名</span>{$jf['PM']}</li>
+			</ul>
+		</div>
+		</if>
+	</div>
+
+	<div style="margin-top:20px;">
+		<h2 class="rig-title">其他明细<span class="active" id="avd-pre" style="border-right:1px solid #ccc;margin-left:30px;">个人历史排名</span><span style="border-right:1px solid #ccc;" id="avd-tem">赛马详情数据</span><span id="avd-pk">与本线条最高分对比</span><if condition="($id eq 1016)"><span style="border-left:1px solid #ccc;" id="avd-yyy">宽极化集中考核细项</span></if><if condition="($id eq 1013)"><span style="border-left:1px solid #ccc;" id="avd-xsjl">宽极化集中考核细项</span></if><if condition="($id eq 1021)"><span style="border-left:1px solid #ccc;" id="avd-khjl">宽极化集中考核细项</span></if></h2>
+	</div>
+<!-- 个人历史排名 -->
+	<div id="cons1" class="model-cons">
+		<div class="float">
+			<table class="rank_line" border="0" cellpadding="2" cellspacing="0">
+			<tr>
+				<td class="rank-title">月份</td>
+				<td class="rank-title">姓名</td>
+				<td class="rank-title">手机</td>
+				<td class="rank-title">总分</td>
+				<td class="rank-title">排名</td>
+			</tr>
+			<volist name="lines" id="line">
+			<tr>
+				<td>{$line.RPT_MONTH}</td>
+				<td>{$line.USER_NAME}</td>
+				<td>{$line.BILL_ID}</td>
+				<td>{$line.AMOUNT}</td>
+				<td>{$line.PM}</td>
+			</tr>
+			</volist>
+			</table>
+		</div>
+		<div>
+			<div class="pcontainer">{$rankUser['USER_NAME']} 历史排名情况</div>
+			<div id="container" class="float2"></div>
+		</div>
+	</div>
+<!-- 赛马详情数据 -->
+	<div id="cons2" class="model-con" style="display:none">
+		<iframe width="100%"  frameborder="0" scrolling="no" style="margin-top: -20px;height:1220px;" src="{:U('newRank/rank_user')}?bill_id={$bill_id}&id={$id}&month={$month}"></iframe>
+	</div>	
+
+	<!-- 与本条线第一名pk -->
+	<div id="cons3" class="model-con" style="display:none">
+		<div class="info-model clear" style="margin-bottom:100px;position:relative">
+			<div class="model-title2">
+				<div class="left">对比 数据比较</div>
+				<div class="left"></div>
+			</div>
+			<div class="model-line"></div>
+
+			<div class="model-con">
+				 <?php 
+				$flag = false;
+				if(isset($json['usera'])){
+					echo "<div class='pk_data'><div class='pk_title'></div><div class='pk_usera'>".$json['usera']['C']."</div><div class='pk_userb'>".$json['userb']['C']."</div></div>";
+					echo "<div class='pk_data'><div class='pk_title'>总分</div><div class='pk_usera'>".$json['usera']['H']."</div><div class='pk_userb'>".$json['userb']['H']."</div></div>";
+				}else{
+					echo '未找到数据，请重试';	
+				}
+				foreach ($json['head'] as $k => $v) {
+					if($k=='I'){
+						$flag=true;
+					}
+
+					$fua = '';
+					if(floatval($json['usera'][$k])<0){
+						$fua = '<span class="danger">负分项</span>';
+					}
+
+					$fub = '';
+					if(floatval($json['userb'][$k])<0){
+						$fub = '<span class="danger">负分项</span>';
+					}
+
+					if(isset($v) && $flag && $k!='NUMROW'){
+						echo "<div class='pk_data'>
+									<div class='pk_title'>".$v."</div>
+									<div class='pk_usera'><span>".$json['usera'][$k]."</span>".$fua."<div class='pk_bg1' style='width:".(intval($json['usera'][$k]))."%;'></div></div>
+									<div class='pk_userb'><span>".$json['userb'][$k]."</span>".$fub."<div class='pk_bg2' style='width:".(intval($json['userb'][$k]))."%;'></div></div>
+							  </div>";
+
+					}
+				}
+				?>
+			</div>
+		</div>
+	</div>
+<!-- 客户经理宽极化考核细项 -->
+	<div id="cons4" class="model-con" style="display:none">
+		<div class="model-title2">
+			<div class="left">综合排名</div>
+			<div class="left"></div>
+		</div>
+
+		<div class="deta01">
+			<span id="mts_stock_hk_price" class="cd_g price fl" style="font-size:25px;padding-left:10px;color:green;">
+				综合得分:<font id="ttl_score" class="总分值" id="综合得分">--</font> &nbsp;
+				全市排名:<font id="lvl_pai" class="排名" id="全市排名">--</font>	&nbsp;
+			</span>
+		</div>
+		<div class="model-title2">
+			<div class="left">详情数据</div>
+			<div class="left"></div>
+		</div>
+		{:W('NewRank/widget_kjh_khjl')}
+	</div>
+<!-- 销售经理宽极化考核细项 -->
+	<div id="cons5" class="model-con" style="display:none">
+		<div class="model-title2">
+			<div class="left">综合排名</div>
+			<div class="left"></div>
+		</div>
+
+		<div class="deta01">
+			<span id="mts_stock_hk_price" class="cd_g price fl" style="font-size:25px;padding-left:10px;color:green;">
+				综合得分:<font id="ttl_score" class="总分值" id="综合得分">--</font> &nbsp;
+				全市排名:<font id="lvl_pai" class="排名" id="全市排名">--</font>	&nbsp;
+			</span>
+		</div>
+		<div class="model-title2">
+			<div class="left">详情数据</div>
+			<div class="left"></div>
+		</div>
+		{:W('NewRank/widget_kjh_xsjl')}
+	</div>
+<!-- 营业员宽极化考核细项 -->
+	<div id="cons6" class="model-con" style="display:none">
+		<div class="model-title2">
+			<div class="left">综合排名</div>
+			<div class="left"></div>
+		</div>
+
+		<div class="deta01">
+			<span id="mts_stock_hk_price" class="cd_g price fl" style="font-size:25px;padding-left:10px;color:green;">
+				综合得分:<font id="ttl_score" class="综合得分" id="综合得分">--</font> &nbsp;
+				全市排名:<font id="lvl_pai" class="全市排名" id="全市排名">--</font>	&nbsp;
+				全县排名:<font id="lvl_pai" class="全县排名" id="全县排名">--</font>	&nbsp;
+			</span>
+		</div>
+		<div class="model-title2">
+			<div class="left">详情数据</div>
+			<div class="left"></div>
+		</div>
+		{:W('NewRank/widget_kjh_yyy')}
+	</div>
+</div>
+</block>
+<block name='js'>
+<script type="text/javascript" src="__STATIC__/highcharts.js"></script>
+<script type="text/javascript" src="__STATIC__/exporting.js"></script>
+<script language="javascript" type="text/javascript"> 
+var chart; 
+$(document).ready(function () { 
+    chart = new Highcharts.Chart({ 
+        chart: { 
+            renderTo: 'container', 
+            defaultSeriesType: 'line', //图表类别，可取值有：line、spline、area、areaspline、bar、column等 
+            marginRight: 50, 
+            marginBottom: 55,
+            height:300
+        }, 
+        xAxis: { 
+            categories: [<?php 
+            		$x_num='';
+            		for ($i=0; $i <count($lines) ; $i++) { 
+            			if($i<(count($lines)-1)){
+            				$x_num .=$lines[$i]['RPT_MONTH'].',';
+            			}else{
+            				$x_num .=$lines[$i]['RPT_MONTH'];
+            			}
+            		}
+            		echo $x_num;
+             ?>]//设置x轴的标题 
+        },  
+        yAxis: [{
+        	labels: {
+	                formatter: function() {
+	                    return '第'+this.value +'名';
+	                },
+	                style: {
+                		color: '#000'
+            		}
+	            }, 
+            tickPositions: [<?php 
+            		$max=$lines[0]['PM'];
+				 	for ($i=0; $i <count($lines) ; $i++) { 
+				 	 	if($max<$lines[$i]['PM']){
+				 	 		$max=$lines[$i]['PM'];
+				 	 	}
+				 	 } 
+
+            		$y_num='';
+            	for ($i=0; $i < count($lines) ; $i++) { 
+            		if($i<(count($lines)-1)){
+            			$y_num .=  $lines[$i]['PM'].'|';
+            		}else{
+            			$y_num .=  $lines[$i]['PM'];
+            		}
+            	} 
+            		$b='';
+            		$y_nums=explode('|', $y_num);
+            		sort($y_nums);
+            		for ($j=count($y_nums)-1; $j >=0 ; $j--) {
+            			if($j>0){
+            				$b .= $y_nums[$j].',';
+            			} else{
+            				$b .= $y_nums[$j];
+            			}
+            		}
+            			echo $b;
+             ?>]
+        }], 
+        tooltip: {
+        	backgroundColor:'#E6E8FA',
+            valueSuffix: '名',
+        	valuePrefix: '第'
+        },
+        plotOptions: { 
+            line: { 
+                dataLabels: { 
+                    enabled: false //显示每条曲线每个节点的数据项的值 
+                },
+                enableMouseTracking: true 
+            } 
+        }, 
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{ 
+            name:"<?php $lines[0]['USER_NAME']=str_replace("\n","",$lines[0]['USER_NAME']);echo $lines[0]['USER_NAME'];?>", 
+            data: [
+            	<?php 
+            	$nums = '';
+            	for ($i=0; $i < count($lines) ; $i++) { 
+            		if($i<(count($lines)-1)){
+            			$nums .=  $lines[$i]['PM'].',';
+            		}else{
+            			$nums .=  $lines[$i]['PM'];
+            		}
+            	} 
+            	echo $nums;
+            	?> ]
+            //每条线的数据 
+        }] 
+    }); 
+}); 
+</script> 
+
+
+<script type="text/javascript">
+$(function(){
+	bill_id="{$bill_id}";
+	var url="";
+	url="{:U('fouFL')}?bill_id="+bill_id+"&id="+{$id};
+	$.ajax({
+		url:url,
+		type:'GET',
+		dataType:'json',
+		success:function(result){
+			if(result!=null){
+				document.getElementById("fl").innerHTML='取消关注';
+			}else{
+				if({$id}>2000 || {$id}==1022){
+					document.getElementById("fl").innerHTML='';
+				}else{
+					document.getElementById("fl").innerHTML='点击关注';	
+				}
+			}
+		},
+		error:function(e){
+			// alert('ccc');
+		}
+	})
+
+
+
+	$('#fl').click(function(){
+		var a=document.getElementById("fl").innerHTML;
+		if(a=='取消关注'){
+			url="{:U('delFL')}?bill_id="+bill_id+"&id="+{$id};
+			$.ajax({
+				url:url,
+				type:'GET',
+				dataType:'json',
+				success:function(result){
+					if(result.flag){
+						layer.msg(result.msg,{icon:1});
+						document.getElementById("fl").innerHTML='点击关注';
+					}else{
+						layer.msg(result.msg,{icon:2});
+					}
+				},
+				error:function(e){
+					layer.msg('出现异常',{icon:3});
+				}
+			})
+		}else if(a=='点击关注'){
+			url="{:U('addFL')}?bill_id="+bill_id+"&id="+{$id};
+			$.ajax({
+				url:url,
+				type:'GET',
+				dataType:'json',
+				success:function(result){
+					if(result.flag){
+						layer.msg(result.msg,{icon:1});
+						document.getElementById("fl").innerHTML='取消关注';
+					}else{
+						layer.msg(result.msg,{icon:2});
+					}
+				},
+				error:function(e){
+					layer.msg('出现异常',{icon:3});
+				}
+			});
+		}
+	});
+
+
+	//==========================客户经理个人信息===========================================
+	var id="{$id}";
+	var pas="{$pas}";
+	if(pas=='xs'){
+		$('#cons1').hide();
+		$('#cons5').show();
+		$('.rig-title span.active').removeClass('active');
+		$('#avd-xsjl').addClass('active');
+	}
+	if(pas=='kh'){
+		$('#cons1').hide();
+		$('#cons4').show();
+		$('.rig-title span.active').removeClass('active');
+		$('#avd-khjl').addClass('active');
+	}
+
+	if(pas=='yy'){
+		$('#cons1').hide();
+		$('#cons6').show();
+		$('.rig-title span.active').removeClass('active');
+		$('#avd-yyy').addClass('active');
+	}
+	if(id=='1021'){
+		khjl();
+	}
+	function khjl(){
+		$.ajax({
+			url: "{:U('newRank/khjl_my')}",
+			type: 'post',
+			dataType: 'json',
+			data:{bill_id:bill_id},
+			success:function(data){
+				if(data==null){
+					alert('未找到相关数据');
+				}else{
+					$('.pic').attr('src','http://lszc.zj.chinamobile.com'+data['PIC']);
+					$('.op_name').html(data['客户经理']);
+					document.title=data['客户经理'];
+							$('.position').html('客户经理');
+							$('.oper_login_code').html(data['客户经理电话']);
+							$('.county_code').html(data['县市']);
+							$('.总分值').html(data['总分值']/1);
+							$('.排名').html(data['排名']);
+					for(var key in data)
+					{
+						$('.jz').css('display','none');
+						$('.更新时间').html(data['更新时间']);
+						$('.集团产品欠费率').html(data['集团产品欠费率']);
+						if(!isNaN(data[key])){
+							$('.infoUL').find("."+key).eq(0).html(data[key]/1);
+						}else{
+							$('.infoUL').find("."+key).eq(0).html(data[key]);
+						}
+					}
+				}
+			},
+			error:function(data){
+			//alert(JSON.stringify(data));
+			}
+		});
+	}
+
+	//==========================销售经理个人信息===========================================
+	if(id=='1013'){
+		xsjl();
+	}
+	function xsjl(){
+		$.ajax({
+			url: "{:U('newRank/xsjl_my')}",
+			type: 'post',
+			dataType: 'json',
+			data:{bill_id:bill_id},
+			success:function(data){
+				if(data==null){
+					alert('未找到宽极化考核数据');
+				}else{
+					$('.pic').attr('src','http://lszc.zj.chinamobile.com'+data['PIC']);
+					$('.op_name').html(data['MANAGER_NAME']);
+					document.title=data['MANAGER_NAME'];
+							$('.position').html('销售经理');
+							$('.oper_login_code').html(data['BILL_ID']);
+							$('.county_code').html(data['COUNTY_NAME']);
+							$('.总分值').html(data['SCORE']);
+							$('.排名').html(data['TOP']);
+					for(var key in data)
+					{
+						$('.jz').css('display','none');
+						$('.更新时间').html(data['RPT_DATE']);
+						$('.infoUL').find("."+key).eq(0).html(data[key]);
+					}
+				}
+			},
+			error:function(data){
+			//alert(JSON.stringify(data));
+			alert('ddddddd');
+			}
+		});
+	}
+
+	//==========================营业员个人信息===========================================
+	if(id=='1016'){
+		yyy();
+	}
+	function yyy(){
+		$.ajax({
+			url: "{:U('newRank/yyy_my')}",
+			type: 'post',
+			dataType: 'json',
+			data:{bill_id:bill_id},
+			success:function(data){
+				if(data==null){
+					alert('未找到相关数据');
+				}else{
+					$('.op_name').html(data['OBJ_NAME']);
+					document.title=data['OBJ_NAME'];
+							$('.position').html('营业员');
+							$('.oper_login_code').html(data['BILL_ID']);
+							$('.county_code').html(data['COUNTY_NAME']);
+							$('.综合得分').html(data['总得分']);
+							$('.全市排名').html(data['S_PAIMING']);
+							$('.全县排名').html(data['X_PAIMING']);
+					for(var key in data)
+					{
+						$('.jz').css('display','none');
+						$('.数据日期2').html(data['KPI_DATE2']);
+						$('.infoUL').find("."+key).eq(0).html(data[key]);
+					}
+				}
+			},
+			error:function(data){
+			//alert(JSON.stringify(data));
+			}
+		});
+	}
+
+});
+
+
+$("#avd-pre").click(function(){
+	$('#cons1').show();
+	$('#cons2').hide();
+	$('#cons3').hide();
+	$('#cons4').hide();
+	$('#cons5').hide();
+	$('#cons6').hide();
+});
+$("#avd-tem").click(function(){
+	$('#cons1').hide();
+	$('#cons2').show();
+	$('#cons3').hide();
+	$('#cons4').hide();
+	$('#cons5').hide();
+	$('#cons6').hide();
+});
+$("#avd-pk").click(function(){
+	$('#cons1').hide();
+	$('#cons2').hide();
+	$('#cons3').show();
+	$('#cons4').hide();
+	$('#cons5').hide();
+	$('#cons6').hide();
+});
+$("#avd-khjl").click(function(){
+	$('#cons1').hide();
+	$('#cons2').hide();
+	$('#cons3').hide();
+	$('#cons4').show();
+	$('#cons5').hide();
+	$('#cons6').hide();
+})
+$("#avd-xsjl").click(function(){
+	$('#cons1').hide();
+	$('#cons2').hide();
+	$('#cons3').hide();
+	$('#cons4').hide();
+	$('#cons5').show();
+	$('#cons6').hide();
+})
+$("#avd-yyy").click(function(){
+	$('#cons1').hide();
+	$('#cons2').hide();
+	$('#cons3').hide();
+	$('#cons4').hide();
+	$('#cons5').hide();
+	$('#cons6').show();
+})
+
+
+</script>
+</block>

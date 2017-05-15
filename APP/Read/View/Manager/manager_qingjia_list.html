@@ -1,0 +1,163 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">请假管理</block>
+<block name="css"> 
+<link rel="stylesheet" href="__CSS__/tag.css">
+  <style type="text/css"> 
+    .fl{ float: left; }
+    .fr{ float: right; }
+    .need_left{ width: 100px; border: 1px solid #ccc;  }
+    .need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;text-align: center; 
+                        background-color: #eee; }
+    .need_left ul{ width: 80px; margin-left: 20px; }
+    .need_left ul li{ height: 25px;  line-height: 25px;}
+    .need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+    .need_left ul li a:hover{ background-color: #eee; color: #333; } 
+    .need_right{ width: 825px; border:1px solid #ccc; }
+    .cur{background-color: #eee;border-right: 2px solid #ae807e;} 
+    .show_list{
+        margin:10px;
+    }
+    .show_list h3{
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        color: #666;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+    .show_list table{
+        width:100%;
+        border-collapse: collapse;
+        text-align: center;
+        font-size: 13px;
+        color: #666;
+    }
+    .show_list table tr{
+        height: 20px;
+        line-height: 20px;
+    }
+    .show_list table tr td{
+        border:1px solid #ccc;
+    }
+     
+  </style>  
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+</div>
+</block>
+
+<block name="main_right"> 
+<div class="need_left fl">
+  {:W('Side/need_tab')}
+</div>
+<div class="need_right fr"> 
+    <if  condition="$manager_op eq 1 "> 
+        <empty name="arrs">
+            暂无相关信息
+        <else/> 
+            <div class="show_list" >
+                <h3>阅读会请假人员待审核列表</h3>    
+                <table >
+                    <tr>
+                        <td >操作</td>
+                        <td >申请单编号</td>
+                        <td >申请人</td>
+                        <td >员工编号</td>
+                        <td >员工部门</td>   
+                        <td >阅读会编号</td>                  
+                    </tr>
+                    <volist name="arrs" id="arr" >
+                    <tr> 
+                        <td >
+                        <a href="{:U('manager/manager_qingjia_shenhe?id='.$arr['id'].'&manager_op='.$manager_op)}">
+                        审核</a>  
+                        </td>                 
+                        <td  >{$arr.id}</td>
+                        <td  >{$arr.oper_name}</td>                    
+                        <td  >{$arr.oper_num}</td>
+                        <td  >{$arr.oper_city}</td>
+                        <td  >{$arr.meeting_id}</td>                    
+                    </tr>                  
+                    </volist>         
+                </table>
+            </div>
+        </empty>
+    <elseif condition="$manager_op eq 2 "/>
+        <empty name="arrs">
+            暂无相关信息
+        <else/>  
+            <div class="show_list" >
+                <h3>阅读会请假人员待审核列表</h3>     
+                <table >
+                    <tr>
+                        <td >操作</td>
+                        <td >申请单编号</td>
+                        <td >申请人</td>         
+                        <td >员工部门</td>   
+                        <td >阅读会编号</td>
+                        <td >上级审核人</td>          
+                    </tr>
+                    <volist name="arrs" id="arr" >
+                    <tr> 
+                        <td >
+                        <a href="{:U('manager/manager_qingjia_shenhe?id='.$arr['id'].'&manager_op='.$manager_op)}">
+                        审核</a>  
+                        </td>                 
+                        <td  >{$arr.id}</td>
+                        <td  >{$arr.oper_name}</td>                   
+                        <td  >{$arr.oper_city}</td>
+                        <td  >{$arr.meeting_id}</td> 
+                        <td  >{$arr.shenhe_oper}</td>                   
+                    </tr>                  
+                    </volist>         
+                </table>
+            </div>
+        </empty>
+    <elseif condition="$manager_op eq 3 " />
+        <empty name="arrs">
+            暂无相关信息
+        <else/> 
+            <div class="show_list" >
+                <h3>阅读会请假人员待审核列表</h3>     
+                <table >
+                    <tr>
+                        <td >操作</td>
+                        <td >申请单编号</td>
+                        <td >申请人</td>         
+                        <td >员工部门</td>   
+                        <td >阅读会编号</td>
+                        <td >上级审核人</td>          
+                    </tr>
+                    <volist name="arrs" id="arr" >
+                    <tr> 
+                        <td >
+                        <a href="{:U('manager/manager_qingjia_shenhe?id='.$arr['id'].'&manager_op='.$manager_op)}">
+                        审核</a>  
+                        </td>                 
+                        <td  >{$arr.id}</td>
+                        <td  >{$arr.oper_name}</td>                   
+                        <td  >{$arr.oper_city}</td>
+                        <td  >{$arr.meeting_id}</td> 
+                        <td  >{$arr.shenhe_oper}</td>                   
+                    </tr>                  
+                    </volist>         
+                </table>
+            </div>
+        </empty>
+    </if>   
+
+    <div class="ft">
+    {$_page}    
+    </div> 
+</div>      
+</block>
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+ <script type="text/javascript">
+  
+ </script> 
+</block>

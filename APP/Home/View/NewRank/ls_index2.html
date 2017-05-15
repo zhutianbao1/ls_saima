@@ -1,0 +1,289 @@
+<div class="rig">
+	<!-- 本月赛马条线数据 -->
+	<div class="rig-mod">
+		<h2 class="rig-title">本月赛马 <a href="{:U('NewRank/rank_whole',array('month'=>$month))}" target="_blank">查看全部</a><a href="{:U('NewRank/rank_follow_line',array('month'=>$month))}" target="_blank">更改默认条线</a><a href="{:U('NewRank/rank_new',array('month'=>$month,'rn'=>1))}" target="_blank">更多关注条线</a><a href="{:U('msg/index')}" target="_blank">目标录入</a><a href="{:U('index/lead')}" target="_blank">上传照片</a></h2>
+		<div class="table-title">
+			<div style="width:190px;float:left;text-align: center;">部门条线</div>
+			<ul>
+				<li style="list-style-type: none;">
+					<div class="td-data">前三马</div><div class="td-data">县市</div><div class="td-data">得分</div>
+					<div class="td-data">后三马</div><div class="td-data">县市</div><div class="td-data">得分</div>
+				</li>
+			</ul>
+		</div>
+		<volist name="con" id="cons" offset="0" length="3">
+			<div class="table">
+				<div class="td"><span>{$cons['NAME']}</span><a href="{:U('NewRank/rank_info',array('month'=>$month,'id'=>$cons['ID']))}" target="_blank">详情</a><a target="_blank" href="{:U('msg/msg_priview',array('id'=>$cons['CONFIG_ID']))}">目标</a><a href="{:U('index/rank_question',array('config_id'=>$cons['ID']))}" target="_blank">答疑</a><span style="font-size:12px;">点击量:{$cons['ZAN']|intval}</span></div>
+				<!-- 前三马 -->
+				<ul class="td2">
+					<volist name='user_front' id='user'>
+						<if condition="($cons['ID'] eq $user['CONFIG_ID'])">
+							<li style="color:#ff6f02;">
+								<div class="td-data nor" title="{$user['USER_NAME']}">{$user['USER_NAME']}</div><div class="td-data">{$user['COUNTY_NAME']}</div><div class="td-data">{$user['AMOUNT']}</div>
+							</li>
+						</if>
+					</volist>
+				</ul>
+				<!-- 后三马 -->
+				<ul class="td2">
+					<volist name='user_back' id='user'>
+						<if condition="($cons['ID'] eq $user['CONFIG_ID'])">
+							<li>
+								<div class="td-data nor" title="{$user['USER_NAME']}">{$user['USER_NAME']}</div><div class="td-data">{$user['COUNTY_NAME']}</div><div class="td-data">{$user['AMOUNT']*1}</div>
+							</li>
+						</if>
+					</volist>
+				</ul>
+			</div>
+		</volist>
+	</div>
+	<!-- 系统相关 -->
+	<div class="rig-mod">
+		<h2 class="rig-title">系统相关<span class="active" id="avd-pre" style="border-right:1px solid #ccc;margin-left:30px;">个人先进</span><span id="avd-tem">团队先进</span></h2>
+		<!-- 个人先进 -->
+		<div id="avd-pre1" class="advanced">
+			<div>
+				<ul class="new" style="overflow: hidden;">
+				<volist name="gr" id="gr">
+					<li><a target="_blank" href="http://10.78.1.85/input/notice/contant.jsp?id={$gr['NOTICE_TYPE']}&mid={$gr['NO_ID']}" target="_blank" title="{$gr['NO_TITLE']}"><div class="nor">{$gr.NO_TITLE}</div><span>{$gr.NO_CREATE_DATE|strtotime|date="Y/m/d",###}</span></a></li>
+				</volist>
+				</ul>
+			</div><a target="_blank" style="color:#535353;" href="http://10.78.1.85/input/notice/contant-list.jsp?id=221">查看更多 >></a>
+		</div>
+		<!-- 团队先进 -->
+		<div id="avd-tem1" class="advanced" style="display:none">
+			<div>
+				<ul class="new" style="overflow: hidden;">
+				<volist name="td" id="gr">
+					<li><a target="_blank" href="http://10.78.1.85/input/notice/contant.jsp?id={$gr['NOTICE_TYPE']}&mid={$gr['NO_ID']}" target="_blank" title="{$gr['NO_TITLE']}"><div class="nor">{$gr.NO_TITLE}</div><span>{$gr.NO_CREATE_DATE|strtotime|date="Y/m/d",###}</span></a></li>
+				</volist>
+				</ul>
+			</div><a target="_blank" style="color:#535353;" href="http://10.78.1.85/input/notice/contant-list.jsp?id=222">查看更多 >></a>
+		</div>
+	</div>
+</div>
+<!-- 左侧榜单 -->
+<div class="lef">
+<!-- 荣誉榜 -->
+	<div class="frame" style="height:383px;">
+		<div class="frame-tit">荣誉榜</div>
+		<div class="tab ryTab"><span class="active-y" id="qlm">千里马</span><span id="jm">骏马</span><span id="hm">黑马</span></div>
+		<!-- 千里马 -->
+		<div id="demo_qlm" style="overflow:hidden;height:300px;float:left;">
+			<div id="demo_qlm1">
+				<ul class="td3">
+				<volist name='user_qlm' id='user'>
+					<a href="{:U('newRank/rank_year_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>'2017year'))}" target="_blank"><li>
+					<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"   width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+						<div class="td-data2 nor" title="{$user['COUNTY_NAME']}/{$user['USER_NAME']}">{$user['COUNTY_NAME']}/{$user['USER_NAME']}</div>
+						<div class="td-data2 nor" title="{$user['POS_NAME']}">{$user['POS_NAME']}</div>
+						<div class="td-data2">第{$user['RANK']}名</div>
+						<div class="td-data2" style="color:#979797">总积分：{$user['SCORE']}</div>
+					</li></a>
+				</volist>
+				</ul>
+			</div>
+			<div id="demo_qlm2"></div>
+		</div>
+		<!-- 骏马 -->
+		<div id="demo_jm" style="overflow:hidden;height:300px;float:left;display:none">
+			<div id="demo_jm1">
+				<ul class="td3">
+				<volist name='user_jm' id='user'>
+					<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>$user['RPT_MONTH']))}" target="_blank"><li>
+					<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"   width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+						<div class="td-data2 nor" title="{$user['COUNTY_NAME']}/{$user['USER_NAME']}">{$user['COUNTY_NAME']}/{$user['USER_NAME']}</div>
+						<div class="td-data2 nor" title="{$user['POS_NAME']}">{$user['POS_NAME']}</div>
+						<div class="td-data2">第{$user['RANK']}名</div>
+						<div class="td-data2">&nbsp;</div>
+					</li></a>
+				</volist>
+				</ul>
+			</div>
+			<div id="demo_jm2"></div>
+		</div>
+		<!-- 黑马 -->
+		<div id="demo_hm" style="overflow:hidden;height:300px;float:left;display:none">
+			<div id="demo_hm1">
+				<ul class="td3">
+				<volist name='user_hm' id='user'>
+					<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>$user['RPT_MONTH']))}"    target="_blank"><li>
+					<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"   width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+						<div class="td-data2 nor" title="{$user['COUNTY_NAME']}/{$user['USER_NAME']}">{$user['COUNTY_NAME']}/{$user['USER_NAME']}</div>
+						<div class="td-data2 nor" title="{$user['POS_NAME']}">{$user['POS_NAME']}</div>
+						<div class="td-data2">第{$user['RANK']}名</div>
+						<div class="td-data2" style="color:#979797">排名提升:{$user['RANK_MINUS']}</div>
+					</li></a>
+				</volist>
+				</ul>
+			</div>
+			<div id="demo_hm2"></div>
+		</div>
+		<a target="_blank" style="color:#535353;margin-left:5px;" href="{:U('newRank/rank_ryb',array('month'=>$month))}">查看更多 >></a>
+	</div>
+<!-- 先锋榜 -->
+	<div class="frame" style="height:380px;margin-top:30px;">
+		<div class="frame-tit">先锋榜</div>
+		<div class="tab xfTab"><span class="active-x" id="khjl">客户经理</span><span id="xsjl">销售经理</span><span id="yyy">营业员</span></div>
+		<!-- 营业员 -->
+		<div id="demo_yyy" style="overflow:hidden;height:300px;float:left;display:none">
+			<div id="demo_yyy1">
+				<ul class="td3">
+				<volist name='yyy' id='user'>
+					<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>1016,'month'=>$month,'pas'=>yy))}" target="_blank"><li>
+					<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+						<div class="td-data2">{$user['COUNTY_NAME']}/{$user['OBJ_NAME']}</div>
+						<div class="td-data2 nor" title="{$user['ORG_NAME']}">{$user['ORG_NAME']}</div>
+						<div class="td-data2">第{$user['S_PAIMING']}名</div>
+						<div class="td-data2">综合得分：{$user['总得分']}</div>
+					</li></a>
+				</volist>
+				</ul>
+			</div>
+			<div id="demo_yyy2"></div>
+		</div>
+		<!-- 销售经理 -->
+		<div id="demo_xsjl" style="overflow:hidden;height:300px;float:left;display:none">
+			<div id="demo_xsjl1">
+				<ul class="td3">
+				<volist name='xsjl' id='user'>
+					<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>1013,'month'=>$month,'pas'=>xs))}" target="_blank"><li>
+					<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+						<div class="td-data2">{$user['COUNTY_NAME']}/{$user['MANAGER_NAME']}</div>
+						<div class="td-data2">第{$user['TOP']}名</div>
+						<div class="td-data2">综合得分：{$user['SCORE']}</div>
+					</li></a>
+				</volist>
+				</ul>
+			</div>
+			<div id="demo_xsjl2"></div>
+		</div>
+		<!-- 客户经理 -->
+		<div id="demo_khjl" style="overflow:hidden;height:300px;float:left;">
+			<div id="demo_khjl1">
+				<ul class="td3">
+				<volist name='khjl' id='user'>
+					<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['客户经理电话'],'id'=>1021,'month'=>$month,'pas'=>kh))}" target="_blank"><li>
+					<img class="aimg" src="__HEAD_IMG__{$user['客户经理电话']}.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+						<div class="td-data2">{$user['县市']}/{$user['客户经理']}</div>
+						<div class="td-data2">第{$user['排名']}名</div>
+						<div class="td-data2">综合得分：{$user['总分值']/1}</div>
+					</li></a>
+				</volist>
+				</ul>
+			</div>
+			<div id="demo_khjl2"></div>
+		</div>
+		<a target="_blank" style="color:#535353;margin-left:5px;" href="{:U('newRank/rank_xfb',array('month'=>$month))}">查看更多 >></a>
+	</div>
+	<!-- <div style="height:300px;border:1px solid #E5E4E9;border-top:4px solid #619DF2;margin-top:30px;">
+		<div style="height:40px;background:#E5E4E9;text-align:center;line-height:40px;">黑马</div>
+	</div> -->
+</div>
+<script type="text/javascript">
+var speed=100;
+//千里马
+var demo_qlm=document.getElementById("demo_qlm");
+var demo_qlm1=document.getElementById("demo_qlm1");
+var demo_qlm2=document.getElementById("demo_qlm2");
+demo_qlm2.innerHTML=demo_qlm1.innerHTML;
+function Marquee(){
+	if(demo_qlm2.offsetTop-demo_qlm.scrollTop<=demo_qlm1.offsetTop)
+		demo_qlm.scrollTop-=demo_qlm1.offsetHeight;
+	else{
+		demo_qlm.scrollTop++;
+	}
+}
+var MyMar=setInterval(Marquee,speed);
+demo_qlm.onmouseover=function() {clearInterval(MyMar)}
+demo_qlm.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
+//骏马
+var demo_jm=document.getElementById("demo_jm");
+var demo_jm1=document.getElementById("demo_jm1");
+var demo_jm2=document.getElementById("demo_jm2");
+demo_jm2.innerHTML=demo_jm1.innerHTML;
+function Marquee2(){
+	if(demo_jm2.offsetTop-demo_jm.scrollTop<=demo_jm1.offsetTop)
+		demo_jm.scrollTop-=demo_jm1.offsetHeight;
+	else{
+		demo_jm.scrollTop++;
+	}
+}
+var MyMar2=setInterval(Marquee2,speed);
+demo_jm.onmouseover=function() {clearInterval(MyMar2)}
+demo_jm.onmouseout=function() {MyMar2=setInterval(Marquee2,speed)}
+//黑马
+var demo_hm=document.getElementById("demo_hm");
+var demo_hm1=document.getElementById("demo_hm1");
+var demo_hm2=document.getElementById("demo_hm2");
+demo_hm2.innerHTML=demo_hm1.innerHTML;
+function Marquee3(){
+	if(demo_hm2.offsetTop-demo_hm.scrollTop<=demo_hm1.offsetTop)
+		demo_hm.scrollTop-=demo_hm1.offsetHeight;
+	else{
+		demo_hm.scrollTop++;
+	}
+}
+var MyMar3=setInterval(Marquee3,speed);
+demo_hm.onmouseover=function() {clearInterval(MyMar3)}
+demo_hm.onmouseout=function() {MyMar3=setInterval(Marquee3,speed)}
+//营业员
+var demo_yyy=document.getElementById("demo_yyy");
+var demo_yyy1=document.getElementById("demo_yyy1");
+var demo_yyy2=document.getElementById("demo_yyy2");
+demo_yyy2.innerHTML=demo_yyy1.innerHTML;
+function Marquee4(){
+	if(demo_yyy2.offsetTop-demo_yyy.scrollTop<=demo_yyy1.offsetTop)
+		demo_yyy.scrollTop-=demo_yyy1.offsetHeight;
+	else{
+		demo_yyy.scrollTop++;
+	}
+}
+var MyMar4=setInterval(Marquee4,speed);
+demo_yyy.onmouseover=function() {clearInterval(MyMar4)}
+demo_yyy.onmouseout=function() {MyMar4=setInterval(Marquee4,speed)}
+//销售经理
+var demo_xsjl=document.getElementById("demo_xsjl");
+var demo_xsjl1=document.getElementById("demo_xsjl1");
+var demo_xsjl2=document.getElementById("demo_xsjl2");
+demo_xsjl2.innerHTML=demo_xsjl1.innerHTML;
+function Marquee5(){
+	if(demo_xsjl2.offsetTop-demo_xsjl.scrollTop<=demo_xsjl1.offsetTop)
+		demo_xsjl.scrollTop-=demo_xsjl1.offsetHeight;
+	else{
+		demo_xsjl.scrollTop++;
+	}
+}
+var MyMar5=setInterval(Marquee5,speed);
+demo_xsjl.onmouseover=function() {clearInterval(MyMar5)}
+demo_xsjl.onmouseout=function() {MyMar5=setInterval(Marquee5,speed)}
+//客户经理
+var demo_khjl=document.getElementById("demo_khjl");
+var demo_khjl1=document.getElementById("demo_khjl1");
+var demo_khjl2=document.getElementById("demo_khjl2");
+demo_khjl2.innerHTML=demo_khjl1.innerHTML;
+function Marquee6(){
+	if(demo_khjl2.offsetTop-demo_khjl.scrollTop<=demo_khjl1.offsetTop)
+		demo_khjl.scrollTop-=demo_khjl1.offsetHeight;
+	else{
+		demo_khjl.scrollTop++;
+	}
+}
+var MyMar6=setInterval(Marquee6,speed);
+demo_khjl.onmouseover=function() {clearInterval(MyMar6)}
+demo_khjl.onmouseout=function() {MyMar6=setInterval(Marquee6,speed)}
+
+//location.href="http://10.78.1.85:9000/ranking/meeting/labour";
+// var oa="{$_SESSION['user_auth']['OA']}";
+// var bill_id="{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+// if(oa=="zhangweixing1" || oa=="shaocl" || oa=="cyq" || oa=="chenwangsheng" || oa=="lsguanj" || oa=="sy_yejh" || oa=="jyhush" || oa=="yechen7"){
+// 	window.open("http://10.78.1.85:9000/ranking/meeting/labour");
+// }
+if("{$pup}"==2){
+	//window.open("http://10.78.1.85:9000/ranking/meeting/labour");
+}
+if("{$pup}"==1){
+	window.open("http://10.78.1.85:9000/ranking/meeting/data_list");
+}
+//window.open("http://10.78.1.85:9000/ranking/meeting/labour");
+</script>

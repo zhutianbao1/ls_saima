@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>员工薪酬明细</title>   
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,
+            user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">         
+        <link rel="stylesheet" 
+              href="__STATIC__/jquery-ui-10/css/base/jquery-ui-1.10.4.custom.min.css">
+        <script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+        <script   src="__STATIC__/jquery-ui-10/js/jquery-ui-1.10.4.custom.min.js">
+        </script>
+        <script src="__STATIC__/layer/layer.js"></script>
+        <script type="text/javascript"></script>
+        <style type="text/css">
+        *{ margin:0; padding: 0;}
+        body{font-family:  "Microsoft YaHei", "微软雅黑"; 
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+        .contain{
+            width: 640px;
+            height: 600px;
+            margin:20px auto;
+            position: relative;
+            border:0px solid #ccc;
+        }
+        .reg_log{
+            position: absolute;
+            margin: 100px 80px 100px 80px;
+            border:1px solid #eee;
+            height: 400px;
+            width: 480px;
+        }
+        .group{
+            width: 300px;
+            height: 40px;
+            line-height: 40px;
+            margin:20px auto;            
+        }
+        .group label{
+            width: 40px;
+            border:0px solid red;
+            height: 38px;
+            line-height: 38px;
+            display: block;
+            float: left;
+            text-align: center;
+        }
+        .group .input-t{
+            width: 240px;
+            border:0px solid red;
+            height: 38px;
+            line-height: 38px;
+            display: block;
+            float: right;
+            border:1px solid #e9e9e9;
+            color: #666;
+            font-size: 16px;
+
+        }
+        .reg_btn,.log_btn,.pub_btn,.mod_btn{
+            width: 300px;
+            border:1px solid #e9e9e9;
+            height: 38px;
+            line-height: 38px;
+            display: block;
+            background-color: #e9e9e9;  
+            letter-spacing: 2px;    
+            color: #666;
+            font-size: 16px;  
+            font-weight: 600;    
+        }
+        .input-y{
+            width: 150px;
+            border:0px solid red;
+            height: 38px;
+            line-height: 38px;
+            display: block;
+            float: left;
+            border:1px solid #e9e9e9;
+            color: #666;
+            font-size: 16px;
+
+        }
+        .req_btn{
+            width: 100px;            
+            height: 38px;
+            line-height: 38px;
+            display: block;
+            float: right;
+            border:1px solid #e9e9e9;
+            background-color: #e9e9e9;  
+            color: #666;
+            font-size: 16px;
+        }
+
+        .ui-tooltip{
+          color: #666;
+           padding: 5px 10px;
+           font-weight: 600;
+        }
+
+        .ui-tabs .ui-tabs-nav li {   
+              padding: 0 10px;
+              color: #666;
+              font-size: 13px;
+        }
+        </style>        
+    </head>
+    <body> 
+        <div  class="contain">
+          <div id="tabs" class="reg_log">
+                <ul>
+                <li><a href="#tabs-1">注册</a></li>
+                <li><a href="#tabs-2">登录</a></li>
+                <li><a href="#tabs-3">公共账号</a></li>
+                <li><a href="#tabs-4">修改密码</a></li>
+                </ul>
+                <div id="tabs-1">
+                <form id="regForm">
+                    <div class="group">
+                        <label for="reg_name">
+                            <img src="__IMG__/user2.png" />                        
+                        </label>
+                        <input type="text" class="input-t"  name="reg_name" id="reg_name" title="请输入手机号码" />
+                    </div>
+                    <div class="group">
+                        <label for="reg_pwd"> <img src="__IMG__/pwd.png" /></label>
+                        <input type="text" class="input-t" name="reg_pwd" id="reg_pwd" title="请输入密码"/>
+                    </div> 
+                    <div class="group">
+                        <label for="reg_pwd2"><img src="__IMG__/pwd.png" /></label>
+                        <input type="text" class="input-t" name="reg_pwd2" id="reg_pwd2" title="请输入确认密码"/>
+                    </div> 
+                    <div class="group">
+                        <input type="button"  class="reg_btn"  value="立即注册" />
+                    </div>         
+                </form>
+                </div>
+                <div id="tabs-2">
+                  <form id="logForm" >
+                    <div class="group">
+                        <label for="log_name">
+                            <img src="__IMG__/user2.png" />                        
+                        </label >
+                        <input type="text" class="input-t"  name="log_name" id="log_name" title="请输入手机号码"/>
+                    </div>
+                    <div class="group">
+                        <label for="log_pwd"> <img src="__IMG__/pwd.png" /></label>
+                        <input type="text" class="input-t" name="log_pwd" id="log_pwd" title="请输入密码"/>
+                    </div>
+                    <div class="group">
+                        <input type="button"  class="log_btn"  value="登录" />
+                    </div>         
+                   </form>
+                </div>
+                <div id="tabs-3">
+                  <form id="pubForm" >
+                    <div class="group">
+                        <label for="pub_name">
+                            <img src="__IMG__/user2.png" />                        
+                        </label>
+                        <input type="text" class="input-t"  name="pub_name" id="pub_name"  />
+                    </div>
+                    <div class="group">
+                        <label for="pub_pwd"> <img src="__IMG__/pwd.png" /></label>
+                        <input type="text" class="input-t" name="pub_pwd" id="pub_pwd"   / >
+                    </div>
+                    <div class="group">
+                        <input type="button"  class="pub_btn"  value="登录" />
+                    </div>         
+                   </form>
+                </div>
+
+                <div id="tabs-4">
+                  <form id="reqForm" >
+                    <div class="group">
+                        <label for="req_name">
+                            <img src="__IMG__/user2.png" />                        
+                        </label>
+                        <input type="text" class="input-t"  name="req_name" id="req_name" title="请输入手机号码" />
+                    </div>
+                    <div class="group">
+                        <label for="req_pwd"> <img src="__IMG__/pwd.png" /></label>
+                        <input type="text" class="input-t" name="req_pwd" id="req_pwd" title="请输入新密码" / >
+                    </div>
+                    <div class="group">
+                        <label for="req_pwd2"> <img src="__IMG__/pwd.png" /></label>
+                        <input type="text" class="input-t" name="req_pwd2" id="req_pwd2" 
+                                                                         title="请输入新确认密码"/ >
+                    </div>
+                    <div class="group">
+                        <input type="text" class="input-y" name="req_ywd" id="req_ywd" title="请输入验证码" / >
+                        <input type="button"  class="req_btn" value="获取验证码" />
+                    </div>
+                    <div class="group">
+                        <input type="button"  class="mod_btn"  value="立即修改" />
+                    </div>         
+                   </form>
+                </div>
+
+            </div>
+        </div>
+    </body>
+
+<script type="text/javascript">
+ $(function() {
+    $( "#tabs" ).tabs();
+
+    $('.group').tooltip();
+
+    //注册
+    $('.reg_btn').click(function() {
+        var flag=true; 
+        if(!$('#reg_name').val()){
+            flag=false;
+            layer.alert('请输入手机号码!');
+        }
+        if(!$('#reg_pwd').val()){
+            flag=false;
+             layer.alert('请设置密码!');
+        }
+        if(!$('#reg_pwd2').val()){
+            flag=false;
+             layer.alert('请输入确认密码!');
+        }
+        if($('#reg_pwd').val()!=$('#reg_pwd2').val()){
+            flag=false;
+            layer.alert('密码和确认密码不一致!');
+        }
+        if(flag){
+            layer.confirm('确认要注册此账号密码吗?', {icon: 3, title:'提示'}, function(index){
+                url="{:U('Login/salary_user_reg')}";
+                    $.ajax({
+                       type: "POST",
+                       url: url,
+                       data: "reg_pwd="+$('#reg_pwd').val()+"&reg_pwd2="+$('#reg_pwd2').val()+"&reg_name="+$('#reg_name').val(),
+                       success: function(msg){                                           
+                       if(msg=='密码设置成功'){
+                            layer.alert('注册成功!请登录!并妥善保管密码!',{icon: 1,time:2000});
+                        }else{
+                           layer.alert(msg,{icon: 2,time:2000});
+                        }
+                       }
+                    });
+            layer.close(index);
+            });
+        }
+    });
+
+    //登录
+    $('.log_btn').click(function(event) {
+        var flag=true;
+        if(!$('#log_name').val()){
+           flag=false;
+           layer.alert('请输入手机号码!');
+        }
+        if(!$('#log_pwd').val()){
+           flag=false;
+           layer.alert('请输入密码!');
+        }
+        if(flag){
+            url="{:U('Login/salary_user_log')}";
+            $.ajax({
+               type: "POST",
+               url: url,
+               data: "log_name="+$('#log_name').val()+"&log_pwd="+$('#log_pwd').val(),
+               success: function(msg){ 
+                 layer.alert(msg); 
+                 if(msg=="登录成功"){
+                    window.location="{:U('Index/salary_index')}";
+                 }                 
+               }
+            });           
+        } 
+    });
+
+    //公共账号
+    $('.pub_btn').click(function(event) {
+        var flag=true;
+       if($('#pub_name').val()!='13900000000'){
+        flag=false;
+         layer.alert('账号错误!');
+       }
+       if($('#pub_pwd').val()!='OOoo88abc123'){
+        flag=false;
+         layer.alert('密码错误!');
+       }
+       if(flag){        
+        url="{:U('Login/salary_user_pub')}";
+        $.ajax({
+           type: "POST",
+           url: url,
+           data: "pub_name="+$('#pub_name').val()+"&pub_pwd="+$('#pub_pwd').val(),
+           success: function(msg){ 
+             layer.alert(msg); 
+             if(msg="登录成功"){
+                  window.location="{:U('Index/salary_index')}";
+             }            
+           }
+        }); 
+        
+       }
+    });
+
+    //获得验证码
+    $('.req_btn').click(function() {
+        var flag=true;
+        if(!$('#req_name').val()){
+            flag=false;
+           layer.alert('请输入手机号码!');           
+        }
+        if(flag){
+            url="{:U('Login/salary_user_yzm')}";
+            $.ajax({
+               type: "POST",
+               url: url,
+               data:"req_name="+$('#req_name').val(),            
+               success: function(msg){  
+                layer.alert(msg);
+               }
+            });
+        }       
+    });
+
+     //重置密码
+     $('.mod_btn').click(function(event) {        
+         var flag=true;
+
+         if(!$('#req_name').val()){
+            flag=false;
+            layer.alert('请输入手机号码!');
+         }
+         if(!$('#req_pwd').val()){
+            flag=false;
+            layer.alert('请输入新密码!');
+         }
+         if(!$('#req_pwd2').val()){
+            flag=false;
+            layer.alert('请输入新确认密码!');
+         }
+         if(!$('#req_ywd').val()){
+            flag=false;
+            layer.alert('请输入验证码!');
+         }
+         if($('#req_pwd').val()!=$('#req_pwd2').val()){
+            flag=false;
+            layer.alert('您输入的两次密码不一致!');
+         }
+
+        if(flag){
+              var  req_name=$('#req_name').val();
+              var  req_pwd= $('#req_pwd').val();
+              var  req_pwd2= $('#req_pwd2').val();
+              var  req_ywd= $('#req_ywd').val();
+
+              url="{:U('Login/salary_user_mod')}";
+                $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: "req_name="+req_name+"&req_pwd="+req_pwd+"&req_pwd2="+req_pwd2+"&req_ywd="+req_ywd,
+                   success: function(msg){                                                              
+                     if(msg=='密码重置成功'){
+                        layer.alert('密码重置成功,请使用新密码登录!',{icon: 1,time:2000},function(index){
+                               layer.close(index);
+                        });
+                     }else{                                 
+                        layer.alert(msg,{icon: 2,time:2000});
+                     }                        
+                   }
+                });  
+         }
+     });
+  });
+</script>
+
+
+</html>

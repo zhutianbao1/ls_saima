@@ -1,0 +1,32 @@
+<extend name="pub/main_hr"/>
+<head>
+	<title>报名详情</title>
+	<link rel="stylesheet" href="__CSS__/rank_style.css">
+	<style type="text/css">
+		.model-foot{margin-left: 50%;right:500px;position: relative;margin-top: 100px;}
+	</style>
+</head>
+<block name="body">
+	<div class="model-foot">
+		<table cellpadding="0" cellspacing="0" border="0" width="1000px" align="center">
+			<tr>
+				<td class="rank-title">培训名称</td>
+				<td class="rank-title">已报名人数</td>
+				<td class="rank-title">应报名人数</td>
+				<td class="rank-title">是否开班</td>
+				<td class="rank-title">开班时间</td>
+				<td class="rank-title">培训形式</td>
+			</tr>
+			<volist name="que" id="que">
+			<tr class="c">
+				<td>{$que.课程}</td>
+				<td>{$que.报名人数|intval}</td>
+				<td>30</td>
+				<td>否</td>
+				<td>待定</td>
+				<td>课堂授课</td>
+			</tr>
+			</volist>
+		</table>
+	</div>
+</block>

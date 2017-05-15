@@ -1,0 +1,29 @@
+*{ margin:0; padding: 0;}
+.contain{width: 1000px; margin: 0 auto;}
+.contain h3{height:30px;line-height:30px;text-align:center;letter-spacing:1px;color: #666;margin-top:10px;}
+.box{margin-top: 10px;}
+.box fieldset{margin:10px;}
+.group{width: 96%;margin:10px auto;}
+.group table{width: 100%; border:1px solid #ccc; border-collapse: collapse;}
+.group table tr{height: 25px;  line-height: 25px;}
+.group table tr td{  font-size: 13px;  color: #666;  border: 1px solid #ccc;}
+.group .group_div{  width: 100%;  height: 30px;  margin-top: 5px;  line-height: 30px;}
+.group_div label{  width: 20%;  display: inline-block;  text-align: right;  font-size: 13px;  color: #666;}
+.group_div input[type='text']{  width: 70%;  height: 25px;  line-height: 25px;  border:1px solid #666;
+                    font-size: 13px;  text-indent: 5px;  color: #666;}
+.group_div select{  width: 70%;  height: 25px;  line-height: 25px;  border:1px solid #666;  font-size: 13px;
+          text-indent: 5px;  color: #666;}
+.group_div1{  width: 96%;  height: 30px;  line-height: 30px;  margin:10px auto;  text-align: center;}
+.group_div1 .btn{  color: #666;  font-size: 13px;  padding:4px 15px;  letter-spacing: 5px;  outline: none;
+                  border:1px solid #666;}
+.group_div2 label{  width: 20%;  display: inline-block;  text-align: right;  font-size: 13px;  color: #666;
+                  float: left;  line-height: 100px;}
+
+
+.group_div2 textarea{width: 70%;height: 100px;color: #666;font-size: 13px;font-weight: 500;
+text-indent: 5px;margin-top: 5px;border:1px solid #666; display: inline-block;float: left;
+margin-left: 5px;
+}
+
+
+.clear{  clear: both;}

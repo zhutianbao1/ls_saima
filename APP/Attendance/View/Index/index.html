@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>考勤管理平台</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="__PUBLIC__/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" href="__PUBLIC__/easyui/themes/icon.css" />
+<link rel="stylesheet" href="__PUBLIC__/Attendance/style/index.css" />
+</head>
+<body class="easyui-layout">
+
+<div data-options="region:'north',title:'header',split:false,noheader:true" style="height:60px;background:#19b5ee;">
+	<div class="logo">考勤管理平台</div>
+	<div class="logout">您好，<?php echo $_SESSION[user_auth][OA]?></div>
+	<!-- <div class="logout">您好，<?php echo $_SESSION[user_auth][OA]?> | <a href="logout.php">退出</a></div> -->
+</div>   
+<div data-options="region:'south',title:'footer',split:false,noheader:true" style="height:35px;line-height:30px;text-align:center;background: #19b5ee;">
+	&copy; Powered by PHP and EasyUI.
+</div>    
+<!-- <div data-options="region:'west',title:'导航',split:false,iconCls:'icon-world'" style="width:180px;padding:10px;">
+	<ul id="nav"></ul> -->
+</div>   
+<div data-options="region:'center'" style="overflow:hidden;background: #fff">
+	<table id="manager"></table>
+	<div id="manager_tool" style="padding: 5px 0;">
+		<div style="margin-bottom: 5px;">
+			<!-- <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="manager_tool.add();">添加</a> -->
+			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="edit();">操作</a>
+			<!-- <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="manager_tool.remove();">删除</a> -->
+			<a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="reload();">刷新</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-redo" plain="true" onclick="redo();">取消</a>
+		</div>
+		<div style="padding: 0 0 0 7px;color: #333;">
+			员工姓名：<input type="text" class="textbox" name="empl_name" style="width: 110px;height: 22px;">
+			打卡时间从：<input type="text" name="start_time" class="easyui-datebox" editable="false" style="width: 110px;">
+			到：<input type="text" name="end_time" class="easyui-datebox" editable="false" style="width: 110px;">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="searches();">查询</a>
+		</div>
+	</div>
+	<form id="manager_add" style="margin: 0;padding: 5px 0 0 25px;color: #333;">
+		<p>管理帐号：<input type="text" name="manager" class="textbox" style="width: 200px;"></p>
+		<p>管理密码：<input type="password" name="password" class="textbox" style="width: 200px;"></p>
+		<p>分配权限：<input id="auth" name="auth" class="textbox" style="width: 205px;"></p>
+	</form>
+
+	<form id="manager_edit" style="margin: 0;padding: 5px 0 0 25px;color: #333">
+		<input type="hidden" name="empl_dept" class="textbox" style="width: 200px;">
+		<input type="hidden" name="empl_type" class="textbox" style="width: 200px;" />
+		<p>员工编号：<input type="text" name="empl_no" class="textbox" readonly style="width: 200px;"></p>
+		<p>员工姓名：<input type="text" name="empl_name" class="textbox" readonly style="width: 200px;" id="empl_name" /></p>
+		<p>打卡时间：<input type="text" name="clock_day" class="textbox" readonly style="width: 200px;" /></p>
+		<p>原因说明：<textarea name="reason" id="reason" class="textarea" style="width: 200px;height: 60px;"></textarea></p>
+	</form>
+</div> 
+<script type="text/javascript" src="__PUBLIC__/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Attendance/js/index.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	var url = "{:U('Index/index_list')}";
+	$("#manager").datagrid({
+		url:url,
+		fit:true,
+		fitColumns:true,
+		striped:true,
+		rownumbers:true,
+		border:false,
+		pagination:true,
+		pageSize:20,
+		pageList:[10,20,30,40,50],
+		pageNumber:1,
+		sortName:'date',
+		sortOrder:'desc',
+		toolbar:'#manager_tool',
+		columns:[[
+			{
+				field:'',
+				title:'编号',
+				width:100,
+				checkbox:true
+			},
+			{
+				field:'EMPL_NO',
+				title:'员工编号',
+				width:100
+			},
+			{
+				field:'EMPL_NAME',
+				title:'员工姓名',
+				width:100
+			},
+			{
+				field:'EMPL_DEPT',
+				title:'员工部门',
+				width:100
+			},
+			{
+				field:'EMPL_TYPE',
+				title:'员工类型',
+				width:100
+			},
+			{
+				field:'CLOCK_DAY',
+				title:'打卡日期',
+				width:100
+			},
+			{
+				field:'AM_START',
+				title:'上午上班',
+				width:100
+			},
+			{
+				field:'AM_END',
+				title:'上午下班',
+				width:100
+			},
+			{
+				field:'PM_START',
+				title:'下午上班',
+				width:100
+			},
+			{
+				field:'PM_END',
+				title:'下午下班',
+				width:100
+			},
+			{
+				field:'REASON',
+				title:'原因说明',
+				width:500,
+				formatter:function(value){
+					if(value != "" && value != undefined && value != null){
+						return "<span title='" + value + "'>" + value + "</span>";
+					}
+				}
+			}
+		]]
+	}).datagrid({loadFilter:pagerFilter});
+
+	$("#manager_add").dialog({
+		width:350,
+		title:'新增',
+		modal:true,
+		closed:true,
+		iconCls:'icon-add',
+		buttons:[{
+			text:'提交',
+			iconCls:'icon-add',
+			handler:function(){
+				if($("#manager_add").form('validate')){
+					$.ajax({
+						url:"{:U('Index/index_add')}",
+						type:'post',
+						data:{
+							manager:$("input[name=manager]").val(),
+							password:$("input[name=password]").val()
+						},
+						beforeSend:function(){
+							$.messager.progress({
+								text:'正在提交...'
+							});
+						},
+						success:function(data,response,status){
+							$.messager.progress('close');
+							if(data>0){
+								$.messager.show({
+									title:'提示',
+									msg:'新增成功'
+								});
+								$("#manager_add").dialog('close').form('reset');
+								$("#manager").datagrid('reload');
+							}else{
+								$.messager.alert('新增失败','未知错误','warning');
+							}
+						}
+					});
+				}
+			}
+		},
+		{
+			text:'取消',
+			iconCls:'icon-redo',
+			handler:function(){
+				$("#manager_add").dialog('close').form('reset');
+			}
+		}]
+	});
+
+	$("#manager_edit").dialog({
+		width:350,
+		title:'操作',
+		modal:true,
+		closed:true,
+		iconCls:'icon-edit',
+		buttons:[{
+			text:'提交',
+			iconCls:'icon-edit',
+			handler:function(){
+				if($("#manager_edit").form('validate')){
+					$.ajax({
+						url:"{:U('Index/update_info')}",
+						type:'post',
+						data:{
+							empl_no:$("input[name=empl_no]").val(),
+							empl_name:$("#empl_name").val(),
+							empl_dept:$("input[name=empl_dept]").val(),
+							empl_type:$("input[name=empl_type]").val(),
+							clock_day:$("input[name=clock_day]").val(),
+							reason:$("[name=reason]").val()
+						},
+						beforeSend:function(){
+							$.messager.progress({
+								text:'提交中...'
+							})
+						},
+						success:function(data,response,status){
+							$.messager.progress('close');
+							if(data>0){
+								$.messager.show({
+									title:'提示',
+									msg:'操作成功'
+								});
+								$("#manager_edit").dialog('close').form('reset');
+								$("#manager").datagrid('reload');
+							}else{
+								$.messager.alert('操作失败','未知错误','warning');
+							}
+						}
+					});
+				}
+			}
+		},
+		{
+			text:'取消',
+			iconCls:'icon-redo',
+			handler:function(){
+				$("#manager_edit").dialog('close').form('reset');
+			}
+		}]
+	});
+
+	// manager_tool = {
+	// 	add:function(){
+	// 		$("#manager_add").dialog('open');
+	// 		$("input[name=manager]").focus();
+	// 	},
+	// 	edit:function(){
+	// 		var rows = $("#manager").datagrid('getSelections');
+	// 		if(rows.length>1){
+	// 			$.messager.alert('警告操作','只能选择一条数据','warning');
+	// 		}else if(rows.length == 1){
+	// 			$.ajax({
+	// 				url:"{:U('Index/get_info')}",
+	// 				type:'post',
+	// 				data:{
+	// 					empl_no:rows[0].EMPL_NO,
+	// 					clock_day:rows[0].CLOCK_DAY
+	// 				},
+	// 				beforeSend:function(){
+	// 					$.messager.progress({
+	// 						text:'加载中...'
+	// 					});
+	// 				},
+	// 				success:function(data,response,status){
+	// 					$.messager.progress('close');
+	// 					if(data){
+	// 						var obj = $.parseJSON(data);
+	// 						$("#manager_edit").form('load',{
+	// 							empl_dept:obj[0].EMPL_DEPT,
+	// 							empl_no:obj[0].EMPL_NO,
+	// 							empl_name:obj[0].EMPL_NAME,
+	// 							clock_day:obj[0].CLOCK_DAY,
+	// 							empl_type:obj[0].EMPL_TYPE
+	// 						}).dialog('open');
+	// 					}else{
+	// 						$.messager.alert('加载失败','未知错误','warning');
+	// 					}
+	// 				}
+	// 			});
+	// 		}else if(rows.length == 0){
+	// 			$.messager.alert('警告操作','请选择一条记录','warning');
+	// 		}
+	// 	},
+	// 	reload:function(){
+	// 		$("#manager").datagrid('reload');
+	// 	},
+	// 	redo:function(){
+	// 		$("#manager").datagrid('unselectAll');
+	// 	},
+	// 	search:function(){
+	// 		$.ajax({
+	// 			url:"{:U('Index/index_list')}",
+	// 			type:'post',
+	// 			data:{
+	// 				empl_name:$("input[name=empl_name]").val(),
+	// 				start_time:$("input[name=start_time]").val(),
+	// 				end_time:$("input[name=end_time]").val()
+	// 			},
+	// 			beforeSend:function(){
+	// 				$.messager.progress({
+	// 					text:'加载中...'
+	// 				});
+	// 			},
+	// 			success:function(data,response,status){
+	// 				$.messager.progress('close');
+	// 				//data = JSON.parse(data);
+	// 				data = $.parseJSON(data);
+	// 				$("#manager").datagrid('loadData',data);
+	// 			}
+	// 		});
+	// 	}
+	// }
+
+
+	//datagrid分页
+	function pagerFilter(data){
+        if (typeof data.length == 'number' && typeof data.splice == 'function'){    // 判断数据是否是数组
+            data = {
+                total: data.length,
+                rows: data
+            }
+        }
+        var dg = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage:function(pageNum, pageSize){
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh',{
+                    pageNumber:pageNum,
+                    pageSize:pageSize
+                });
+                dg.datagrid('loadData',data);
+            }
+        });
+        if (!data.originalRows){
+            data.originalRows = (data.rows);
+        }
+        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
+});
+
+function add(){
+	$("#manager_add").dialog('open');
+	$("input[name=manager]").focus();
+}
+
+function edit(){
+	var rows = $("#manager").datagrid('getSelections');
+	if(rows.length>1){
+		$.messager.alert('警告操作','只能选择一条数据','warning');
+	}else if(rows.length == 1){
+		$.ajax({
+			url:"{:U('Index/get_info')}",
+			type:'post',
+			data:{
+				empl_no:rows[0].EMPL_NO,
+				clock_day:rows[0].CLOCK_DAY
+			},
+			beforeSend:function(){
+				$.messager.progress({
+					text:'加载中...'
+				});
+			},
+			success:function(data,response,status){
+				$.messager.progress('close');
+				if(data){
+					var obj = $.parseJSON(data);
+					$("#manager_edit").form('load',{
+						empl_dept:obj[0].EMPL_DEPT,
+						empl_no:obj[0].EMPL_NO,
+						empl_name:obj[0].EMPL_NAME,
+						clock_day:obj[0].CLOCK_DAY,
+						empl_type:obj[0].EMPL_TYPE
+					}).dialog('open');
+				}else{
+					$.messager.alert('加载失败','未知错误','warning');
+				}
+			}
+		});
+	}else if(rows.length == 0){
+		$.messager.alert('警告操作','请选择一条记录','warning');
+	}
+}
+
+function redo(){
+	$("#manager").datagrid('unselectAll');
+}
+
+function reload(){
+	$("#manager").datagrid('reload');
+}
+
+function searches(){
+	$.ajax({
+		url:"{:U('Index/index_list')}",
+		type:'post',
+		data:{
+			empl_name:$("input[name=empl_name]").val(),
+			start_time:$("input[name=start_time]").val(),
+			end_time:$("input[name=end_time]").val()
+		},
+		beforeSend:function(){
+			$.messager.progress({
+				text:'加载中...'
+			});
+		},
+		success:function(data,response,status){
+			$.messager.progress('close');
+			//data = JSON.parse(data);
+			data = $.parseJSON(data);
+			$("#manager").datagrid('loadData',data);
+		}
+	});
+}
+</script>
+</body>
+</html>

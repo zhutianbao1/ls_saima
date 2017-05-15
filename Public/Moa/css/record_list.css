@@ -1,0 +1,19 @@
+body{background-color: #efeff4;}
+
+
+.btn_bar{height:54px; background-color: #fff;  }
+.btn_bar:after{content:""; clear: both;}
+.btn-link-box{width:255px; margin:auto; padding-top:15px;}
+.btn_link{margin-right: 5px; width:80px; border-radius: 10px; height:28px; display: block; text-align: center; line-height:28px; color:#fff; font-size: 1em; background: #22c064;}
+.btn_link.active{background-color: #e28800;}
+.btn-link-box .btn_link{float:left;}
+
+.list_con{ background: #fff;}
+.list_con dl dt,.list_con dl dd{float:left;}
+
+.list_con dl.dt{background-color: #647a9f; text-align: center; height:40px; line-height:40px;}
+.list_con dl.dt{ background-color: #647a9f;
+    color: #fff;}
+.list_con dl.dd{height:40px; line-height:40px; text-align:center;}
+.list_con dl.db{background-color: #f8f9fb;}
+.t_left{text-align: left;}

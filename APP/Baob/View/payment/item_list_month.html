@@ -1,0 +1,103 @@
+<extend name="pub/tpl3"/>
+<block name="title">营收资金稽核及报表</block>
+<block name="css">
+		<style type="text/css">
+			.audit_btn{padding: 3px 8px;}
+			.audit_btn:hover{background-color: #eee;}
+		</style>
+</block>
+<block name="header">
+	<input type="button"  class="back_btn" value="返 回" />
+	<a class="title">营收资金稽核工单列表</a>
+</block>
+<block name="show">
+	<form action="{:U('Payment/item_list_month')}" method="post" id="theForm">
+		<input type="hidden" name="tab" value="2">
+		<div class="search_div">
+			<div class="group">
+				<label>起始:</label>
+				<input type="text" name="start_date" id="start_date"  
+			    value="{$start_date}" class="read" />
+			</div>
+
+			<div class="group">
+				<label>结束:</label>
+				<input type="text" name="end_date" id="end_date"  
+				 onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  value="{$end_date}" />
+			</div>
+			<div class="group1">
+				<input type="button" class="search_btn" value="搜 索"/>
+			</div>
+		</div>
+	</form>
+	<table>
+		<tr>			    			
+			<td>操作</td>
+			<td>县市</td>
+			<td>结算金额</td>
+			<td>面值500</td>
+			<td>面值300</td>
+			<td>面值100</td>
+			<td>面值50</td>
+			<td>面值30</td>
+			<td>面值20</td>			    			
+		</tr>
+		<if condition="$lists[0]['AMOUNT'] eq '0' ">
+			<tr>			    				
+				<td colspan="9" style="text-indent: 20px;text-align: left;">暂无数据</td>
+			</tr>
+		<else/>
+			<tr>
+			   	<td>
+					<a href="{:U('Payment/second_audit_details?start_date='.$start_date.'&end_date='.$end_date)}" 
+					class="audit_btn">稽核</a>
+				</td>
+				<td>{$_SESSION['payment']['COUNTY_NAME']}</td>
+				<td>{$lists[0]['AMOUNT']}</td>
+				<td>{$lists[0]['PRICE500']}</td>
+				<td>{$lists[0]['PRICE300']}</td>
+				<td>{$lists[0]['PRICE100']}</td>
+				<td>{$lists[0]['PRICE50']}</td>
+				<td>{$lists[0]['PRICE30']}</td>
+				<td>{$lists[0]['PRICE20']}</td>
+			</tr>
+		</if>
+	</table>
+</block>
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+			$('.read').attr('readonly',true);
+			$('.read').css('background-color','#eee');
+
+			$('.back_btn').click(function(){
+				window.location="{:U('Login/payment_index')}";
+			});
+
+			var amount='{$lists[0]['AMOUNT']}';
+			if(amount=='0'){
+				$('.sub_btn').attr('disabled',true);
+			}
+			
+	        $('.search_btn').click(function(){
+	        	var start_date=$('#start_date').val();
+	        	var end_date=$('#end_date').val();
+
+	        	var flag=true;
+	        	if(start_date.isEmpty()){
+	               flag=false;
+	               layer.alert('请选择你要稽核的起始日期!');
+	        	}
+	        	if(end_date.isEmpty()){
+	               flag=false;
+	               layer.alert('请选择你要稽核的结束日期!');
+	        	}
+	        
+	        	if(flag){
+	        		$('#theForm').submit();
+	        	}
+	        });
+		});
+	</script>
+</block>
+

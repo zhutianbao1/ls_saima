@@ -1,0 +1,201 @@
+<extend name="./base"/>
+
+<block name="title">中层廉政档案</block>
+<block name="css">
+  <style>
+  .family{width:200px;}
+  a{text-decoration:none;color:#333;}
+  a:hover{text-decoration:none !important;}
+  </style>
+</block>
+
+<block name="nav">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">中层干部廉政档案</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+</block>
+
+<block name="content">
+<form class="form" action="{:U('dagl/query')}" method="post">
+  <div>
+    <label>部门:</label>
+    <input type="text" name="dept" value=""/>
+    <label>用户姓名:</label>
+    <input type="text" name="user_name" value=""/>
+    <label>年份:</label>
+    <select name="year">
+      <option value=""></option>
+      <option value="2015">2015</option>
+      <option value="2016">2016</option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+      <option value="2020">2020</option>
+    </select>
+  </div>
+
+  <div>
+    <label>档案状态:</label>
+    <select name="deal_status">
+      <option value=""></option>
+      <option value="1">拟稿</option>
+      <option value="2">档案管理员</option>
+      <option value="3">纪检部门经理</option>
+      <option value="4">纪检书记</option>
+      <option value="5">定稿</option>
+    </select>
+    <button class="btn query"/>查询</button>
+  </div>
+</form>
+<!--
+<div class="btn-box">
+  <button class="btn add"/>创建个人档案</button><button class="btn modify"/>修改</button><button class="btn audit"/>审批</button><button class="btn preview"/>查看</button>
+</div>
+-->
+
+<table class="altrowstable">
+  <div style="font-size:14px;font-weight:600">档案查询：</div>
+  <tr><th>编号</th><th>档案年份</th><th>部门</th><th>姓名</th><th>出生年月</th><th>民族</th><th>性别</th><th>婚姻状况</th><th>学历</th><th>参加工作时间</th><th>职务</th><th>任现职时间</th><th>政治面貌</th><th>入党时间</th><th class="family">家庭住址</th><th>当前节点</th></tr>
+  <volist name="dalist" id="dl">
+  <tr>
+    <a href="{:U('dagl/preview')}?id={$dl['ID']}"><td>{$dl['ID']}</td><td>{$dl['YEAR']}</td><td>{$dl['DEPT']}</td><td>{$dl['USER_NAME']}</td><td>{$dl['BIRTH']}</td><td>{$dl['NATION']}</td><td>{$dl['SEX']}</td><td>{$dl['MARITAL']}</td><td>{$dl['EDU_DEGREE']}</td><td>{$dl['HIREDATE']}</td><td>{$dl['CURR_JOB']}</td><td>{$dl['CURR_WORKTIME']}</td><td>{$dl['POLITICAL']}</td><td>{$dl['PARTY_TIME']}</td><td>{$dl['FAMILY_ADDRESS']}</td><td>{$dl['TB_STATUS']}</td></a>
+  </tr>
+  </volist>
+</table>
+{$_page}
+
+<block name="jsfile">
+<script src="__STATIC__/validForm/Validform_v5.3.2_min.js"></script>
+<script src="__STATIC__/date/WdatePicker.js"></script>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+  var auditStatus = "{$deal_status}";
+  $("select[name='deal_status']").val(auditStatus);//选中审批状态
+  $("input[name='dept']").val("{$dept}");
+  $("input[name='user_name']").val("{$user_name}");
+  $("select[name='year']").val("{$year}");
+  //查询页面操作的按钮组（角色权限控制）
+  var create = "{$btnGroup['create']}";
+  if(create=='1'){
+    $(".add").css("display","inline-block");
+  }else{
+    $(".add").css("display","none");
+  }
+  var modify = "{$btnGroup['modify']}";
+  if(modify=='1'){
+    $(".modify").css("display","inline-block");
+  }else{
+    $(".modify").css("display","none");
+  }
+  var audit = "{$btnGroup['audit']}";
+  if(audit=='1'){
+    $(".audit").css("display","inline-block");
+  }else{
+    $(".audit").css("display","none");
+  }
+  var preview = "{$btnGroup['preview']}";
+  if(preview=='1'){
+    $(".preview").css("display","inline-block");
+  }else{
+    $(".preview").css("display","none");
+  }
+
+  /* 审批状态是 空值 和 已办理 无 创建个人档案、修改、审批按钮;
+   * 必须放在上面角色控制按钮的下面，否则无法控制
+   */
+  if(auditStatus==''){
+    $("input[name='line']").css("display","none");
+  }
+
+  $(".add").click(function(){
+    location.href="{:U('dagl/add')}";
+  });
+
+  $(".modify").click(function(){
+    var len = $("input[name='line']:checked").length;
+    if(len == 0){
+      alert("未选中编辑数据");
+      return false;
+    }if(len > 1){
+      alert("同时只允许编辑一条记录");
+      return false;
+    }else{
+      var oper_id="<?=session('user_auth.OPER_ID')?>";
+      var param = $('input[name="line"]:checked').attr("param");
+
+      if(param!=undefined && param!=''){
+        $.ajax({
+          type:'post',
+          url:"{:U('dagl/cando')}",
+          async : false,
+          data:{id:param},
+          dataType:'json',
+          success:function(re){
+            if(re.cando){
+              location.href="{:U('dagl/update')}?id="+param;
+            }else{
+              alert('他人的档案，请"审批"');
+              return false;
+            }
+          }
+        });
+      }
+    }
+  });
+
+  $(".audit").click(function(){
+    var len = $("input[name='line']:checked").length;
+    if(len == 0){
+      alert("未选中编辑数据");
+      return false;
+    }if(len > 1){
+      alert("同时只允许编辑一条记录");
+      return false;
+    }else{
+      var oper_id="<?=session('user_auth.OPER_ID')?>";
+      var param = $('input[name="line"]:checked').attr("param");
+      if(param!=undefined && param!=''){
+        $.ajax({
+          type:'post',
+          url:"{:U('dagl/cando')}",
+          async : false,
+          data:{id:param},
+          dataType:'json',
+          success:function(re){
+            if(re.cando){
+              alert('您自己的档案，请"修改"');
+              return false;
+            }else{
+              location.href="{:U('dagl/update')}?id="+param;
+            }
+          }
+        });
+      }
+    }
+  });
+
+  $(".preview").click(function(){
+    var len = $("input[name='line']:checked").length;
+    if(len == 0){
+      alert("未选中须查看数据");
+      return false;
+    }if(len > 1){
+      alert("同时只允许查看一条记录");
+      return false;
+    }else{
+      var param = $('input[name="line"]:checked').attr("param");
+      location.href="{:U('dagl/preview')}?id="+param;
+    }
+  });
+});
+
+</script>
+</block>

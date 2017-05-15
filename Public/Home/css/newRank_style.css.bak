@@ -1,0 +1,154 @@
+*{margin:0px;padding: 0px;text-decoration: none;font-size: 12px;}
+* , html , body{margin:0px; padding:0px; font-family: 'MicroSoft YaHei'}
+.top{height: 280px;background:url("/ranking/Public/Home/images/bg2.png") repeat-x fixed 0 0;}
+a{color: black}
+.body{width:1000px;margin: auto;border: 0px solid red;}
+h2{display: block;font-weight: bold;font-size: 1.5em}
+.nor{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;}
+.menu{overflow: hidden;zoom:1;background:#CCE5FF;}
+.menu ul>li{float: left;list-style-type: none;}
+.menu ul li a,.m{display:block;height:35px;line-height:35px;width:120px;text-align:center;}
+.menu ul li a:hover{background:#619DF2;color: white;font-weight: bold;border-left: 4px solid blue; }
+.menu ul ul{position: absolute;display: none;z-index: 9999;}
+.menu ul ul li{float: none;background:#CCE5FF;list-style-type: none;}
+.menu ul li:hover ul{display: block;}
+.selected{background: #619DF2;display: block;color: white;font-weight: bold;border-left: 4px solid blue; }
+.think_page{top:10px;text-align: right;position: relative;}
+.think_page .num,.next,.current,.prev,.first,.end,.rows{padding:5px 10px;border:solid 1px #619DF2;font-size: 12px;text-decoration: none;background: #C8EAFF;color:#000;position: relative;}
+.think_page .current{background: #28A0FF;}
+.button a{padding:6px 10px;position: relative;top:6px;margin-right:2px;background:#DAF1FF;font-weight:bold;color:#535353;}
+.button a:hover{color:white;background:#619df2;font-weight: bold;}
+
+/*头部个人属性*/
+.my_info ul{float:left;margin: -5px 0 0 -5px;}
+.my_info ul li{width:160px;list-style-type:none;height:30px;line-height:30px;margin-left:10px;font-weight:400;color:#313c53}
+.my_info li span{font-weight: bold;color: black}
+.float2 {overflow: hidden;width: 600px;}
+.pag1-1{background: url("/ranking/Public/Home/images/arrow.png") no-repeat 115px 5px;}
+.pag1-2{background: url("/ranking/Public/Home/images/arrow.png") no-repeat 115px -71px;}
+
+/*我的关注*/
+.pag li{list-style-type:none;width:49%;float: left;height: 25px;line-height: 25px;}
+.pag1 li{list-style-type: none;height: 25px;float: left;line-height: 25px;width:100%;}
+.follow{left:700px;top:13px;position:relative;padding:6px;background:#ccc;border:1px solid}
+.rig-title{position: relative;font-size: 20px;padding-left: 16px;border-left: 6px solid #1a79ff;margin-bottom: 20px;font-family: 'Microsoft YaHei';}
+.rig-title>a{color: #619df2;margin-left: 30px;font-weight: 400;}
+
+/*本月赛马*/
+.rig{width: 732px;float: left;}
+.table-title{height: 30px;background: #f6f6f6;line-height:30px;}
+.td-data{width: 90px;float: left;text-align: center;}
+.table{border: 1px solid #E5E4E9;height: 150px;margin-top: 5px;}
+.td{width: 190px;float: left;background: #CCE5FF;text-align: center;font-weight:600;color:#344956;height: 150px;}
+.td span{font-size: 22px;margin-top: 35px;display: block;font-family: 'Microsoft YaHei';}
+.td a{margin-right: 5px;color:#344956;top: 25px;font-weight: 100;position: relative;}
+.td:hover{background:#619DF2;cursor: pointer;color:#fff;}
+.td a:hover{text-decoration: underline;color:#fff;}
+.td2{float: left;font-size: 14px;font-family: "微软雅黑"}
+.td2 li{height: 50px;line-height: 50px;list-style-type: none;}
+.rig-title span{padding: 5px 10px;top:-2px;position: relative;color:#000;font-size: 14px;}
+.rig-title span:hover{cursor:pointer}
+
+/*系统相关*/
+.rig-title .active{color: #247dfb}
+.rig-mod{margin-top: 20px;}
+.advanced a{color: #619df2;font-weight: 400;}
+.new li>a{position:relative;font-size: 14px;color: #333;display: block;padding-right:110px;width: 250px;line-height: 30px;}
+.new a:hover{text-decoration: underline;}
+.new span{position: absolute;right: 10px;top:0px;}
+.new li{border-bottom: 1px dashed #eaeaea;height: 30px;float: left;list-style-type: none;font-size: 14px;color: #aaa;}
+
+/*首页侧栏荣誉先锋榜*/
+.lef{width: 245px;float: left;margin-left: 20px;}
+.frame{border:1px solid #E5E4E9;border-top:4px solid #619DF2}
+.frame-tit{height:40px;background:#F6F6F6;text-align:center;line-height:40px;border-bottom:1px solid #E5E4E9;font-size: 16px;}
+.tab{height: 40px;line-height: 40px;}
+.tab span{width: 80px;text-align: center;display: block;float:left;background: #F6F6F6;border-right: 1px solid #E5E4E9;border-bottom: 1px solid #E5E4E9;font-weight: 600}
+.tab span:hover{color: #247dfb;cursor:pointer}
+.tab .active-x,.tab .active-y{border-bottom: 0;background: white;color: #247dfb}
+.td3 li{height: 100px;line-height: 25px;border-bottom: 1px solid #E5E4E9;list-style-type: none;}
+.td3 a:hover{cursor:pointer}
+.td3 img{border: 0px}
+.td-data2{width: 110px;margin-left: 120px;}
+
+/*PK*/
+.pk_head{padding-top:50px;}
+.vs{text-align: center;width:150px;height:160px;line-height: 160px;}
+.vs i{font-size: 62px;color: red;font-weight: bold;}
+.usera , .userb{color: red;font-size: 24px;height: 160px;line-height: 22px;text-align: center;width: 400px;}
+.left{float: left;}
+.pk_data{padding:5px 20px;width:960px;clear: both;overflow: hidden;}
+.pk_title , .pk_usera , .pk_userb{position:relative;height:25px;line-height: 25px;border-bottom:dashed 1px #ccc;font-size:16px;color:#172c45;}
+.pk_title{text-align: right;width:390px;float:left;padding-right:20px;border-right:solid 0px #ccc;}
+.pk_usera , .pk_userb{width:200px;float:left;padding-left:50px;}
+.pk_bg1 , .pk_bg2{position: absolute;background:tan;height:28px;top:-4px;left:10px;}
+.pk_data span{position: absolute;z-index: 3333;font-size: 15px;}
+.danger{position: absolute;z-index: 4444;right:8px;top:0px;color:red;font-size: 12px;}
+.pk_bg2{background: thistle;}
+.model-title{height:22px;line-height: 22px;background:rgb(244, 244, 244);opacity:0.9; filter:alpha(opacity:90);color: rgb(15, 70, 226);font-weight: 600;padding:2px 8px;margin-top: 165px;}
+
+/*关注条线*/
+.table2{float: left;margin-left:20px;height:100px;border: 0px;margin-bottom: 10px;}
+.table2 .td{width: 120px;height:100px;}
+.table2 .td span{font-size: 14px;line-height: 60px;margin-top: 0px;z-index: 999;position: relative;display: inline;}
+.table2 .td a{cursor:pointer;height: 100px;width:120px;margin-top: -85px;position: relative;display: block;line-height: 120px}
+
+/*线条详情页面*/
+.tables{border: 0px;height: 500px}
+/*.frame ul li{border-top: 1px solid #ccc;line-height: 30px;list-style-type: none;text-align: center;background: #eee}
+.frame ul li ul li{background: #fafafa}
+.frame ul li a{text-align: center;color: red;background: #fff;display: block;}
+.frame ul li a:hover{color: #619DF2}*/
+.img{background: url("/ranking/Public/Home/images/hand4_e664110.png") no-repeat 10px 10px;width: 37px;height: 50px;float: left;}
+/*.td-data{width: 80px;height: 50px;}*/
+.inactive{display: block;}
+.img:hover{background: url("/ranking/Public/Home/images/hand4_e664110.png") no-repeat -57px 10px;cursor:pointer;}
+.cursor:hover{cursor:pointer;color:#3287FF;font-weight: bold;display: block; }
+.hide{display: none}.show{display: block;}
+.pk-div{width:149px;height:410px;position:fixed;z-index: 1000;top:20px;right:2px;background: #fff;margin-bottom: 10px;border:solid 1px #28A0FF;border-top:0px;}
+.pk-title{height:28px;line-height: 28px;padding-left: 10px;font-weight: 600;letter-spacing: 1px;font-size: 14px;background:#28A0FF;color: #fff;}
+.pkList{padding-top:5px;}
+.pk-user{margin-bottom: 2px;position: relative;border:solid 1px #ccc;}
+.pk-user .mask {background:black;opacity: 0.5;position: absolute;filter:alpha(opacity=50);height:28px;margin-top:-30px;width:100%;}
+.pk-user .score {color:white;font-weight:bold;margin-top:-23px;position:absolute}
+.pk-foot{position: absolute;bottom:15px;text-align: center;width: 149px;}
+.b-btn{padding:5px 10px;}
+.b-btn:hover{background: #28A0FF;color: #fff}
+.pk-user .delete{position: absolute;top:0px;left:0px;}
+.pk-user .delete a{display: block;height:100%;text-decoration: none;color: #ccc;padding:2px 5px;}
+.pk-user .delete a:hover{background: #fff;color: red;}
+.tables .td2 img:hover{width: 150px;height: 150px;z-index: 99999;position: absolute;}
+
+/*个人详情数据*/
+.pinfo{left: 50px;position: relative;}
+.pinfo ul li{float: left;width: 270px;list-style-type: none;margin-top: 20px;}
+.pinfo ul li span{font-weight: bold;width: 100px;float: left;}
+.pcontainer{float:left;height:30px;line-height:30px;background:rgb(15, 142, 226);color:#fff;font-weight:600;text-align:center;width: 576px;margin-left: 12px;overflow: hidden;}
+#fl{background:#2E85FF;display:block;line-height:40px;text-align:center;width:150px;color:white;border-radius:4px;position: relative;top:30px;left:400px;font-size:18px;margin-left:400px;cursor:pointer} 
+.float2{border-color:rgb(15, 142, 226);overflow: hidden;width: 574px;margin-left: 12px;}
+.model-cons{width: 100%;height: 400px;padding: 10px;}
+.model-cons .float{width: 40%;float: left;}
+.model-cons .float2{float: left;}
+.rank_line{width:100%;margin-bottom: 20px;}
+.rank-title{height: 25px;background-color:rgb(15, 142, 226);color:#fff;font-weight: 600;border-bottom:0px;padding-left:5px;}
+.rank_line tr{height:28px;}
+.rank_line td{border-bottom: solid 1px #cbdaea;text-align: center;}
+.model-title2{height:22px;line-height: 22px;background:rgb(244, 244, 244);opacity:0.9; filter:alpha(opacity:90);color: rgb(15, 70, 226);font-weight: 600;padding:3px 0px;margin-bottom: 20px;}
+.user_info2_1 li {border-bottom:solid 1px #eee;overflow:hidden;margin-left:0px !important; width:330px;font-weight: bold;float: left;height: 45px;line-height: 45px;}
+.xs li{width: 240px;}	
+.user_info2_1 li span {display: block;width: 100px;float: right;position: relative;font-weight: 400;*margin-top: -26px;}
+.model-con{padding-bottom: 100px;position: relative;}
+.deta01 font{color: red;padding-left:10px;font-size: 20px; }
+.sub-title{width:100% !important;background: #eee;color:rgb(15,142,223) !important;}
+
+/*更多荣誉先锋榜*/
+.btn{width: 1007px;}
+.btn span{border-top: 1px solid red;width:33%;display: block;float: left;text-align: center;height: 25px;line-height: 25px;font-size: 14px;cursor: pointer;background: #ddd;}
+.btn .active{background: #fff;}
+.demo{overflow:hidden;border:1px solid red;width:998px;border-top:0px;border-bottom: 0px}
+.pg{text-align:center;float:right;padding:0px 20px;margin-right:20px;}
+.pg:hover{cursor: pointer;color: #619df2}
+.query{height:50px;border:1px solid red;width:998px;line-height:50px;}
+.query input{float:left;margin-top: 15px;height:20px;line-height: 20px;}
+.query span{float:left;margin:0 10px}
+.query select{float:left;margin-top:15px;height:24px;}

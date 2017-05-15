@@ -1,0 +1,103 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">管理员</block>
+<block name="css"> 
+<link rel="stylesheet" href="__CSS__/tag.css">
+  <style type="text/css"> 
+.fl{ float: left; }
+.fr{ float: right; }
+.need_left{ width: 100px; border: 1px solid #ccc;  }
+.need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;
+                text-align: center; background-color: #eee; }
+.need_left ul{ width: 80px; margin-left: 20px; }
+.need_left ul li{ height: 25px;  line-height: 25px;}
+.need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+.need_left ul li a:hover{ background-color: #eee; color: #333; }
+.need_right{ width: 825px; border:1px solid #ccc; }  
+.cur{background-color: #eee;border-right: 2px solid #ae807e;} 
+.show{margin: 10px;}
+.show table{width: 100%;border-collapse: collapse;text-align: center;}
+.show table tr{ height: 20px;line-height: 20px;}
+.show table td{border:1px solid #eee;font-size: 13px;} 
+.show table td a{ padding: 2px 10px;color: #666;}
+.show table td a:hover{color: #fff;}
+.div_btn{height: 48px;margin-right: 10px;}
+.div_btn .btna{font-size: 14px; color: #666; margin-top: 15px;display: block; padding: 2px 15px;}
+.btna:hover{color: #fff;}
+</style>  
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+</div>
+</block>
+
+<block name="main_right">
+<div class="need_left fl">
+  {:W('Side/need_tab')}
+</div>
+<div class="need_right fr"> 
+    <div class="show" >  
+        <table >
+            <tr>         
+              <td>部门</td>
+              <td>姓名</td>
+              <td>手机</td>
+              <td>级别</td>
+              <td style="width: 20%;">操作</td>           
+            </tr>
+            <volist name="arr" id="arr" >
+            <tr>                  
+                <td>{$arr.county_code}</td>
+                <td>{$arr.manager_name}</td>                    
+                <td>{$arr.bill_id}</td>
+                <td>{$arr.manager_op}</td>
+                <td>
+                  <a href="javascript:;" class="manager_del" para="{$arr.bill_id}">删 除</a>
+                  |
+                  <a href="{:U('manager/manager_modify?id='.$arr['id'])}?tabb=2">修 改</a>
+                </td>
+            </tr>                  
+            </volist>         
+        </table>
+    </div> 
+    <div class="ft fl">
+       {$_page}
+    </div>
+    <div class="fr div_btn">
+         <a href="{:U('manager/manager_add')}?tabb=2" class="btna">添 加</a> 
+    </div>
+</div>   
+</block>
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+ <script type="text/javascript">
+ //
+   $(function(){
+    
+    $(".manager_del").click(function(event) {
+
+      bill_id=$(this).attr("para");
+
+      layer.confirm('确定要删除此管理员吗', function(index){
+        url="{:U('manager/manager_del')}";
+        $.ajax({
+          url:url,
+          type:'post',
+          dataType:'json',
+          data: {bill_id: bill_id},
+          success:function(res){
+            layer.alert(res.msg,function(){                 
+                    location.reload();
+            });
+          },
+          error:function() {
+           layer.alert('系统请求出错!');
+          }
+        })
+      });
+    });
+   });
+ </script> 
+</block>

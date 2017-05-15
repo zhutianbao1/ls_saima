@@ -1,0 +1,178 @@
+<html>
+	<head>
+		<title>{$info['NAME']}</title>
+		<include file="Form/form_js_css"/>
+	</head>
+
+	<body> 		 
+		<if condition="$head eq 'y'">
+			<include file="Form/form_design_menu"/>
+		</if>
+		 
+		<form name="global_form" action="{:U('manage/form_priview?m='.$m)}" method="post">
+			<input type="hidden" name="id" value=""/>
+			<input type="hidden" name="form_id" value="{$info['ID']}"/>
+			{$info['FORM_DESIGN']}
+		</form>
+
+	</body> 
+</html>
+
+<script type="text/javascript">
+ 
+	$(function(){
+		var form_data = '{$form_data}';		
+
+		//编辑初始化
+		$("input , select ,textarea").each(function(){
+			var e = $(this),
+				name = e.attr('name');
+				if(form_data!=''){
+					$.each($.parseJSON(form_data),function(key,el){
+						if(name!=null && name!='' && name!=undefined){
+							if(name.toUpperCase()==key){
+								e.val(el);
+							}
+						}
+					});
+				}
+		});
+	});
+
+	$(".a_btn_primary").click(function(){
+		layer.load(2,{shade:[0.5,'#ccc']});
+		var flag = validtor();
+		if(flag){
+			if(confirm('是否确认执行提交')){
+				global_form.submit();
+			}
+		}
+		layer.closeAll();
+	});
+
+	validtor = function(){
+		var flag = true;
+		$(".in").each(function(){
+			var e = $(this),
+				_input = e.attr('_input'), //是否必填
+				_validtor = e.attr('_validtor'),  //验证选项1
+				_validtor2= e.attr('_validtor2'), //验证选项2
+				_tip = e.attr('_tip'),    //验证提示消息类型
+				_sql = e.attr('_check_sql'),
+				_val = e.find('input:eq(0) , select:eq(0) , textarea:eq(0)').val(); //需要验证的值
+			e.find(".err_msg").eq(0).remove();
+			var err = $("<font class='err_msg' style='color:red;'></font>");
+			//必填
+			if(_input==1 || _validtor=='null'){
+				if(empty(_val)){
+					err.text('必须填写');
+					flag = false;
+				}
+			}
+			// <option value="">不验证</option>
+			// <option value="null">非空验证</option>
+			// <option value="int">正整数验证</option>
+			// <option value="flot">正浮点验证</option>
+			// <option value="length">字符长度验证</option>
+			// <option value="mobile">手机号码验证</option>
+			// <option value="email">邮箱验证</option>
+			// <option value="card">身份证验证</option>
+
+			// * Trim 删除首位空格   
+			// * Occurs 统计指定字符出现的次数   
+			// * isDigit 检查是否由数字组成   
+			// * isAlpha 检查是否由数字字母和下划线组成   
+			// * isNumber 检查是否为数   
+			// * lenb 返回字节数   
+			// * isInChinese 检查是否包含汉字   
+			// * isEmail 简单的email检查   
+			// * isDate 简单的日期检查，成功返回日期对象   
+			// * isInList 检查是否有列表中的字符字符   
+			// * isInList 检查是否有列表中的字符字符   
+			// * isEmpty 是否为空
+			// * getByteLength 获取字节长度
+			// * isInteger 是否整数
+			// * isFloat 是否浮点数
+			// * isDate 是否日期
+			// * isPhone 是否电话号码
+			// *　isIdCardNo 身份证
+			// * isMobilePhone 手机号码
+			// * isPostcode 邮编
+			// *　isEnglish 纯字母
+
+			if(empty(_val)==false){
+				//正整数
+				if(_validtor=='int'){
+					if(!(_val.isInteger() && parseInt(_val)>0)){
+						err.text('必须正整数');
+						flag = false;
+					}
+				}
+				//正浮点
+				if(_validtor=='float'){
+					if(!( _val.isFloat() && parseInt(_val)>0)){
+						err.text('必须正浮点数');
+						flag = false;
+					}
+				}
+
+				//字符长度
+				if(_validtor=='length'){
+					if(!( _val.length<=20)){
+						err.text('必须长度少于'+20);
+						flag = false;
+					}
+				}
+
+				//手机号码
+				if(_validtor=='mobile'){
+					if(!( _val.isMobilePhone())){
+						err.text('手机格式不准确');
+						flag = false;
+					}
+				}
+
+				//邮箱
+				if(_validtor=='email'){
+					if(!( _val.isEmail())){
+						err.text('邮箱格式不准确');
+						flag = false;
+					}
+				}
+
+				//身份证
+				if(_validtor=='card'){
+					if(!( _val.isIdCardNo())){
+						err.text('证件格式不准确');
+						flag = false;
+					}
+				}
+
+				//sql验证
+				if(_validtor=='checkSql'){
+					flag=false;
+					$.ajax({
+						type:'post',
+						dataType:'json',
+						url:"",
+						data:{sql:_check_sql,val:val},
+						success:function(){
+							if(re.success){
+								flag=true;
+							}
+						},
+						error:function(){}
+					});
+				}
+			}
+
+			e.append(err);
+		});
+		return flag;
+	}
+
+</script>
+
+
+
+

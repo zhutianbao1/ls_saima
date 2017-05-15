@@ -1,0 +1,57 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style type="text/css">
+    .model-list li{float: left;width: 33.33%;text-align: center;background: #f4f4f4;font-size: 0.8em;padding-top:5px;}
+    .model-list p{background: #fff;line-height: 4em;height: 4em;border-bottom: 1px solid #eee;font-size: 0.9em;}
+    .nav{background: #647a9f;color: #fff;line-height: 3em;margin-top: 30px;font-size: 0.9em;padding:1px 0;}
+    .rank_line{width: 100%;margin-bottom: 20px;}
+</style>
+</block>
+    
+<block name="body">   
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>市场营销</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+
+    <section class="sections list_con_2">
+        <div class="nav" style="font-size:12px;padding-left:5px;">详情</div>
+        <div class="model-con-sub">
+            <ul class="model-list">
+                <li style="width:25%;">姓名<p>{$img['USER_NAME']}</p></li>
+                <li style="width:25%">县市<p>{$img['COUNTY_NAME']}</p></li>
+                <li style="width:50%">服务类型<p>{$img['服务类型']}</p></li>
+            </ul>
+            <ul class="model-list">
+                <li style="width:25%;">设摊数量<p>{$img['设摊数量']}</p></li>
+                <li style="width:25%">终端销量<p>{$img['终端销量']}</p></li>
+                <li style="width:25%">孝道机销量<p>{$img['孝道机销量']}</p></li>
+                <li style="width:25%">G2G3迁移量<p>{$img['G2G3迁移量']}</p></li>
+            </ul>
+            <ul class="model-list">
+                <li style="width:100%;text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设摊地址<p>{$img['ADDRESS']}</p></li>
+                
+            </ul>
+        </div>
+        <img src="__UPLOAD__/{$img['URL']}" width="48%" height="200px"/>
+    </section>
+
+    <section class="sections list_con_2 info_con" >
+    </section>
+ 
+    <section class="sections list_con_2 hide"  >
+    </section> 
+
+
+</block>
+
+<block name="js">
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+
+</block>

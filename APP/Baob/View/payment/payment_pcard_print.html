@@ -1,0 +1,89 @@
+<extend name="pub/tpl3"/>
+<block name='title'>缴费卡打印清单</block>
+<block name="header">
+	<input type="button"  class="back_btn" value="返 回" />
+	<a class="title">缴费卡打印清单</a>
+</block>
+<block name="subtitle">
+	{:W('Side/top_tabs2')}
+</block>
+<block name="show">
+	<form action="{:U('Payment/payment_pcard_print')}" method="post" id="theForm">
+		<input type="hidden" name="tabbs" value="8">
+		<div class="search_div">
+				<div class="group">
+    				<label>起始:</label>
+    				<input type="text" name="start_date"  value="{$start_date}"
+    				 onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"   />
+    			</div>
+
+    			<div class="group">
+    				<label>结束:</label>
+    				<input type="text" name="end_date" value="{$end_date}"  
+    				 onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"   />
+    			</div>
+
+
+    			
+    			<div class="group1">
+    				<input type="button" class="search_btn" value="搜 索"/>
+    			</div>
+    			<div class="group1">
+    				<input type="button" class="exp_btn" value="导 出"/>
+    			</div>
+		</div>
+	</form>
+	<div class="show_div">
+		<table>
+			<tr>
+				<td>打印时间</td>
+				<td>操作员</td>
+				<td>组织编号</td>
+				<td>组织名称</td>
+				<td>缴费卡面值</td>
+				<td>缴费卡编号</td>
+				<td>工单号</td>
+				<td>领取人姓名</td>
+			</tr>
+			<empty name="lists">
+				<tr>
+					<td colspan="8">暂无数据</td>
+				</tr>
+			<else/>
+				<volist name="lists" id="list">
+					<tr>
+						<td>{$list['PRINT_DATE']}</td>
+						<td>{$list['PRINT_PEOPLE']}</td>
+						<td>{$list['ORG_ID']}</td>
+						<td>{$list['ORG_NAME']}</td>
+						<td>{$list['CARD_PRICE']}</td>
+						<td>{$list['START_CARD']}</td>
+						<td>{$list['ITEM_ID']}</td>
+						<td>{$list['PAYMENT_OPER']}</td>
+					</tr>
+				</volist>
+			</empty>
+			
+		</table>
+	</div>
+</block>
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+			$('.search_btn').click(function(){
+				$('#theForm').submit();
+			});
+			/**
+			$('.exp_btn').click(function(){
+				window.location.href="{:U('Payment/payment_pcard_print_exp')}?start_date={$start_date}&end_date={$end_date}";
+			});
+			**/
+			var start_date="{$start_date}";
+			var end_date="{$end_date}";
+
+			$('.exp_btn').click(function(){
+				window.location.href="__CONTROLLER__/payment_pcard_print_exp/start_date/"+start_date+"/end_date/"+end_date;
+			});
+		});
+	</script>
+</block>

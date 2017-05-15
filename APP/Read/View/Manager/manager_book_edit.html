@@ -1,0 +1,110 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">个人信息 - 首页</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<link rel="stylesheet" href="__CSS__/my-rating.css">
+</block>
+
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">
+  </div>
+</div>
+</block>
+ 
+
+<block name="main_right">
+   
+
+  <div class="data_table clear">
+    <style>
+    p{overflow: hidden;}
+    label{width:70px;text-align: right;display: inline-block;}
+    input ,select{height:30px;line-height: 30px;background: #fffff9;}
+    input[type=text]{width:420px;}
+    select{width:200px;padding-left: 30px;height:30px;line-height: 30px;}
+    textarea{width:550px;height:100px;background: #fffff9;}
+    em{color:red;font-size: 14px;font-weight: bold;}
+    </style>
+    <div class="section">
+      <form id="theForm" action="{:U('manager_book_edit')}" name="theForm" method="post">
+        <input type="hidden" name="id" value={$book['id']}/>
+        <p><label>书籍类型：</label>
+        <select name="book_type" id="">
+          <?php 
+            foreach ($book_types as $key => $value) {
+              echo "<option value=".$key.">".$value."</option>";
+            }
+          ?>
+        </select><em>*</em><em>必须填写</em></p>
+        <p><label>书名：</label><input type="text" name="book_name" value="{$book['book_name']}"><em>*</em><em>必须填写</em></p>
+        <p><label>作者：</label><input type="text" name="author" value="{$book['author']}"></p>
+        <p><label>电子书：</label><input type="text" id="book_file" name="ebook" readonly="" value="{$book['ebook']}"><a class="btn uploadFile" href="javascript:;">上传</a>
+        &nbsp;<a class="btn" onclick="document.getElementById('book_file').value='';" href="javascript:;">删除</a><em>保存后生效</em></p>
+        <p><label>图片：</label><input type="text" id="book_img" name="img" readonly="" value="{$book['img']}"><a class="btn upload" href="javascript:;">上传</a></p>
+        <p><label></label><img id="imgbook_img" src="__IMG__/22325617.jpg" tmpsrc="__ROOT__/{$book['img']}" dth="110px" height="164px"/></p>
+        <p><label>星级：</label><select name="star" id="">
+          <option value="5">五星</option>
+          <option value="4">四星</option>
+          <option value="3">三星</option>
+          <option value="2">二星</option>
+          <option value="1">一星</option>
+        </select>
+        </p>
+        <p><label>书籍描述：</label><textarea name="description" id="" cols="30" rows="10">{$book['description']}</textarea></p>
+        <p><label>书籍简介：</label><textarea name="sub_content" id="" cols="30" rows="10">{$book['sub_content']}</textarea><em>*</em><em>必须填写</em></p>
+        <p><label>上架状态：</label><select name="status" id="">
+          <option value="1">上架状态</option>
+          <option value="0">下架状态</option>
+        </select>
+        <label>库存：</label><input onkeyup="value=value.replace(/[^\d]/g,'')   "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" style="width:80px;" type="text" name="store" value="{$book['store']}">(本)
+        <label>借出：</label><input onkeyup="value=value.replace(/[^\d]/g,'')   "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" style="width:80px;" type="text" name="lend" value="{$book['lend']}">(本)
+        </p>
+        <p><label>备注：</label><textarea name="remark" id="" cols="30" rows="10">{$book['remark']}</textarea></p>
+        <p style="padding-left:70px;">
+           <a style="padding:10px 35px;" href="javascript:;" class="btn btn_submit">保存</a>&nbsp;&nbsp;&nbsp;
+           <a style="padding:10px 35px;background:#ddd;color:#000;" href="javascript:;" class="btn btn_reset">重置</a></p>
+      </form>
+    </div>
+  </div>
+</block>
+
+<block name="js">
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script>
+$(function(){
+  $(".btn_submit").click(function(){
+    var book_name = $("input[name=book_name]").val(),
+        sub_content=$("textarea[name=sub_content]").val(),
+        flag = true;
+        if(book_name.isEmpty()){
+          $("input[name=book_name]").css('background','infobackground');
+          $("input[name=book_name]").focus();
+          flag=false;
+        }
+        if(sub_content.isEmpty()){
+          $("textarea[name=sub_content]").css('background','infobackground');
+          $("textarea[name=sub_content]").focus();
+          flag=false;
+        }
+        if(flag){
+          if(confirm('是否继续保存数据?')){
+            $("#theForm").submit();
+          }else{
+            return false;
+          }
+        }
+  });
+
+  $(".btn_reset").click(function(event) {
+    $("#theForm").reset();
+  });
+
+   $(".uploadFile").click(function(){
+     open('http://10.78.1.85:9000/ranking/uploadFile.php?id=book_file');
+  });
+
+});
+</script>
+</block>

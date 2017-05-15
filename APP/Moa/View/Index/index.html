@@ -1,0 +1,136 @@
+<extend name="pub/tpl"/>
+<block name="title">丽水MOA</block>
+<block name="body">
+<div class="ban hide"></div>
+     
+  
+    <header class="header">
+        <h2>丽水MOA</h2>
+    </header>
+    <img width="100%" src="__IMG__/ban_img.png" style="margin-top: 50px;display: none;">
+    <div style="margin-top:50px;"/>
+    <section class="index_con">
+        <a href="{:U('list_demo')}">
+        <div class="icon_box"><img src="__IMG__/b1.png"></div>
+        <div class="con_box">
+            <h3 style="font-size:1.2em;">全员赛马</h3>
+            <p>全员赛马 ， 齐头迸进</p>
+        </div>
+        </a>
+    </section>
+    <section class="index_con2">
+        <div class="con_title">部门模块</div>
+        <ul>
+            <li>
+                <a href="{:U('rank_effort')}">
+                    <div class="bd-r"></div>
+                    <div class="icon_box"><img src="__IMG__/b2.png"></div>
+                    <div class="con_box">
+                        <h3>人力管理</h3>
+                        <p>人力资源部门相关功能</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a class="creating" href="javascript:;">
+                <div class="icon_box"><img src="__IMG__/b3.png"></div>
+                <div class="con_box">
+                    <h3>渠道管理</h3>
+                    <p>营业，直销等渠道相关功能</p>
+                </div>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('rank_market')}">
+                <div class="bd-r"></div>
+                <div class="icon_box"><img src="__IMG__/b4.png"></div>
+                <div class="con_box">
+                    <h3>市场营销</h3>
+                    <p>业务营销相关功能</p>
+                </div>
+                    </a>
+            </li>
+            <li>
+                <a href="{:U('convenient_index')}">
+                <div class="icon_box"><img src="__IMG__/b5.png"></div>
+                <div class="con_box">
+                    <h3>便捷作业</h3>
+                    <p>便捷业务查询等功能</p>
+                </div>
+                    </a>
+            </li>
+            
+        </ul>
+        <div class="cb"></div>
+    </section>
+
+    <section class="index_con2">
+        <div class="con_title">系统模块</div>
+        <ul>
+            <li class="hide">
+                <a class="creating" href="javascript:;">
+                <div class="bd-r"></div>
+                <div class="icon_box"><img src="__IMG__/b6.png"></div>
+                <div class="con_box">
+                    <h3>系统菜单</h3>
+                    <p>查询所有系统菜单</p>
+                </div>
+                    </a>
+            </li>
+
+            <li class="hide">
+                <a class="creating" href="javascript:;">
+                <div class="icon_box"><img src="__IMG__/b7.png"></div>
+                <div class="con_box">
+                    <h3>系统设置</h3>
+                    <p>设置系统密码等</p>
+                </div>
+                    </a>
+            </li>
+            <li>
+                <a class="creating" href="javascript:;">
+                <div class="bd-r"></div>
+                <div class="icon_box"><img src="__IMG__/b8.png"></div>
+                <div class="con_box">
+                    <h3>意见反馈</h3>
+                    <p>反馈系统问题</p>
+                </div>
+                    </a>
+            </li>
+            <li  class="loginOut" url="{:U('loginOut')}">
+                <a  href="javascript:;" >
+                <div class="icon_box"><img src="__IMG__/b9.png"></div>
+                <div class="con_box">
+                    <h3>退出登陆</h3>
+                    <p>返回全省MOA</p>
+                </div>
+                    </a>
+            </li>
+        </ul>
+        <div class="cb"></div>
+    </section>
+
+    <footer class="footer hide">
+        <ul>
+            <li class="active"><a href="javascript:;">首页</a></li>
+            <li><a href="{:U('loginOut')}">菜单</a></li>
+        </ul>
+    </footer>
+</block>
+
+<block name="js">
+<script type="text/javascript">
+    $(".loginOut").click(function(){
+        confirm_box('是否确认退出');
+        //location.href='zjmoa://page/home';
+    });
+
+    $(".confirm_box_sure").click(function(){
+        $(".confirm_box").hide();
+        var url = $(".loginOut:eq(0)").attr('url');
+        localStorage.removeItem('user_auth');
+        //parent.location.href='zjmoa://page/home';
+        location.href = url;
+    });
+</script>    
+</block>

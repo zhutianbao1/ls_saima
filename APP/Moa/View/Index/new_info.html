@@ -1,0 +1,228 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style>
+    body{padding-top: 5px;}
+    .model-list li{float: left;width: 33.33%;text-align: center;background: #f4f4f4;}
+    .model-list p{background: #fff;line-height: 40px;border-bottom: 1px solid #eee;font-size: 12px;}
+    .nav{background: rgb(15, 142, 226);color: #fff;line-height: 30px;margin-top: 30px;}
+    .rank_line{width: 100%;margin-bottom: 20px;}
+    .rank_title{background:#1FA5E4;border-right:1px solid #fff;color:#fff;padding-left:5px;text-align:center; }
+    .lin td{border-bottom: 1px solid #eee;text-align: center;font-size: 12px;}
+
+</style>
+</block>
+    
+<block name="body">  
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>全员赛马</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+    <section class="sections">
+    	<div class="nav">基础信息</div>
+    	<div class="model-con-sub">
+    		<ul class="model-list">
+    			<li>县市<p>{$rankUser[0]['COUNTY_NAME']}</p></li>
+    			<li>职位<p>{$users[0]['POS_NAME']}</p></li>
+    			<li>姓名<p>{$rankUser[0]['USER_NAME']}</p></li>
+    		</ul>
+    		<ul class="model-list">
+    			<li>手机号码<p>{$rankUser[0]['BILL_ID']}</p></li>
+    			<li>年份<p>2016</p></li>
+    			<li>总积分<p>{$rankUser[0]['AMOUNT']}</p></li>
+    		</ul>
+    	</div>
+    </section>
+
+    <section class="sections ">
+    	<div class="nav">历史数据</div>
+    	<div style="margin-top: 5px;">
+    		<table class="rank_line" border="0" cellpadding="2" cellspacing="1">
+    			<tr>
+    				<td class="rank_title">月份</td>
+    				<td class="rank_title">姓名</td>
+    				<td class="rank_title">手机号码</td>
+    				<td class="rank_title">积分</td>
+    				<td class="rank_title">排名</td>
+    			</tr>
+    			<volist name="users" ID="user">
+    				<tr class="lin">
+    					<td>{$user['RPT_MONTH']}</td>
+    					<td>{$user['USER_NAME']}</td>
+    					<td>{$user['BILL_ID']}</td>
+    					<td>{$user['全员赛马积分']}</td>
+    					<td>{$user['同岗位排名']}</td>
+    				</tr>
+    			</volist>
+    		</table>
+    	</div>
+    </section>
+
+    <section style="margin-top:-15px;" >
+        <div class="nav" style="margin-bottom:2px;">历史排名走势</div>
+        <canvas id="a_canvas" height="150" style="width:100%"></canvas>
+    </section>
+ 
+    <section class="sections list_con_2 hide"  >
+    </section>
+
+    <section class="sections detail_con hide" >
+        模块111
+    </section>
+
+    <section class="sections detail_con info_con hide" id="fcxx">
+        模块1111 
+    </section>
+
+    
+
+    <section class="sections list_con_2 hide" id="zfxq" style="padding:10px;">
+        <dl class="no-data">
+            请选择指定 
+        </dl>
+    </section>
+
+</block>
+
+<block name="js">
+<script type="text/javascript">
+      (function (){
+
+        window.addEventListener("load", function(){
+
+          var data = [
+                    <?php 
+                    $nums = '';
+                    for ($i=0; $i < count($users) ; $i++) { 
+                        if($i<(count($users)-1)){
+                            $nums .=  $users[$i]['同岗位排名'].',';
+                        }else{
+                            $nums .=  $users[$i]['同岗位排名'];
+                        }
+                    } 
+                    echo $nums;
+                    ?> ];
+        var xAxi =[<?php 
+                        $x_num='';
+                        for ($i=0; $i <count($users) ; $i++) { 
+                            if($i<(count($users)-1)){
+                                $x_num .=$users[$i]['RPT_MONTH'].',';
+                            }else{
+                                $x_num .=$users[$i]['RPT_MONTH'];
+                            }
+                        }
+                        echo $x_num;
+                 ?>];
+
+          // 获取上下文
+          var a_canvas = document.getElementById('a_canvas');
+          var context = a_canvas.getContext("2d");
+
+
+          // 绘制背景
+          var gradient = context.createLinearGradient(0,0,0,300);
+
+
+          gradient.addColorStop(0,"#e0e0e0");
+          gradient.addColorStop(1,"#ffffff");
+
+
+          context.fillStyle = gradient;
+
+          context.fillRect(0,0,a_canvas.width,a_canvas.height);
+
+         
+          // 描绘边框
+          var grid_cols = data.length + 1;
+          var grid_rows = 8;
+          var cell_height = (a_canvas.height-20) / grid_rows;
+          var cell_width = a_canvas.width / grid_cols;
+          context.lineWidth = 1;
+          context.strokeStyle = "#a0a0a0";
+
+          // 结束边框描绘
+          context.beginPath();
+          // 准备画横线
+          /*for (var col = 0; col <= grid_cols; col++) {
+            var x = col * cell_width;
+            context.moveTo(x,0);
+            context.lineTo(x,a_canvas.height);
+          }*/
+          // 准备画竖线
+          for(var row = 0; row <= grid_rows; row++){
+            var y = row * cell_height;
+            context.moveTo(0,y);
+            context.lineTo(a_canvas.width, y);
+          }
+          context.lineWidth = 1;
+          context.strokeStyle = "#c0c0c0";
+          context.stroke();
+          for(var col=0;col<=grid_cols-2;col++){
+            var x=col * cell_width;
+            var text=xAxi[col]+"";
+            context.strokeStyle="#000000";
+            context.strokeText(text.substr(4,2)+"月",x+cell_width-5,a_canvas.height);
+          }
+
+          var max_v = 0;
+          for(var i = 0; i<data.length; i++){
+            if (data[i] > max_v) { max_v = data[i]};
+          }
+
+          max_v = max_v * 1.1;
+          // 将数据换算为坐标
+          var points = [];
+          for( var i=0; i < data.length; i++){
+            var v= data[i];
+            var px = cell_width *　(i +1);
+            var py = (a_canvas.height-20)*(v / max_v);
+            points.push({"x":px,"y":py});
+          }
+          // 绘制折现
+          context.beginPath();
+          context.moveTo(points[0].x, points[0].y);
+          for(var i= 1; i< points.length; i++){
+            context.lineTo(points[i].x,points[i].y);
+          }
+
+
+          context.lineWidth = 2;
+          context.strokeStyle = "#0F8EE2";
+          context.stroke();
+
+          //绘制坐标图形
+          for(var i in points){
+            var p = points[i];
+            context.beginPath();
+            context.arc(p.x,p.y,4,0,2*Math.PI);
+            context.fillStyle = "#0F8EE2";
+            context.fill();
+          }//添加文字    
+          for(var i in points)    
+          {  var p = points[i];    
+            context.beginPath();    
+            context.fillStyle="#333";    
+            context.fillText("第"+data[i]+"名", p.x - 15 , p.y + 13);    
+          }  
+        },false);
+      })();
+
+$(function(){
+//基础信息
+    $("#tab").find("a").click(function(){
+        var e = $(this),
+            url = e.attr('url'),
+            index = e.index();
+        if(!e.hasClass('active')){
+            $(".sections").hide();
+            $(".sections").eq(index).show();
+            e.addClass('active').siblings('a').removeClass('active');
+        }
+    });
+});  
+</script>
+</block>

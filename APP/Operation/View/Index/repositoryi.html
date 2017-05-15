@@ -1,0 +1,135 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 首页</block>
+<block name="css">
+
+</block>
+
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="sidebar">
+    <ul class="sidemenu">
+      <li><a href="{:U('Index/index')}">汇总报表</a></li>
+      <li><a href="{:U('Index/cdeali')}">投诉处理记录表</a></li>
+      <li><a href="{:U('Index/faulti')}">故障处理记录表</a></li>
+      <li><a href="{:U('Index/onlinei')}">上线类</a></li>
+      <li><a href="{:U('Index/repositoryi')}" style="color:#f00">知识库</a></li>
+      <li><a href="{:U('Index/ruleflowi')}">常规流程</a></li>
+      <li><a href="{:U('Index/schedulei')}">排班表</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <form class="form tjform" name="form1" action="{:U('Index/repositoryi')}" method="post">
+      <div>
+        <label>业务名称：</label>
+        <input type="text" name="busi_name"/>
+
+        <label>业务详情及处理办法：</label>
+        <input type="text" name="describ"/>
+      </div>
+
+      <div>
+        <label>日期>=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="start_time"/>
+        
+        <label>日期<=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="end_time"/>
+
+        <button class="btn query"/>查询</button>
+      </div>
+    </form>
+
+    <div class="btn-box">
+      <button class="btn repositorya"/>新增</button>
+      <button class="btn repositoryu"/>修改</button>
+      <button class="btn repositoryd"/>删除</button>
+      <button class="btn repositoryq"/>查看</button>
+    </div>
+
+    <table class="altrowstable">
+      <div style="font-size:14px;font-weight:600">知识库清单：</div>
+      <tr>
+        <th style="width:25px"></th><th style="width:54px">时间</th>
+        <th style="width:160px">业务名称</th><th>业务详情及处理办法</th>
+        <th style="width:54px">记录人</th>
+      </tr>
+      <volist name="repositorylist" id="rl">
+      <tr>
+        <td><input type="checkbox" name="id" value="{$rl['ID']}" param="{$i}"/>{$i}</td>
+        <td>{$rl['LR_TIME']}</td><td>{$rl['BUSI_NAME']}</td>
+        <td>{$rl['DESCRIB']}</td><td>{$rl['OPER_NAME']}</td>
+      </tr>
+      </volist>
+    </table>
+    {$_page}
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+  $(".repositorya").click(function(){
+    window.location.href="{:U('Index/repositorya')}";
+  });
+
+  $(".repositoryu").click(function(){
+    //知识库(修改)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/repositoryu')}?id="+param[0];
+    }
+  });
+
+  $(".repositoryd").click(function(){
+    //知识库(删除)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      if(confirm("确认删除第"+param[1]+"行？")){
+        window.location.href="{:U('Index/repositoryd')}?id="+param[0];
+      }
+      
+    }
+  });
+  
+  $(".repositoryq").click(function(){
+    //知识库记录表(查看)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/repositoryq')}?id="+param[0];
+    }
+  });
+
+  function selectRowid(){
+    var chk_value =[];//定义一个数组
+    var param = '';
+    $("input[name='id']:checked").each(function(){
+      chk_value.push($(this).val());
+      param = $(this).attr("param");
+    });
+    
+    if(chk_value.length>1){
+      alert("不能同时编辑多条记录");
+      return;
+    }else if(chk_value.length==0){
+      alert("请选择对应记录");
+      return;
+    }
+    return chk_value + '&' + param;
+  }
+});
+</script>
+</block>

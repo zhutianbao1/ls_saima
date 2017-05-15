@@ -1,0 +1,21 @@
+<volist name='fol' id='user'>
+<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>$user['CONFIG_ID'],'month'=>$user['RPT_MONTH']))}" target="_blank" style="color:black;cursor:pointer">
+<div style="float:left">
+	<div style="width:177px;height:130px;border:1px solid #619df2;margin:10px;">
+		<span style="height:30px;line-height:30px;background:#619df2;color:white;display:block;text-align:center;font-size:14px;font-weight:bold">{$user['USER_NAME']}</span>
+		<div style="margin-left:5px;">
+			<ul class="pag">
+				<li>县市：{$user['COUNTY_NAME']}</li>
+				<li><div class="nor" title="{$user['POS_NAME']}">部门：{$user['POS_NAME']}</div></li>
+				<li>分数：{$user['AMOUNT']}</li>
+				<li>排名：{$user['同岗位排名']}</li>
+			</ul>
+			<ul class="pag1">
+				<if condition="($user['上升'] gt 0)"><li class="pag1-1">与上月排名相比：+{$user['上升']}</li><else/><li class="pag1-2">与上月排名相比：{$user['上升']}</li></if>
+				<li>与本条线第一名相比：{$user['相差']*1}</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</a>
+</volist>

@@ -1,0 +1,86 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>荣誉榜</block>
+<block name='css'>
+	<style type="text/css">
+		.td3 a{float: left;width: 248px;}
+		.body{background: #fff url("__IMG__/bg5.png") no-repeat;}
+	</style>
+</block>
+<block name='body'>
+<?php 
+	$currMonth = '201701'; //date('Ym',time());
+	$month = ($month==null?$currMonth:$month);
+?>
+	<div class="body">
+	<div style="height:119px"></div>
+	<!-- 查询栏 -->
+	<form action="{:U('newRank/rank_xfb')}" method="post">
+		<div id="pgk" class="query">
+			<span>先锋榜</span><select id="cn" name="qlx" style="float:left;margin-top:15px;height:25px;line-height:25px;width:100px"><option value="khjl">客户经理</option><option value="xsjl">销售经理</option><option value="yyy">营业员</option></select>
+			<span>姓名</span><input type="text" name="qname" value="{$qname}">
+			<span>手机号码</span><input type="text" name="qid" value="{$qid}">
+			<input type="submit" id="query_q" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		</div>
+	</form>
+	<!-- 客户经理显示栏 -->
+		<div id="demo_khjl" class="demo">
+			<div id="demo_khjl1" style="zoom:1">
+				<ul class="td3 demo_khjl1">
+					<volist name='khjl' id='user'>
+						<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['客户经理电话'],'id'=>1021,'month'=>$month,'pas'=>kh))}" target="_blank"><li>
+						<img class="aimg" src="__HEAD_IMG__{$user['客户经理电话']}.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+							<div class="td-data2">{$user['县市']}/{$user['客户经理']}</div>
+							<div class="td-data2">第{$user['排名']}名</div>
+							<div class="td-data2">综合得分：{$user['总分值']/1}</div>
+						</li></a>
+					</volist>
+				</ul>
+			</div>
+		</div>
+			
+	<!-- 销售经理显示栏 -->
+		<div id="demo_xsjl" class="demo">
+			<div id="demo_xsjl1" style="zoom:1">
+				<ul class="td3 demo_xsjl1">
+					<volist name='xsjl' id='user'>
+						<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>1013,'month'=>$month,'pas'=>xs))}" target="_blank"><li>
+						<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+							<div class="td-data2">{$user['COUNTY_NAME']}/{$user['MANAGER_NAME']}</div>
+							<div class="td-data2">第{$user['TOP']}名</div>
+							<div class="td-data2">综合得分：{$user['SCORE']}</div>
+						</li></a>
+					</volist>
+				</ul>
+			</div>
+		</div>
+
+	<!-- 营业员显示栏 -->
+		<div id="demo_yyy" class="demo">
+			<div id="demo_yyy1" style="zoom:1">
+				<ul class="td3 demo_yyy1">
+					<volist name='yyy' id='user'>
+						<a href="{:U('newRank/rank_user_info',array('bill_id'=>$user['BILL_ID'],'id'=>1016,'month'=>$month,'pas'=>yy))}" target="_blank"><li>
+						<img class="aimg" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">
+							<div class="td-data2">{$user['COUNTY_NAME']}/{$user['OBJ_NAME']}</div>
+							<div class="td-data2 nor" title="{$user['ORG_NAME']}">{$user['ORG_NAME']}</div>
+							<div class="td-data2">第{$user['S_PAIMING']}名</div>
+							<div class="td-data2">综合得分：{$user['总得分']}</div>
+						</li></a>
+					</volist>
+				</ul>
+			</div>
+		</div>
+	<div style="background:white;height:35px;border-top:1px solid red;">{$_page}</div>
+	</div>
+</block>
+<block name='js'>
+<script type="text/javascript">
+	qlx="{$qlx}";
+	obj=document.getElementById("cn");
+	for(i=0;i<obj.length;i++){
+		if(obj[i].value==qlx){
+			obj[i].selected=true;
+		}
+	}
+</script>
+</block>

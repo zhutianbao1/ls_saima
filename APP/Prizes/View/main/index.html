@@ -1,0 +1,146 @@
+<extend name='./base'/>
+<block name='title'>后台管理</block>
+<block name='css'></block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<div class="frames">
+	<form action="{:U('main/add')}" method="post" enctype="multipart/form-data" style="width:100%">
+		<label for="prizes_name">奖品名称：</label>
+		<input type="text" name="prizes_name" id="prizes_name" style="width:200px;height:22px"><br/>
+		<label for="prizes_type">奖品类型：</label>
+		<!-- <input type="text" name="prizes_type" id="prizes_type" value="普通" style="width:200px"><br/> -->
+		<select name="prizes_type" style="width:200px;height:22px">
+			<volist name='type' id='type'>
+				<option value="{$type['id']}">{$type['type_name']}</option>
+			</volist>
+		</select><br/>
+		<label>奖品图片：</label>
+		<input type="file" name="prizes_img" style="width:200px;height:22px"><br/>
+		<label for="prizes_num">奖品数量：</label>
+		<input type="text" name="prizes_num" id="prizes_num" style="width:200px;height:22px"><br/>
+		<label for="prizes_desc">奖品描述：</label>
+		<textarea name="prizes_desc" id="prizes_desc" style="width:500px;height:100px"></textarea><br/>
+		<input type="reset" value="重置" style="width:100px;margin-left:35%;margin-bottom:20px">
+		<input type="submit" value="提交" style="width:100px;">
+	</form>
+	</div>
+</block>
+<block name='bottom'></block>
+<block name='js'>
+</block>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+	<title>后台管理</title>
+	<style type="text/css">
+		*,body{width: 1000px;margin:auto;padding: 0px;font-size: 12px;}
+		label{width:200px;height: 50px;line-height: 50px;font-size:16px;margin-left: 50px}
+		input,textarea{color:#666;border: solid 1px #E5E5E5;background: #FFFFFF;width: 20px;line-height: 20px}
+    	input:focus,textarea:focus{background:#feffef;}
+    	.rank tr td{border-bottom: 1px solid #eee;line-height: 20px;text-align: center;}
+	</style>
+</head>
+<body>
+	<div style="width:100%;height:100px;border:1px solid #eee">
+		top
+	</div>
+	<div style="width:20%;height:500px;border:1px solid #eee;margin-left:0px;margin-top:10px;float:left">
+		奖品管理   奖品类型管理   奖品数量管理
+	</div>
+	<div style="width:75%;height:500px;border:1px solid #eee;margin-left:25%;margin-top:10px;">
+		<div style="border:1px solid #ddd;width:95%;margin-top:15px;display:none">
+			<label for="parize_name">奖品名称：</label>
+			<input type="text" name="parize_name" id="parize_name" style="width:200px"><br/>
+			<label for="parize_name">奖品类型：</label>
+			<input type="text" name="parize_name" id="parize_type" style="width:200px"><br/>
+			<label>奖品图片：</label>
+			<input type="file" name="parize_img" style="width:200px"><br/>
+			<label for="parize_num">奖品数量：</label>
+			<input type="text" name="parize_num" id="parize_num" style="width:200px"><br/>
+			<label for="parize_desc">奖品描述：</label>
+			<textarea name="parize_desc" id="parize_desc" style="width:500px;height:100px"></textarea><br/>
+			<input type="submit" value="重置" style="width:100px;margin-left:35%;margin-bottom:20px">
+			<input type="submit" value="提交" style="width:100px;">
+		</div>
+		<div  style="border:1px solid #ddd;width:95%;margin-top:15px;">
+		<?php include "{:U('main/prizes_list')}";  ?>
+		</div>
+	</div>
+	<div style="width:100%;height:120px;border:1px solid #eee;margin-top:10px;">
+		bottom
+	</div>
+</body>
+</html> -->

@@ -1,0 +1,252 @@
+<extend name="./base"/>
+<block name="title">直销员直销装备管理 | 直销装备派发、报损</block>
+<block name="css">
+<style>
+.pure-table{
+  margin-left:12px !important;
+}
+.pure-table caption{
+  font-weight:600;
+  font-style: normal !important;
+}
+.pure-table select{
+  padding-top:0.1em !important;
+  pading-bottom:0 !important;
+}
+.pure-button{
+  margin-top:12px;
+}
+.pure-button.save{
+  margin-left:12px;
+}
+.navbar{
+  height: 50px;
+}
+.container{
+  margin-top: 50px;
+  padding-top: 50px;
+}
+</style>
+</block>
+<block name="wrapper">
+<div class="wrapper wrapper-default">
+  <nav class="navbar pure-menu pure-menu-horizontal pure-menu-fixed" role="navigation">
+    <div class="horizontal-center">
+      <a href="{:U('index/index')}">直销员直销装备管理</a>
+    </div>
+    <div class="user-info"><?php echo session('user_auth.OA');?></div>
+  </nav>
+
+  <div class="container">
+    <form class="pure-form form1" action="{:U('index/devBsAdd')}" method="post">
+      <div class="form-block">    
+        <table class="pure-table pure-table-bordered table1">
+          <caption>直销装备报损<input type="button" class="but1" value="增加"/></caption>
+          <thead>
+          <tr>
+            <th class="row" style="width:50px">序号</th>
+            <th style="width:95px">县市</th>
+            <th style="width:110px">直销装备名称</th>
+            <th style="width:80px">类型</th>
+            <th style="width:80px">操作类型</th>
+            <th style="width:120px">数量</th>
+            <th style="width:50px">操作</th>
+          </tr>
+          </thead>
+        </table>
+
+        <!--<table class="pure-table pure-table-bordered table2">
+          <caption>一次性装备<input type="button" class="but2" value="增加"/></caption>
+          <thead>
+          <tr>
+            <th class="row" style="width:50px">序号</th>
+            <th style="width:140px">县市</th>
+            <th style="width:160px">直销装备名称</th>
+            <th style="width:200px">数量</th>
+            <th style="width:80px">操作</th>
+          </tr>
+          </thead>
+        </table>-->
+      </div>
+
+      <input class="pure-button save" type="submit" value="保存"/>
+      <input class="pure-button" type="reset" value="重置"/>
+    </form>
+    <div style="margin-top: 20px;" class="pure-form form1">
+      <table class="pure-table pure-table-bordered">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th style="width:120px">编号</th>
+          <th>行</th>
+          <th>分部名称</th>
+          <th>装备名称</th>
+          <th>装备类型</th>
+          <th>操作类型</th>
+          <th>操作数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="list">
+          <tr>
+            <td>&nbsp;<input type="checkbox" name="mid" value="{$list.ID}" param="{$list.XH}"/>&nbsp;{$i}</td>
+            <td>{$list.ID}</td>
+            <td>{$list.XH}</td>
+            <td>{$list.COUNTY_CODE}</td>
+            <td>{$list.DEVICE_NAME}</td>
+            <td>{$list.DEVICE_TYPE}</td>
+            <td>{$list.DEAL_TYPE}</td>
+            <td>{$list.NUM}</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    {$_page}
+    </div>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function() {
+  //不允许行数据缺失提交,除身份证识别仪外的装备无类型类型字段
+  //对于这种多行的事件,name为数组元素,js无法使用,jquery validation表单验证无法使用;
+
+  //不允许行数为0提交
+  $(".save").click(function(){
+    var size = $("input[name='num[]']").length;
+    if(size == 0){
+      alert("没填写数据无法提交");
+      return false;
+    }
+
+    var t1county = $(".table1 select[name='countyCode[]']");
+    var t1dname = $(".table1 select[name='deviceName[]']");
+    var t1devtype = $(".table1 select[name='deviceType[]']");
+    var t1dealtype = $(".table1 select[name='dealType[]']");
+    var t1num = $(".table1 input[name='num[]']");
+
+    var t1size = t1county.length;
+    for(var i=0; i < t1size; i++){
+      if(t1county.eq(i).val() == ''){
+        alert("表一第"+(i+1)+"行县市不能为空");
+        return false;
+      }
+
+      var tmpdname = t1dname.eq(i).val();
+      var tmpdevtype = t1devtype.eq(i).val();
+      if(tmpdname == ''){
+        alert("表一第"+(i+1)+"行装备名称不能为空");
+        return false;
+      }else{
+        if(tmpdname == '身份证识别仪' && tmpdevtype == ''){
+          alert("表一第"+(i+1)+"行装备类型不能为空");
+          return false;
+        }else if(tmpdname != '身份证识别仪' && tmpdevtype != ''){
+          alert("表一第"+(i+1)+"行非身份证识别仪请勿填写类型");
+          return false;
+        }
+      }
+      
+      if(t1dealtype.eq(i).val() == ''){
+        alert("表一第"+(i+1)+"行操作类型不能为空");
+        return false;
+      }
+      if(t1num.eq(i).val() == ''){
+        alert("表一第"+(i+1)+"行数量不能为空");
+        return false;
+      }
+    }
+
+    var t2county = $(".table2 select[name='countyCode[]']");
+    var t2dname = $(".table2 select[name='deviceName[]']");
+    var t2num = $(".table2 input[name='num[]']");
+    var t2size = t2county.length;
+    for(var i=0; i < t2size; i++){
+      if(t2county.eq(i).val() == ''){
+        alert("表二第"+(i+1)+"行县市不能为空");
+        return false;
+      }
+
+      var tmpdname = t2dname.eq(i).val();
+      if(tmpdname == ''){
+        alert("表二第"+(i+1)+"行装备名称不能为空");
+        return false;
+      }
+      if(t2num.eq(i).val() == ''){
+        alert("表二第"+(i+1)+"行数量不能为空");
+        return false;
+      }
+    }
+    $(".pure-button").attr("disabled",true);
+    $(".form1").submit();
+  });
+
+  $(".but1").click(function(){
+    var len = $(".table1 tr").length; 
+    $(".table1").append("<tr><td class='row'>"+len+"</td>"
+      +"<td><select name='countyCode[]'><option value=''></option>"
+      +"<option value='5781'>莲都一部</option><option value='57812'>莲都二部</option>"
+      +"<option value='5782'>缙云</option><option value='5783'>青田</option>"
+      +"<option value='5784'>云和</option><option value='5785'>庆元</option>"
+      +"<option value='5786'>龙泉</option><option value='5787'>遂昌</option>"
+      +"<option value='5788'>松阳</option><option value='5789'>景宁</option>"
+      +"<option value='578B'>南城</option></select></td>"
+      +"<td><select name='deviceName[]'><option value=''></option>"
+      +"<option value='身份证识别仪'>身份证识别仪</option><option value='外场订制帐篷'>外场订制帐篷</option>"
+      +"<option value='外场订制桌子'>外场订制桌子</option><option value='外场订制椅子'>外场订制椅子</option>"
+      +"</select></td>"
+      +"<td><select name='deviceType[]'><option value=''></option>"
+      +"<option value='分离式'>分离式</option><option value='蓝牙式'>蓝牙式</option>"
+      +"</select></td>"
+      +"<td><select name='dealType[]'><option value=''></option>"
+      +"<option value='0'>报损</option></select></td>"
+      +"<td><input type='text' name='num[]'/></td>"
+    +"<td><a href=\'#\' onclick=\'deltr1("+len+")\'>删除</a></td>"
+    +"</tr>");
+  });
+
+  $(".but2").click(function(){
+    var len = $(".table2 tr").length;
+    $(".table2").append("<tr><td class='row'>"+len+"</td>"
+      +"<td><select name='countyCode[]' style='width:140px'><option value=''></option>"
+      +"<option value='5781'>莲都一部</option><option value='57812'>莲都二部</option>"
+      +"<option value='5782'>缙云</option><option value='5783'>青田</option>"
+      +"<option value='5784'>云和</option><option value='5785'>庆元</option>"
+      +"<option value='5786'>龙泉</option><option value='5787'>遂昌</option>"
+      +"<option value='5788'>松阳</option><option value='5789'>景宁</option>"
+      +"<option value='578B'>南城</option></select></td>"
+      +"<td><select name='deviceName[]' style='width:160px'><option value=''></option>"
+      +"<option value='外场营销资料袋'>外场营销资料袋</option><option value='外场营销文件夹'>外场营销文件夹</option>"
+      +"<option value='外场T恤'>外场T恤</option><option value='外场马甲'>外场马甲</option>"
+      +"<option value='工作牌'>工作牌</option></select></td>"
+      +"<td><input type='text' name='num[]' style='width:200px'/></td>"
+    +"<td><a href=\'#\' onclick=\'deltr2("+len+")\'>删除</a></td>"
+    +"</tr>");
+  });
+});
+
+//删除行
+var deltr1 =function(index){
+  var len = $(".table1 tr").length;
+  $(".table1 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    var clickattr = "deltr1("+(i)+")";
+    $(".table1 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+    $(".table1 .row").eq(i).html(i);//删除后将后面的行号索引都减1
+  }
+}
+
+//删除行
+var deltr2 =function(index){
+  var len = $(".table2 tr").length;
+  $(".table2 tr").eq(index).remove();//删除当前索引行
+  for(var i=index,j=len-1;i<j;i++){
+    var clickattr = "deltr2("+(i)+")";
+    $(".table2 tr").eq(i).find("a").attr("onclick",clickattr);//替换删除click中的index
+    $(".table2 .row").eq(i).html(i);//删除后将后面的行号索引都减1
+  }
+}
+</script>
+</block>

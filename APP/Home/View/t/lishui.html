@@ -1,0 +1,459 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">丽水移动-全员赛马平台</block>
+
+<block name="css">
+	<style type="text/css">
+		.button{background: #fff;padding-top: 20px;padding-left: 20px;}
+		.button a{background: rgb(250,250,250);text-align: center;text-decoration: none;color: grey;cursor:pointer;padding: 0 5px;padding: 2px 50px;text-decoration: none;margin-right:2px;font-size: 14px;font-weight: 600;}
+		.button .btn-col{background: rgb(15, 142, 226);color: #fff;font-weight: 600; }
+	</style>
+</block>
+
+<block name="nav"></block>
+<block name="month">
+	<div class="button"><a id="jl" class="btn-col">荣誉榜</a><a id="xfb">先锋榜</a><a href="{:U('index/rank_jf')}" target="_blank">成长积分</a><a href="{:U('index/rank_pc')}" target="_blank" style="color: red;">市公司人员服务支撑评测平台</a></div>
+</block>
+
+<block name="body">
+<div style="padding-top: 0px;background: #fff;margin: auto;">
+	<div style="margin-bottom: 30px;overflow: hidden;padding-left:10px;">
+	<div id="f_aa" class="rank_yy" style="width: 944px; overflow: hidden;">
+		<div id="g_aa" class="tempWrap" style="position:relative;height: 290px;">
+			<ul id="aa" style="width: 2000px;">
+				<li class="grid_rank">
+					<div style="overflow: hidden;">
+						<a class="head" href="{:U('ls_qlm')}" target="_blank" style="float: left;">年度千里马(1月)</a>
+						<a class="more" href="{:U('ls_qlm')}" target="_blank">更多</a>
+					</div>
+					<div class="rank_yy" id="f_qlm">
+						<div class="tempWrap" id="g_qlm">
+							<ul id="qlm">
+							<volist name="qlm" id="u">
+								<li class="" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+									<a href="{:U('index/new_line?bill_id='.$u['BILL_ID'])}?id={$u['CONFIG_ID']}" target="_blank" class="link">
+										<!--<div style="width:35%;height:80px;float:left;">&nbsp;</div>-->
+
+										<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"   width="35%" height="80px" style="float:left;">
+
+										<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+										<div class="span"><span>{$u['POS_NAME']}</span><br/>
+										<span>{$u['COUNTY_NAME']}</span><br/>
+										<span>总积分：{$u['SCORE']}</span></div>
+									</a>
+								</li>
+							</volist>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="grid_rank">
+					<div style="overflow: hidden;">
+						<a class="head" href="{:U('ls_jm')}" target="_blank" style="float: left;">月度骏马(1月)</a>
+						<a class="more" href="{:U('ls_jm')}" target="_blank">更多</a>
+					</div>
+					<div class="rank_yy" id="f_jm">
+						<div class="tempWrap" id="g_jm">
+							<ul id="jm">
+							<volist name="jm" id="u">
+								<li title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+									 <a href="{:U('index/rank_line?bill_id='.$u['BILL_ID'])}?id={$u['CONFIG_ID']}&month={$u['RPT_MONTH']}" target="_blank" class="link">
+									 	<!--<div style="width:35%;height:80px;float:left;">&nbsp;</div>-->
+										<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg" width="35%" height="80px" style="float: left;">
+
+										<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+										<div class="span"><span>{$u['POS_NAME']}</span><br/>
+										<span>{$u['COUNTY_NAME']}</span><br/><!-- <span style="color: #979797;">计件总量：{$u['PM_总量']}</span> --></div>
+									</a>
+								</li>
+							</volist>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="grid_rank">
+					<div style="overflow: hidden;">
+						<a class="head" href="{:U('ls_hm')}" target="_blank" style="float: left;">月度黑马(1月)</a>
+						<a class="more" href="{:U('ls_hm')}" target="_blank">更多</a>
+					</div>
+					<div class="rank_yy" id="f_hm">
+						<div class="tempWrap" id="g_hm">
+							<ul id="hm">
+							<volist name="hm" id="u">
+								<li class="" title="{$u['POS_NAME']}-{$u['USER_NAME']}">
+									 <a href="{:U('index/rank_line?bill_id='.$u['BILL_ID'])}?id={$u['CONFIG_ID']}&month={$u['RPT_MONTH']}" target="_blank" class="link">
+									 <!--<div style="width:35%;height:80px;float:left;">&nbsp;</div>-->
+										<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"  width="35%" height="80px" style="float: left;">
+
+										<div class="score">{$u['RANK']} &nbsp;&nbsp;{$u['USER_NAME']}</div>
+										<div class="span"><span>{$u['POS_NAME']}</span><br/>
+										<span>{$u['COUNTY_NAME']}</span><br/><span style="color: #979797;">排名提升：{$u['RANK_MINUS']}</span></div>
+									</a>
+								</li>
+							</volist>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="grid_rank">
+					<div style="overflow: hidden;">
+						<a class="head" href="{:U('ls/ls_yyy')}" target="_blank" style="float: left;">营业员赛马实时先锋榜</a>
+						<a class="more" href="{:U('ls/ls_yyy')}" target="_blank">更多</a>
+					</div>
+					<div class="rank_yy" id="f_yyy">
+						<div class="tempWrap" id="g_yyy">
+							<ul id="yyy">
+							<volist name="yyy" id="u">
+								<li title="{$u['渠道名称']}-{$u['营业员']}">
+									<a href="http://10.78.1.85/lishui/d_yyy.jsp?mobile={$u['BILL_ID']}" target="_blank" class="link">
+									<!--<div style="width:35%;height:80px;float:left;">&nbsp;</div>-->
+										<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"  width="35%" height="80px" style="float: left;">
+
+										<div class="score">{$u['全市排名']} &nbsp;&nbsp;{$u['营业员']}</div>
+										<div class="span"><span>综合得分：{$u['综合得分']}</span><br/>
+										<span>{$u['渠道名称']}</span><br/><span style="display:none;color: #979797;">计件总量：{$u['PM_总量']}</span></div>
+									</a>
+								</li>
+							</volist>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="grid_rank">
+					<div style="overflow: hidden;">
+						<a class="head" href="{:U('ls/ls_xsjl')}" target="_blank" style="float: left;">销售经理赛马实时先锋榜</a>
+						<a class="more" href="{:U('ls/ls_xsjl')}" target="_blank">更多</a>
+					</div>
+					<div class="rank_yy" id="f_xsjl">
+						<div class="tempWrap" id="g_xsjl">
+							<ul id="xsjl">
+							<volist name="xsjl" id="u">
+								<li class="" title="{$u['COUNTY_NAME']}-{$u['MANAGER_NAME']}">
+									<a href="{:U('ls/wid_xsjl')}?bill_id={$u['BILL_ID']}" target="_blank" class="link">
+									<!--<div style="width:35%;height:80px;float:left;">&nbsp;</div>-->
+										<img class="aimg" src="__HEAD_IMG__{$u['BILL_ID']}.jpg" data-src="__HEAD_IMG__{$u['BILL_ID']}.jpg"  width="35%" height="80px" style="float:left;">
+
+										<div class="score">{$u['TOP']} &nbsp;&nbsp;{$u['MANAGER_NAME']}</div>
+										<div class="span"><span>综合得分：{$u['SCORE']}</span><br/>
+										<span>{$u['COUNTY_NAME']}</span></div>
+									</a>
+								</li>
+							</volist>
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="grid_rank">
+					<div style="overflow: hidden;">
+						<a class="head" href="{:U('ls/ls_khjl')}" target="_blank" style="float: left;">客户经理赛马实时先锋榜</a>
+						<a class="more" href="{:U('ls/ls_khjl')}" target="_blank">更多</a>
+					</div>
+					<div class="rank_yy" id="f_khjl">
+						<div class="tempWrap" id="g_khjl">
+							<ul id="khjl">
+							<volist name="khjl" id="u">
+								<li class="" title="{$u['县市']}-{$u['客户经理']}">
+									<a href="{:U('ls/wid_khjl')}?bill_id={$u['客户经理电话']}" target="_blank" class="link">
+									<!--<div style="width:35%;height:80px;float:left;">&nbsp;</div>-->
+										<img class="aimg" src="__HEAD_IMG__{$u['客户经理电话']}.jpg" data-src="__HEAD_IMG__{$u['客户经理电话']}.jpg"   width="35%" height="80px" style="float: left;">
+
+										<div class="score">{$u['排名']} &nbsp;&nbsp;{$u['客户经理']}</div>
+										<div class="span"><span>综合得分：{$u['总分值']/1}</span><br/>
+										<span>{$u['县市']}</span></div>
+									</a>
+								</li>
+							</volist>
+							</ul>
+						</div>
+					</div>
+				</li>					
+			</ul>
+		</div>
+	</div>
+	</div>
+</div>
+
+ 
+	<iframe width="100%"  frameborder="0" scrolling="no" style="margin-top: -20px;height:1220px;" src="{:U('index/index_lishui')}?month="></iframe>
+	<div style="overflow: hidden;">
+		<div class="advanced" style="float: left;">
+			<div style="height: 50px;overflow: hidden;">
+				<a target="_blank" href="http://10.78.1.85/input/notice/contant-list.jsp?id=221" class="head">个人先进</a><br/>
+				<a target="_blank" class="f12" href="http://10.78.1.85/input/notice/contant-list.jsp?id=221">查看更多 >></a>
+			</div>
+			<div>
+				<ul class="new" style="overflow: hidden;">
+				<volist name="gr" id="gr">
+					<li><a target="_blank" href="http://10.78.1.85/input/notice/contant.jsp?id={$gr['NOTICE_TYPE']}&mid={$gr['NO_ID']}" target="_blank" title="{$gr['NO_TITLE']}">{$gr.NO_TITLE}<span>{$gr.NO_CREATE_DATE|strtotime|date="Y/m/d",###}</span></a></li>
+				</volist>
+				</ul>
+			</div>
+		</div>
+		<div class="advanced" style="float: right;">
+			<div style="height: 50px;overflow: hidden;">
+				<a target="_blank" href="http://10.78.1.85/input/notice/contant-list.jsp?id=222" class="head">团队先进</a><br/>
+				<a target="_blank" class="f12" href="http://10.78.1.85/input/notice/contant-list.jsp?id=222">查看更多 >></a>
+			</div>
+			<div>
+				<ul class="new" style="overflow: hidden;">
+				<volist name="td" id="gr">
+					<li><a target="_blank" href="http://10.78.1.85/input/notice/contant.jsp?id={$gr['NOTICE_TYPE']}&mid={$gr['NO_ID']}" target="_blank" title="{$gr['NO_TITLE']}">{$gr.NO_TITLE}<span>{$gr.NO_CREATE_DATE|strtotime|date="Y/m/d",###}</span></a></li>
+				</volist>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>
+
+<block name="js">
+  <script type="text/javascript">
+	$(function(){
+
+		//
+		// window.open("{:U('hr/rongyubang')}")
+		//iframe窗
+
+		var page = 1; //当前第几页
+		//var i = 3; //图片个数
+		var $yyy = $("#g_yyy ul");//寻找到内容展示区
+		var $yyy_w = $("#f_yyy").height();//内容展示区外围div宽度
+		//var $len = $("#g_yyy ul li").length;//拿到li的个数
+		//var page_count = Math.ceil($len/i);  //只要不是整数，就往大的方向取最小的整数
+	    function marpuery() {
+	  		if(!$yyy.is(":animated")){
+	    		if(page == 4 ){
+	     			$yyy.animate({top:'0px'},"slow"); 
+	      			page=1;
+	      		}else{
+	       			$yyy.animate({top:'-='+$yyy_w},"normal");//改变left值，每次换一个版
+	        		page++;
+	      		}
+	     	}
+	 	}		
+	    var MyMar=setInterval(marpuery,5000);
+	    f_yyy.onmouseover=function() {clearInterval(MyMar)}
+	    f_yyy.onmouseout=function() {MyMar=setInterval(marpuery,5000)}
+
+
+		var page2 = 1; //当前第几页
+		var i = 3; //图片个数
+		var $xsjl = $("#g_xsjl ul");
+		var $xsjl_w = $("#f_xsjl").height();
+		var $len2 = $("#g_xsjl ul li").length;
+	    var page_count2 = Math.ceil($len2/i);  
+	    function marpuery2() {
+	  		if(!$xsjl.is(":animated")){
+	    		if(page2 == page_count2 ){
+	     			$xsjl.animate({top:'0px'},"slow"); 
+	      			page2=1;
+	      		}else{
+	       			$xsjl.animate({top:'-='+$xsjl_w},"normal");
+	        		page2++;
+	      		}
+	     	}
+	 	}		
+	    var MyMar2=setInterval(marpuery2,5000);
+	    f_xsjl.onmouseover=function() {clearInterval(MyMar2)}
+	    f_xsjl.onmouseout=function() {MyMar2=setInterval(marpuery2,5000)}
+
+
+		var page3 = 1; //当前第几页
+		var $khjl = $("#g_khjl ul");
+		var $khjl_w = $("#f_khjl").height();
+		//var $len3 = $("#g_khjl ul li").length;
+	    //var page_count3 = Math.ceil($len3/i);  
+	    function marpuery3() {
+	  		if(!$khjl.is(":animated")){
+	    		if(page3 == 4 ){
+	     			$khjl.animate({top:'0px'},"slow"); 
+	      			page3=1;
+	      		}else{
+	       			$khjl.animate({top:'-='+$khjl_w},"normal");
+	        		page3++;
+	      		}
+	     	}
+	 	}		
+	    var MyMar3=setInterval(marpuery3,5000);
+	    f_khjl.onmouseover=function() {clearInterval(MyMar3)}
+	    f_khjl.onmouseout=function() {MyMar3=setInterval(marpuery3,5000)}
+
+
+		var page7 = 1; //当前第几页
+		var $aa = $("#g_aa #aa");
+		var $aa_w = $("#f_aa").width();
+		//var $len3 = $("#g_khjl ul li").length;
+	    //var page_count3 = Math.ceil($len3/i);  
+	    function marpuery7() {
+	  		if(!$aa.is(":animated")){
+	    		if(page7 == 2 ){
+	     			jl();
+	      		}else{
+	       			xfb();
+	      		}
+	     	}
+	 	}		
+	    var MyMar7=setInterval(marpuery7,31000);
+	    f_aa.onmouseover=function() {clearInterval(MyMar7)}
+	    f_aa.onmouseout=function() {MyMar7=setInterval(marpuery7,31000)}
+
+	    $("#jl").click(function(){
+	    	$aa.animate({left:'0px'},"slow");
+	    });
+	    $("#xfb").click(function(){
+	    	$aa.animate({left:'-'+$aa_w+''},"normal");
+	    	page7=2;
+	    });
+
+	   	function jl(){
+	    	$aa.animate({left:'0px'},"slow");
+	    	page7=1;
+	    	$("#xfb").removeClass('btn-col')
+	    	$("#jl").addClass('btn-col');
+	    }
+
+	    function xfb(){
+	    	$aa.animate({left:'-'+$aa_w+''},"normal");
+	    	page7=2;
+	    	$("#jl").removeClass('btn-col')
+	    	$("#xfb").addClass('btn-col');
+	    }
+	    $("#jl").click(function(){
+	    	jl();
+	    	clearInterval(MyMar7);
+	    });
+	    $("#xfb").click(function(){
+	    	xfb();
+	    	clearInterval(MyMar7);
+	    });
+
+
+	    var page4 = 1; //当前第几页
+		var page5 = 1; //当前第几页
+		var page6 = 1; //当前第几页
+		var i = 3; //图片个数
+		var $jm = $("#g_jm ul");
+		var $jm_w = $("#f_jm").height();
+		var $len4 = $("#g_jm ul li").length;
+	    var page_count4 = Math.ceil($len4/i); 
+	    function marpuery4() {
+	  		if(!$jm.is(":animated")){
+	    		if(page4 == page_count4 ){
+	     			$jm.animate({top:'0px'},"slow"); 
+	      			page4=1;
+	      		}else{
+	       			$jm.animate({top:'-='+$jm_w},"normal");
+	        		page4++;
+	      		}
+	     	}
+	 	}		
+	    var MyMar4=setInterval(marpuery4,5000);
+	    f_jm.onmouseover=function() {clearInterval(MyMar4)}
+	    f_jm.onmouseout=function() {MyMar4=setInterval(marpuery4,5000)}
+
+
+		var i = 3; //图片个数
+		var $hm = $("#g_hm ul");
+		var $hm_w = $("#f_hm").height();
+		var $len5 = $("#g_hm ul li").length;
+	    var page_count5 = Math.ceil($len5/i);
+	    function marpuery5() {
+	  		if(!$hm.is(":animated")){
+	    		if(page5 == page_count5 ){
+	     			$hm.animate({top:'0px'},"slow"); 
+	      			page5=1;
+	      		}else{
+	       			$hm.animate({top:'-='+$hm_w},"normal");
+	        		page5++;
+	      		}
+	     	}
+	 	}		
+	    var MyMar5=setInterval(marpuery5,5000);
+	    f_hm.onmouseover=function() {clearInterval(MyMar5)}
+	    f_hm.onmouseout=function() {MyMar5=setInterval(marpuery5,5000)}
+
+
+		var i = 3; //图片个数
+		var $qlm = $("#g_qlm ul");
+		var $qlm_w = $("#f_qlm").height();
+		var $len6 = $("#g_qlm ul li").length;
+	    var page_count6 = Math.ceil($len6/i);  
+	    function marpuery6() {
+	  		if(!$qlm.is(":animated")){
+	    		if(page6 == page_count6 ){
+	     			$qlm.animate({top:'0px'},"slow"); 
+	      			page6=1;
+	      		}else{
+	       			$qlm.animate({top:'-='+$qlm_w},"normal");
+	        		page6++;
+	      		}
+	     	}
+	 	}		
+	    var MyMar6=setInterval(marpuery6,5000);
+	    f_qlm.onmouseover=function() {clearInterval(MyMar6)}
+	    f_qlm.onmouseout=function() {MyMar6=setInterval(marpuery6,5000)}
+	
+	});
+ </script>
+
+
+<script>
+	if (navigator.appName == 'Microsoft Internet Explorer') {
+		document.getElementsByClassName = function() { 
+		var tTagName = "*"; 
+		if (arguments.length > 1) { 
+		tTagName = arguments[1]; 
+		} 
+		if (arguments.length > 2) { 
+		var pObj = arguments[2] 
+		} else { 
+		var pObj = document; 
+		} 
+		var objArr = pObj.getElementsByTagName(tTagName); 
+		var tRObj = new Array(); 
+		for ( var i = 0; i < objArr.length; i++) { 
+			if (objArr[i].className == arguments[0]) { 
+			tRObj.push(objArr[i]); 
+			} 
+		} 
+		return tRObj; 
+		} 
+	} 
+	//图片加载
+	var loadImg = function(imgClass,imgSrc){
+	//data-src:存放需要加载的图片的路径
+		var arrImg=document.getElementsByClassName(imgClass); //需要实时加载class为imgClass的图片数组
+		for(var i=0; i<arrImg.length; i++){
+			if(!arrImg[i].getAttribute(imgSrc)) continue; 
+			if(document.documentElement.scrollTop+document.body.scrollTop+document.documentElement.clientHeight >arrImg[i].offsetTop){
+			arrImg[i].setAttribute("src",arrImg[i].getAttribute(imgSrc));
+			arrImg[i].removeAttribute(imgSrc);
+			}
+		}
+	}
+	// window.onload=window.onscroll=function(){loadImg("aimg","data-src")}
+</script>
+
+<script type="text/javascript">
+ 
+ var i = 0;
+$("img").each(function (i,e){
+  var imgsrc = $(e).attr("src");
+  var dataSrc= $(e).attr("data-src");
+  $(e).load(function(){
+    }).error(function() {
+    	$(e).attr("src","__PUBLIC__/images/noImg.png");
+    });
+}); 
+
+
+
+</script>
+
+</block>

@@ -1,0 +1,218 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">详情-{$config['NAME']}</block>
+
+<block name="css">
+<style type="text/css">
+	.rank-info{border:solid 0px rgb(0,129,204);padding:10px;padding-left:1px;background: #fff;}
+	body{}
+	.infos{clear:both;position: relative;overflow: hidden;}
+	.infos li{position: relative;width:160px;list-style: none;list-style-type: none;float:left;margin-left:20px;margin-bottom: 10px;border:solid 1px #ccc;background: #fbfdff;padding:3px;}
+	.infos .rank-user{position:relative;height:150px;width:100%;}
+	.rank-user .mask{z-index:9998;background: black none repeat scroll 0 0;
+				    bottom: 0;
+				    height:28px;
+				    left: 0;
+				    opacity: 0.6;
+				    filter:alpha(opacity=50);
+				    position: absolute;
+				    width: 100%;}
+	.rank-user .score{z-index:9999;position: absolute;left: 10px;bottom: 0px;height:28px;line-height:28px;color:#fff;font-weight: 600;}
+	.infos .rank-action{position: absolute;left:50px;bottom:7px;}
+	.rank-action a{border:0px;color:rgb(42,52,61);background-color: #fbfdff;margin-left:0px;padding:5px 1px !important;letter-spacing: 1px;}
+	.rank-title{height:40px;line-height: 40px;font-size: 24px;font-weight: 600;background: rgb(0,129,204)}
+	.rank_pm{color: #fff;background: #808080;
+		    font-weight: 600;
+		    left: 10px;
+		    position: absolute;
+		    top: 10px;z-index:2222;}
+
+	.think_page .num,.next,.current,.prev,.first,.end{behavior:url(__PUBIMG__/PIE.htc);background: #fff;}
+	
+	.rank_qs{color:#fff;background: red;width: 38px;height: 38px;border-radius: 50%; 
+		behavior:url(__PUBLIC__/images/PIE.htc);right:2px;position: absolute;z-index:2222;}
+	.rank_n{line-height:38px; display:block;text-align:center;font-weight:600;font-size: 10px;}
+	.rank_good{
+	/*background: rgba(0, 0, 0, 0) url("/ranking/Public/Home/images/heart.png") no-repeat scroll 0 0;*/
+    bottom: 18px;
+    /*padding-left: 16px;*/
+    position: absolute;
+    right: 15px;
+    z-index: 99999999;}
+	.pk-div{width:149px;height:410px;position:fixed;z-index: 1000;top:20px;right:2px;background: #fff;margin-bottom: 10px;border:solid 1px rgb(228,132,71);border-top:0px;}
+	.pk-title{height:28px;line-height: 28px;padding-left: 10px;font-weight: 600;letter-spacing: 1px;font-size: 14px;background: rgb(228,132,71);color: #ccc;}
+	.pkList{padding:5px;}
+	.pk-user{margin-bottom: 10px;height:150px;position: relative;border:solid 1px #ccc;}
+	.pk-user .mask {
+	    background: black none repeat scroll 0 0;
+	    bottom: 0;
+	    height: 28px;
+	    left: 0;
+	    opacity: 0.5;
+	    position: absolute;
+	    filter:alpha(opacity=50);
+	    width: 100%;
+	    z-index: 9998;
+	}
+
+	.pk-user .score {
+	    bottom: 0;
+	    color: #fff;
+	    font-weight: 600;
+	    height: 28px;
+	    left: 10px;
+	    line-height: 28px;
+	    position: absolute;
+	    z-index: 9999;
+	    color: #fff;
+	}
+	.pk-user .delete{position: absolute;top:0px;left:0px;}
+	.pk-user .delete a{display: block;width: 100%;height:100%;text-decoration: none;color: #ccc;padding:2px 5px;}
+	.pk-user .delete a:hover{background: #fff;color: red;}
+	.pk-foot{position: absolute;bottom:15px;text-align: center;width: 149px;}
+	.b-btn{border:solid 0px rgb(228,132,71);padding:5px 10px;}
+	.b-btn:hover{background: rgb(228,132,71);}
+
+	.pk-loading{position: absolute;z-index:999999;top:20px;width:960px;height:100px;line-height: 50px;font-size: 24px;text-align: center;border:solid 1px #ccc;
+		background: rgb(248,248,248);
+		margin-left:50%; left:-480px;
+	}
+
+	.full-mask{position: absolute;z-index:999998;background: black none repeat scroll 0 0;opacity: 0.5;filter:alpha(opacity=50);left:0px;top:0px;width: 100%;height:100%;}
+	.biaoti{border-bottom: 1px solid #ccc;
+		    height: 30px;
+		    line-height: 30px;
+		    margin-bottom: 10px;
+		    margin-left: 20px;
+		    margin-right: 9px;
+		    padding-left: 10px;}
+	.biaoti-left{float:left;}
+	.biaoti-right{float:right;}
+</style>
+</block>
+
+<block name="ext">
+
+<!--左侧导航-->
+<div class="info-nav hide">
+<ul>
+	<volist name="config_left" id="cfg">
+		<if condition="$cfg['ID'] eq $id">
+			<li class="curr">
+			<a href="{:U('index/rank_jm_info')}?id={$cfg['ID']}&month=jm">{$cfg['NAME']}</a></li>
+			<else/>
+			<li><a href="{:U('index/rank_jm_info')}?id={$cfg['ID']}&month=jm">{$cfg['NAME']}</a></li>
+		</if>
+	</volist>
+</ul>
+</div>
+</block>
+
+
+
+<block name="body">
+<div class="rank-info" style="overflow:hidden;">
+<div class="biaoti">
+	<div class="biaoti-left">详情-{$config['NAME']}</div>
+	<div class="biaoti-right">
+		<a href="javascript:;" class="select-tiao a-btn">选择条线</a>
+	</div>
+</div>
+
+<notempty name="users">
+<ul class="infos">
+<volist name="users" id="user">
+	<li class="">
+		<div class="rank_pm">
+			第{$user['RANK']}名
+		</div>
+		<div class="rank-user">	
+		<a target="_blank" href="{:U('index/rank_line?bill_id='.$user['BILL_ID'])}?id={$id}&month=201606" style="text-decoration: none;"> 
+			<img alt="{$user['COUNTY_NAME']}-{$user['USER_NAME']}" src="__HEAD_IMG__{$user['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" width="100%" height="150px" style="border: 0px;"/>
+			<div class="score" title="{$user['COUNTY_NAME']}-{$user['USER_NAME']}&nbsp;&nbsp;总分:{$user['AMOUNT']}"><span class="user_county">{$user['COUNTY_NAME']}</span>-<span class="user_name">{$user['USER_NAME']}</span>&nbsp;&nbsp;总分:<span class="user_score">{$user['AMOUNT']}</span></div>
+			<div class="mask"></div>
+			<span class="user_id hide">{$user['USER_NAME']}</span>
+		</a>
+		</div>
+		<!-- <div class="rank-action">
+			<a target="_blank" href="{:U('index/new_line?bill_id='.$user['BILL_ID'])}?id={$id}" class="a-btn">积分详情</a>
+			&nbsp;
+			<a href="javascript:;" param="{$user['BILL_ID']}" class="a-btn zan">点赞</a>
+			
+			<div class="rank_good" id="zan{$user['BILL_ID']}">{$user['ZAN']|intval}</div>
+		
+		</div> -->
+	</li>	 
+</volist>
+</ul>
+<else/>
+未找到任何数据
+</notempty>
+</div>
+</block>
+
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+			$(".action").click(function(){
+				layer.msg('功能正在建设中',{icon:4});
+			});
+
+			$("#pk_id").val("");
+			togglePk();
+		});
+
+		
+		//点赞
+		$(".zan").click(function(){
+			var e = $(this),
+				bill_id = e.attr('param'),
+				id = '#zan'+bill_id,
+				zan= $(id).html();
+			var day_flag = $.cookie('day_flag');
+
+			//if(!(day_flag==true)){
+				var url = "{:U('Index/rank_zan')}"+"?bill_id="+bill_id;
+				$.ajax({
+					type:'get',
+					url:url,
+					dataType:'json',
+					success:function(result){
+						if(result.flag){
+							layer.msg(result.msg,{icon:1});
+							$(id).html(parseInt(zan)-1);
+							$.cookie('day_flag', true, {expires:1,path:'/'});
+						}else{
+							layer.msg(result.msg,{icon:2});
+						}
+					},
+					error:function(){
+						layer.msg('出现异常',{icon:3});
+					}
+				});
+			// }else{
+			// 	layer.msg('已经点过赞');
+			// }
+		});
+
+
+		$("#mask").click(function(){
+			$(".pk-loading").hide();
+			$("#mask").hide();
+		});
+
+		$(".select-tiao").click(function(){
+			$(".info-nav").fadeToggle('slow');
+		});
+ 
+		// $(".infos > li").mouseover(function(){
+		// 	$(this).css('background','#eaf4e5');
+		// 	event.stopImmediatePropagation();
+		// });
+
+		// $(".infos > li").mouseout(function(){
+		// 	$(this).css('background','#fff');
+		// 	event.stopImmediatePropagation();
+		// });
+	</script>
+</block>

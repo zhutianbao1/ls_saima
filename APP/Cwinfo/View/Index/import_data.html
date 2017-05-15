@@ -1,0 +1,348 @@
+<div id="import_data" style="padding: 20px,20px;">
+  <div style="top: 300px;">
+    <form action="{:U('Index/data_import')}" method="post" enctype="multipart/form-data" id="form_import">
+    <span>数据表：<select name="table_name" id="table_name" class="easyui-combobox">
+      <option value="">请选择</option>
+      <option value="全市主营业务收入">全市主营业务收入</option>
+      <option value="全省主营业务收入">全省主营业务收入</option>
+      <option value="全市账单科目明细">全市账单科目明细</option>
+      <option value="全省账单科目明细">全省账单科目明细</option>
+    </select></span>
+    <span>选择文件：<input type="text" name="up_file" id="file_import"></span>
+<!-- <input type="file" name="up_file"> -->
+    <a href="#" class="easyui-linkbutton" plain="false" onclick="import_data();">执行导入</a>
+<!--     <input type="submit" value="上传"> -->
+    </form>
+  </div>
+</div>
+
+<script>
+  $("#file_import").filebox({
+    buttonText:'选择文件',
+    mutiple:'false',
+    required:true
+  });
+
+  function import_data(){
+    var table_name = $("#table_name").val();
+    var file_name = $("#file_import").val();
+    if(table_name == ""){
+      $.messager.alert('提示信息','请选择要导入的表','info');
+      return false;
+    }
+    // if(file_name == ""){
+    //   $.messager.alert("请选择文件");
+    //   return false;
+    // }
+    $("#form_import").ajaxSubmit({
+      type:'post',
+      url:"{:U('Index/data_import')}",
+      data:{
+        table_name:$("#table_name").val()
+      },
+      beforeSend:function(){
+        $.messager.progress({
+          text:'正在导入...'
+        });
+      },
+      success:function(data){
+        $.messager.progress('close');
+        if(data){
+          $("#form_import").form('reset');
+          $.messager.alert('提示信息',data,'info');
+        }
+      }
+    });
+  }
+</script>
+<!-- <script>
+  $(function(){
+    var url = "{:U('Index/bill_info_list')}";
+    $("#bill_info").datagrid({
+      url:url,
+      fit:true,
+      fitColumns:true,
+      striped:true,
+      rownumbers:true,
+      border:false,
+      pagination:true,
+      pageSize:20,
+      pageList:[10,20,30,40,50],
+      pageNumber:1,
+      sortName:'date',
+      sortOrder:'desc',
+      toolbar:'#manager_tool',
+      columns:[[
+        {
+          field:'ID',
+          title:'编号',
+          width:100,
+          checkbox:true
+        },
+        {
+          field:'SUBJECT_CODE',
+          title:'科目编码',
+          width:100
+        },
+        {
+          field:'SUBJECT_NAME',
+          title:'三级科目名称',
+          width:100
+        },
+        {
+          field:'TAX_RATE',
+          title:'税率',
+          width:100
+        },
+        {
+          field:'FINANCE_SUBJECT_NAME',
+          title:'财务科目名称',
+          width:100
+        }
+      ]]
+    }).datagrid({loadFilter:pagerFilter});
+
+    $("#subject_add").dialog({
+      width:350,
+      title:'新增',
+      modal:true,
+      closed:true,
+      iconCls:'icon-add',
+      buttons:[{
+        text:'提交',
+        iconCls:'icon-add',
+        handler:function(){
+          if($("#subject_add").form('validate')){
+            $.ajax({
+              url:"{:U('Index/bill_info_add')}",
+              type:'post',
+              data:{
+                subject_code:$("input[name=subject_code]").val(),
+                subject_name:$("input[name=subject_name]").val(),
+                tax_rate:$("input[name=tax_rate]").val(),
+                finance_subject_name:$("input[name=finance_subject_name]").val()
+              },
+              beforeSend:function(){
+                $.messager.progress({
+                  text:'正在提交...'
+                });
+              },
+              success:function(data,response,status){
+                $.messager.progress('close');
+                if(data>0){
+                  $.messager.show({
+                    title:'提示',
+                    msg:'新增成功'
+                  });
+                  $("#subject_add").dialog('close').form('reset');
+                  $("#bill_info").datagrid('reload');
+                }else{
+                  $.messager.alert('新增失败','未知错误','warning');
+                }
+              }
+            });
+          }
+        }
+      },
+      {
+        text:'取消',
+        iconCls:'icon-redo',
+        handler:function(){
+          $("#subject_add").dialog('close').form('reset');
+        }
+      }]
+    });
+
+    $("#subject_edit").dialog({
+      width:350,
+      title:'操作',
+      modal:true,
+      closed:true,
+      iconCls:'icon-edit',
+      buttons:[{
+        text:'提交',
+        iconCls:'icon-edit',
+        handler:function(){
+          if($("#subject_edit").form('validate')){
+            $.ajax({
+              url:"{:U('Index/bill_info_update')}",
+              type:'post',
+              data:{
+                id:$("input[name=id2]").val(),
+                subject_code:$("input[name=subject_code2]").val(),
+                subject_name:$("input[name=subject_name2]").val(),
+                tax_rate:$("input[name=tax_rate2]").val(),
+                finance_subject_name:$("input[name=finance_subject_name2]").val()
+              },
+              beforeSend:function(){
+                $.messager.progress({
+                  text:'提交中...'
+                })
+              },
+              success:function(data,response,status){
+                $.messager.progress('close');
+                if(data>0){
+                  $.messager.show({
+                    title:'提示',
+                    msg:'操作成功'
+                  });
+                  $("#subject_edit").dialog('close').form('reset');
+                  $("#bill_info").datagrid('reload');
+                }else{
+                  $.messager.alert('操作失败','未知错误','warning');
+                }
+              }
+            });
+          }
+        }
+      },
+      {
+        text:'取消',
+        iconCls:'icon-redo',
+        handler:function(){
+          $("#subject_edit").dialog('close').form('reset');
+        }
+      }]
+    });
+  });
+  //datagrid分页
+  function pagerFilter(data){
+        if (typeof data.length == 'number' && typeof data.splice == 'function'){    // 判断数据是否是数组
+            data = {
+                total: data.length,
+                rows: data
+            }
+        }
+        var dg = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage:function(pageNum, pageSize){
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh',{
+                    pageNumber:pageNum,
+                    pageSize:pageSize
+                });
+                dg.datagrid('loadData',data);
+            }
+        });
+        if (!data.originalRows){
+            data.originalRows = (data.rows);
+        }
+        var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
+    //新增
+    function add(){
+      $("#subject_add").dialog('open');
+      $("input[name=subject_name]").focus();
+    }
+    //修改
+    function edit(){
+      var rows = $("#bill_info").datagrid('getSelections');
+      if(rows.length>1){
+        $.messager.alert('警告操作','只能选择一条数据','warning');
+      }else if(rows.length == 1){
+        $.ajax({
+          url:"{:U('Index/get_bill_info')}",
+          type:'post',
+          data:{
+            id:rows[0].ID
+          },
+          beforeSend:function(){
+            $.messager.progress({
+              text:'加载中...'
+            });
+          },
+          success:function(data,response,status){
+            $.messager.progress('close');
+            if(data){
+              var obj = $.parseJSON(data);
+              $("#subject_edit").form('load',{
+                id2:obj[0].ID,
+                subject_code2:obj[0].SUBJECT_CODE,
+                subject_name2:obj[0].SUBJECT_NAME,
+                tax_rate2:obj[0].TAX_RATE,
+                finance_subject_name2:obj[0].FINANCE_SUBJECT_NAME
+              }).dialog('open');
+            }else{
+              $.messager.alert('加载失败','未知错误','warning');
+            }
+          }
+        });
+      }else if(rows.length == 0){
+        $.messager.alert('警告操作','请选择一条记录','warning');
+      }
+    }
+    //取消选择
+    function redo(){
+      $("#bill_info").datagrid('unselectAll');
+    }
+    //重新加载
+    function reload(){
+      $("#bill_info").datagrid('reload');
+    }
+    //删除
+    function remove(){
+      var rows = $("#bill_info").datagrid('getSelections');
+      if(rows.length>0){
+        $.messager.confirm('确定操作','确定要删除吗',function(flag){
+          if(flag){
+            var ids = [];
+            for(var i=0;i<rows.length;i++){
+              ids.push("'"+rows[i].ID+"'");
+            }
+            $.ajax({
+              type:'post',
+              url:"{:U('Index/bill_info_delete')}",
+              data:{
+                ids:"("+ids.join(',')+")"
+              },
+              beforeSend:function(){
+                $("#bill_info").datagrid('loading');
+              },
+              success:function(data){
+                if(data){
+                  $("#bill_info").datagrid('loaded');
+                  $("#bill_info").datagrid('load');
+                  $("#bill_info").datagrid('unselectAll');
+                  $.messager.show({
+                    title:'提示',
+                    msg:'删除成功'
+                  });
+                }
+              }
+            });
+          }
+        });
+      }else{
+        $.messager.alert('提示','请选择要删除的数据','info');
+      }
+    }
+    //搜索
+    function searches(){
+      $.ajax({
+        url:"{:U('Index/index_list')}",
+        type:'post',
+        data:{
+          empl_name:$("input[name=empl_name]").val(),
+          start_time:$("input[name=start_time]").val(),
+          end_time:$("input[name=end_time]").val()
+        },
+        beforeSend:function(){
+          $.messager.progress({
+            text:'加载中...'
+          });
+        },
+        success:function(data,response,status){
+          $.messager.progress('close');
+          //data = JSON.parse(data);
+          data = $.parseJSON(data);
+          $("#manager").datagrid('loadData',data);
+        }
+      });
+    }
+</script> -->

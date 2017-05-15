@@ -1,0 +1,166 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">{$gr[0]['姓名']}-信息</block>
+
+	
+<block name="css">
+	<style type="text/css">
+	
+	.model-list{line-height: 28px;margin-bottom:2px !important;}
+	.model-list li{position:relative;list-style: none;float: left;width:208px;padding-left: 4px;margin-left: 18px;font-weight: 600;margin-bottom: 4px;color: #000;font-size: 14px;}
+	.model-list li span{width:120px;padding-left: 4px;font-weight: 400;position: absolute;right:0px;font-size: 14px;}
+
+	.model-list .li{
+		position: relative;
+		margin-bottom: 2px;
+		padding-left:20px;
+		margin-left: -1px;
+		height:60px;
+		color: #172c45;
+		width: 214px;
+		border-bottom:solid 1px #ccc;
+
+		background: #f4f4f4;
+		font-size: 12px;
+	}
+	.model-list .li span{
+		position: absolute;
+		z-index: 100;
+		width: 213px;
+		left:0px;bottom: 0px;
+		height:35px;line-height: 35px;font-size: 16px;
+		padding-left:20px !important;
+		display: block;border-top:solid 0px #666ccc;
+		background: #fff;
+		color: navy;
+	}
+
+	.headImg{border: 1px solid #ccc;
+    margin-left: 715px;
+    position: absolute;
+    top: 58px;}
+	.headTitle{position: absolute;left:0px;bottom: 0px;height:24px;line-height: 24px;text-align: center;width: 100%;font-weight: 600;color: tan;border-top: solid 1px #ccc;margin-left: -1px;}
+	.pcontainer{float:left;height:30px;line-height:30px;background:rgb(15, 142, 226);color:#fff;font-weight:600;text-align:center;width: 536px;margin-left: 12px;overflow: hidden;}
+	.float table tr td{text-align: center;}
+
+
+	.model-foot,.model-foot1{position:absolute;left:250px;background:#ddd;padding:0px 10px 10px 10px;width:500px;border-radius:7px;z-index:999999;display: none;}
+	.close_btn{font-family:arial;font-size:30px;font-weight:700;color:#999;text-decoration:none;float:right;padding-right:4px;}
+	</style>
+</block>
+
+
+
+<block name="img">
+	<div style="background: #fff; width: 960px;padding: 20px 0px;overflow: hidden;"><span style="font-size: 45px;margin-left: 200px;font-family:'华文彩云';">市公司人员服务支撑评测平台</span><span style="display: block;text-align: center;">眼睛对内 <span style="padding:0 50px;">价值对外</span> 服务一线</span></div>
+</block>
+<block name="nav"></block>
+<block name="month"><div style="margin-bottom: 10px;"></div></block>
+
+
+<block name="body">
+<div style="background:#fff;">
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">{$gr[0]['姓名']}</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div class="model-con">
+			<div class="model-con-title">
+				<b>基础信息</b>
+			</div>
+
+			<div class="model-con-sub">
+				 <ul class="model-list">
+				 	<li class="li">单位:<span>{$gr[0]['单位']}</span></li>
+				 	<li class="li">员工编号:<span>{$gr[0]['员工编号']}</span></li>
+				 	<li class="li">姓名:<span>{$gr[0]['姓名']}</span></li>
+				 </ul>
+				 <ul class="model-list clear">
+				 	
+				 	<li class="li">手机:<span>{$gr[0]['BILL_ID']}</span></li>
+					<li class="li">总点赞量<span>{$gr[0]['ZAN']|intval}</span></li>
+					<li class="li">总吐槽量<span>{$gr[0]['CAI']|intval}</span></li>
+				</ul>
+				<ul class="model-list clear">
+					<li class="li">排名<span>第{$gr[0]['PM']}名</span></li>
+					<li class="li">总人数<span>{$count[0]['总人数']}</span></li>
+					<li class="li">是否党员<span><?php $id=$dy['BILL_ID']; if($id==null){echo '否';}else{echo '是';}?></span></li>
+				</ul>
+			</div>
+
+			<div class="headImg" style="width:144px;height:175px;padding:2px;">
+				<img src="__HEAD_IMG__{$gr[0]['BILL_ID']}.jpg" onerror="this.src='__HEAD_IMG__null.jpg'" alt="{$gr[0]['姓名']}" width="100%" height="150px">
+			<div class="headTitle">
+				{$gr[0]['单位']} - {$gr[0]['姓名']}
+			</div>	
+			<div class="mask"></div>
+			</div>
+		</div>
+
+	</div>
+	<div class="model-foot"></div>
+
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">点赞评论详情</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div style="padding:10px;">
+			<div class="float">
+				<table class="rank_line" border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td class="rank-title">编号</td>
+					<td class="rank-title">评论</td>
+					<td class="rank-title">评论日期</td>
+				</tr>
+				<volist name="gr_det" id="line">
+				<tr>
+					<td>{$line.RANK}</td>
+					<td title="{$line.评论}"><div style="white-space:nowrap;width:50em;overflow:hidden;text-overflow:ellipsis ">{$line.CNT_DET}</div></td>
+					<td>{$line.CREATE_DATE|strtotime|date="Y-m-d",###}</td>
+				</tr>
+				</volist>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="info-model clear">
+
+		<div class="model-title">
+			<div class="model-title-left">吐槽评论详情</div>
+			<div class="model-title-right"></div>
+		</div>
+		<div class="model-line"></div>
+
+		<div style="padding:10px;">
+			<div class="float">
+				<table class="rank_line" border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td class="rank-title">编号</td>
+					<td class="rank-title">评论</td>
+					<td class="rank-title">评论日期</td>
+				</tr>
+				<volist name="gr_det2" id="line">
+				<tr>
+					<td>{$line.RANK}</td>
+					<td title="{$line.评论}"><div style="white-space:nowrap;width:50em;overflow:hidden;text-overflow:ellipsis ">{$line.CNT_DET}</div></td>
+					<td>{$line.CREATE_DATE|strtotime|date="Y-m-d",###}</td>
+				</tr>
+				</volist>
+				</table>
+			</div>
+		</div>
+	</div>
+	</div>
+</block>
+<block name="js">
+
+</block>

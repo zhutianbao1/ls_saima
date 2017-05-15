@@ -1,0 +1,253 @@
+<extend name="Tpl/base"/>
+<block name="title">报名情况</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+<style type="text/css">
+  .bm-list li{float:left;width:305px;padding:0px 5px 10px 0px;}
+  .file_content{width: 550px;height: 120px; position: absolute; z-index: 99999;
+                 display: none; background-color: #fffff9; top: 10px; left:20px;border:1px solid #666;}
+  .file_group{height: 30px; line-height: 30px; font-size: 13px; margin-bottom: 5px; }
+  .file_group label{ display: inline-block;width: 15%;text-align: right; }
+  .file_group a{ padding: 3px 5px;}
+  .file_group input{border:1px solid #666; height: 28px;line-height: 28px;width: 80%;margin-bottom: 3px; }
+  .btn_div{ margin-top: 10px; text-align: center; height: 30px; line-height: 30px;}
+  .btn_div .sub_btn{font-size: 14px;color: #666; padding: 3px 15px; border:1px solid #666; margin-bottom: 2px; }
+  .manager_demo a{margin-right:20px;}
+</style>
+</block>
+<block name="main_top">
+<div class="section">
+  <div class="hd tag-heading">
+    <h3>读书会</h3>
+  </div>
+  
+  <div class="bd" style="border:solid 0px red;margin-bottom:30px;overflow:hidden;">
+   <div class="left" style="width:151px;text-align:center;border:solid 0px red;">
+    <img src="__ROOT__/{$book['img']}" width="150px" height="180px"/>
+   </div>
+   
+   <div class="left" style="width:250px;border:solid 0px red;margin-left:10px;">
+    <h3 style="margin-left:-15px;">{$book['book_name']}</h3><br>
+    <p>计划开展时间:&nbsp;&nbsp;&nbsp;{$book['meet_date']}</p>
+    <p>
+    <if condition="$book['county_code'] eq $_SESSION['user_auth']['COUNTY_CODE']">
+      <a  para="{$book['meet_id']}" href="javascript:;" class="baoming">报名>></a>
+    <else/>
+      <a  href="javascript:alert('非所属县市书籍，不予报名');"  class="">报名>></a>
+    </if>
+                  &nbsp;参与活动报名并领取书籍</p>
+    <p>报名情况&nbsp;
+    <!--
+    <a href="">>>查询更多</a>
+    -->
+    </p>
+   </div>
+</div> 
+  
+  <div class="hd tag-heading">
+    <h3>报名情况 
+        <a class="right more" href="{:U('base/meeting_bao_exp?meet_id='.$book['meet_id'])}">
+              导出报名
+        </a>
+        
+        <if condition="$num gt 0">
+            <span class="manager_demo">
+                <a class="right more file_import"   href="javascript:;">导入与会名单</a>
+                <!--
+                <a class="right more" style="margin-right:20px;" target="_blank" href="{:U('index/meeting_yh_import')}">
+                      导入与会名单
+                </a>
+                -->
+                <!--
+                <a class="right more" style="margin-right:20px;"  
+                     href="{:U('manager/manager_meeting_yh_list?meet_id='.$book['meet_id'])}">
+                     确认与会人员
+                </a> 
+                -->
+                <a class="right more list_btn"  href="javascript:;">确认与会人员</a> 
+                <!--
+                <a class="right more qr_btn" style="margin-right:20px;"  
+                     href="{:U('manager/manager_meeting_planner?meet_id='.$book['meet_id'])}">
+                     确认策划人
+                </a> 
+                -->
+                <a class="right more qr_btn"  href="javascript:;">确认策划人</a>
+            </span>
+        </if>
+
+    </h3>
+  </div>
+
+
+  <div class="data_table clear">
+    <div class="section">    
+    <div class="bd">
+      <ul class="bm-list" >
+      <volist name="bms" id="bm" offset="0" key="k">
+        <li ><b>{$k})&nbsp;</b>{$bm['bao_oper_name']}{$bm['bao_oper']|substr=###,0,3}****{$bm['bao_oper']|substr=###,7,11} &nbsp;&nbsp;{$bm['bao_date']|date='Y-m-d',###} &nbsp;&nbsp;已报名&nbsp;&nbsp;&nbsp; 
+        <if condition="$oper_phone eq $bm['bao_oper']">
+        <a para="$oper_phone" href="javascript:;" class="q_btn" style="padding: 1px 3px;">请假</a> 
+        </if>
+        </li>
+      </volist>
+    </ul>
+    </div>
+  </div>
+  </div>
+  
+<div id="file_content" class="file_content" >  
+    <form  method="post" action="{:U('index/file')}" enctype="multipart/form-data">   
+        <div class="file_group">
+            <label>模板下载:</label> 
+            <a href="__PUBLIC__/files/导入模板.xlsx">下载模板</a>
+        </div>
+        <div class="file_group">
+            <label>导入数据:</label>
+            <input type="file" name="file_stu"/>
+        </div>
+        <div class="btn_div">
+            <input type="submit" value="导 入" class="sub_btn" />
+        </div>
+    </form>
+</div> 
+  
+   
+</block>
+
+
+<block name="js">
+<script>
+
+$(".baoming").click(function(){
+    var oper_login_code = "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+    if(oper_login_code.isEmpty()){
+       layer.msg('未获取登录信息，请登录后操作');
+       return;
+    }
+    
+    if(confirm('提交报名后将以读书会召开具体安排事项为准，是否继续报名？')){
+        var e = $(this),
+          meeting_id = e.attr("para"),
+          url = "{:U('manager/manager_meeting_bao')}";
+      $.ajax({
+         type:'post',
+         url:url,
+         dataType:'json',
+         data:{meeting_id:meeting_id},
+         success:function(re){
+            layer.msg(re.msg);
+         },
+         error:function(){
+            layer.msg('系统错误,请稍后重试');
+         }
+      });
+    }
+
+ });
+
+</script>
+<script type="text/javascript">
+$(function(){
+    $('.file_import').click(function(){
+        layer.open({
+            type: 1,
+            title: '导入与会名单',
+            area: ['600px', '230px'],
+            content:$('#file_content'),
+            btn: ['关闭'],
+            cancel: function(index, layero){
+                layer.close();
+              }
+        });
+    });
+});
+</script>
+
+<script >
+    $(function(){
+        $('.q_btn').click(function(event) {
+           url="{:U('index/meeting_qingjia_cx')}";
+           meet_id="{$book['meet_id']}";
+           $.ajax({
+               url: url,
+               type: 'POST',
+               dataType: 'json',
+               data: {meet_id: meet_id},
+               success:function(re){
+                   if(re=='1'){
+                    layer.alert('您已提出请假需求!');
+                   }
+                   if(re=='0'){
+                        layer.open({
+                            area: '500px',
+                            title:'请假信息',
+                            content:"<div >"+
+                            "<label style='display:block;font-size:13px;color:#666;'>请假原因:</label>"+
+                            "<textarea class='qj_reason' style='margin-top:5px;width:450px;height:100px;font-size:13px;color:#666;'>"+
+                            "</textarea>"+
+                            "</div>" ,
+                            btn: ['提交', '关闭'],
+                            yes: function(index, layero){
+                                var qj_reason=$('.qj_reason').val();
+                                url="{:U('Index/meeting_qingjia')}";
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: {qj_reason:qj_reason,meet_id:meet_id},
+                                    success:function(re){
+                                        if(re=='1'){
+                                            layer.alert('请假成功,等待审核!',{icon:1});
+                                        }else{
+                                            layer.alert('请假失败!',{icon:2});
+                                        }
+                                    },
+                                    error:function(){
+                                       layer.alert('系统错误，请稍后重试');
+                                    }
+                                });
+                                
+                            },
+                            cancel: function(){ 
+                               layer.close();
+                            }
+                        });
+                   }
+               },
+               error:function(){
+                layer.alert('系统错误,请稍后重试!');
+               }
+           });
+        });
+
+
+        $('.qr_btn').click(function(){
+            layer.open({
+                type: 2,
+                title: '确认策划人',
+                area: ['900px', '600px'],
+                content:"{:U('manager/manager_meeting_planner?meet_id='.$book['meet_id'])}",
+                btn: ['关闭'],           
+                cancel: function(index, layero){                
+                   layer.close();
+                }
+            });
+        });
+
+        $('.list_btn').click(function(){
+            layer.open({
+                type: 2,
+                title: '阅读会报名参加人员信息',
+                area: ['900px', '700px'],
+                content:"{:U('manager/manager_meeting_yh_list?meet_id='.$book['meet_id'])}",
+                btn: ['关闭'],           
+                cancel: function(index, layero){                
+                   layer.close();
+                }
+            });
+        });
+    });
+</script>
+
+</block>

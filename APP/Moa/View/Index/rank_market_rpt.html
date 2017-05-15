@@ -1,0 +1,115 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style type="text/css">
+  .dl{width:100%;}
+  .dt dt{font-size: 0.7em}
+  .dd dd{font-size: 0.7em}
+  .times{font-size: 0.8em;width: 100%;height:95px;background:#EDF6FD }
+  .times input,.times select{font-size: 1em;border: 1px solid #eee;height:30px;line-height: 30px;}
+</style>
+</block>
+    
+<block name="body">   
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>进驻营销汇总</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+
+    <section class="sections list_con_2" style="height:90px;">
+    <div class="times">
+      <span>选择县市</span><select id="countyName" name="countyName" style="width: 130px;">
+        <option value="" >全部</option>
+        <option value="莲都" >莲都</option>
+        <option value="青田" >青田</option>
+        <option value="景宁" >景宁</option>
+        <option value="缙云" >缙云</option>
+        <option value="遂昌" >遂昌</option>
+        <option value="庆元" >庆元</option>
+        <option value="龙泉" >龙泉</option>
+        <option value="松阳" >松阳</option>
+        <option value="云和" >云和</option>
+        <option value="南城" >南城</option>
+      </select>
+      <span>类型</span><select name="mode" id="mode" style="width: 130px;">
+         <option value="">全部</option>
+         <option value="万场服务进农村">万场服务进农村</option>
+         <option value="万场服务进社区">万场服务进社区</option>
+         <option value="万场服务进集团">万场服务进集团</option>
+       </select> 
+      <br>
+      <span>开始时间</span><input id="homeDate" type="date" value="<?php echo date('Y-m-d',time())?>"/>
+      <span>截止</span><input id="endDate" type="date" value="<?php echo date('Y-m-d',time())?>"/>
+      <input id="btn" type="button" name="" value="查询" style="margin-left:50px;width:5em;background:#1FA5E4;color:#fff;">
+    </div>
+        <dl class="dt">
+            <dt style="width:14%;text-align: center;">县市</dt>
+            <dt style="width:20%;text-align: center;">类型</dt>
+            <dt style="width:13%;text-align: center;">设摊数量</dt>
+            <dt style="width:13%;text-align: center;">终端销量</dt>
+            <dt style="width:20%;text-align: center;">孝道机销量</dt>
+            <dt style="width:20%;text-align: center;">2/3G迁移量</dt>
+        </dl>
+        <div class="mon"></div>
+    </section>
+ 
+</block>
+
+<block name="js">
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+var num=1;
+var btnDate={};
+seach(num,btnDate);
+function seach(num,btnDate){
+    $(".mon").each(function() {
+        var e = $(this);
+        var url="{:U('rank_market_rpt')}"+"?num="+num;
+        e.html('');
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data:btnDate,
+            success:function(result){
+                var html='';
+                $.each(result, function(index, el) {
+                    html += '<a href="javascript:;" style="color:black;"><dl class="dd">';
+                    html += '<dd style="width:14%;text-align: center;">'+el['COUNTY_NAME']+'</dd>';
+                    html += '<dd style="width:20%;text-align: center;">'+el['服务类型']+'</dd>';
+                    html += '<dd style="width:13%;text-align: center;">'+el['设摊数量']+'</dd>';
+                    html += '<dd style="width:13%;text-align: center;">'+el['终端销量']+'</dd>';
+                    html += '<dd style="width:20%;text-align: center;">'+el['孝道机销量']+'</dd>';
+                    html += '<dd style="width:20%;text-align: center;">'+el['G2G3迁移量']+'</dd>';
+                    html += '</dl></a>';
+                });
+                e.html(html);
+                $(".mon a dl:odd").css('background','#eee');
+                if(result.length==0){
+                    layer.msg('未找到任何数据');
+                }
+            },
+            error:function(e) {
+               layer.msg('数据加载错误');
+            }
+        });      
+    });
+}
+
+$('#btn').click(function(){
+  var btnDate={
+    homeDate:$("#homeDate").val(),
+    endDate:$("#endDate").val(),
+    countyName:$("#countyName").val(),
+    mode:$("#mode").val()
+  }
+  seach(num,btnDate);
+});
+  
+</script>
+</block>

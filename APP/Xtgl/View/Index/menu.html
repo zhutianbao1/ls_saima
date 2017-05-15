@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>业务综合受理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+
+
+<link rel="stylesheet" href="__PUBLIC__/comm.css">
+<link rel="stylesheet" href="__PUBLIC__/global.css"> 
+<link rel="stylesheet" href="__PUBLIC__/form/js/dtree.css"> 
+<style>
+.node{color:#000000 !important;}
+.left_tree{font-size: 12px;height:100%;overflow:auto;background: rgb(219,239,249);}	
+.systems{display:block;width:100%;height:20px;line-height:20px;text-align: center;background:#fff;margin-bottom:2px;color:#535353;width:100%;}
+</style>
+<script type="text/javascript">var imgSrc = "__PUBLIC__/Form/css/images";</script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.cookie.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Form/js/dtree.js"></script>
+</head>
+<body style="overflow: hidden;">
+<table width="100%" height="100%" border=0>
+<tr>
+<td width="180" style="border-right:solid 0px red;">
+<div class="left_tree"> 
+<a class="systems" href="?menu_func=B">报表管理系统</a> 
+<a class="systems" href="?menu_func=A">业务支撑系统</a> 
+<a class="systems" href="?menu_func=C">业务综合受理</a>
+<script type="text/javascript">
+	d = new dTree('d');
+	d.add(10,-1,"菜单","javascript:void(-1);","菜单","","","",false);
+	<?php 
+		foreach ($menuList as $key => $m) {
+			$link = "menu_edit('".$m['MENU_ID']."','".$m['MENU_NAME']."')";
+			echo "d.add(".$m['MENU_ID'].",".$m['MENU_PARENT_ID'].",\"".$m['MENU_NAME']."\",\"javascript:".$link.";\",\"".$m['MENU_NAME']."\",\"\",\"\",\"\",false);"; 
+
+		}
+	?>
+	document.write(d);
+</script>
+</div>
+</td>
+<td style="width:7px;background:url('__PUBLIC__/Form/images/border_bg.gif');"></td>
+<td>
+<iframe id="edit_form" src="{:U('menu_edit')}" width="100%" height="100%" scrolling="auto" frameborder="no"></iframe>	
+</td>
+</tr>
+</table>
+</body>
+
+<script type="text/javascript">
+	menu_edit = function(id , name){
+		document.getElementById('edit_form').src = "{:U('menu_edit')}"+"?id="+id;
+	}
+</script>
+</html>

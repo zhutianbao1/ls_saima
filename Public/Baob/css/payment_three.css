@@ -1,0 +1,38 @@
+*{margin: 0;padding: 0;color: #666;font-size: 14px;font-family: "Microsoft Yahe,微软雅黑"}
+.tc{text-align: center;}
+.fl{float: left;}
+.fr{float: right;}
+a{text-decoration: none;}
+
+.content{width:100%; min-width: 960px;}
+.box{width: 960px;margin: 0 auto;border:1px solid #666;}
+.box .header{background-color: #eee;}
+.box .header h3{height: 30px;line-height: 30px;text-align: center;letter-spacing: 1px;}
+.show{width: 100%;}
+.show fieldset{margin:0 10px 10px;padding: 5px 0;}
+.show table{border-collapse: collapse;width: 97%;margin: 0 auto;}
+.show table tr{height: 30px; line-height: 30px;}
+.show table tr td{border:1px solid #666;}
+.show table tr td input[type='text']{width: 99%;height: 25px;line-height: 25px;
+												border:1px solid #666;text-indent: 5px;}
+.show .table1 td{width: 16%;}
+.show .table2 td{width: 16%;}
+.show .table4 td{width: 16%;}
+.show .table3 td{width: 16%;}
+.show .table5 td{width: 12%;text-align: center;}
+.show .table5 td input[type='text']{border: none;}
+.show .table5 td .price_check{width:70px;height:25px;border:1px solid #666;}
+.show .table4 td select{width: 96%;height: 25px;border:1px solid #666;outline: none;
+																		line-height: 25px;}
+.show .table2 .dk_btn,.show .table2 .yz_btn,.show .table2 .cx_btn,.show .table2 .qr_btn,
+.show .table4 .ll_btn,.show .table3 .fr_btn{padding: 3px 15px;border:1px solid #666;background-color: #eee;}
+.btn_div{height: 30px;line-height: 30px;text-align: center;margin: 10px auto;width: 300px;}
+.btn_div .sub_btn,.btn_div .back_btn{padding: 3px 15px;border:1px solid #666;}
+.file_content{width: 550px;height: 120px; position: absolute; z-index: 99999;
+             display: none; background-color: #fffff9; top: 10px; left:20px;border:1px solid #666;}
+.file_group{height: 30px; line-height: 30px; font-size: 13px; margin-bottom: 5px; }
+.file_group label{ display: inline-block;width: 15%;text-align: right; }
+.file_group a{ padding: 3px 5px;}
+.file_group input{border:1px solid #666; height: 28px;line-height: 28px;width: 80%;margin-bottom: 3px; }
+.file_div{ margin-top: 10px; text-align: center; height: 30px; line-height: 30px;}
+.file_div .dr_btn{font-size: 14px;color: #666; padding: 3px 15px; border:1px solid #666; margin-bottom: 2px; }

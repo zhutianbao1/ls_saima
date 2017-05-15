@@ -1,0 +1,52 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 投诉处理记录表</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('Index/repositoryi')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="form">
+    <table>
+      <thead>
+        <tr>
+        <th colspan="6">知识库</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label" style="width:120px">编号</td>
+          <td style="width:170px">{$repository['ID']}</td>
+          <td class="label" style="width:120px">业务名称</td>
+          <td style="width:170px">{$repository['BUSI_NAME']}</td>
+          <td class="label" style="width:120px">记录人</td>
+          <td style="width:170px">{$repository['OPER_NAME']}</td> 
+        </tr>
+
+        <tr>
+          <td class="label">业务详情及处理办法</td>
+          <td colspan="5">{$repository['DESCRIB']}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</block>

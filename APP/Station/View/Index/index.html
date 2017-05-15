@@ -1,0 +1,134 @@
+<extend name="pub/base" />
+<extend name="pub/base" />
+<block name="title">
+	<title>无线网基站规划建设平台首页</title>
+</block>
+<block name="css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/index.css"/>
+	<style type="text/css">
+				
+	</style>
+</block>
+<block name="main_right">
+	<div class="main_right">
+	    <h3>我的待办工单</h3>
+	    <div class="div_li">
+	    	<table>
+	    		<tr>
+	    			<td>工单号</td>
+	    			<td>项目名称</td>
+	    			<td>上节点处理人</td>
+	    			<td>上节点名称</td>
+	    			<td>上节点结果</td>
+	    			<td>到达时间</td>
+	    		</tr>
+	    		<volist name="items" id="item">
+	    			<tr>
+	    				<td>
+	    				    <if condition="$_SESSION['node']['NODE_NO'] eq '1' ">
+	    				    	<if condition="$items[0]['CUR_NODE_RESULT'] eq '0' and $items[0]['STEP_NO'] neq '7' "> 
+		    					<a href="{:U('Index/review_item1?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					<elseif condition="$items[0]['CUR_NODE_RESULT'] eq '1' or $items[0]['STEP_NO'] eq '7' "/>
+		    					<a href="{:U('Index/review_item1_1?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					</if>
+	    				    </if> 
+	    				    <if  condition="$_SESSION['node']['NODE_NO'] eq '2' ">
+	    				    	<if condition="$items[0]['STEP_NO'] eq '1' "> 
+		    					<a href="{:U('Index/review_item2?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+	    						<elseif condition="$items[0]['STEP_NO'] eq '5' "/>
+		    					<a href="{:U('Index/review_item2_1?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+	    						</if>	
+	    				    </if>
+	    				    <if  condition="$_SESSION['node']['NODE_NO'] eq '3' ">
+	    				    	<if condition="$items[0]['STEP_NO'] eq '2' "> 
+		    					<a href="{:U('Index/review_item3?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					<elseif condition="$items[0]['STEP_NO'] eq '6' "/>
+		    					<a href="{:U('Index/review_item3_1?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					<elseif condition="$items[0]['STEP_NO'] eq '10' "/>
+		    					<a href="{:U('Index/review_item3_2?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					</if>
+	    				    </if>
+	    				    <if  condition="$_SESSION['node']['NODE_NO'] eq '4' ">
+	    				    	<a href="{:U('Index/review_item4?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+	    				    </if>
+	    				    <if  condition="$_SESSION['node']['NODE_NO'] eq '5' ">
+	    				    	<a href="{:U('Index/review_item5?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>	    				    	
+	    				    </if>
+	    				    <if  condition="$_SESSION['node']['NODE_NO'] eq '6' ">
+	    				    	<if condition="$items[0]['STEP_NO'] eq '7' "> 
+		    					<a href="{:U('Index/review_item6?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+	    						<elseif condition="$items[0]['STEP_NO'] eq '9' "/>
+		    					<a href="{:U('Index/review_item6_1?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+	    					</if>
+	    				    </if>
+
+	    				    <if  condition="$_SESSION['node']['NODE_NO'] eq '7' ">
+		    				    <if condition="$items[0]['STEP_NO'] eq '8' or
+		    				              $items[0]['STEP_NO'] eq '98' "> 
+		    					<a href="{:U('Index/review_item7?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					<elseif condition="$items[0]['STEP_NO'] eq '11' "/>
+		    					<a href="{:U('Index/review_item7_1?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					<elseif condition="$items[0]['STEP_NO'] eq '13' "/>
+		    					<a href="{:U('Index/review_item7_2?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+		    					</if>
+	    				    </if>
+	    				    <if  condition="$_SESSION['node']['NODE_NO'] eq '8' ">
+	    				        <a href="{:U('Index/review_item8?item_id='.$item['ITEM_ID'])}?tab=1">
+		    					{$item.ITEM_ID}
+		    					</a>
+	    				    </if>
+	    				        				
+	    				</td>
+	    				<td>{$item.APPLIY_TYPE_NAME}</td>
+	    				<td>{$item.CUR_NODE_USERNAME}</td>
+	    				<td>{$item.CUR_NODE_NAME}</td>
+	    				<td>
+		    				<if condition="$item.CUR_NODE_RESULT eq '1' ">
+		    				同意
+		    				<elseif condition="$item.CUR_NODE_RESULT eq '0' "/> 
+		    				退回
+		    				</if>	    				
+	    				</td>
+	    				<td>{$item.NODE_DATE}</td>
+	    			</tr>
+	    		</volist> 
+	    	</table>	    	
+	    </div>		
+	</div>
+</block>
+<block name="js">
+	<script >
+		$(function(){
+			
+		});
+	</script>
+</block>
+

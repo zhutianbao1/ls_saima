@@ -1,0 +1,321 @@
+<extend name='pub/main_newRank'/>
+<block name='title'>先锋榜</block>
+<block name='css'>
+	<style type="text/css">
+		.td3 a{float: left;width: 248px;}
+		.body{background: #fff url("__IMG__/bg5.png") no-repeat;}
+	</style>
+</block>
+<block name='body'>
+	<div class="body">
+	<div style="height:119px"></div>
+	<!-- 客户经理查询栏 -->
+	<div id="pgk" class="query">
+		<span>姓名</span><input type="text" id="kname">
+		<span>手机号码</span><input type="text" id="kid">
+		<input type="button" id="query_k" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		<div class="pgdn_k pg">下一页</div>
+		<div class="pgup_k pg">上一页</div>
+	</div>
+	<!-- 销售经理查询栏 -->
+	<div id="pgx" class="query" style="display:none">
+		<span>姓名</span><input type="text" id="xname">
+		<span>手机号码</span><input type="text" id="xid">
+		<input type="button" id="query_x" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		<div class="pgdn_x pg">下一页</div>
+		<div class="pgup_x pg">上一页</div>
+	</div>
+	<!-- 营业员查询栏 -->
+	<div id="pgy" class="query" style="display:none">
+		<span>姓名</span><input type="text" id="yname">
+		<span>手机号码</span><input type="text" id="yid">
+		<input type="button" id="query_y" value="查询" style="width:100px;height:22px;border:0px;margin-left:50px;">
+		<div class="pgdn_y pg">下一页</div>
+		<div class="pgup_y pg">上一页</div>
+	</div>
+	<div class="btn"><span style="border-left:1px solid red;" id="khjl" class="active">客户经理</span><span style="border-left:1px solid #ccc;border-right:1px solid #ccc" id="xsjl">销售经理</span><span style="border-right:1px solid red" id="yyy">营业员</span></div>
+	<!-- 客户经理显示栏 -->
+		<div id="demo_khjl" class="demo">
+			<div id="demo_khjl1" style="zoom:1">
+				<ul class="td3 demo_khjl1"></ul>
+			</div>
+		</div>
+			
+	<!-- 销售经理显示栏 -->
+		<div id="demo_xsjl" class="demo" style="display:none">
+			<div id="demo_xsjl1" style="zoom:1">
+				<ul class="td3 demo_xsjl1"></ul>
+			</div>
+		</div>
+
+	<!-- 营业员显示栏 -->
+		<div id="demo_yyy" class="demo" style="display:none">
+			<div id="demo_yyy1" style="zoom:1">
+				<ul class="td3 demo_yyy1"></ul>
+			</div>
+		</div>
+	<div style="background:red;height:10px"></div>
+	<div style="height:90px;"></div>
+	</div>
+</block>
+<block name='js'>
+	<script type="text/javascript">
+		$('.btn span').click(function(){
+			$('.btn span.active').removeClass('active');
+			$(this).addClass('active');
+		});
+		$("#yyy").click(function(){
+			$('#pgy').show();
+			$('#pgx').hide();
+			$('#pgk').hide();
+		});
+		$("#xsjl").click(function(){
+			$('#pgy').hide();
+			$('#pgx').show();
+			$('#pgk').hide();
+		});
+		$("#khjl").click(function(){
+			$('#pgy').hide();
+			$('#pgx').hide();
+			$('#pgk').show();
+		});
+
+//客户经理翻页
+		var pag=1;
+		var demo_khjl=document.getElementById("demo_khjl");
+		var $khjl = $("#demo_khjl1");
+		var num=0;
+		var time=0;
+		$('.pgdn_k').click(function(){
+			if(time==0){
+				time=1;
+				setTimeout(function () { time = 0 }, 300);
+				if(demo_khjl.scrollTop==num && $('.demo_khjl1 li').length>20){
+					$khjl.animate({"margin-top":'-='+505},"normal");
+					pag++;
+					num=++demo_khjl.scrollTop;
+				}else{
+					
+				}
+			}else{
+				alert('你的点击太频繁，请重新再试');
+			}
+		});
+		$('.pgup_k').click(function(){
+			if(pag==1){
+
+			}else{
+				$khjl.animate({"margin-top":'+='+505},"normal");
+				pag--;
+				demo_khjl.scrollTop=pag-1;
+				num=demo_khjl.scrollTop;
+			}
+		});	
+
+//销售经理翻页
+		var pag2=1;
+		var demo_xsjl=document.getElementById("demo_xsjl");
+		var $xsjl = $("#demo_xsjl1");
+		var num2=0;
+		var time2=0;
+		$('.pgdn_x').click(function(){
+			if(time2==0){
+				time2=1;
+				setTimeout(function () { time2 = 0 }, 300);
+				if(demo_xsjl.scrollTop==num2 && $('.demo_xsjl1 li').length>20){
+					$xsjl.animate({"margin-top":'-='+510},"normal");
+					pag2++;
+					num2=++demo_xsjl.scrollTop;
+				}else{
+					
+				}
+			}else{
+				alert('你的点击太频繁，请重新再试');
+			}
+		});
+		$('.pgup_x').click(function(){
+			if(pag2==1){
+
+			}else{
+				$xsjl.animate({"margin-top":'+='+510},"normal");
+				pag2--;
+				demo_xsjl.scrollTop=pag2-1;
+				num2=demo_xsjl.scrollTop;
+			}
+		});
+
+//营业员翻页
+		var pag3=1;
+		var demo_yyy=document.getElementById("demo_yyy");
+		var $yyy = $("#demo_yyy1");
+		var num3=0;
+		var time3=0;
+		$('.pgdn_y').click(function(){
+			if(time3==0){
+				time3=1;
+				setTimeout(function () { time3 = 0 }, 300);
+				if(demo_yyy.scrollTop==num3 && $('.demo_yyy1 li').length>20){
+					$yyy.animate({"margin-top":'-='+505},"normal");
+					pag3++;
+					num3=++demo_yyy.scrollTop;
+				}else{
+					
+				}
+			}else{
+				alert('你的点击太频繁，请重新再试');
+			}
+		});
+		$('.pgup_y').click(function(){
+			if(pag3==1){
+
+			}else{
+				$yyy.animate({"margin-top":'+='+505},"normal");
+				pag3--;
+				demo_yyy.scrollTop=pag3-1;
+				num3=demo_yyy.scrollTop;
+			}
+		});
+
+
+var query_k={};
+var query_x={};
+var query_y={};
+khjl(query_k);
+xsjl(query_x);
+yyy(query_y);
+// 客户经理条件查询
+$('#query_k').click(function(){
+	if(time3==0){
+		time3=1;
+		setTimeout(function () { time3 = 0 }, 4000);
+		query_k={
+			user_name:document.getElementById('kname').value,
+			bill_id:document.getElementById('kid').value
+		}
+		khjl(query_k);
+		$khjl.css({"margin-top":"0px"});
+		num=0;
+		pag=1;
+	}else{
+		alert('系统繁忙,请稍等');
+	}
+});
+// 销售经理条件查询
+$('#query_x').click(function(){
+	if(time==0){
+		time=1;
+		setTimeout(function () { time = 0 }, 4000);
+		query_x={
+			user_name:document.getElementById('xname').value,
+			bill_id:document.getElementById('xid').value
+		}
+		xsjl(query_x);
+		$xsjl.css({"margin-top":"0px"});
+		num2=0;
+		pag2=1;
+	}else{
+		alert('系统繁忙,请稍等');
+	}
+});
+// 营业员条件查询
+$('#query_y').click(function(){
+	if(time2==0){
+		time2=1;
+		setTimeout(function () { time2 = 0 }, 4000);
+		query_y={
+			user_name:document.getElementById('yname').value,
+			bill_id:document.getElementById('yid').value
+		}
+		yyy(query_y);
+		$yyy.css({"margin-top":"0px"});
+		num3=0;
+		pag3=1;
+	}else{
+		alert('系统繁忙,请稍等');
+	}
+});
+		
+// 客户经理数据加载
+function khjl(query){
+	$('.demo_khjl1').each(function(){
+		var e=$(this);
+		$.ajax({
+			type:'GET',
+			url:"{:U('NewRank/rank_xfb2')}",
+			dataType:'json',
+			data:query,
+			success:function(result){
+				var html='';
+				$.each(result.khjl,function(index,el){
+	                html += '<a href="{:U('newRank/rank_user_info')}?bill_id='+el['客户经理电话']+'&id=1021&month={$month}&pas=kh" target="_blank"><li style="border-right:1px solid #E5E4E9">';
+	                html += '<img class="aimg" src="__HEAD_IMG__'+el['客户经理电话']+'.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">';
+	                html += '<div class="td-data2">'+el['县市']+'/'+el['客户经理']+'</div>';
+	                html += '<div class="td-data2">第'+el['排名']+'名</div>';
+	                html += '<div class="td-data2">综合得分：'+el['总分值']/1+'</div>';
+	                html += '</li></a>';
+				});
+            	e.html(html);
+			},
+			error:function(e){
+				alert('加载出错，请刷新');
+			}
+		});
+	});
+}
+// 销售经理数据加载
+function xsjl(query){
+	$('.demo_xsjl1').each(function(){
+		var e=$(this);
+		$.ajax({
+			type:'GET',
+			url:"{:U('NewRank/rank_xfb2')}",
+			dataType:'json',
+			data:query,
+			success:function(result){
+				var html='';
+				$.each(result.xsjl,function(index,el){
+	                html += '<a href="{:U('newRank/rank_user_info')}?bill_id='+el['BILL_ID']+'&id=1013&month={$month}&pas=xs" target="_blank"><li style="border-right:1px solid #E5E4E9">';
+	                html += '<img class="aimg" src="__HEAD_IMG__'+el['BILL_ID']+'.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">';
+	                html += '<div class="td-data2">'+el['COUNTY_NAME']+'/'+el['MANAGER_NAME']+'</div>';
+	                html += '<div class="td-data2">第'+el['TOP']+'名</div>';
+	                html += '<div class="td-data2">综合得分：'+el['SCORE']+'</div>';
+	                html += '</li></a>';
+				});
+            	e.html(html);
+			},
+			error:function(e){
+				alert('加载出错，请刷新');
+			}
+		});
+	});
+}
+// 营业员数据加载
+function yyy(query){
+	$('.demo_yyy1').each(function(){
+		var e=$(this);
+		$.ajax({
+			type:'GET',
+			url:"{:U('NewRank/rank_xfb2')}",
+			dataType:'json',
+			data:query,
+			success:function(result){
+				var html='';
+				$.each(result.yyy,function(index,el){
+	                html += '<a href="{:U('newRank/rank_user_info')}?bill_id='+el['BILL_ID']+'&id=1016&month={$month}&pas=yy" target="_blank"><li style="border-right:1px solid #E5E4E9">';
+	                html += '<img class="aimg" src="__HEAD_IMG__'+el['BILL_ID']+'.jpg" width="40%" height="94px" style="float:left;margin:3px 0 0 6px;">';
+	                html += '<div class="td-data2">'+el['COUNTY_NAME']+'/'+el['OBJ_NAME']+'</div>';
+	                html += '<div class="td-data2 nor" title="'+el['ORG_NAME']+'">'+el['ORG_NAME']+'</div>';
+	                html += '<div class="td-data2">第'+el['S_PAIMING']+'名</div>';
+	                html += '<div class="td-data2">综合得分：'+el['总得分']+'</div>';
+	                html += '</li></a>';
+				});
+            	e.html(html);
+			},
+			error:function(e){
+				alert('加载出错，请刷新');
+			}
+		});
+	});
+}
+	</script>
+</block>

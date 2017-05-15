@@ -1,0 +1,205 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">会员申请审核</block>
+<block name="css">
+  <link rel="stylesheet" href="__CSS__/tag.css">
+  <style type="text/css">
+	  *{ padding: 0;margin: 0;
+	  }
+	  .fl{ float: left; }
+	  .fr{ float: right; }
+	  .need_left{ width: 100px; border: 1px solid #ccc;  }
+	  .need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;text-align: center; 
+	                   background-color: #eee; }
+	  .need_left ul{ width: 80px; margin-left: 20px; }
+	  .need_left ul li{ height: 25px;  line-height: 25px;}
+	  .need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+	  .need_left ul li a:hover{ background-color: #eee; color: #333; } 
+	  .need_right{ width: 825px; border:1px solid #ccc; }
+	  .cur{background-color: #eee;border-right: 2px solid #ae807e;}
+	  .show_div{width:90%;margin:10px auto;color: #666;background-color: #fffff9;
+	  }
+	  .show_div table{width:99%;border:1px solid #ccc;border-collapse:collapse;
+	  }
+	  .show_div table th{font-size:20px;text-align: center;letter-spacing: 1px;color: #666;
+	  }
+	  .show_div table td{border: 1px solid #ccc;border-collapse: collapse;font-size: 13px;color: #666;
+	  }
+      .left_td{width:10%;text-align: right;
+      }
+      .right_td{width:30%;
+      }
+      .show_div table td label{font-size: 13px;letter-spacing: 1px;color: #666;
+      }
+      textarea{width: 99%;
+      } 
+      .div_btn{	width: 200px;margin:20px auto 10px;	position: relative;
+      }    
+      .sub_btn,.res_btn{font-size: 14px;border:1px solid #666;	padding: 3px 15px;color: #666;}
+      .res_btn{
+      	margin-left: 68px;
+      }
+      	     
+	</style>	
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+  <div class="alternative">   
+  </div>
+</div>
+</block>
+<block name="main_right"> 
+<div class="need_left fl">
+  {:W('Side/need_tab')}
+</div>
+<div class="need_right fr">
+
+	<div class="show_div" >
+		<form method="post" action="{:U('manager/manager_user_tianjia')}" id="theForm" >
+		    <input type="hidden"  name="oper_num" value="{$oper.oper_num}"/>
+			<table>
+			<tr>
+				<th colspan="4" >丽水移动"知行·喜阅"员工读书会报名表</th>				
+			</tr>
+			<tr>
+				<td class="left_td">姓名&nbsp;</td>
+				<td class="right_td">&nbsp;{$oper.oper_name}</td>
+				<td class="left_td" >性别&nbsp;</td>
+				<td class="right_td">
+				   <if condition="$oper.oper_gender eq '男' "> 
+				    &nbsp;
+					<input type="radio" name="oper_gender"  value="男"  checked="checked" />
+					<label>男</label>
+					<elseif condition="$oper.oper_gender eq '女' "/> 
+					&nbsp;
+					<input type="radio" name="oper_gender"  value="女" checked="checked" />
+					<label>女</label>
+					</if>
+				</td>				
+			</tr>
+			<tr>
+				<td class="left_td" >出生年月&nbsp;</td>
+				<td class="right_td">&nbsp;{$oper.oper_birth}</td>
+				<td class="left_td" >联系电话&nbsp;</td>
+				<td class="right_td">&nbsp;{$oper.oper_phone}</td>				
+			</tr>
+			<tr>
+				<td class="left_td" >部门&nbsp;</td>
+				<td class="right_td">&nbsp;{$oper.oper_city}</td>
+				<td class="left_td" >员工编号&nbsp;</td>
+				<td class="right_td">&nbsp;{$oper.oper_num}</td>				
+			</tr>
+			<tr>
+				<td class="left_td" >毕业院校&nbsp;</td>
+				<td class="right_td">&nbsp;{$oper.oper_school}</td>
+				<td class="left_td" >专业&nbsp;</td>
+				<td class="right_td">&nbsp;{$oper.oper_prof}</td>				
+			</tr>
+			<tr>
+				<td colspan="4"><label>您喜欢读哪些类型的书籍?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea rows="4" readonly="true">{$oper.oper_text1}</textarea>		        
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><label>你对参加员工读书会的目的是?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea rows="4" readonly="true">{$oper.oper_text2}</textarea>			
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><label>您有哪些兴趣爱好?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea  rows="4" readonly="true" >{$oper.oper_hobby}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4"><label>您读过的哪些好书可以为会员推荐?</label></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<textarea  rows="4" readonly="true">{$oper.oper_text4}</textarea>					
+				</td>
+			</tr>
+			<tr>				
+			<tr>
+				<td colspan="4">
+				<if condition="$oper.oper_xuzhi eq '是' "> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" name="check1" id="check1" checked="checked" disabled="true"  />
+				<else />
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" name="check1" id="check1" disabled="true"  />
+				</if>
+				<label>是否同意会员须知</label>						
+				</td>
+			</tr>
+			<tr>
+				<td class="left_td">审核结果</td>
+				<td colspan="3">
+				    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;					
+					<input type="radio" name="shenhe_result"  value="1"   />
+					<label>同意</label>					
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="shenhe_result"  value="2" />
+					<label>不同意</label>					
+				</td>
+			</tr>				
+			</table>
+			<div class="div_btn">
+				<input type="button"  id="sub" value="提 交" class="sub_btn" />
+				<input type="reset" value="重 置" class="res_btn"/>	
+			</div>	
+		</form>
+	</div>
+</div>
+</block>
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+ <script type="text/javascript">
+    $(function(){
+    	$('textarea').css('border','none');
+    });  
+
+    $(function(){
+     	$("#sub").click(function(){     		
+     		var flag=true;
+     		if($(":radio[name='shenhe_result']:checked").length == 1){ 			
+				flag= true;				
+			}else{		
+				flag= false;
+				alert("请选择审核结果!");
+			}
+			if(flag){
+				 if(confirm('是否继续保存数据?')){
+                 	$("#theForm").submit();
+                 }else{
+           			return false;
+                 }
+			}
+     	});
+    });   
+ </script> 
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

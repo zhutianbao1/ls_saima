@@ -1,0 +1,223 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 首页</block>
+<block name="css">
+
+</block>
+
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('./index')}">丽水日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="sidebar">
+    <ul class="sidemenu">
+      <li><a href="{:U('Index/index')}">汇总报表</a></li>
+      <li><a href="{:U('Index/cdeali')}" style="color:#f00">投诉处理记录表</a></li>
+      <li><a href="{:U('Index/faulti')}">故障处理记录表</a></li>
+      <li><a href="{:U('Index/onlinei')}">上线类</a></li>
+      <li><a href="{:U('Index/repositoryi')}">知识库</a></li>
+      <li><a href="{:U('Index/ruleflowi')}">常规流程</a></li>
+      <li><a href="{:U('Index/schedulei')}">排班表</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <form class="form tjform" name="form1" action="{:U('Index/cdeali')}" method="post">
+      <div>
+        <label>投诉来源：</label>
+        <select name="come_from">
+          <option value=""></option>
+          <option value="0">营业飞信群</option>
+          <option value="1">渠道QQ群</option>
+          <option value="2">远端投诉处理QQ群</option>
+        </select>
+
+        <label>投诉县市：</label>
+        <select name="county_code">
+          <option value=""></option>
+          <option value="5781">莲都</option>
+          <option value="5782">缙云</option>
+          <option value="5783">青田</option>
+          <option value="5784">云和</option>
+          <option value="5785">庆元</option>
+          <option value="5786"}>龙泉</option>
+          <option value="5787">遂昌</option>
+          <option value="5788">松阳</option>
+          <option value="5789">景宁</option>
+          <option value="578B">南城</option>
+        </select>
+
+        <label>投诉网点：</label>
+        <input type="text" name="from_site"/>
+      </div>
+
+      <div>
+        <label>业务分类：</label>
+        <select name="busi_type">
+          <option value=""></option>
+          <option value="0">业务查询</option>
+          <option value="1">业务办理</option>
+          <option value="2">计费类</option>
+          <option value="3">其他</option>
+        </select>
+ 
+        <label>是否派单：</label>
+        <select name="has_post">
+          <option value=""></option>
+          <option value="0">否</option>
+          <option value="1">是</option>
+        </select>
+
+        <label>业务现象：</label>
+        <input type="text" name="result_type"/>
+      </div>
+
+      <div>
+        <label>投诉内容：</label>
+        <input type="text" name="content"/>
+        <label>问题原因及解决办法：</label>
+        <input type="text" name="deal_way"/>
+        <label>记录人：</label>
+        <input type="text" name="recorder"/>
+        <button class="btn" type="reset">重置</button>
+      </div>
+
+      <div>
+        <label>时间>=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="start_time"/>
+        <label>时间<=：</label>
+        <input class="Wdate" onClick="WdatePicker()" type="text" name="end_time"/>
+        <label>关键字：</label>
+        <input type="text" name="keyword"/>
+        <input type="button" class="btn query" value="查询"/>
+      </div>
+    </form>
+
+    <div class="btn-box">
+      <input type="button" class="btn cdeala" value="新增"/>
+      <input type="button" class="btn cdealu" value="修改"/>
+      <input type="button" class="btn cdeald" value="删除"/>
+      <input type="button" class="btn cdealq" value="查看"/>
+      <input type="button" class="btn xls-export" value="Excel导出"/>
+    </div>
+
+    <table class="altrowstable">
+      <div style="font-size:14px;font-weight:600">投诉处理记录清单：</div>
+      <tr>
+        <th style="width:25px"></th><th>序号</th><th style="width:45px">时间</th>
+        <th style="width:60px">投诉来源</th><th style="width:27px">投诉县市</th>
+        <th style="width:54px">投诉网点</th><th style="width:35px">业务分类</th>
+        <th style="width:27px">是否派单</th><th style="width:60px">业务现象</th>
+        <th>投诉内容</th><th style="width:170px">问题原因及解决办法</th>
+        <th style="width:42px">记录人</th>
+      </tr>
+      <volist name="cdeallist" id="cdl">
+      <tr>
+        <td><input type="checkbox" name="id" value="{$cdl['ID']}" param="{$i}"/></td><td>{$i}</td>
+        <td>{$cdl['LR_TIME']}</td><td>{$cdl['COME_FROM']}</td>
+        <td>{$cdl['COUNTY_NAME']}</td><td>{$cdl['FROM_SITE']}</td>
+        <td>{$cdl['BUSI_TYPE']}</td><td>{$cdl['HAS_POST']}</td>
+        <td>{$cdl['RESULT_TYPE']}</td>
+        <td>{$cdl['CONTENT']}</td><td>{$cdl['DEAL_WAY']}</td>
+        <td>{$cdl['OPER_NAME']}</td>
+      </tr>
+      </volist>
+    </table>
+    {$_page}
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script>
+$(function(){
+  //查询条件默认选中
+  $("select[name='come_from']").val("{$query['come_from']}");
+  $("select[name='county_code']").val("{$query['county_code']}");
+  $("select[name='busi_type']").val("{$query['busi_type']}");
+  $("select[name='has_post']").val("{$query['has_post']}");
+  $("input[name='from_site']").val("{$query['from_site']}");
+  $("input[name='result_type']").val("{$query['result_type']}");
+  $("input[name='content']").val("{$query['content']}");
+  $("input[name='deal_way']").val("{$query['deal_way']}");
+  $("input[name='recorder']").val("{$query['recorder']}");
+  $("input[name='start_time']").val("{$query['start_time']}");
+  $("input[name='end_time']").val("{$query['end_time']}");
+  $("input[name='keyword']").val("{$query['keyword']}");
+  
+  $(".query").click(function(){
+  	var form = $(".tjform");
+  	form.attr("action","{:U('Index/cdeali')}");
+    form.submit();
+  });
+
+  $(".cdeala").click(function(){
+    window.location.href="{:U('Index/cdeala')}";
+  });
+
+  $(".cdealu").click(function(){
+    //投诉处理记录表(修改)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/cdealu')}?id="+param[0];
+    }
+  });
+
+  $(".cdeald").click(function(){
+    //投诉处理记录表(删除)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      if(confirm("确认删除第"+param[1]+"行？")){
+        window.location.href="{:U('Index/cdeald')}?id="+param[0];
+      }
+      
+    }
+  });
+  
+  $(".cdealq").click(function(){
+    //投诉处理记录表(查看)
+    var id = selectRowid();
+    if(id != '' && id != undefined){
+      var param = id.split('&');
+      window.location.href="{:U('Index/cdealq')}?id="+param[0];
+    }
+  });
+  
+  $(".xls-export").click(function(){
+  	var form = $(".tjform");
+  	form.attr("action","{:U('Index/cdealXlsExport')}");
+    form.submit();
+  });
+
+  function selectRowid(){
+    var chk_value =[];//定义一个数组
+    var param = '';
+    $("input[name='id']:checked").each(function(){
+      chk_value.push($(this).val());
+      param = $(this).attr("param");
+    });
+    
+    if(chk_value.length>1){
+      alert("不能同时编辑多条记录");
+      return;
+    }else if(chk_value.length==0){
+      alert("请选择对应记录");
+      return;
+    }
+
+    return chk_value + '&' + param;
+  }
+});
+  
+
+</script>
+</block>

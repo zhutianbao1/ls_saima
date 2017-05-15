@@ -1,0 +1,67 @@
+<style type="text/css">
+	.model-con-sub{
+    margin-left:-40px;position: relative;
+}
+.model-list{line-height: 28px;margin-bottom:2px !important;}
+.model-list li{position:relative;list-style: none;float: left;width:208px;padding-left: 4px;margin-left: 18px;font-weight: 600;margin-bottom: 4px;color: #000;font-size: 14px;}
+.model-list li span{width:120px;padding-left: 4px;font-weight: 400;position: absolute;right:0px;font-size: 14px;}
+
+.model-list .li{
+	position: relative;
+	margin-bottom: 2px;
+	padding-left:20px;
+	margin-left: -2px;
+	height:60px;
+	color: #172c45;
+	width: 227px;
+	background: #f4f4f4;
+	font-size: 12px;
+}
+.model-list .li span{
+	position: absolute;
+	z-index: 100;
+	width: 230px;
+	left:0px;bottom: 0px;
+	height:35px;line-height: 35px;font-size: 16px;
+	padding-left:20px !important;
+	display: block;border-top:solid 0px #666ccc;
+	background: #fff;
+	color: red;
+}
+</style>
+<?php
+$month = isset($_POST['month']) ? $_POST['month'] : '';
+?>
+<div style="position: relative;background: #F4F4F4;line-height: 40px;">
+	<form method="post" name="form1" action="{:U('newRank/rank_user')}?bill_id={$infoData['E']}&id={$id}">
+        <div>
+        	<span style="font-size:12px;">按月份查看赛马详情数据:</span>
+        	<select name="month" onchange="Id()" style="width: 200px;border: 1px solid #ccc;height: 25px; ">
+                <volist name="tag" id="a">
+                	<option style="font-size: 20px;" value="{$a['RPT_MONTH']}" <?php $value=$a['RPT_MONTH']; echo $month == $value ? 'selected' : '' ?>>{$a['RPT_MONTH']}</option>
+                </volist>
+            </select>
+        </div>
+	</form>
+</div>
+<div class="model-con-sub">
+	<ul class="model-list">
+	<?php 
+		$flag = false;
+		foreach ($infoHead as $k => $v) {
+			if($k=='I'){
+				$flag=true;
+			}
+			if(isset($v) && $flag && $k!='NUMROW'){
+				echo "<li class='li' title='".$v."/".$infoData[$k]."'>".$v."<span>".$infoData[$k]."</span></li>";	
+			}
+		}
+	?>
+	</ul>
+</div>
+
+<script type="text/javascript">
+	function Id(){
+    document.all.form1.submit();
+}
+</script>

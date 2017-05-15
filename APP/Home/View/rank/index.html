@@ -1,0 +1,156 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">赛马首页</block>
+
+
+<block name="body">
+	<table class="rank"   border="0" cellpadding="2" cellspacing="0" style="border:solid 1px rgb(15, 142, 226);border-bottom:0px; border-top:0px;">
+	<tr style="display:none;">
+	<th height="67" colspan="11" scope="col" class="logo_td"></th>
+	</tr>
+	<tr>
+	<td width="50px" align="center" class="rank-title">大类</td>
+	<td width="80px" align="center" class="rank-title">一级分类</td>
+	<td width="165px" align="center" class="rank-title">二级分类</td>
+	<td width="30px" align="center" class="rank-title"><!-- 编号 --></td>
+	<if condition="$month eq 'jm'">
+	<td width="270px"  align="center" class="rank-title">骏马获奖名单</td>
+	<td width="270px"  align="center" class="rank-title"></td>
+	<elseif condition="$month eq 'hm'"/>
+	<td width="270px"  align="center" class="rank-title">黑马获奖名单</td>
+	<td width="270px"  align="center" class="rank-title"></td>
+	<elseif condition="$month eq 'qlm'"/>
+	<td width="270px"  align="center" class="rank-title">千里马获奖名单</td>
+	<td width="270px"  align="center" class="rank-title"></td>
+	<else/>
+	<td width="270px"  align="center" class="rank-title">前三马</td>
+	<td width="270px"  align="center" class="rank-title">末三马</td>
+	</if>
+	<td class="rank-title" align="right" style="padding-right:20px;">操作</td>
+	</tr>
+	<tr>
+	<td colspan="2" align="center" class="fst_td">团队类</td>
+	<!--<td align="center" class="sec_td">县市团队</td>-->
+	<td colspan="5" class="con" id="td">&nbsp;</td>
+	</tr>
+	<tr>
+	<td rowspan="5" align="center" class="fst_td">个人类</td>
+	<td align="center" class="sec_td">县公司管理层</td>
+	<td colspan="5" class="con" id="glry">&nbsp;</td>
+	</tr>	
+	<tr>
+	<td align="center" class="sec_td">市场条线</td>
+	<td colspan="5" class="con" id="scry">&nbsp;</td>
+	</tr>
+	<tr>
+	<td align="center" class="sec_td">政企条线</td>
+	<td colspan="5" class="con" id="zq">&nbsp;</td>
+	</tr>
+	<tr>
+	<td align="center" class="sec_td">网络条线</td>
+	<td colspan="5" class="con"class="con" id="wl">&nbsp;</td>
+	</tr>
+	<tr>
+	<td align="center" class="sec_td">综合条线</td>
+	<td colspan="5" class="con" id="zh">&nbsp;</td>
+	</tr>
+	</table>
+</block>
+
+
+<block name="js">
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>		
+<script type="text/javascript">
+	$(function(){
+		//赛马数据加载	
+		$(".con").each(function(){
+			var user="{$pow['USER_NAME']}";
+			var luna="{$luna[0]['MONTH']}";
+			var e  = $(this),
+				id = e.attr('id'),
+				url= '';
+				if(month=='year'){
+					url= "{:U('new_load')}"+"?sec_type="+id;
+				}else if(month=='jm'){
+					url= "{:U('rank_jm')}"+"?sec_type="+id;
+				}else if(month=='hm'){
+					url= "{:U('rank_hm')}"+"?sec_type="+id;
+				}else if(month=='qlm'){
+					url= "{:U('rank_qlm')}"+"?sec_type="+id;
+				}else{
+					url= "{:U('rank_load')}"+"?sec_type="+id+"&month="+month;
+				}
+				$.ajax({
+					type:'GET',
+					url:url,
+					dataType:'json',
+					success:function(result){
+
+						var html = '';
+						$.each(result,function(index, el) {
+							html+='<ul class="rank_ul">';
+							html+='<li style="width:165px;" title="'+el['NAME']+'">'+el['NAME']+'</li>'; //基础信息
+							html+='<li style="width:0px;"></li>';
+
+							if(month=='jm' || month=='hm' || month=='qlm'){
+							html+='<li  class="rank-m" title="'+el['P1']+'">'+el['P1']+'</li>';
+							html+='<li  class="rank-m" title="'+el['P2']+'">'+el['P2']+'</li>';
+							html+='<li  class="rank-m" title="'+el['P3']+'">'+el['P3']+'</li>';
+							html+='<li  class="rank-m" title="'+el['P4']+'">'+el['P4']+'</li>';
+							html+='<li  class="rank-m" title="'+el['P5']+'">'+el['P5']+'</li>';
+							}else{
+							html+='<li  class="rank-f" title="'+el['P1']+'">'+el['P1']+'</li>';
+							html+='<li  class="rank-f" title="'+el['P2']+'">'+el['P2']+'</li>';
+							html+='<li  class="rank-f" title="'+el['P3']+'">'+el['P3']+'</li>';
+
+							html+='<li  class="rank-l" title="'+el['P4']+'">'+el['P4']+'</li>';
+							html+='<li  class="rank-l" title="'+el['P5']+'">'+el['P5']+'</li>';
+							html+='<li  class="rank-l" title="'+el['P6']+'">'+el['P6']+'</li>';
+							}
+
+							html+='<li style="width:105px;text-align:right;">';
+							if(month=='year'){
+								html+='<a target="_blank" href="{:U("index/new_info")}?id='+el['ID']+'">积分详情</a></li>';
+							}else if(month=='jm'){
+								html+='<a href="{:U("index/rank_jm_info")}?id='+el['ID']+'&month='+month+'">骏马详情</a></li>';
+							}else if(month=='hm'){
+								html+='<a href="{:U("index/rank_hm_info")}?id='+el['ID']+'&month='+month+'">黑马详情</a></li>';
+							}else if(month=='qlm'){
+								html+='<a href="{:U("index/rank_qlm_info")}?id='+el['ID']+'&month='+month+'">千里马详情</a></li>';
+							}else{
+							    html+='<a target="_blank" href="{:U("index/rank_info")}?id='+el['ID']+'&month='+month+'">详情</a>&nbsp;';
+								html+='<a target="_blank" href="{:U("msg/msg_priview")}?id='+el['MSG_ID']+'">目标</a>&nbsp;';
+								html+='<a target="_blank" href="{:U("index/rank_question")}?config_id='+el['ID']+'">答疑</a>&nbsp;';
+								if(month==luna && user!=''){
+								html+='<a target="_blank" href="{:U("index/lead")}?id='+el['ID']+'&month='+month+'">导入</a></li>';
+								}
+							}
+							html+='</ul>';
+						});
+						 
+						e.html(html);
+
+						$("td").each(function(index, el) {
+							$(this).find(".rank_ul:last").find("li").css('border-bottom','0px');
+						});
+						
+					},
+					error:function(e){
+						console.error(e);
+					}
+				});
+		});
+ 
+		$(".rank_ul").find('li').live('mouseover', function(event) {
+			var e = $(this);
+			e.css('background-color','#fff666').siblings('li').css('background-color','#fff666');
+		});
+
+		$(".rank_ul").find('li').live('mouseout', function(event) {
+			var e = $(this);
+			e.css('background-color','#fbfdff').siblings('li').css('background-color','#fbfdff');
+		});
+
+	});
+</script>
+</block>

@@ -1,0 +1,117 @@
+<extend name="Tpl/base"/>
+<block name="title">阅读会请假</block>
+<block name="css">
+	<style type="text/css">
+	.show{
+		width:90%;margin:10px auto;
+	}
+	.show table{
+		width:99%;border:1px solid #ccc;border-collapse:collapse;
+	}
+	.show table th{
+		font-size:16px;text-align: center;letter-spacing: 1px;color: #666;
+	}
+    .show td{
+		border:1px solid #ccc;font-size: 16px;color: #666;letter-spacing: 1px;
+	}
+    .left_td{width:12%;text-align: right;
+	}
+	.right_td{width: 21%;
+	}
+	.show label{
+		font-size: 16px;letter-spacing: 1px;color: #666;
+	}
+	.input_text{width:94%;height:98%;font-size:16px;border:none;
+	 }	
+	.sub_btn,.res_btn{margin-top: 20px;font-size: 14px;color: #666;
+		border:1px solid #666;padding: 3px 15px;
+	}
+
+    textarea{width: 99%;} 
+
+	</style>	
+</block>
+<block name="main_top">
+	<div  class="show" >
+		<form id="theForm" method="post" action="{:U('index/meeting_qingjia')}" >
+		    <input type="hidden" name="oper_city" value="{$arr[0]['oper_city']}" />
+			<table >
+			<tr>
+				<th colspan="6" >阅读会请假</th>				
+			</tr>
+			<tr>
+				<td class="left_td">姓名</td>
+				<td class="right_td">
+					<input name="oper_name" id="oper_name" class="input_text" 
+					 value="{$arr[0]['oper_name']}"  />
+				</td>
+				<td class="left_td" >联系电话</td>
+				<td class="right_td">
+					<input name="oper_phone" id="oper_phone" class="input_text"  
+					     value="{$arr[0]['oper_phone']}"  />
+				</td>
+				<td class="left_td" >员工编号</td>
+				<td class="right_td">
+				   <input name="oper_num" id="oper_num" class="input_text"  
+					    value="{$arr[0]['oper_num']}"  />
+				</td>			
+			</tr>
+			<tr>				
+				<td class="left_td">阅读会编号</td>
+				<td class="right_td">
+					<input name="meeting_id" id="meeting_id" class="input_text" value="{$meeting_id}"/>
+				</td>
+				<td class="left_td">阅读会名称</td>
+				<td class="right_td" colspan="3">
+					<input name="meeting_name" id="meeting_name"  value="{$title}" class="input_text"/>
+				</td>							
+			</tr>					
+			<tr>
+				<td colspan="6"><label >请假原因</label></td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<textarea rows="5" name="qingjia_reason" id="qingjia_reason" ></textarea>
+				</td>
+			</tr>					
+			</table>
+			<input type="button"  value="提 交" class="sub_btn"   />
+			<input type="reset" value="重 置" class="res_btn"/>				
+		</form>
+	</div>
+</block>
+
+<block name="js">
+<script src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script> 
+
+ </script>
+ <script type="text/javascript">
+   $(function(){
+   	$('.input_text').css('border','none');
+   	$('.sub_btn').click(function() {
+   		var qingjia_reason=$("#qingjia_reason").val();  
+   		if(qingjia_reason.length>0){
+   			$('#theForm').submit();
+   		}else{   			
+   			layer.alert('请检查数据是否填写完整!');
+   		}
+   	});
+   });
+
+</script>
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

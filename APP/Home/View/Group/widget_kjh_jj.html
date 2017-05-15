@@ -1,0 +1,230 @@
+ <div class="p_main">
+<div class="model top10">
+	<div>
+		<div class="hr_info_title_l">
+			<span>个人信息</span>
+		</div>
+		<empty name="hr">
+			<div class="no-data">未找到{$bill_id}个人信息</div>
+			<else/>
+			<div class="hr_info_content" style="height: 185px;">
+				<div class="model-con"><img src="__HEAD_IMG__{$hr['BILL_ID']}.jpg" height="150px" width="120px"></div>
+				<div class="model-cons" style="height:150px">
+					<ul class="model-list">
+						<li class="li">姓名：<span>{$hr['USER_NAME']}</span></li>
+						<li class="li">县市：<span>{$hr['COUNTY_NAME']}</span></li>
+						<li class="li">岗位：<span>{$hr['岗位']}</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">员工编号：<span>{$hr['USER_ID']}</span></li>
+						<li class="li">用工性质：<span>{$hr['用工性质']}</span></li>
+						<li class="li">入职时间：<span><?php echo date ("Y-m-d",strtotime($hr['入职时间'])); ?></span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">入职客户经理时间：暂无<span></span></li>
+						<li class="li">岗位工龄：<span>暂无</span></li>
+						<li class="li">年龄：<span>暂无</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">最高学历：<span>暂无</span></li>
+						<li class="li">现职等：<span>暂无</span></li>
+						<li class="li">15年绩效：<span>{$hr['M2015年绩效']}</span></li>
+					</ul>
+					<ul class="model-list">
+						<li class="li">16年绩效：<span>{$hr['M2016年绩效']}</span></li>
+						<li class="li">现星级：<span>暂无</span></li>
+					</ul>
+				</div>
+			</div>
+			<p width="900px">工作经历：<span>暂无</span></p>
+		</empty>
+	</div>
+</div> 
+
+<style type="text/css">
+	.model-list2{margin:0px;border-bottom:solid 1px rgb(245, 248, 252);clear:both;overflow: hidden;margin-bottom:2px;}
+	.model-list2 li{float:left;height:30px;line-height:30px;width:230px;}
+ 	.model-list2 li span{ font-size: 13px;text-decoration: underline;width:80px;text-align: right;padding-left:20px;}
+</style>
+<div class="model top10">
+	<div> 
+		<div class="hr_info_title_l">
+			<span>计件信息</span>
+		</div>
+
+		<empty name="jj">
+			<div class="no-data">未找到{$bill_id}计件数据</div>
+			<else/>
+			<div class="hr_info_content" style="height: 285px;">
+				 
+				<div style="padding:20px 10px;">
+				<ul class="model-list2">
+					<li class="li">更新时间：<span>{$jj['更新时间_CHAR']}</span></li>
+					<li class="li">总分值：<span>{$jj['总分值']}</span></li>
+					<li class="li">总金额：<span>{$jj['总金额']}</span></li>
+					<li class="li">全市排名：<span>{$jj['全市排名']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">新增成员数：<span>{$jj['新增成员数']}</span></li>
+					<li class="li">新增成员分：<span>{$jj['新增成员分']}</span></li>
+					<li class="li">新增集团数：<span>{$jj['新增集团数']}</span></li>
+					<li class="li">新增集团分值：<span>{$jj['新增集团分值']}</span></li>
+				</ul>	
+				<ul class="model-list2">
+					<li class="li">集团拓展排名：<span>{$jj['集团拓展排名']}</span></li>
+					<li class="li">预缴金额：<span>{$jj['预缴金额']}</span></li>
+					<li class="li">预缴积分：<span>{$jj['预缴积分']}</span></li>
+					<li class="li">新增托收：<span>{$jj['新增托收']}</span></li>
+				</ul>	
+				<ul class="model-list2">
+					<li class="li">托收分值：<span>{$jj['托收分值']}</span></li>
+					<li class="li">集团统付排名：<span>{$jj['集团统付排名']}</span></li>
+					<li class="li">裸机4G转4G：<span>{$jj['裸机4G转4G']}</span></li>
+					<li class="li">裸机4G转4G分：<span>{$jj['裸机4G转4G分']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">裸机3G转4G：<span>{$jj['裸机3G转4G']}</span></li>
+					<li class="li">裸机3G转4G分：<span>{$jj['裸机3G转4G分']}</span></li>
+					<li class="li">合约4G转4G：<span>{$jj['合约4G转4G']}</span></li>
+					<li class="li">合约4G转4G分：<span>{$jj['合约4G转4G分']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">合约3G转4G：<span>{$jj['合约3G转4G']}</span></li>
+					<li class="li">合约3G转4G分：<span>{$jj['合约3G转4G分']}</span></li>
+					<li class="li">集团4G终端排名：<span>{$jj['集团4G终端排名']}</span></li>
+					<!-- <li class="li">三类人物量：<span>{$jj['三类人物量']}</span></li> -->
+				</ul>
+				<ul class="model-list2">
+					<li class="li">标准30元：<span>{$jj['标准30元']}</span></li>
+					<li class="li">标准30分值：<span>{$jj['标准30分值']}</span></li>
+					<li class="li">标准40元：<span>{$jj['标准40元']}</span></li>
+					<li class="li">标准40分值：<span>{$jj['标准40分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">标准50元：<span>{$jj['标准50元']}</span></li>
+					<li class="li">标准50分值：<span>{$jj['标准50分值']}</span></li>
+					<li class="li">标准70元：<span>{$jj['标准70元']}</span></li>
+					<li class="li">标准70分值：<span>{$jj['标准70分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">标准100元：<span>{$jj['标准100元']}</span></li>
+					<li class="li">标准100分值：<span>{$jj['标准100分值']}</span></li>
+					<li class="li">标准130元：<span>{$jj['标准130元']}</span></li>
+					<li class="li">标准130分值：<span>{$jj['标准130分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">标准180元：<span>{$jj['标准180元']}</span></li>
+					<li class="li">标准180分值：<span>{$jj['标准180分值']}</span></li>
+					<li class="li">标准280元：<span>{$jj['标准280元']}</span></li>
+					<li class="li">标准280分值：<span>{$jj['标准280分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">优惠30元：<span>{$jj['优惠30元']}</span></li>
+					<li class="li">优惠30分值：<span>{$jj['优惠30分值']}</span></li>
+					<li class="li">优惠50元：<span>{$jj['优惠50元']}</span></li>
+					<li class="li">优惠50分值：<span>{$jj['优惠50分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">优惠70元：<span>{$jj['优惠70元']}</span></li>
+					<li class="li">优惠70分值：<span>{$jj['优惠70分值']}</span></li>
+					<li class="li">优惠100元：<span>{$jj['优惠100元']}</span></li>
+					<li class="li">优惠100分值：<span>{$jj['优惠100分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">优惠130元：<span>{$jj['优惠130元']}</span></li>
+					<li class="li">优惠130分值：<span>{$jj['优惠130分值']}</span></li>
+					<li class="li">集团4G流量排名：<span>{$jj['集团4G流量排名']}</span></li>
+					<!-- <li class="li">宽带20M以下分值：<span>{$jj['宽带20M以下分值']}</span></li> -->
+				</ul>
+				<ul class="model-list2">
+					<li class="li">月费18：<span>{$jj['月费18']}</span></li>
+					<li class="li">月费18分值：<span>{$jj['月费18分值']}</span></li>
+					<li class="li">月费38：<span>{$jj['月费38']}</span></li>
+					<li class="li">月费38分值：<span>{$jj['月费38分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">月费58：<span>{$jj['月费58']}</span></li>
+					<li class="li">月费58分值：<span>{$jj['月费58分值']}</span></li>
+					<li class="li">月费88：<span>{$jj['月费88']}</span></li>
+					<li class="li">月费88分值：<span>{$jj['月费88分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">月费158：<span>{$jj['月费158']}</span></li>
+					<li class="li">月费158分值：<span>{$jj['月费158分值']}</span></li>
+					<li class="li">套餐迁移排名：<span>{$jj['套餐迁移排名']}</span></li>
+					<!-- <li class="li">本月一次性收入积分：<span>{$jj['本月一次性收入积分']}</span></li> -->
+				</ul>
+				<ul class="model-list2">
+					<li class="li">包年20M：<span>{$jj['包年20M']}</span></li>
+					<li class="li">包年20M分值：<span>{$jj['包年20M分值']}</span></li>
+					<li class="li">包年50M以上：<span>{$jj['包年50M以上']}</span></li>
+					<li class="li">包年50M以上分值：<span>{$jj['包年50M以上分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">融合20M：<span>{$jj['融合20M']}</span></li>
+					<li class="li">融合20M分值：<span>{$jj['融合20M分值']}</span></li>
+					<li class="li">融合50M及以上：<span>{$jj['融合50M及以上']}</span></li>
+					<li class="li">融合50M及以上分值：<span>{$jj['融合50M及以上分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">续包提档：<span>{$jj['续包提档']}</span></li>
+					<li class="li">续包提档分值：<span>{$jj['续包提档分值']}</span></li>
+					<li class="li">续包同档：<span>{$jj['续包同档']}</span></li>
+					<li class="li">续包同档分值：<span>{$jj['续包同档分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">宽带电视：<span>{$jj['宽带电视']}</span></li>
+					<li class="li">宽带电视分值：<span>{$jj['宽带电视分值']}</span></li>
+					<li class="li">宽带优惠：<span>{$jj['宽带优惠']}</span></li>
+					<li class="li">宽带优惠分值：<span>{$jj['宽带优惠分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">商包年20M：<span>{$jj['商包年20M']}</span></li>
+					<li class="li">商包年20M分值：<span>{$jj['商包年20M分值']}</span></li>
+					<li class="li">商包年20到50M以上：<span>{$jj['商包年20到50M以上']}</span></li>
+					<li class="li">商包年20到50M以上分值：<span>{$jj['商包年20到50M以上分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">商包年50到100M：<span>{$jj['商包年50到100M']}</span></li>
+					<li class="li">商包年50到100M分值：<span>{$jj['商包年50到100M分值']}</span></li>
+					<li class="li">商包100M以上：<span>{$jj['商包100M以上']}</span></li>
+					<li class="li">商包100M以上分值：<span>{$jj['商包100M以上分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">商宽带优惠：<span>{$jj['商宽带优惠']}</span></li>
+					<li class="li">商宽带优惠分值：<span>{$jj['商宽带优惠分值']}</span></li>
+					<li class="li">商宽带排名：<span>{$jj['商宽带排名']}</span></li>
+					<!-- <li class="li">商包年20到50M以上分值：<span>{$jj['商包年20到50M以上分值']}</span></li> -->
+				</ul>
+				<ul class="model-list2">
+					<li class="li">专线收入：<span>{$jj['专线收入']}</span></li>
+					<li class="li">专线积分：<span>{$jj['专线积分']}</span></li>
+					<li class="li">短彩信收入：<span>{$jj['短彩信收入']}</span></li>
+					<li class="li">商短彩信积分：<span>{$jj['商短彩信积分']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">流量统付收入：<span>{$jj['流量统付收入']}</span></li>
+					<li class="li">流量统付积分：<span>{$jj['流量统付积分']}</span></li>
+					<li class="li">其他收入：<span>{$jj['其他收入']}</span></li>
+					<li class="li">其他积分：<span>{$jj['其他积分']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">物联网用户数：<span>{$jj['物联网用户数']}</span></li>
+					<li class="li">专物联网分值：<span>{$jj['专物联网分值']}</span></li>
+					<li class="li">和教育出账：<span>{$jj['和教育出账']}</span></li>
+					<li class="li">和教育分值：<span>{$jj['和教育分值']}</span></li>
+				</ul>
+				<ul class="model-list2">
+					<li class="li">和腕表：<span>{$jj['和腕表']}</span></li>
+					<li class="li">腕表分值：<span>{$jj['腕表分值']}</span></li>
+					<li class="li">腕表排名：<span>{$jj['腕表排名']}</span></li>
+					<li class="li">宽带排名：<span>{$jj['宽带排名']}</span></li>
+				</ul>
+				</div>
+			</div>
+		</empty>
+	</div>
+	<br>
+</div>	
+</div>						
+	 

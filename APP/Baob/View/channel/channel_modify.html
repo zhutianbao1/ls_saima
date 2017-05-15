@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>渠道经营者信息--移动</title>
+<link rel="stylesheet" href="__STATIC__/jquery-ui-10/css/base/jquery-ui-1.10.4.custom.min.css">
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+<script src="__STATIC__/jquery-ui-10/js/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/channel_modify.css"/>
+<style type="text/css"></style>
+</head> 
+<body>
+    <div>
+        <div class="contain">
+            <h3>渠道经营者信息一览表</h3>
+            <div class="box">
+                <fieldset>
+                <legend>基本信息:</legend>
+                    <div class="group">
+                        <table>
+                            <tr>
+                                <td>渠道编号</td>
+                                <td>{$list[0]['渠道编号']}</td>
+                                <td>渠道名称</td>
+                                <td>{$list[0]['渠道名称']}</td>
+                            </tr>
+                            <tr>
+                                <td>二级类型名称</td>
+                                <td>{$list[0]['二级类型名称']}</td>
+                                <td>县市名称</td>
+                                <td>{$list[0]['县市名称']}</td>
+                            </tr>
+                            <tr>
+                                <td>片区名称</td>
+                                <td>{$list[0]['片区名称']}</td>
+                                <td>星级</td>
+                                <td>{$list[0]['星级']}</td>
+                            </tr>
+                            <tr>
+                                <td>运营商</td>
+                                <td>{$list[0]['运营商']}</td>
+                                <td>销售经理名称</td>
+                                <td>{$list[0]['销售经理名称']}</td>
+                            </tr>
+                            <tr>
+                                <td>销售经理电话</td>
+                                <td>{$list[0]['销售经理电话']}</td>
+                                <td>所属商圈</td>
+                                <td>{$list[0]['所属商圈']}</td>
+                            </tr>
+                            <tr>
+                                <td>乡镇街道</td>
+                                <td>{$list[0]['乡镇街道']}</td>
+                                <td>社区行政村</td>
+                                <td>{$list[0]['社区行政村']}</td>
+                            </tr>
+                            <tr>
+                                <td>法人代表</td>
+                                <td>{$list[0]['法人代表']}</td>
+                                <td>法人联系电话</td>
+                                <td>{$list[0]['法人联系电话']}</td>
+                            </tr>
+                            <tr>
+                                <td>渠道联系人</td>
+                                <td>{$list[0]['渠道联系人']}</td>
+                                <td>联系电话</td>
+                                <td>{$list[0]['联系电话']}</td>
+                            </tr>
+                            <tr>              
+                                <td>门头间数</td>
+                                <td>{$list[0]['门头间数']}</td>
+                                <td>创建时间</td>
+                                <td>{$list[0]['创建时间']}</td>
+                            </tr>
+                            <tr> 
+                                <td>渠道地址</td>
+                                <td>{$list[0]['渠道地址']}</td>
+                                <td>商圈类型</td>
+                                <td>{$list[0]['商圈类型']}</td>
+                            </tr>
+                            <tr>
+                                <td>商圈等级</td>
+                                <td>{$list[0]['商圈等级']}</td>
+                                <td>店面年租金</td>
+                                <td>{$list[0]['店面年租金']}</td>
+                            </tr>
+                            <tr> 
+                                <td>店面面积</td>
+                                <td>{$list[0]['店面面积']}</td>
+                                <td>禁用时间</td>
+                                <td>{$list[0]['禁用时间']}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                <legend>录入信息:</legend>
+                    <div class="group">
+                        <form id="theForm" action="{:U('Channel/channel_modify')}" method="post">
+                            <div class="group_div" >
+                                <label>渠道编号:</label>
+                                <input type="text" name="qd_id"  value="{$list[0]['ORG_ID']}" readonly="readonly" />
+                            </div>
+                            <div class="group_div">
+                                <label>补贴模式</label>
+                                <select  name="bt_ms">
+                                <option value="{$content[0]['SUBSIDY_MODEL']}">{$content[0]['SUBSIDY_MODEL']}</option>
+                                <option value="">---请选择---</option>
+                                <option value="一次性装修补贴">一次性装修补贴</option>
+                                <option value="渠道建设考核补贴">渠道建设考核补贴</option>
+                                </select>
+                            </div>
+                            <div class="group_div">
+                                <label>补贴考核时段:</label>
+                                <input type="text" name="bt_kh" value="{$content[0]['SUBSIDY_ASSESS']}"/>
+                            </div>
+                            <div class="group_div">
+                                <label>补贴金额:</label>
+                                <input type="text" name="bt_je" value="{$content[0]['SUBSIDY_AMOUNT']}"/>
+                            </div>
+                            <div class="group_div">
+                                <label>租赁期限:</label>
+                                <input type="text" name="zl_qx" value="{$content[0]['LEASE_TERM']}"/>
+                            </div>
+                            <div class="group_div">
+                                <label>运营商补贴条件:</label>
+                                <input type="text" name="bt_tj" value="{$content[0]['SUBSIDY_CONDIT']}"/>
+                            </div>
+                            <div class="group_div2">
+                                <label>渠道经营情况:</label>
+                                <textarea name="jy_qk">{$content[0]['CHANNEL_OPERATION']}</textarea>
+                                <!--
+                                <input type="text" name="jy_qk"/>
+                                -->
+                            </div>
+                            <div class="clear"></div>
+
+                            <if condition="$num eq '1' and $content[0]['摸排任务'] eq '1'">
+                                <div class="group_div2">
+                                    <label>摸排任务要求:</label>
+                                    <textarea name="rw_yq">{$content[0]['TASK_REQUIRE']}</textarea>
+                                    <!--
+                                    <input type="text" name="rw_yq"/>
+                                    -->
+                                </div>
+                                <div class="clear"></div>
+                                <div class="group_div">
+                                    <label>摸排任务完成时限:</label>
+                                    <input type="text" name="wc_sj" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"
+                                    value="{$content[0]['TASK_END_TIME']}"/>
+                                </div>
+
+                                <div class="group_div">
+                                    <label>摸排任务下达者:</label>
+                                    <input type="text" name="rw_xdz" value="{$content[0]['TASK_OPER']}"/>
+                                </div>
+                                <div class="group_div">
+                                    <label>摸排任务下达时间:</label>
+                                    <input type="text" name="rw_xdsj" value="{$content[0]['TASK_START_TIME']}" />
+                                </div>
+                                <div class="group_div2">
+                                    <label>摸排结果:</label>
+                                    <textarea name="mp_result">{$content[0]['TASK_RESULT']}</textarea>
+                                </div>
+                                <div class="clear"></div>
+                            </if>
+                            <!--
+                            <div class="group_div">
+                            <label>本渠道信息最后维护时间:</label>
+                            <input type="text" name="wh_sj"/>
+                            </div>
+                            -->
+                            <input type="hidden" name="mp_rw" value="{$content[0]['TASK_NO']}" />
+                            <input type="hidden" name="rw_bill" value="{$content[0]['TASK_BILL']}" />
+                        </form>
+                    </div>
+                    <div class="group_div1">
+                        <input type="button"  value="提交" class="btn">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="__STATIC__/date/WdatePicker.js"></script>
+<script >
+$(function(){
+    $('.btn').click(function(event) {
+        layer.confirm('确定要保存数据吗?', function(index){
+        $("#theForm").submit();
+            layer.close(index);
+        });       
+    });
+});
+</script>
+
+</html>
+

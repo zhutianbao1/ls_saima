@@ -1,0 +1,166 @@
+<extend name="Tpl/base_manager"/>
+<block name="title">管理员</block>
+
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">   
+<style type="text/css">     
+  .fl{ float: left; }
+  .fr{ float: right; }
+  .need_left{ width: 100px; border: 1px solid #ccc;  }
+  .need_left h3{height: 30px;line-height: 30px; font-size: 15px; color: #666;text-align: center; 
+                   background-color: #eee; }
+  .need_left ul{ width: 80px; margin-left: 20px; }
+  .need_left ul li{ height: 25px;  line-height: 25px;}
+  .need_left ul li a{ font-size: 14px;  color: #666; display: block; }
+  .need_left ul li a:hover{ background-color: #eee; color: #333; } 
+  .need_right{ width: 825px; border:1px solid #ccc; }
+  .cur{background-color: #eee;border-right: 2px solid #ae807e;} 
+  .show{width: 90%;}
+  .show h3{ height: 30px;line-height: 30px; letter-spacing: 1px; color: #666; text-align:  center;  }
+  .group{ margin:5px 10px; height: 30px; line-height: 30px;}
+  .group label{ width:20%; display: inline-block; height: 30px; line-height: 30px; text-align: right; }
+  .group input{ width:75%; display: inline-block; height: 18px; line-height: 18px; border:1px solid #666;
+    margin-bottom: 5px;  font-size: 13px; color: #666;  }
+  .group select{ width:77%; display: inline-block; height: 27px; line-height: 27px;  border:1px solid #666;
+    margin-bottom: 3px; font-size: 13px; color: #666;}
+  .div_btn{text-align: center;  }
+  .div_btn input[type='button']{ font-size: 14px; color: #666; padding: 3px 15px; border:1px solid #666; }
+</style>	
+</block>
+<block name="main_top">
+<div class="page-title">
+  {:W('Side/manager_tab')}
+</div>
+</block>
+
+<block name="main_right">  
+<div class="need_left fl">
+  {:W('Side/need_tab')}
+</div>
+<div class="need_right fr">
+    <div  class="show">
+        <h3>读书会管理员信息</h3> 
+        <form method="post" id="theForm" action="{:U('manager/manager_modify')}">       
+            <input type="hidden" name="id" value="{$arr[0]['id']}"/>
+            <div class="group">    
+                <label>姓名:</label> 
+                <input type="text" name="manager_name" id="manager_name" value="{$arr[0]['manager_name']}"/>
+            </div>
+            <div class="group">
+                <label>手机:</label>
+                <input type="text" name="bill_id"  id="bill_id" value="{$arr[0]['bill_id']}" />
+            </div>
+            <div class="group">
+                <label>部门:</label>
+                <select name="county_code"  id="county_code">
+                    <option value="{$arr[0]['county_code']}">{$arr[0]['county_code']}</option>
+                    <if condition="$oper_city eq 5780">
+                        <option value="市公司">市公司</option>
+                        <option value="市场经营部">市场经营部</option>
+                        <option value="政企客户部">政企客户部</option>
+                        <option value="网络部">网络部</option>
+                        <option value="工程建设部">工程建设部</option>
+                        <option value="综合部">综合部</option>
+                        <option value="财务部">财务部</option>
+                        <option value="人力资源部">人力资源部</option>
+                        <option value="党委办公室(党群工作部)">党委办公室(党群工作部)</option>
+                        <option value="纪检监察室">纪检监察室</option>
+                        <option value="工会">工会</option>            
+                    <else/>
+                        <option value="莲都">莲都</option>
+                        <option value="青田">青田</option>
+                        <option value="缙云">缙云</option>
+                        <option value="龙泉">龙泉</option>
+                        <option value="遂昌">遂昌</option>
+                        <option value="松阳">松阳</option>
+                        <option value="云和">云和</option>
+                        <option value="景宁">景宁</option>
+                        <option value="庆元">庆元</option>
+                        <option value="南城">南城</option>
+                    </if>                 
+                </select>
+
+            </div>
+            <div class="group">
+                <label>级别:</label>
+                <select name="manager_op"  id="manager_op" >               
+                    <option value="{$arr[0]['manager_op']}">
+                    <if condition="$arr[0]['manager_op'] eq 1 "> 
+                              一级管理员
+                    <elseif condition="$arr[0]['manager_op'] eq 2"/>
+                              二级管理员 
+                    <elseif condition="$arr[0]['manager_op'] eq 3" />
+                              三级管理员
+                    </if>        
+                    </option> 
+                    <option value="1">一级管理员</option>
+                    <option value="2">二级管理员</option>
+                    <option value="3">三级管理员</option>
+                </select>
+            </div>
+            <div class="div_btn">
+                <input type="button"  id="btn" value="提 交"  />
+            </div>
+        </form>    	
+    </div>
+</div>    
+</block>
+
+<block name="js">
+<script src="__JS__/jquery-1.8.3.min.js"></script>
+<script src="__JS__/jquery.cookie.js"></script>
+ <script type="text/javascript">
+ $(function(){
+   $("#btn").click(function(){
+       var manager_name=$("#manager_name").val();
+       var bill_id=$("#bill_id").val();
+       var county_code=$("#county_code").val();
+       var manager_op=$("#manager_op").val();
+       
+       var flag=true;      
+       if(manager_name.isEmpty()){  
+          $("#manager_name").css('background','infobackground');
+          $("#manager_name").focus();
+          flag=false;
+       }
+       if(bill_id.isEmpty()){  
+          $("#bill_id").css('background','infobackground');
+          $("#bill_id").focus();
+          flag=false;
+       }
+       if(county_code.isEmpty()){  
+          $("#county_code").css('background','infobackground');
+          $("#county_code").focus();
+          flag=false;
+       }
+       if(manager_op.isEmpty()){  
+          $("#manager_op").css('background','infobackground');
+          $("#manager_op").focus();
+          flag=false;
+       }
+       if(flag){
+          if(confirm('是否继续保存数据?')){
+            $("#theForm").submit();
+          }else{
+            return false;
+          }
+        }
+   });
+ }); 
+  
+ </script>
+ 
+</block>
+	
+	
+   
+
+
+
+
+
+
+
+
+
+

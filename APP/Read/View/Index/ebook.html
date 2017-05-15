@@ -1,0 +1,64 @@
+<extend name="Tpl/base"/>
+<block name="title">电子书</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+
+</block>
+
+<block name="main_top">
+<div class="section">
+  <div class="hd tag-heading">
+    <h3>电子书下载</h3>
+  </div>
+
+  <div class="data_table clear">
+    <div class="section">
+    
+    <div class="bd">
+     <table width="100%">
+      <tr height="22px">
+      <th style="background:#6e839a;color:#fff;">书籍</th>
+      <th style="background:#6e839a;color:#fff;">附件</th>
+      </tr>
+      <volist name="books" id="book">
+      <tr>
+        <td>{$book['book_name']}</td>
+        <?php $filePath = str_replace('/','_',$book['ebook']); 
+        	  $showname = urldecode($book['book_name']);
+        ?>
+        <td><a href="{:U('index/ebook_down?book_id='.$book['id'])}">下载</a></td>
+      </tr>
+      </volist>
+    </table>  
+    </div>
+    <div class="ft">
+      <div class="pagination">
+        {$_page}
+        <!-- <ul>
+          <li class="prev">&lt;&nbsp;前页</li>
+          <li>
+            <a class="active" href="#">1</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=20">2</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=40">3</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=60">4</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=80">5</a></li>
+          <li>...</li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=520">27</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=540">28</a></li>
+          <li class="next">
+            <a href="?cat=article&amp;sort=new&amp;start=20">后页&nbsp;&gt;</a></li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+  </div>
+</block>
+
+ 

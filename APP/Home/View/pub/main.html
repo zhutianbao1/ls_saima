@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="__CSS__/hr.css">
+<style type="text/css">
+	.nav{position: relative;padding: 0px;margin:0px;padding-left: 40px;}
+	li{list-style-type: none;}
+	.nav li{float: left;margin-top:0px;margin-right:2px;}
+	.nav li a{display: block;padding:4px 25px;font-weight: 600;font-size: 14px;text-decoration: none;color: black;line-height: 30px;}
+	.nav li a:hover{background: #0081CC;color: white;}
+	.nav li .selected{background: #0081CC;color: white;}
+	.leftSid{width: 180px; float: left; border-top: 1px solid #0081CC;}
+	.leftSid h2{padding-left: 20px; font-size: 14px;color: #0081CC;margin-top: 10px;}
+	.content{float: right;width: 780px;}
+	.leftSid ul {padding-left: 0px;background: #eee;margin-left: 0px;padding-top: 0px;}
+	.leftSid ul li{position: relative;}
+	.leftSid ul li a{display: block;padding:6px 25px;text-decoration: none;color: #0081CC}
+	.leftSid ul li a:hover{background: #fff;}
+	.leftSid ul li .selected2{background: #ccc;}
+	.model-list1 li{float: left;width:200px;margin-bottom: 13px;}
+	.check td{border-bottom: 1px solid #ccc;line-height: 25px;}
+	.query1{background:rgb(240,246,249);padding:10px 0px;width: 780px;}
+	.xq1{background-color: #f0f6f9;position:relative; height: 350px; overflow:auto;}
+	.query-table input{width: 95px;}
+	.model-cons1{float: right;width: 640px;}
+	.model-list1 .ls{color:#32cd32;font-weight:600;font-size: 20px;padding-top: 15px; width: 180px;}
+	.errMsg1{padding:100px; text-align: center;font-weight: 600;font-size: 24px;color: #ccc;background:rgb(240,246,249);margin:0 auto;}
+</style>
+</head>
+<body>
+<block name="top">
+<?php $pp=$_SERVER["QUERY_STRING"];?>
+	<div style="margin:0 auto;width: 1000px;border-bottom: 1px solid #0081CC;margin-top:20px;">
+		<div class="clear" style="overflow: hidden;">
+			<ul class="nav">
+				<li id="sy"><a class="selected" href="{:U('bs')}?op=sy" onclick="">首页</a></li>
+				<li id="jj"><a href="{:U('pricework')}?op=jj">宽极化和计件</a></li>
+				<li id="ts"><a href="{:U('kh_que')}?op=ts">个人能力测评及提升</a></li>
+				<li id="jt"><a href="#?op=jt">我的集团</a></li>
+				<li id="gj"><a href="{:U('policy_c')}?op=gj">实用工具</a></li>
+				<li id="gl"><a href="#?op=gl">客户经理管理</a></li>
+			</ul>
+		</div>
+	</div>
+</block>
+<?php
+$select_value = isset($_POST['rpt_month']) ? $_POST['rpt_month'] : '';
+?>
+<block name="body">
+</block>
+
+
+<block name="footer">
+<div class="footer">
+  技术支持:丽水业务支撑中心
+</div>
+</block>
+<script type="text/javascript" src="__STATIC__/jquery-1.5.1.js"></script>
+<script type="text/javascript">
+	$('a').mouseover(function(){
+		$(this).attr('title',$(this).html());
+	});
+/*$(function(){	
+	$(".nav li a").click(function(){
+		$(".nav li a.selected").removeClass("selected")
+		$(this).addClass("selected");
+	})	
+});*/
+$(function(){
+		var url = window.location.href;
+		var param = url.split("?")[1].split("=")[1].slice(0,2);
+		if(!(param==null || param=='')){
+			$(".nav > li > a").removeClass("selected");
+			var tmp = '#'+param;
+			$(tmp).children("a").addClass("selected");
+		}
+	});
+</script>
+<block name="js"></block>
+
+</body>
+</html>

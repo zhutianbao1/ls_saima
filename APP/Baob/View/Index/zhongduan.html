@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>终端禁销机型销售分析</title>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script   src="__STATIC__/highcharts.js"></script>  
+<script src="__STATIC__/layer/layer.js"></script> 
+<style type="text/css"> 
+*{margin:0;padding:0;list-style-type:none;}
+ul , li {list-style: none;list-style-type: none;}
+a, img{border:0;}
+body{font:12px/180%;
+  font-family: 'Microsoft Yahei','Segoe UI_', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #000000;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.02em;
+  background: url('__PUBLIC__/images/shuangxie.jpg');
+} 
+.container{width: 1000px;margin: 0 auto;
+}
+h3{width: 220px;height: 30px;line-height: 30px;margin: 20px auto;
+   letter-spacing: 1px;color: #666;border: 0px solid red;text-align: center;
+}
+.left{width: 499px;height: 400px;border: 1px solid #eee; float: left;
+}
+.right{width: 498px;height: 400px;border: 1px solid #eee;float: left;
+  border-left: none;
+}
+
+.clear{clear: both;
+}
+h4{ text-align: center;margin-top: 10px; letter-spacing: 1px; color: #666;
+}
+.totle_wai{max-width: 490px; max-height: 400px; border:0px solid red;
+}
+
+.totle_pre{max-width: 490px;max-height: 400px; border:0px solid red;
+}
+.center{width: 100%;height: 400px;border:1px solid #eee;
+}
+.totle_qud{max-width: 990px;max-height: 400px;border:0px solid red;margin: 0 auto;
+}
+.foot,.foot2{width: 100%;height: 400px;border:1px solid #eee;
+}
+
+.totle_yew,.totle_yew2{max-width: 990px;max-height: 400px;border:0px solid red;
+    margin: 0 auto;
+}
+.floor{width: 1000px;margin: 10px auto; height: 30px;line-height: 30px;
+    color: #666;letter-spacing: 1px;position: absolute;
+}
+.floor-left{width: 315px;height: 30px;line-height: 30px;margin: 0 auto;
+}
+.floor-right{width: 70px;height: 30px;line-height: 30px;    
+    position: relative;left: 900px;top: -30px;
+}
+.floor-right>a{ display: block;list-style-type: none; text-decoration: none;
+    color: #666;letter-spacing: 1px;
+}
+.floor-right>a:hover{color: #333;
+}
+
+.notice{
+    border:0px solid red;
+    text-align: right;
+    height: 30px;
+    line-height: 30px;
+    letter-spacing: 1px;
+    color: #666;
+    margin-top: 20px;
+}
+
+</style>
+</head> 
+<body>
+  <div class="container">
+    <h3>终端禁销机型销售分析</h3> 
+    <div class="left">      
+      <div id="totle_wai" class="totle_wai">        
+      </div>    
+    </div>
+    <div class="right">      
+       <div id="totle_pre" class="totle_pre">        
+       </div>
+    </div>
+    <div class="clear"></div>
+    <div class="center">
+        <div id="totle_qud" class="totle_qud">            
+        </div>
+    </div>
+    <div class="foot">
+        <div id="totle_yew" class="totle_yew">            
+        </div>
+    </div>
+    <div class="foot2">
+        <div id="totle_yew2" class="totle_yew2">            
+        </div>
+    </div>
+    
+    <div class="notice">
+    详情,请登录85平台-市场部报表-4G发展-活动结算-查看"活动机型变更_库存终端拍照"报表
+     &nbsp;&nbsp;&nbsp;&nbsp;
+    </div> 
+
+    <div class="floor">
+        <div class="floor-left">技术支持-丽水移动分公司(业务支撑中心)</div>
+        <!--
+        <div class="floor-right"><a href="#">销量详情</a></div> 
+        -->   
+    </div>   
+  </div>
+</body>
+
+
+<script language="javascript" >
+
+ $(function(){
+ $('#totle_wai').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '渠道类型销量占比',
+            style:{"color": "#666", "fontSize": "18px" }
+        },
+        tooltip: {
+            pointFormat: '<a style="color:#666;">{series.name}:{point.percentage:.2f}%</a>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<a>{point.name}</a>: {point.percentage:.2f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || '#666'
+                    }
+                },
+                showInLegend: true
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -10,
+            y: 10,
+            floating: true,
+           // borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true,
+            itemStyle:{ "color": "#666", "cursor": "pointer", "fontSize": "11px"  }
+         },
+
+        series: [{
+            type: 'pie',
+            name: '<a style="color:#666;">百分比</a>',
+            data: [
+                <?php 
+             $data='';
+              for ($i=0; $i <count($listq); $i++) { 
+                if($i==count($listq)-1){ 
+                    $data .= '["'.$listq[$i]['ORG_TYPE'].'",';
+                    $data .= $listq[$i]['NUM'].']';
+                }else{ 
+                    $data .='["'.$listq[$i]['ORG_TYPE'].'",';
+                    $data .= $listq[$i]['NUM'].'],';
+                }
+            }
+            echo $data;
+             ?>
+            ]
+        }]
+    });
+
+ ////2222222
+Highcharts.chart('totle_pre', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: '县市销售统计',
+        style:{
+            "color": "#666", "fontSize": "18px" 
+        }
+    },   
+    xAxis: {
+        categories: [
+        <?php 
+            $county_name='';
+            for ($i=0; $i <count($listx); $i++) { 
+                if($i==count($listx)-1){                    
+                    $county_name .='"'.$listx[$i]['销售县市'].'"';         
+                }else{
+                     $county_name .='"'.$listx[$i]['销售县市'].'",';
+                }
+            }
+            echo $county_name;
+            ?>            
+        ],
+        crosshair: true,
+        labels:{
+            style:{ "color": "#666","fontSize": "13px" }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {           
+            text: '台'
+        },
+        labels: {           
+            style: {
+                    fontSize: '11px',
+                    fontFamily: 'Verdana, sans-serif',
+                    color:'#666'
+                }
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:#666;padding:0">数量:</td>' +
+            '<td style="padding:0"><b>{point.y:.0f} (台)</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                style:{
+                    "color": "#666", "fontSize": "11px", "fontWeight": "bold"
+                },
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -10,
+        y: 10,
+        floating: true,
+       // borderWidth: 1,
+        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+        shadow: true
+    },   
+    
+    series: [{
+        name: '<a style="color:#666;">数量(台)</a>',
+        data: [
+        <?php 
+            $totle_pre='';
+            for ($i=0; $i <count($listx); $i++) { 
+                if($i==count($listx)-1){                      
+                    $totle_pre .=$listx[$i]['NUM'];
+                }else{                   
+                    $totle_pre .= $listx[$i]['NUM'].',';
+                }
+            }
+            echo $totle_pre;
+            ?>
+        ]
+    }
+    ]
+});
+
+
+
+  
+    ///33333333333333333333333333333333333333
+    $('#totle_qud').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '渠道销售总量',
+            style:{"color": "#666", "fontSize": "18px" }
+        },  
+        subtitle: {
+            text: '五台以上的渠道',
+            style:{"color":"#666", "fontSize": "13px" 
+            } 
+        }, 
+
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    //fontFamily: 'Verdana, sans-serif',
+                    color:'#666',
+                    fontWeight:'400'
+                }
+            }
+        },
+        
+        yAxis: {
+            min: 0,
+            title: {
+                text: '<a style="color:#666;">2017年</a>'
+            },
+            labels: {
+               // rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    //fontFamily: 'Verdana, sans-serif',
+                    color:'#666',
+                    fontWeight:'700'
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -10,
+            y: 10,
+            floating: true,
+           // borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },   
+        tooltip: {
+            pointFormat: '<a style="color:#666;">数量:{point.y:.0f}(台)</a>'
+        },
+        series: [{
+            name: '<a style="color:#666;">数量(台)</a>',
+            data: [
+            <?php 
+             $data='';
+              for ($i=0; $i <count($listl); $i++) { 
+                if($i==count($listl)-1){
+                    $data .= '["'.$listl[$i]['渠道名称'].'",';
+                    $data .= $listl[$i]['NUM'].']';
+                }else{
+                    $data .='["'.$listl[$i]['渠道名称'].'",';                   
+                    $data .= $listl[$i]['NUM'].'],';
+                }
+            }
+            echo $data;
+             ?>
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: 0,
+                color: '#666',
+                align: 'left',
+                format: '{point.y:.0f}', // one decimal
+                y: 3, // 10 pixels down from the top
+                style: {
+                    fontSize: '11px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+
+ $('#totle_yew').highcharts({
+        chart: {
+           type: 'line'
+        },
+        title: {
+            text: '每日销量统计',
+            x: -20, //center
+            style:{"color": "#666", "fontSize": "18px" }
+        },
+        xAxis: {
+            categories: [
+              <?php 
+            $county_name='';
+            for ($i=0; $i <count($listd); $i++) { 
+                if($i==count($listd)-1){                    
+                    $county_name .='"'.$listd[$i]['销售时间'].'"';         
+                }else{
+                     $county_name .='"'.$listd[$i]['销售时间'].'",';
+                }
+            }
+            echo $county_name;
+            ?> 
+            ],
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    //fontFamily: 'Verdana, sans-serif',
+                    color:'#666',
+                    fontWeight:'400'
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: '(台)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+              }
+        },
+        tooltip: {
+            //valueSuffix: '&nbsp;(台)',
+            pointFormat: '<b style="color:#666;">数量:{point.y:.0f}&nbsp;(台)</b>',
+            style:{ "color": "#666", "cursor": "default", "fontSize": "11px" }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0,
+            itemStyle:{ "color": "#666", "cursor": "pointer", "fontSize": "11px",
+                    "fontWeight": "bold" }
+        },
+        series: [{
+            name: '<a style="color:#666;">数量(台)</a>',
+            data: [
+              <?php 
+            $totle_pre='';
+            for ($i=0; $i <count($listd); $i++) { 
+                if($i==count($listd)-1){                      
+                    $totle_pre .=$listd[$i]['NUM'];
+                }else{                   
+                    $totle_pre .= $listd[$i]['NUM'].',';
+                }
+            }
+            echo $totle_pre;
+            ?>
+            ],
+            dataLabels: {
+                enabled: true,
+                color: '#666',
+                //align: 'left',
+                //format: '{point.y:.0f}', // one decimal
+                //y: 1, // 10 pixels down from the top
+                style: {
+                    fontSize: '11px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }
+   
+        ]
+       
+    });
+
+
+ $('#totle_yew2').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '活动销量统计',
+            style:{"color": "#666", "fontSize": "18px"}
+        },       
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    //fontFamily: 'Verdana, sans-serif',
+                    color:'#666',
+                    fontWeight:'400'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '<a style="color:#666;">2017年</a>'
+            },
+            labels: {
+               // rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    //fontFamily: 'Verdana, sans-serif',
+                    color:'#666',
+                    fontWeight:'700'
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -10,
+            y: 10,
+            floating: true,
+           // borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },   
+        tooltip: {
+            pointFormat: '<b style="color:#666;">数量:{point.y:.0f}(台)</b>'
+        },
+        series: [{
+            name: '<a style="color:#666;">数量(台)</a>',
+            data: [
+            <?php 
+             $data='';
+              for ($i=0; $i <count($listh); $i++) { 
+                if($i==count($listh)-1){                     
+                    $data .= '["'.$listh[$i]['预缴名称'].'",';
+                    $data .= $listh[$i]['NUM'].']';
+                }else{
+                    $data .= '["'.$listh[$i]['预缴名称'].'",';                 
+                    $data .= $listh[$i]['NUM'].'],';
+                }
+            }
+            echo $data;
+             ?>
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: 0,
+                color: '#666',
+                align: 'left',
+                format: '{point.y:.0f}', // one decimal
+                y: 1, // 10 pixels down from the top
+                style: {
+                    fontSize: '11px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+
+ });
+</script>
+</html>
+

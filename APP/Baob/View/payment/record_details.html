@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>工单记录详情</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/payment_six.css"/>
+	<style type="text/css"></style>
+</head>
+<body>
+<div class="content">
+	<div class="box">
+		<div class="header">
+			<input type="button"  class="back_btn" value="返 回" />
+			<a class="title">工单记录详情</a>
+		</div>
+		<div class="main">
+			<div class="show">
+				<table>
+					<tr>
+						<td><div style="width: 100px;">工单号:</div></td>
+						<td><div style="width: 300px;">{$list.ITEM_ID}</div></td>
+						<td><div style="width: 100px;">所属县市</div></td>
+						<td><div style="width: 300px;">{$list.COUNTY_NAME}</div></td>
+						<td><div style="width: 300px;">渠道名称:</div></td>
+						<td><div style="width: 300px;">{$list.ORG_NAME}</div></td>
+					</tr>
+					<tr>
+						
+						<td>渠道编号</td>
+						<td>{$list.ORG_ID}</td>
+					</tr>
+					<tr>
+						<td>销售经理:</td>
+						<td>{$list.MANAGER_NAME}</td>
+						<td>领取人</td>
+						<td>{$list.PAYMENT_OPER}</td>
+					</tr>
+					<tr>
+						<td>领取人手机:</td>
+						<td>{$list.PAYMENT_BILL}</td>
+						<td>领取人身份证</td>
+						<td>{$list.PAYMENT_CARD}</td>
+					</tr>
+					<tr>
+						<td>是否法人:</td>
+						<td>{$list.SF_FAREN}</td>
+						<td>实际领取金额</td>
+						<td>{$list.PAYMENT_AMOUNT_SJ}</td>
+					</tr>
+					<tr>
+						<td>缴费卡数量:</td>
+						<td>{$list.PAYMENT_CARD_NO}</td>
+						<td>结算人</td>
+						<td>{$list.JS_PERSON}</td>
+					</tr>
+
+					<tr>
+						<td>结算人手机:</td>
+						<td>{$list.JS_PHONE}</td>
+						<td>结算时间</td>
+						<td>{$list.PAYMENT_DATE}</td>
+					</tr>
+
+					<tr>
+						<td>一级稽核人员:</td>
+						<td>{$list.FIRST_AUDIT_OPER}</td>
+						<td>一级稽核日期</td>
+						<td>{$list.FIRST_AUDIT_DATE}</td>
+					</tr>
+
+					<tr>
+						<td>一级稽核结果:</td>
+						<td>{$list.FIRST_AUDIT_RESULT}</td>
+						<td>打印人</td>
+						<td>{$list.DAYIN}</td>
+					</tr>
+
+					<tr>
+						<td>打印日期:</td>
+						<td>{$list.DAYIN_DATE}</td>
+						<td>流程状态</td>
+						<td>{$list.PAYMENT_STATUS}</td>
+					</tr>
+
+					<tr>
+						<td>二级稽核人员:</td>
+						<td>{$list.SECOND_AUDIT_OPER}</td>
+						<td>二级稽核结果</td>
+						<td>{$list.SECOND_AUDIT_RESULT}</td>
+					</tr>
+
+					<tr>
+						<td>二级稽核日期:</td>
+						<td>{$list.SECOND_AUDIT_DATE}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<!--
+		<div class="test">
+			<form action="{:U('Payment/testexcel')}" method="post">
+			   <label>姓名:</label>
+				<input type="text" name="username" value="{$username}" />
+				<input type="submit" name="" value="测 试">
+			</form>
+		</div>
+		-->
+	</div>
+</div>
+
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.back_btn').click(function(){
+			window.location="{:U('Payment/item_record')}";
+		});
+	});
+</script>
+</html>

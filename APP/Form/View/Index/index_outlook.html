@@ -1,0 +1,150 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>业务综合受理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0"> 
+
+<link rel="stylesheet" href="__PUBLIC__/comm.css">
+<link rel="stylesheet" href="__PUBLIC__/global.css">
+<link rel="stylesheet" href="__CSS__/index.css">
+<link rel="stylesheet" href="__JS__/zTreeStyle.css">
+
+<link rel="stylesheet" href="__JS__/dtree.css">
+<script type="text/javascript" src="__PUBLIC__/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/jquery.cookie.js"></script>
+<script type="text/javascript" src="__JS__/dtree.js"></script>
+<script type="text/javascript" src="__JS__/jquery.ztree.core.js"></script>
+
+
+
+<SCRIPT type="text/javascript">
+		<!--
+		var curMenu = null, zTree_Menu = null;
+		var setting = {
+			view: {
+				showLine: false,
+				showIcon: true,
+				selectedMulti: false,
+				dblClickExpand: false,
+				addDiyDom: addDiyDom
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick
+			}
+		};
+
+		var zNodes ={$menuList};
+
+		function addDiyDom(treeId, treeNode) {
+			var spaceWidth = 5;
+			var switchObj = $("#" + treeNode.tId + "_switch"),
+			icoObj = $("#" + treeNode.tId + "_ico");
+			switchObj.remove();
+			icoObj.before(switchObj);
+
+			if (treeNode.level > 1) {
+				var spaceStr = "<span style='display: inline-block;width:" + (spaceWidth * treeNode.level)+ "px'></span>";
+				switchObj.before(spaceStr);
+			}
+		}
+
+		function beforeClick(treeId, treeNode) {
+			if (treeNode.level == 0 ) {
+				var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+				zTree.expandNode(treeNode);
+				return false;
+			}
+			return true;
+		}
+
+		$(document).ready(function(){
+			var treeObj = $("#treeDemo");
+			$.fn.zTree.init(treeObj, setting, zNodes);
+			zTree_Menu = $.fn.zTree.getZTreeObj("treeDemo");
+			curMenu = zTree_Menu.getNodes()[0];
+			zTree_Menu.selectNode(curMenu);
+			// treeObj.hover(function () {
+			// 	if (!treeObj.hasClass("showIcon")) {
+			// 		treeObj.addClass("showIcon");
+			// 	}
+			// }, function() {
+			// 	treeObj.removeClass("showIcon");
+			// });
+		});
+		//-->
+	</SCRIPT>
+	<style type="text/css">
+	.ztree * {font-size: 9pt;font-family:"Microsoft Yahei",Verdana,Simsun,"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial}
+	.ztree li ul{ margin:0; padding:0}
+	.ztree li {line-height:30px;}
+	.ztree li a {width:100%;height:25px;line-height:25px;padding-top: 0px;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;}
+	.ztree li a:hover {text-decoration:none; background-color: #E7E7E7;}
+	.ztree li a span.button.switch {visibility:hidden}
+	.ztree.showIcon li a span.button.switch {visibility:visible}
+	.ztree li a.curSelectedNode {background-color:#D4D4D4;border:0;height:25px;}
+	.ztree li span {line-height:25px;}
+	.ztree li span.button {margin-top: -7px;}
+	.ztree li span.button.switch {width: 16px;height: 16px;}
+
+	.ztree li a.level0 span {font-size: 150%;font-weight: bold;font-size:13px;}
+	.ztree li span.button {background-image:url("./left_menuForOutLook.png"); 
+						  *background-image:url("./left_menuForOutLook.gif")}
+	.ztree li span.button.switch.level0 {width: 20px; height:20px}
+	.ztree li span.button.switch.level1 {width: 20px; height:20px}
+	.ztree li span.button.noline_open {background-position: 0 0;}
+	.ztree li span.button.noline_close {background-position: -18px 0;}
+	.ztree li span.button.noline_open.level0 {background-position: 0 -18px;}
+	.ztree li span.button.noline_close.level0 {background-position: -18px -18px;}
+	</style>
+
+<body>
+<div class="wrap">
+<div class="head hide">
+	<div class="h_left">头左</div>
+	<div class="h_right">
+		<div class="h_right_top b102">头右上</div>
+		<div class="h_right_bottom b102">头右下</div>
+	</div>	
+</div>
+
+
+<div class="c_left">
+	<div class="c_left_top b102 ">
+		<div><input type="text" name="menuName"/><input type="button" value="搜索"></div>
+	</div>
+	<div class="c_left_menu b102">菜单导航</div>
+	<div>
+		<ul id="treeDemo" class="ztree showIcon"></ul>
+	</div>
+</div>
+
+<div class="c_middel hide"></div>
+
+
+<div class="content">
+<div class="c_right background">
+	<div class="c_right_top">主右</div>
+	<div class="c_right_main">
+		<!-- <iframe src="http://10.78.1.85:9000/ranking/ls/lishui.html?billId=13867060919&oa=lichao9" width="100%;" height="500px" frameborder="0" scrolling="no"></iframe> -->
+		 
+	</div>
+</div>
+</div>	
+
+
+<div class="clear"></div>
+<div class="footer"></div>
+</div>
+ 
+</script>	
+</body>
+</head>
+</html>

@@ -1,0 +1,82 @@
+<extend name="./base"/>
+<block name='title'>培训管理平台</block>
+<block name='login'>员工培训申请表单</block>
+<block name='body'>
+  <div>
+    <div class="queryGroup">
+      <form action="{:U('employee_train')}" method="post">
+        <div class="font">
+          <label>县市：</label>
+          <select name="county_name">
+            <option value=""></option>
+                <option value="莲都" {$county_name=='莲都'?'selected':''}>莲都</option>
+                <option value="缙云" {$county_name=='缙云'?'selected':''}>缙云</option>
+                <option value="青田" {$county_name=='青田'?'selected':''}>青田</option>
+                <option value="云和" {$county_name=='云和'?'selected':''}>云和</option>
+                <option value="庆元" {$county_name=='庆元'?'selected':''}>庆元</option>
+                <option value="龙泉" {$county_name=='龙泉'?'selected':''}>龙泉</option>
+                <option value="遂昌" {$county_name=='遂昌'?'selected':''}>遂昌</option>
+                <option value="松阳" {$county_name=='松阳'?'selected':''}>松阳</option>
+                <option value="景宁" {$county_name=='景宁'?'selected':''}>景宁</option>
+                <option value="南城" {$county_name=='南城'?'selected':''}>南城</option>
+          </select>
+        </div>
+        <div class="font">
+          <label>用户姓名：</label>
+          <input type="text" name="name" value="{$name}">
+        </div>
+        <button class="btn">查询</button>
+		<a href="{:U('employee_train_fy')}" style="margin-top:150px" target="_blank">培训结果</a>
+      </form>
+    </div>
+    <div class="btnGroup">
+	  <button class="btn add">培训申请</button>
+	 <!--  <button class="btn add">成绩录入</button> -->
+     <!--  <button class="btn exportexl">导出Excel</button> -->
+    </div>
+    <div style="overflow: auto;">
+      <table class="table" border="0" cellpadding="1" cellspacing="0" width="100%">
+        <tr>
+          <th class="">月份</th>
+          <th style="">县市</th>
+          <th style="">员工编号</th>
+          <th class="">姓名</th>
+          <th style="">联系方式</th>
+          <th style="">性别</th>
+          <th style="">报道时间</th>
+          <th style="">报道当日是否住宿</th>
+          <th style="">培训期间统一安排食住</th>
+          <th style="">最后一天用餐安排</th>
+          <th style="">培训性质</th>
+          <th style="">培训名称</th>
+        </tr>
+        
+        <volist name="user" id="el">
+        <tr>
+          <td>{$el['RPT_MONTH']}</td>
+          <td>{$el['COUNTY_NAME']}</td>
+          <td>{$el['USER_ID']}</td>
+          <td>{$el['USER_NAME']}</td>
+          <td>{$el['BILL_ID']}</td>
+          <td>{$el['SEX']}</td>
+          <td>{$el['报道时间']}</td>
+          <td>{$el['报道当日是否住宿']}</td>
+          <td>{$el['培训期间统一安排食住']}</td>
+          <td>{$el['最后一天用餐安排']}</td>
+          <td>{$el['培训性质']}</td>
+          <td>{$el['培训名称']}</td>
+        </tr>
+        </volist>
+      </table>
+    </div>
+    {$_page}
+  </div>
+</block>
+
+<block name='js'>
+	<script type="text/javascript">
+		$(".add").click(function(){
+			window.open("{:U('index/employee_train_re')}");
+		});
+	</script>
+</block>

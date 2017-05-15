@@ -1,0 +1,71 @@
+<extend name="Tpl/base"/>
+<block name="title">活动</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/balance.css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+
+</block>
+
+<block name="main_top">
+<div class="section">
+  <div class="hd tag-heading">
+    <h3>最新活动</h3>
+    <div class="hd-nav">
+      <ul class="filter-tabs ">
+        <li class="tab on">
+          <a href="?sort=top&amp;cat=article">热门</a></li>
+        <li class="tab">
+          <a href="?sort=new&amp;cat=article">历史</a></li>
+      </ul>
+      </ul>
+    </div>
+  </div>
+
+  <div class="data_table clear">
+    <div class="section">
+    
+    <div class="bd">
+      <ul class="list-lined ebook-list column-list">
+        
+        <volist name="ploys" id="py">
+        <li class="item" style="border:0px;">
+           
+          <div class="info">
+            <div class="title">
+              <a  href="{:U('index/ploy_info?id='.$py['id'])}">{$py['title']}</a></div>
+            <div class="article-desc-brief">{$py['content']|mb_substr=###,0,160,"utf-8"}...
+              <a href="{:U('index/ploy_info?id='.$py['id'])}">（更多）</a></div>
+          </div>
+        </li>
+        </volist>
+        
+      </ul>
+    </div>
+    <div class="ft">
+      <div class="pagination">
+        {$_page}
+        <!-- <ul>
+          <li class="prev">&lt;&nbsp;前页</li>
+          <li>
+            <a class="active" href="#">1</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=20">2</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=40">3</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=60">4</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=80">5</a></li>
+          <li>...</li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=520">27</a></li>
+          <li>
+            <a href="?cat=article&amp;sort=new&amp;start=540">28</a></li>
+          <li class="next">
+            <a href="?cat=article&amp;sort=new&amp;start=20">后页&nbsp;&gt;</a></li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+  </div>
+</block>

@@ -1,0 +1,234 @@
+<extend name="pub/main_hr"/>
+
+<block name="title">
+<if condition="$errMsg neq null">
+    暂无权限
+<else/>
+   销售经理 - 能力测评汇总
+</if>
+</block>
+
+<block name="body">
+<if condition="$errMsg neq null">
+    <div class="errMsg">
+        {$errMsg}
+    </div>
+<else/>
+<?php
+$select_value = isset($_POST['countyName']) ? $_POST['countyName'] : '';
+$pro = isset($_POST['pro']) ? $_POST['pro'] : '';
+?>
+<div class="wrap query">
+    <input id="initURL" type="hidden" value="{$initURL}"/>
+    <form  action="{:U('hr_xs_que')}?bill_id={$bill_id}&menuId=1" method="post">
+    <table class="query-table">
+        <tr>
+            <td><span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span><input type="text" 
+            name="name" value="{$name}" class="text"></td>
+            <td><span>县&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市</span>
+            <select id="a" name="countyName" style="width: 140px;border: 1px solid #ccc;">
+                <option value="">请选择</option>
+                <option value="莲都" <?php echo $select_value == '莲都' ? 'selected' : '' ?>>莲都</option>
+                <option value="青田" <?php echo $select_value == '青田' ? 'selected' : '' ?>>青田</option>
+                <option value="景宁" <?php echo $select_value == '景宁' ? 'selected' : '' ?>>景宁</option>
+                <option value="缙云" <?php echo $select_value == '缙云' ? 'selected' : '' ?>>缙云</option>
+                <option value="遂昌" <?php echo $select_value == '遂昌' ? 'selected' : '' ?>>遂昌</option>
+                <option value="庆元" <?php echo $select_value == '庆元' ? 'selected' : '' ?>>庆元</option>
+                <option value="龙泉" <?php echo $select_value == '龙泉' ? 'selected' : '' ?>>龙泉</option>
+                <option value="松阳" <?php echo $select_value == '松阳' ? 'selected' : '' ?>>松阳</option>
+                <option value="云和" <?php echo $select_value == '云和' ? 'selected' : '' ?>>云和</option>
+                <option value="南城" <?php echo $select_value == '南城' ? 'selected' : '' ?>>南城</option>
+            </select></td>
+            <td><span>手机号码</span><input type="text" name="billId" value="{$billId}" class="text"></td>
+        </tr>
+        <tr>
+            <td><span>员工编号</span><input type="text" name="userId" value="{$userId}" class="text"></td>
+            <td><span>用工性质</span>
+            <select name="pro" style="width: 140px;border: 1px solid #ccc;">
+            <option value="">请选择</option>
+            <option value="A2" <?php echo $pro == 'A2' ? 'selected' : '' ?>>A2</option>
+            <option value="浙江文博" <?php echo $pro == '浙江文博' ? 'selected' : '' ?>>浙江文博</option>
+            </select></td>
+            <td><span>最高学历</span><input type="text" name="xl" value="{$xl}" class="text"></td>
+        </tr>
+        <tr>
+            <td><span>入职时间</span><input type="text" name="dat" value="{$dat}" class="text">-<input type="text" name="dat1" value="{$dat1}" class="text"></td>
+            <td><span>岗位工龄</span><input type="text" name="age" value="{$age}" class="text">-<input type="text" name="age1" value="{$age1}" class="text"></td>
+            <td><input type="submit"  value="  查     询  " class="btn term" style="background:rgb(15,142,226);color:#fff;"></td>
+        </tr>
+    </table>
+    </form>
+
+<div class="xq">
+    <table id="tableSort" class="rank" border="0px" cellspacing="0" cellpadding="1">
+        <thead>
+        <tr align="center" class="head">
+            <th rowspan="2" class="rank-title fixed" type="string" order="USER_NAME">姓名</th>
+            <th rowspan="2" class="rank-title fixed" type="string" order="COUNTY_NAME">县市</th>
+            <th rowspan="2" class="rank-title fixed" order="BILL_ID">手机号码</th>
+            <th rowspan="2" class="rank-title" type="number" order="USER_ID">员工编号</th>
+            <th rowspan="2" class="rank-title" type="string" order="用工性质">用工性质</th>
+            <th rowspan="2" class="rank-title" type="string" order="入职时间">入职时间</th>
+            <th rowspan="2" class="rank-title" type="number" order="岗位工龄">岗位工龄</th>
+            <th rowspan="2" class="rank-title" type="number" order="年龄">年龄</th>
+            <th rowspan="2" class="rank-title">最高学历</th>
+            <th rowspan="2" class="rank-title">入销售经理时间</th>  
+            <th rowspan="2" class="rank-title">2013年绩效</th>  
+            <th rowspan="2" class="rank-title">2014年绩效</th>   
+            <th rowspan="2" class="rank-title">2015年绩效</th> 
+            <th rowspan="2" class="rank-title">等级(职级) </th> 
+            <th rowspan="2" class="rank-title">现星级</th> 
+            <th rowspan="2" class="rank-title">工作经历</th>
+            <td colspan="7" class="rank-title">测评结果</td>
+            <td colspan="8" class="rank-title">业绩考核</td>
+            <td colspan="7" class="rank-title">应知应会</td>
+            <td colspan="15" class="rank-title">素质能力</td> 
+        </tr>
+        <tr class="head" align="center">   
+            <th class="rank-title">综合得分</th>    
+            <th class="rank-title">排名</th>  
+            <th class="rank-title">等级</th>  
+            <th class="rank-title">温馨提示</th>    
+            <th class="rank-title">业绩考核（70%）</th>   
+            <th class="rank-title">应知应会（20%）</th>   
+            <th class="rank-title">素质能力（10%）</th>   
+            <th class="rank-title">综合总分</th>    
+            <th class="rank-title">排名 </th> 
+            <th class="rank-title">4G业务</th>  
+            <th class="rank-title">放号业务</th>  
+            <th class="rank-title">宽带业务</th>  
+            <th class="rank-title">宣传规范</th>    
+            <th class="rank-title">展陈规范</th>   
+            <th class="rank-title">基础管理</th>
+            <th class="rank-title">综合得分</th>    
+            <th class="rank-title">排名</th>  
+            <th class="rank-title">渠道政策</th>    
+            <th class="rank-title">产品业务</th>    
+            <th class="rank-title">市场敏感</th>    
+            <th class="rank-title">渠道服务</th>    
+            <th class="rank-title">渠道拓展</th>     
+            <th class="rank-title">综合得分</th>    
+            <th class="rank-title">排名</th>  
+            <th class="rank-title">敬业负责</th>    
+            <th class="rank-title">结果导向</th>    
+            <th class="rank-title">计划与执行</th>   
+            <th class="rank-title">服务意识</th>     
+            <th class="rank-title">团队合作</th>    
+            <th class="rank-title">系统应用</th>    
+            <th class="rank-title">市场敏感</th>    
+            <th class="rank-title">渠道督导</th>    
+            <th class="rank-title">渠道服务</th>   
+            <th class="rank-title">渠道拓展</th>
+        </tr>
+        </thead>
+        <tbody id="tb_body">
+        <volist name="hrs" id="hr">
+        <tr align="center">
+            <td class="fixeds"><a href="{:U('hr_xs_index')}?billId={$hr.BILL_ID}">{$hr.USER_NAME}&nbsp;</a></td>
+            <td class="fixeds">{$hr.COUNTY_NAME}&nbsp;</td>
+            <td class="fixeds">{$hr.BILL_ID}&nbsp;</td>
+            <td >{$hr.USER_ID}&nbsp;</td>
+            <td >{$hr.用工性质}&nbsp;</td>
+            <td >{$hr.入职时间|strtotime|date="Y-m-d",###}&nbsp;</td>
+            <td >{$hr.岗位工龄}&nbsp;</td>
+            <td >{$hr.年龄}&nbsp;</td>
+            <td >{$hr.最高学历}&nbsp;</td>
+            <td >{$hr.入销售经理时间|strtotime|date="Y-m-d",###}&nbsp;</td>
+            <td >{$hr.M2013年绩效}&nbsp;</td>
+            <td >{$hr.M2014年绩效}&nbsp;</td>
+            <td >{$hr.M2015年绩效}&nbsp;</td>
+            <td >{$hr.等级}&nbsp;</td>
+            <td >{$hr.现星级}&nbsp;</td>
+            <td align="left" title="{$hr.工作经历}"><div style="white-space:nowrap;width:12em;
+            overflow:hidden;text-overflow:ellipsis ">{$hr.工作经历}</div></td>
+            <td >{$hr.测评综合得分}&nbsp;</td>
+            <td >{$hr.测评排名}&nbsp;</td>
+            <td >{$hr.测评等级}&nbsp;</td>
+            <td >{$hr.温馨提示}&nbsp;</td>
+            <td >{$hr.业绩考核}&nbsp;</td>
+            <td >{$hr.应知应会}&nbsp;</td>
+            <td >{$hr.素质能力}&nbsp;</td>
+            <td >{$hr.业绩综合总分}&nbsp;</td>
+            <td >{$hr.业绩排名}&nbsp;</td>
+            <td >{$hr.G4业务}&nbsp;</td>
+            <td >{$hr.放号业务}&nbsp;</td>
+            <td >{$hr.宽带业务}&nbsp;</td>
+            <td >{$hr.宣传规范}&nbsp;</td>
+            <td >{$hr.展陈规范}&nbsp;</td>
+            <td >{$hr.基础管理}&nbsp;</td>
+            <td >{$hr.应知应会综合得分}</td>
+            <td >{$hr.应知应会排名}</td>
+            <td >{$hr.渠道政策}&nbsp;</td>
+            <td >{$hr.产品业务}&nbsp;</td>
+            <td >{$hr.应知市场敏感}&nbsp;</td>
+            <td >{$hr.渠道服务}&nbsp;</td>
+            <td >{$hr.渠道拓展}&nbsp;</td>
+            <td >{$hr.素质能力综合得分}&nbsp;</td>
+            <td >{$hr.素质能力排名}&nbsp;</td>
+            <td >{$hr.敬业负责}&nbsp;</td>
+            <td >{$hr.结果导向}&nbsp;</td>
+            <td >{$hr.计划与执行}&nbsp;</td>
+            <td >{$hr.服务意识}&nbsp;</td>
+            <td >{$hr.团队合作}&nbsp;</td>
+            <td >{$hr.系统应用}&nbsp;</td>
+            <td >{$hr.市场敏感}&nbsp;</td>
+            <td >{$hr.渠道督导}&nbsp;</td>
+            <td >{$hr.渠道服务2}&nbsp;</td>
+            <td >{$hr.渠道拓展2}&nbsp;</td>
+        </tr>
+        </volist>
+        </tbody>
+    </table> 
+  </div>
+{$_page}
+</div>
+    <!-- <div class="navigation" style="margin-top: 50px;">
+        <div style="text-align: left; float: left; width: 260px;">
+        共<label id="lblToatl"><?php echo count($hrs)?></label>条数据 第[<label id="lblCurent"></label>]页/共[<label id="lblPageCount"><?php echo ceil(count($hrs)/0.2)?></label>]页
+        </div>
+        <div style="text-align: right; float: right;">
+        <a id="first" href="#">首页</a> <a id="previous" href="#">上一页</a> <a id="next" href="#">
+        下一页</a> <a id="last" href="#">末页</a>
+        </div>
+    </div> -->
+
+</if>
+</block>
+<block name="js">
+<script language="JavaScript" type="text/javascript" src="__STATIC__/jquery.metadata.js"></script>
+<script language="JavaScript" type="text/javascript" src="__STATIC__/jquery.tablesorter.min.js"></script>
+<script>
+    $(function(){   
+        $("th").each(function(index, el) {
+            var e = $(this),
+            order= e.attr('order');
+            if(order==null || order=='' || order==undefined){
+                e.css('cursor','default');
+            }
+        });
+/*
+        var th  =$(".thead").eq(0);
+        th.parent("table").css('position','relative');
+        th.css({
+            position: 'absolute',
+            top:'0px',
+            left:'0px'
+        });*/
+    });
+
+   /* $("th").click(function(){
+        var e = $(this),
+        order= e.attr('order');
+        if(order==null || order=='' || order==undefined){
+            return;
+        }
+        var initURL = "{$initURL}";
+        initURL+="&order="+order;
+        location.href=initURL;
+    });*/
+</script>
+
+ <script type="text/javascript">
+        $('#tableSort').tablesorter();
+ </script>
+</block>

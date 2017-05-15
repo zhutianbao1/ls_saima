@@ -1,0 +1,85 @@
+<extend name="tmp"/>
+<block name="body">
+<form name="theForm" method="post" action="{:U('oper_edit')}"> 
+<input type="hidden" name="id" value="{$oper['OPER_ID']}">
+ <table width="100%" border="0" cellpadding="3" cellspacing="1" class=table3 align="center" >
+  <tr class=tr3> 
+    <td width="22%" align="right"   >用户姓名：</td>
+    <td class=tr1 colspan="2" width="78%">
+      <input type="text" name="oper_name" value="{$oper['OPER_NAME']}">
+  </tr>
+ 
+   <tr class=tr3> 
+    <td width="22%" align="right"  >部门名称：</td>
+    <td class=tr1 colspan="2" width="78%"> 
+    <input type="hidden" id="deptId" name="oper_dept_id" value="{$oper['OPER_DEPT_ID']}"/>
+    <input type="text" readonly id="parentDeptName" name="deptName" value="{$oper['DEPT_NAME']}"/>
+    <!-- <select name="deptId">
+        <option selected value='1001'>丽水市公司</option>
+  </select>
+   -->
+  <input type="button" class="bottom" value="变更部门" onclick="selectGroupId();"/>
+    </td>
+  </tr>
+ 
+  <tr class=tr3> 
+    <td width="22%" align="right"   >登录号码：</td>
+    <td class=tr1 colspan="2" width="78%"> 
+      <input type="text" name="oper_login_code" value="{$oper['OPER_LOGIN_CODE']}">
+    </td>
+  </tr>
+  <tr class=tr3> 
+    <td width="22%" align="right"   >登录OA：</td>
+    <td class=tr1 colspan="2" width="78%"> 
+      <input type="text" name="oa" value="{$oper['OA']}">
+    </td>
+  </tr>
+  <tr class=tr3> 
+    <td width="22%" align="right"  >登录密码：</td>
+    <td class=tr1 colspan="2" width="78%"> 
+      <input type="password" name="oper_login_pass" id="loginPass">
+      不更改不用填写
+    </td>
+  </tr>     
+   
+  <tr class=tr3> 
+    <td width="22%" align="right"  >状态：</td>
+    <td class=tr1 colspan="2" width="78%"> 
+    <select id="status" name="oper_status">
+        <?php 
+                echo R('Admin/Util/select',array(array('正常1'=>'1',
+                                                       '注销0'=>'0'),$oper['OPER_STATUS']))
+              ?>
+      </select>
+    </td>
+  </tr>
+  <tr class=tr1> 
+    <td colspan="3"> 
+      <div align="center"> <input type="button" class="bottom save" onclick="save();" name="sub" value=" 保  存 ">  &nbsp; 
+       <input type="button" class="bottom" name="button1" value=" 关 闭 " onclick="javascript:parent.location.reload();">        
+         </div>
+    </td>
+  </tr>
+</table>
+</form>  
+</block>
+
+<block name="js">
+<script type="text/javascript">
+  selectGroupId = function(){
+    // openDialog("{:U('DEPT_select')}",'400px','600px');
+    openWindow("{:U('dept_select')}",'选择部署菜单','400','600','800','100');
+  }
+
+  save = function(){
+    var oper_name = $("input[name=oper_name]").val(),
+        oper_dept_id = $("input[name=oper_dept_id]").val(),
+        oper_login_code = $("input[name=oper_login_code]").val();
+    if(empty(oper_name) || empty(oper_dept_id) || empty(oper_login_code)){
+      layer.msg('姓名 ， 部门 ， 登录账户 不允许为空');
+      return;
+    }
+    theForm.submit();
+  }
+</script>
+</block>

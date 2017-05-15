@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>财务发票管理平台</title>
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Fpgl/style/index_list.css" />
+  <script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+  <script type="text/javascript" src="__STATIC__/date/WdatePicker.js"></script>
+  <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/Fpgl/js/index.js"></script>
+  <link rel="shortcut icon" href="__PUBLIC__/Fpgl/favicon.ico" />
+</head>
+<body id="main">
+<!-- <div id="top">
+<h3>财务发票管理平台</h3>
+  <p><?php echo (session('user_auth.OA')."　".session('user_auth.DEPT'));?></p>
+</div> -->
+<ol>
+<!--   <li><a href="{:U('Index')}" class="selected">发票信息列表</a></li>
+  <li><a href="{:U('Index/add')}">发票信息录入</a></li>
+  <li><a href="{:U('Index/wait_list')}">待作废发票</a></li> -->
+  <li><form class="search" action="{:U('Index/index_list')}" method="post">
+  <span>发票编号</span><input type="text" name="id" />
+  <span>部门</span><select name="empl_dept">
+    <option value="">请选择</option>
+    <option value="">全部</option>
+    <option value="莲都">莲都</option>
+    <option value="缙云">缙云</option>
+    <option value="青田">青田</option>
+    <option value="云和">云和</option>
+    <option value="庆元">庆元</option>
+    <option value="龙泉">龙泉</option>
+    <option value="遂昌">遂昌</option>
+    <option value="松阳">松阳</option>
+    <option value="景宁">景宁</option>
+    <option value="南城">南城</option>
+    <option value="市场经营部">市场经营部</option>
+    <option value="政企客户部">政企客户部</option>
+    <option value="网络部">网络部</option>
+    <option value="工程建设部">工程建设部</option>
+    <option value="综合部">综合部</option>
+    <option value="财务部">财务部</option>
+    <option value="人力资源部">人力资源部</option>
+    <option value="纪检监察室">纪检监察室</option>
+    <option value="党委办公室（党群工作部）">党委办公室（党群工作部）</option>
+    <option value="工会">工会</option>
+  </select>
+  <span>发票状态</span><select name="status">
+    <option value="">请选择</option>
+    <option value="">全部</option>
+    <option value="1">正常</option>
+    <option value="2">退回</option>
+    <option value="3">作废</option>
+    <option value="4">核销中</option>
+    <option value="5">已核销</option>
+  </select>
+  <span>录入开始时间</span><input type="text" onclick="WdatePicker()" name="input_date1" />
+  <span>录入结束时间</span><input type="text" onclick="WdatePicker()" name="input_date2" />
+  <input type="submit" class="submit" name="send" value="查询" />
+  </form></li>
+</ol>
+
+<form method="post" action="">
+<h2>发票信息列表</h2>
+<table cellspacing="0">
+  <tr><th>发票编号</th><th>开票人员</th><th>部门</th><th>录入时间</th><th>发票金额</th><th>发票抬头单位</th><th>发票内容名称</th><th>发票内容用途</th><th>发票状态</th><th>操作</th></tr>
+  <if condition = "$invoice_list[0] neq ''">
+  <volist name="invoice_list" id="il">
+  <tr>
+    <td>{$il['INVOICE_ID']}</script></td>
+    <td>{$il['EMPL_NAME']}</td>
+    <td>{$il['EMPL_DEPT']}</td>
+    <td>{$il['INPUT_DATE']}</td>
+    <td>{$il['INVOICE_AMOUNT']}</td>
+    <td>{$il['INVOICE_COMPANY']}</td>
+    <td>{$il['INVOICE_NAME']}</td>
+    <td>{$il['INVOICE_PURPOSE']}</td>
+    <td>{$il['INVOICE_STATUS']}</td>
+    <td><a class="back" href="{:U('invoice_back?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}" onclick="return confirm('确定要退回吗？')?true:false">退回</a> | <a class="cancel" href="{:U('cancel_edit?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}" >作废</a> | <a class="verify" href="{:U('invoice_edit?id='.$il['INVOICE_ID'].'&status='.$il['STATUS'])}">核销</a></td>
+  </tr>
+  </volist>
+  <else/>
+  <tr><td colspan="10">没有任何数据！</td></tr>
+  </if>
+</table>
+</form>
+<div id="page">{$_page}</div>
+<!-- <script type="text/javascript">
+  $(".cancel").click(function(){
+    var e = $(this);
+    var invoice_id = e.attr('invoice_id');
+    var status = e.attr('status');
+    var url = "{:U('Index/cancel_layer')}?invoice_id="+invoice_id+"&status="+status;
+    var win = window.parent.layer.open({
+      type:2,
+      title : '作废',
+      shadeClose: true,
+      shade: 0.2,
+      area: ['500px','400px'],
+      content: url
+    });
+  });
+</script> -->
+</body>
+</html>

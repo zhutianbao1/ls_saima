@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+                      user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+      <title>查询基本信息</title>
+      <link rel="stylesheet"  href="__STATIC__/bootstrap/css/bootstrap.min.css">
+      <script src="__STATIC__/jquery-1.8.3.min.js"></script>
+      <script  src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+      <script src="__STATIC__/layer/layer.js"></script> 
+
+      <link rel="stylesheet" href="__PUBLIC__/Salary/css/user_salary.css">    
+      <style type="text/css"> 
+      
+        table input{ width: 80%;font-size: 14px;color: #666; }
+        .search {width: 640px;height: 70px; margin: 0 auto;line-height: 70px;
+          text-align: center; background-color: #eee;
+        }
+        .search div{float: left;width: 30%; height: 60px;line-height: 60px;
+          margin: 0 auto; margin-top: 5px;margin-left: 10px;         
+        }
+        .search div label{font-size: 14px;letter-spacing: 2px;color: #666;
+        }
+        .search input{width: 80%; margin-top:-20px; font-size: 14px;  color: #666;     
+        }
+        .caozuo{width: 600px;height: 72px;line-height: 72px; margin: 0 auto;  
+        }
+        .caozuo>div{width: 25%;height: 70px;float: left; text-align: center;
+          margin-top: 0px;
+        }
+        .show_info td{
+            font-size: 14px;color: #666; 
+        }
+        
+      </style>
+</head>
+<body>        
+      <div class="content" >
+      <if condition="$_SESSION['user_auth']['OPER_LOGIN_CODE'] eq '13900000000'">
+          <div class="header">               
+            <div class="header_img"></div> 
+            <div class="header_title">基本信息管理</div>               
+          </div>
+          <div class="show_info">
+              <table class="table table-responsive table-hover" >
+                  <tr class="info ">
+                    <td colspan="3">I&nbsp;基本信息</td>
+                  </tr>
+                  <tr> 
+                    <td class="td1">员工姓名</td>                   
+                    <td class="td1">员工编号</td>                    
+                    <td class="td1">手机号码</td>                       
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                      <input type="text"  name="user_name" id="user_name" 
+                        value="管理员" />
+                    </td>
+
+                    <td class="td2">
+                      <input type="text" name="user_id" id="user_id" 
+                          value="00000000" />
+                    </td>
+                    <td class="td2">
+                      <input type="text" name="bill_id" id="bill_id" 
+                        value="13900000000"  />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="td1">部门名称</td>
+                    <td  colspan="2"   class="td1">工作岗位</td>                  
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                      <input type="text" name="dept_id" id="dept_id" 
+                        value="演示"  />
+                    </td>
+                     <td colspan="2" >
+                      <input type="text" name="position" id="position" 
+                          value="演示" 
+                      />
+                    </td>
+                  </tr>
+                  <tr class="info">
+                    <td colspan="3">II&nbsp;职等分位信息</td>
+                  </tr>
+                  <tr>                  
+                    <td class="td1">个人职等</td>                    
+                    <td class="td1">绩效分位</td>
+                     <td class="td1">工龄分位</td>
+                  </tr>
+                  <tr>
+                     <td class="td2">
+                      <input type="text" name="user_lvl"  id="user_lvl"  
+                         value="1"/>
+                    </td>
+                    <td class="td2">
+                      <input type="text" name="jx" id="jx" 
+                      value="2" />
+                    </td>
+                    <td class="td2"> 
+                      <input type="text" name="gl" id="gl" 
+                      value="3"/>
+                    </td>
+                  </tr>
+                  <tr>                   
+                    <td class="td1">职称分位</td>
+                     <td class="td1">总分位</td>
+                     <td class="td1">基薪</td>                   
+                  </tr>
+                  <tr>                   
+                    <td class="td2"> 
+                      <input type="text" name="zc" id="zc" 
+                      value="4"/></td>
+                    <td class="td2">
+                      <input type="text" name="zong" id="zong" 
+                      value="5"/></td>              
+                    <td class="td2">
+                      <input type="text" name="total" id="total" 
+                      value="1000"/></td>
+                  </tr>                 
+                  <tr class="info">
+                    <td colspan="3">III&nbsp;保险公积金信息</td>
+                  </tr>
+                  <tr>                  
+                    <td class="td1">养老保险</td>                    
+                    <td class="td1">医疗保险</td>
+                    <td class="td1">失业保险</td>   
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                      <input type="text" name="bx_yangl" id="bx_yangl" 
+                      value="100"/></td>
+                    <td class="td2">
+                      <input type="text" name="bx_yil" id="bx_yil" 
+                      value="100"/></td> 
+                    <td class="td2">
+                      <input type="text" name="bx_shiy" id="bx_shiy" 
+                      value="100"/></td>            
+                  </tr>
+                  <tr>                  
+                    <td class="td1">公积金</td>
+                    <td class="td1">企业年金</td>
+                    <td class="td1">补充医疗</td>                    
+                  </tr>
+                  <tr> 
+                  <td class="td2">
+                      <input type="text" name="bx_gongjj" id="bx_gongjj" 
+                      value="100"/></td>
+                  <td class="td2">
+                      <input type="text" name="bx_nianj" id="bx_nianj" 
+                      value="100"/></td>
+                  <td class="td2">
+                      <input type="text" name="bx_buc" id="bx_buc" 
+                      value="100"/></td>
+                  </tr>                  
+                  <tr class="info">
+                    <td colspan="3">IV&nbsp;绩效信息</td>
+                  </tr>
+                  <tr>                  
+                    <td class="td1">2015年</td>
+                    <td class="td1">2014年</td>
+                    <td class="td1">2013年</td>
+                  </tr>
+                  <tr>
+                   <td class="td2">
+                    <input type="text" name="jx_15" id="jx_15" 
+                    value="良好"/></td>
+                    <td class="td2">
+                    <input type="text" name="jx_14" id="jx_14" 
+                    value="良好"/></td>
+                    <td class="td2">
+                    <input type="text" name="jx_13" id="jx_13" 
+                    value="良好"/></td>
+                  </tr> 
+                  <tr>
+                     <td class="td1">2012年</td>
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                    <input type="text" name="jx_12" id="jx_12" 
+                    value="良好"/></td>
+                  </tr> 
+                  <tr class="info">
+                    <td colspan="3">V&nbsp;上年度工资总额(含福利)及人工成本</td>
+                  </tr>
+                  <tr>                  
+                    <td>上年度工资总额(含福利)</td>
+                    <td>上年度人工成本</td>                   
+                  </tr>
+                  <tr> 
+                    <td class="td2">
+                    <input type="text" name="gz_z" id="gz_z" value="10000"/>
+                    </td>
+                    <td class="td2">
+                    <input type="text" name="cb_z" id="cb_z" value="8000"/>
+                    </td>            
+                  </tr>                
+              </table>
+            </div>   
+
+      <else/>
+        <div class="header">               
+            <div  class="header_img"></div> 
+            <div class="header_title">基本信息</div>                 
+        </div>
+        <div class="search" >
+              <div >
+                <label>员工编号</label>
+                <input  type="text" name="search_user_id" id="search_user_id">
+              </div>
+              <div >
+               <label>手机号码</label>  
+                <input type="text" name="search_bill_id" id="search_bill_id">             
+               </div>
+               <div >
+                 <button class="btn  btn-info btn-large" type="button" id="search">
+                 搜索
+                 </button>                 
+              </div>
+        </div>
+        <div class="show_info">
+          
+            <form id="formTest">
+            <div >
+              <table class="table table-responsive table-hover" >
+                  <tr class="info ">
+                    <td colspan="3">I&nbsp;基本信息</td>
+                  </tr>
+                  <tr> 
+                    <td class="td1">员工姓名</td>                   
+                    <td class="td1">员工编号</td>                    
+                    <td class="td1">手机号码</td>                       
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                      <input type="text"  name="user_name" id="user_name" 
+                        value="{$list[0]['USER_NAME']}" />
+                    </td>
+
+                    <td class="td2">
+                      <input type="text" name="user_id" id="user_id" 
+                          value="{$list[0]['USER_ID']}" />
+                    </td>
+                    <td class="td2">
+                      <input type="text" name="bill_id" id="bill_id" 
+                        value="{$list[0]['BILL_ID']}"  />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="td1">部门名称</td>
+                    <td  colspan="2"   class="td1">工作岗位</td>                  
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                      <input type="text" name="dept_id" id="dept_id" 
+                        value="{$list[0]['DEPT_ID']}"  />
+                    </td>
+                     <td colspan="2" >
+                      <input type="text" name="position" id="position" 
+                          value="{$list[0]['POSITION']}" 
+                      />
+                    </td>
+                  </tr>
+                  <tr class="info">
+                    <td colspan="3">II&nbsp;职等分位信息</td>
+                  </tr>
+                  <tr>                  
+                    <td class="td1">个人职等</td>                    
+                    <td class="td1">绩效分位</td>
+                     <td class="td1">工龄分位</td>
+                  </tr>
+                  <tr>
+                     <td class="td2">
+                      <input type="text" name="user_lvl"  id="user_lvl"  
+                         value="{$list[0]['USER_LVL']}"/>
+                    </td>
+                    <td class="td2">
+                      <input type="text" name="jx" id="jx" 
+                      value="{$list[0]['JX']}" />
+                    </td>
+                    <td class="td2"> 
+                      <input type="text" name="gl" id="gl" 
+                      value="{$list[0]['GL']}"/>
+                    </td>
+                  </tr>
+                  <tr>                   
+                    <td class="td1">职称分位</td>
+                     <td class="td1">总分位</td>
+                     <td class="td1">基薪</td>                   
+                  </tr>
+                  <tr>                   
+                    <td class="td2"> 
+                      <input type="text" name="zc" id="zc" 
+                      value="{$list[0]['ZC']}"/></td>
+                    <td class="td2">
+                      <input type="text" name="zong" id="zong" 
+                      value="{$list[0]['ZONG']}"/></td>              
+                    <td class="td2">
+                      <input type="text" name="total" id="total" 
+                      value="{$list[0]['TOTAL']}"/></td>
+                  </tr>                 
+                  <tr class="info">
+                    <td colspan="3">III&nbsp;保险公积金信息</td>
+                  </tr>
+                  <tr>                  
+                    <td class="td1">养老保险</td>                    
+                    <td class="td1">医疗保险</td>
+                    <td class="td1">失业保险</td>   
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                      <input type="text" name="bx_yangl" id="bx_yangl" 
+                      value="{$list[0]['BX_YANGL']}"/></td>
+                    <td class="td2">
+                      <input type="text" name="bx_yil" id="bx_yil" 
+                      value="{$list[0]['BX_YIL']}"/></td> 
+                    <td class="td2">
+                      <input type="text" name="bx_shiy" id="bx_shiy" 
+                      value="{$list[0]['BX_SHIY']}"/></td>            
+                  </tr>
+                  <tr>                  
+                    <td class="td1">公积金</td>
+                    <td class="td1">企业年金</td>
+                    <td class="td1">补充医疗</td>                    
+                  </tr>
+                  <tr> 
+                  <td class="td2">
+                      <input type="text" name="bx_gongjj" id="bx_gongjj" 
+                      value="{$list[0]['BX_GONGJJ']}"/></td>
+                  <td class="td2">
+                      <input type="text" name="bx_nianj" id="bx_nianj" 
+                      value="{$list[0]['BX_NIANJ']}"/></td>
+                  <td class="td2">
+                      <input type="text" name="bx_buc" id="bx_buc" 
+                      value="{$list[0]['BX_BUC']}"/></td>
+                  </tr>                  
+                  <tr class="info">
+                    <td colspan="3">IV&nbsp;绩效信息</td>
+                  </tr>
+                  <tr>                  
+                    <td class="td1">2015年</td>
+                    <td class="td1">2014年</td>
+                    <td class="td1">2013年</td>
+                  </tr>
+                  <tr>
+                   <td class="td2">
+                    <input type="text" name="jx_15" id="jx_15" 
+                    value="{$list[0]['JX_15']}"/></td>
+                    <td class="td2">
+                    <input type="text" name="jx_14" id="jx_14" 
+                    value="{$list[0]['JX_14']}"/></td>
+                    <td class="td2">
+                    <input type="text" name="jx_13" id="jx_13" 
+                    value="{$list[0]['JX_13']}"/></td>
+                  </tr> 
+                  <tr>
+                     <td class="td1">2012年</td>
+                  </tr>
+                  <tr>
+                    <td class="td2">
+                    <input type="text" name="jx_12" id="jx_12" 
+                    value="{$list[0]['JX_12']}"/></td>
+                  </tr> 
+                  <tr class="info">
+                    <td colspan="3">V&nbsp;上年度工资总额(含福利)及人工成本</td>
+                  </tr>
+                  <tr>                  
+                    <td>上年度工资总额(含福利)</td>
+                    <td>上年度人工成本</td>                   
+                  </tr>
+                  <tr> 
+                    <td class="td2">
+                    <input type="text" name="gz_z" id="gz_z" value="{$list[0]['GZ_Z']}"/>
+                    </td>
+                    <td class="td2">
+                    <input type="text" name="cb_z" id="cb_z" value="{$list[0]['CB_Z']}"/>
+                    </td>            
+                  </tr>                
+              </table>
+            </div>           
+          </form>
+          
+                   
+        </div>
+        <div class="caozuo">
+          <div>
+            <button class="btn   btn-success btn-large" type="button" id="add">
+                   新增
+            </button>
+          </div>
+          <div>
+            <button class="btn  btn-warning btn-large" type="button" id="modify">
+                   修改
+            </button>
+          </div>   
+          <div>
+            <button class="btn   btn-danger btn-large" type="button" id="delete">
+                   删除
+            </button>
+          </div>
+          <div>
+            <button class="btn   btn btn-primary btn-large" type="button" id="daoru">
+                   导入
+            </button>
+          </div>      
+        </div> 
+        </if>          
+    </div> 
+   
+</body>
+<script type="text/javascript">
+  $(function(){
+    $('.header_img').click(function(event) {
+       window.location="{:U('Index/salary_index')}";
+    });
+
+  });
+</script>
+<script type="text/javascript">
+  //查询
+  $(function(){
+    $('#search').click(function(){
+      var search_user_id=$('#search_user_id').val();
+      var search_bill_id=$('#search_bill_id').val();
+      if(!search_user_id&&!search_bill_id){
+        //layer.msg('请选择员工编号或者手机号码');
+        layer.alert('请选择员工编号或者手机号码');
+      }
+      url="{:U('Index/salary_search')}";
+
+      if(search_user_id||search_bill_id){        
+        $.ajax({
+         type: "POST",
+         url: url,
+         dataType:'json',
+         data: "search_user_id="+search_user_id+"&search_bill_id="+search_bill_id,
+         success: function(data){
+          if(data=='1'){
+            layer.alert("没有查询到相应的信息");
+          }else{
+            $('#user_name').val(data[0]['USER_NAME']);
+            $('#user_id').val(data[0]['USER_ID']);
+            $('#bill_id').val(data[0]['BILL_ID']);
+            $('#dept_id').val(data[0]['DEPT_ID']);
+            $('#position').val(data[0]['POSITION']);
+            $('#user_lvl').val(data[0]['USER_LVL']);
+            
+            $('#jx').val(data[0]['JX']);
+            $('#gl').val(data[0]['GL']);
+            $('#zc').val(data[0]['ZC']);
+            $('#zong').val(data[0]['ZONG']);
+            $('#total').val(data[0]['TOTAL']);
+
+            $('#bx_yangl').val(data[0]['BX_YANGL']);
+            $('#bx_yil').val(data[0]['BX_YIL']);
+            $('#bx_shiy').val(data[0]['BX_SHIY']);
+            $('#bx_gongjj').val(data[0]['BX_GONGJJ']);
+            $('#bx_nianj').val(data[0]['BX_NIANJ']);
+            $('#bx_buc').val(data[0]['BX_BUC']);
+
+            $('#jx_15').val(data[0]['JX_15']);
+            $('#jx_14').val(data[0]['JX_14']);
+            $('#jx_13').val(data[0]['JX_13']);
+            $('#jx_12').val(data[0]['JX_12']);
+          }                            
+         }
+      });
+      }     
+    });
+  });
+   //修改
+  $(function(){
+    $('#modify').click(function(){  
+     layer.open({
+        type: 1,
+        title: '确定要修改吗?',
+        closeBtn: false,
+        area: '300px;',
+        shade: 0.8,       
+        resize: false,
+        btn: ['修改', '取消'],       
+        moveType: 1,
+        yes: function(index,layero){
+          url="{:U('Index/salary_modify')}";
+          $.ajax({
+             type: "POST",
+             url: url,
+             dataType:'json',
+             data: $("#formTest").serializeArray(),
+             success: function(data){
+              layer.alert(data);
+              }
+             });
+          layer.close(index);         
+        }
+      });
+    });
+  });
+
+  //增加
+  $(function(){
+    $('#add').click(function(){  
+     layer.open({
+        type: 1,
+        title: '确定要保存数据吗?',
+        closeBtn: false,
+        area: '300px;',
+        shade: 0.8,       
+        resize: false,
+        btn: ['保存', '取消'],       
+        moveType: 1,
+        yes: function(index,layero){
+          url="{:U('Index/salary_user_add')}";
+          $.ajax({
+             type: "POST",
+             url: url,
+             dataType:'json',
+             data: $("#formTest").serializeArray(),
+             success: function(data){
+              layer.alert(data);
+              }
+             });
+          layer.close(index);         
+        }
+      });
+    });
+  });
+
+  //删除
+  $(function(){
+    $('#delete').click(function(){  
+     layer.open({
+        type: 1,
+        title: '确定要删除数据吗?',
+        closeBtn: false,
+        area: '300px;',
+        shade: 0.8,       
+        resize: false,
+        btn: ['删除', '取消'],       
+        moveType: 1,
+        yes: function(index,layero){
+          var user_id=$('#user_id').val();
+          url="{:U('Index/salary_user_delete')}";
+          $.ajax({
+             type: "POST",
+             url: url,
+             dataType:'json',
+             data: 'user_id='+user_id,
+             success: function(data){
+              layer.alert(data);
+              }
+             });
+          layer.close(index);         
+        }
+      });
+    });
+  });
+
+  //导入
+  $(function(){
+    $('#daoru').click(function(){ 
+    window.location="{:U('Index/salary_jiben_import')}";   
+     
+    });
+  });
+ 
+  
+</script>
+</html>
+
+

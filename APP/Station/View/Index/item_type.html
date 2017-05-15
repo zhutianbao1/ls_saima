@@ -1,0 +1,50 @@
+<extend name="pub/base" />
+<extend name="pub/base" />
+<block name="title">
+	<title>无线网基站规划建设平台首页</title>
+</block>
+<block name="css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Station/css/index.css"/>
+	<style type="text/css">
+		
+	</style>
+</block>
+<block name="main_right">
+	<div class="main_right">
+	    <h3>修改标签</h3>
+	    <div class="div_li">
+	    	<table>
+	    		<tr>
+	    			<td>工单号</td>
+	    			<td>项目名称</td>
+	    			<td>申请县市</td>
+	    			<td>申请人</td>
+	    			<td>申请时间</td>
+	    			<td>工单状态</td>
+	    		</tr>
+	    		<volist name="items" id="item">
+	    			<tr>
+	    				<td>
+	    					<a href="{:U('Index/item_type_modify?item_id='.$item['ITEM_ID'])}?tab=6">
+	    					{$item.ITEM_ID}
+	    					</a>	    				
+	    				</td>
+	    				<td>{$item.PROJECT_NAME}</td>
+	    				<td>{$item.COUNTY_NAME}</td>
+	    				<td>{$item.APPLIY_NAME}</td>
+	    				<td>{$item.APPLIY_DATE}</td>
+	    				<td>{$item.ITEM_TYPE}</td>
+	    			</tr>
+	    		</volist> 
+	    	</table>	    	
+	    </div>		
+	</div>
+</block>
+<block name="js">
+	<script >
+		$(function(){
+			
+		});
+	</script>
+</block>
+

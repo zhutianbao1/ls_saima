@@ -1,0 +1,180 @@
+<extend name="pub/tpl"/>
+
+<block name="title">模块页面</block>
+<block name="css">
+<link href="__CSS__/list.css" rel="stylesheet" />
+<link href="__CSS__/content.css" rel="stylesheet" />
+<style type="text/css">
+	.dt dt{font-size: 0.6em}
+	.dd dd{font-size: 0.6em}
+	.times{font-size: 0.8em;width: 100%;height: 3em;background:#EDF6FD }
+	.times input{font-size: 1em;border: 1px solid #eee;}
+	.fenye{font-size: 0.8em;width: 90%;}
+	.fenye ul li{float: left;border:1px solid #ccc;color:#999;height: 16px;margin-left: 2px;padding: 2px 3px;}
+	.fenye span{height: 16px;padding: 2px 3px;top: 4px;position: relative;}
+	.fenye a input{border: 1px solid #ccc;width: 1em}
+</style>
+</block>
+    
+<block name="body">   
+    <header class="header">
+        <a class="left_btn btn_back" href="#"></a>
+        <h2>市场营销</h2>
+        <a class="right_btn btn_home" href="#"></a>
+    </header>
+
+    <section class="sections list_con_2">
+    <div class="times">
+	    <span>开始时间</span><input id="homeDate" type="date" value="<?php echo date('Y-m-d',time())?>"/>
+	    <span>结束时间</span><input id="endDate" type="date" value="<?php echo date('Y-m-d',time())?>"/>
+	    <input id="btn" type="button" name="" value="查询" style="width:5em;background:#1FA5E4;color:#fff;">
+    </div>
+        <dl class="dt">
+            <dt style="width:7%;text-align: center;">姓名</dt>
+            <dt style="width:7%;text-align: center;">县市</dt>
+            <dt style="width:28%;text-align: center;">类型</dt>
+            <dt style="width:13%;text-align: center;">设摊数量</dt>
+            <dt style="width:13%;text-align: center;">终端销量</dt>
+            <dt style="width:16%;text-align: center;">孝道机销量</dt>
+            <dt style="width:16%;text-align: center;">2/3G迁移量</dt>
+        </dl>
+        <div class="mon"></div>
+        <div class="wrap">
+            <div class="fenye">
+                <ul>
+                    <li id="first">首页</li>
+                    <li id="top" onclick="topclick()">上一页</li>
+                    <li ><a id="c_page"></a>/<a id="t_page"></a></li>
+                    <li id="down" onclick="downclick()">下一页</li>
+                    <li id="last">末页</li>
+                    <span>共<a id="total"></a>条</span>
+                    <span>第<a><input id="page" type=""></a>页</span>
+                    <span><input id="btn_p" type="button" value="确定"></span>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="sections list_con_2 info_con" >
+    </section>
+ 
+    <section class="sections list_con_2 hide"  >
+    </section> 
+
+
+</block>
+
+<block name="js">
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+var num=1;
+var btnDate={};
+var a=false;
+seach(num,btnDate);
+function seach(num,btnDate){
+    $(".mon").each(function() {
+        var e = $(this);
+        var url="{:U('rank_market_info')}"+"?num="+num;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data:btnDate,
+            success:function(result){
+                var html='';
+                $.each(result, function(index, el) {
+                    html += '<a href="{:rank_market_det}?url='+el['URL']+'" style="color:black;"><dl class="dd">';
+                    html += '<dd style="width:7%;text-align: center;">'+el['USER_NAME']+'</dd>';
+                    html += '<dd style="width:7%;text-align: center;">'+el['COUNTY_NAME']+'</dd>';
+                    html += '<dd style="width:28%;text-align: center;">'+el['服务类型']+'</dd>';
+                    html += '<dd style="width:13%;text-align: center;">'+el['设摊数量']+'</dd>';
+                    html += '<dd style="width:13%;text-align: center;">'+el['终端销量']+'</dd>';
+                    html += '<dd style="width:16%;text-align: center;">'+el['孝道机销量']+'</dd>';
+                    html += '<dd style="width:16%;text-align: center;">'+el['G2G3迁移量']+'</dd>';
+                    html += '</dl></a>';
+                });
+                e.html(html);
+            },
+            error:function(e) {
+                console.error(e);
+            }
+        });
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data:btnDate,
+            success:function(re){
+                $.each(re,function(index,el){
+                    document.getElementById("t_page").innerHTML=Math.ceil(el['SUM']/10);
+                    document.getElementById("total").innerHTML=el['SUM'];
+                })
+            }
+        });
+         
+    });
+}
+
+$('#btn').click(function(){
+	btnDate={
+		homeDate:document.getElementById('homeDate').value,
+		endDate:document.getElementById('endDate').value,
+	}
+	seach(num,btnDate);
+	a=true;
+});
+
+$(function(){
+//基础信息
+    $("#tab").find("a").click(function(){
+        var e = $(this),
+            url = e.attr('url'),
+            index = e.index();
+        if(!e.hasClass('active')){
+            $(".sections").hide();
+            $(".sections").eq(index).show();
+            e.addClass('active').siblings('a').removeClass('active');
+        }
+    });
+}); 
+
+
+var fen=document.getElementById("c_page");
+fen.innerHTML=num;
+function downclick(){
+    if(fen.innerHTML*1<document.getElementById("t_page").innerHTML){
+        num++;
+        fen.innerHTML=num;
+        seach(num,btnDate);
+    }
+
+}
+function topclick(){
+    if(fen.innerHTML>1){
+        num--;
+        fen.innerHTML=num;
+        seach(num,btnDate);
+    }
+}
+$("#first").bind("click",function(){
+    fen.innerHTML=1;
+    num=1;
+    seach(num,btnDate);
+});
+$("#last").bind("click",function(){
+    fen.innerHTML=document.getElementById("t_page").innerHTML;
+    num=document.getElementById("t_page").innerHTML;
+    seach(num,btnDate);
+}); 
+$("#btn_p").bind("click",function(){
+	var page=document.getElementById("page").value;
+	if(page>0){
+		fen.innerHTML=page;
+		num=page;
+		seach(num,btnDate);
+	}
+})
+</script>
+</block>

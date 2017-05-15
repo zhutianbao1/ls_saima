@@ -1,0 +1,166 @@
+<!doctype html>
+<html data-dpr="1">
+<head>
+<meta charset="utf-8">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>
+	*{margin: 0px;padding:0px;}
+	canvas{width: 3rem;height: 1.5rem;background:#33ACFB;padding: 0.75rem 0;}
+    .btn{float: left;width: 3rem;height: 3rem;margin-top: 0.8rem;margin-left: 1.33rem;color: black;margin-bottom: 0.5rem}
+    .pag{position: absolute; width: 3rem;text-align: center;margin-top: 0.2rem;font-size: 0.4rem;}
+    .pag2{left: 1.33rem;}
+    .pag3{left: 5.66rem;}
+</style>
+ </head>
+ 
+<body>
+    <div class="viewport">
+        <div>
+            <div style="position: absolute;z-index:99998;background: #0081CC;text-align: center;font-size: 0.6rem;height:1rem;line-height: 1rem;color: #fff;width: 10rem;">人力管理</div>
+        	<a href="{:U('android/main')}" style="position: absolute;z-index: 99999;"><img src="__IMG__/retreat.png" style="width: 1rem;height: 1rem;"></a>
+        	<img src="__IMG__/logo.jpg" style="width: 10rem;height: 5rem;">
+        </div>
+        <div>
+            <a class="btn" href="#"><canvas id="kpi"></canvas><div class="pag pag2">绩效管理</div></a>
+            <a class="btn" href="#"><canvas id="ing"></canvas><div class="pag pag3">成长积分</div></a>
+            <a class="btn" href="#"><canvas id="wide"></canvas><div class="pag pag2">我的宽级化</div></a>
+            <a class="btn" href="#"><canvas id="zol"></canvas><div class="pag pag3">能力评估报告</div></a>
+        </div>
+        <!-- <div style="padding-bottom: 60px;overflow: hidden;">
+        	<a href="{:U('android/ad_qysm')}"><div class="btn">全 员<br/>赛 马</div></a>
+        	<div class="btn">人 力<br/>管 理</div>
+        	<div class="btn add">便 捷<br/>作 业</div>
+        	<div class="btn" style="background:#eee"><a href="javascript:;" class="b"style="line-height: 80px;color: #fff;font-family: '华文琥珀'";>+</a></div>
+        </div> -->
+    </div>
+</body>
+
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script> 
+<script type="text/javascript">
+</script>
+<script type="text/javascript">
+	;(function(win, lib) {
+    var doc = win.document;
+    var docEl = doc.documentElement;
+    var metaEl = doc.querySelector('meta[name="viewport"]');
+    var flexibleEl = doc.querySelector('meta[name="flexible"]');
+    var dpr = 0;
+    var scale = 0;
+    var tid;
+    var flexible = lib.flexible || (lib.flexible = {});
+    
+    if (metaEl) {
+        console.warn('将根据已有的meta标签来设置缩放比例');
+        var match = metaEl.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
+        if (match) {
+            scale = parseFloat(match[1]);
+            dpr = parseInt(1 / scale);
+        }
+    } else if (flexibleEl) {
+        var content = flexibleEl.getAttribute('content');
+        if (content) {
+            var initialDpr = content.match(/initial\-dpr=([\d\.]+)/);
+            var maximumDpr = content.match(/maximum\-dpr=([\d\.]+)/);
+            if (initialDpr) {
+                dpr = parseFloat(initialDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));    
+            }
+            if (maximumDpr) {
+                dpr = parseFloat(maximumDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));    
+            }
+        }
+    }
+
+    if (!dpr && !scale) {
+        var isAndroid = win.navigator.appVersion.match(/android/gi);
+        var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+        var devicePixelRatio = win.devicePixelRatio;
+        if (isIPhone) {
+            // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+            if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {                
+                dpr = 3;
+            } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)){
+                dpr = 2;
+            } else {
+                dpr = 1;
+            }
+        } else {
+            // 其他设备下，仍旧使用1倍的方案
+            dpr = 1;
+        }
+        scale = 1 / dpr;
+    }
+
+    docEl.setAttribute('data-dpr', dpr);
+    if (!metaEl) {
+        metaEl = doc.createElement('meta');
+        metaEl.setAttribute('name', 'viewport');
+        metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        if (docEl.firstElementChild) {
+            docEl.firstElementChild.appendChild(metaEl);
+        } else {
+            var wrap = doc.createElement('div');
+            wrap.appendChild(metaEl);
+            doc.write(wrap.innerHTML);
+        }
+    }
+
+    function refreshRem(){
+        var width = docEl.getBoundingClientRect().width;
+        /*if (width / dpr > 540) {
+            width = 540 * dpr;
+        }*/
+        var rem = width / 10;
+        docEl.style.fontSize = rem + 'px';
+        flexible.rem = win.rem = rem;
+    }
+
+    win.addEventListener('resize', function() {
+        clearTimeout(tid);
+        tid = setTimeout(refreshRem, 300);
+    }, false);
+    win.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+            clearTimeout(tid);
+            tid = setTimeout(refreshRem, 300);
+        }
+    }, false);
+
+    if (doc.readyState === 'complete') {
+        doc.body.style.fontSize = 12 * dpr + 'px';
+    } else {
+        doc.addEventListener('DOMContentLoaded', function(e) {
+            doc.body.style.fontSize = 12 * dpr + 'px';
+        }, false);
+    }
+    
+
+    refreshRem();
+
+    flexible.dpr = win.dpr = dpr;
+    flexible.refreshRem = refreshRem;
+    flexible.rem2px = function(d) {
+        var val = parseFloat(d) * this.rem;
+        if (typeof d === 'string' && d.match(/rem$/)) {
+            val += 'px';
+        }
+        return val;
+    }
+    flexible.px2rem = function(d) {
+        var val = parseFloat(d) / this.rem;
+        if (typeof d === 'string' && d.match(/px$/)) {
+            val += 'rem';
+        }
+        return val;
+    }
+
+})(window, window['lib'] || (window['lib'] = {}));
+</script>
+
+</html> 

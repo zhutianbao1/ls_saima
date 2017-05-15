@@ -1,0 +1,158 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 投诉处理记录表</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="main-content">
+    <form id="theForm1" class="" action="{:U('Index/cdeals')}" method="post">
+      <div class="hidden">
+      <label>序号:</label>
+      <input class="readonly" type="text" name="id" value="{$cdeal['ID']}"/>
+      <label>记录人:</label>
+      <input class="readonly" type="text" name="recorder" value="{$cdeal['RECORDER']}"/>
+      </div>
+      
+      <div class="form">
+      <div class="form-header">投诉处理记录表</div>
+      <div>
+        <label>投诉来源：<font color="#ff0000">*</font></label>
+        <select name="come_from">
+          <option value=""></option>
+          <option value="0" {$cdeal[COME_FROM]=='0'?'selected':''}>营业飞信群</option>
+          <option value="1" {$cdeal[COME_FROM]=='1'?'selected':''}>渠道QQ群</option>
+          <option value="2" {$cdeal[COME_FROM]=='2'?'selected':''}>远端投诉处理QQ群</option>
+        </select>
+
+        <label>投诉县市：<font color="#ff0000">*</font></label>
+        <select name="county_code">
+          <option value=""></option>
+          <option value="5781" {$cdeal[COUNTY_CODE]=='5781'?'selected':''}>莲都</option>
+          <option value="5782" {$cdeal[COUNTY_CODE]=='5782'?'selected':''}>缙云</option>
+          <option value="5783" {$cdeal[COUNTY_CODE]=='5783'?'selected':''}>青田</option>
+          <option value="5784" {$cdeal[COUNTY_CODE]=='5784'?'selected':''}>云和</option>
+          <option value="5785" {$cdeal[COUNTY_CODE]=='5785'?'selected':''}>庆元</option>
+          <option value="5786" {$cdeal[COUNTY_CODE]=='5786'?'selected':''}>龙泉</option>
+          <option value="5787" {$cdeal[COUNTY_CODE]=='5787'?'selected':''}>遂昌</option>
+          <option value="5788" {$cdeal[COUNTY_CODE]=='5788'?'selected':''}>松阳</option>
+          <option value="5789" {$cdeal[COUNTY_CODE]=='5789'?'selected':''}>景宁</option>
+          <option value="578B" {$cdeal[COUNTY_CODE]=='578B'?'selected':''}>南城</option>
+        </select>
+        
+        <label>投诉网点:<font color="#ff0000">*</font></label>
+        <input type="text" name="from_site" value="{$cdeal['FROM_SITE']}"/>
+      </div>
+      
+      <div>
+        <label>业务分类：<font color="#ff0000">*</font></label>
+        <select name="busi_type">
+          <option value=""></option>
+          <option value="0" {$cdeal[BUSI_TYPE]=='0'?'selected':''}>业务查询</option>
+          <option value="1" {$cdeal[BUSI_TYPE]=='1'?'selected':''}>业务办理</option>
+          <option value="2" {$cdeal[BUSI_TYPE]=='2'?'selected':''}>计费类</option>
+          <option value="3" {$cdeal[BUSI_TYPE]=='3'?'selected':''}>其他</option>
+        </select>
+
+        <label>现象分类：<font color="#ff0000">*</font></label>
+        <input type="text" name="result_type" value="{$cdeal['RESULT_TYPE']}"/>
+
+        <label>是否派单：<font color="#ff0000">*</font></label>
+        <select name="has_post">
+          <option value=""></option>
+          <option value="0" {$cdeal[HAS_POST]=='0'?'selected':''}>否</option>
+          <option value="1" {$cdeal[HAS_POST]=='1'?'selected':''}>是</option>
+        </select>
+      </div>
+      
+      <div>
+        <label>投诉内容：<font color="#ff0000">*</font></label>
+        <textarea name="content">{$cdeal['CONTENT']}</textarea>
+      </div>
+
+      <div>
+        <label>问题原因及解决办法：</label>
+        <textarea name="deal_way">{$cdeal['DEAL_WAY']}</textarea>
+      </div>
+
+      <div>
+        <label>备注：</label>
+        <textarea name="remark">{$cdeal['REMARK']}</textarea>
+      </div>
+
+      <div class="btn-box">
+        <div class="btn-group">
+          <input type="button" class="btn tj" value="提交"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+
+  $(".tj").click(function(){
+    var come_from = $("select[name='come_from']").val();
+    if(come_from==''){
+      alert("投诉来源不能为空");
+      return false;
+    }
+    var county_code = $("select[name='county_code']").val();
+    if(county_code==''){
+      alert("投诉县市不能为空");
+      return false;
+    }
+    var from_site = $("input[name='from_site']").val();
+    if(from_site==''){
+      alert("投诉网点不能为空");
+      return false;
+    }
+    var busi_type = $("select[name='busi_type']").val();
+    if(busi_type==''){
+      alert("业务分类不能为空");
+      return false;
+    }
+    var result_type = $("input[name='result_type']").val();
+    if(result_type==''){
+      alert("现象分类不能为空");
+      return false;
+    }
+    var has_post = $("select[name='has_post']").val();
+    if(has_post==''){
+      alert("是否派单不能为空");
+      return false;
+    }
+    var content = $("textarea[name='content']").val();
+    if(content==''){
+      alert("投诉内容不能为空");
+      return false;
+    }
+    $(".tj").attr("disabled", true);
+    $("#theForm1").submit();
+    
+  });
+});
+</script>
+</block>

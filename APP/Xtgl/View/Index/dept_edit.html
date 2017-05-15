@@ -1,0 +1,70 @@
+<extend name="tmp"/>
+<block name="body">
+   <form name="theForm" id="demo" action="" method="post"> 
+   <input type="hidden"  name="id" value={$dept['DEPT_ID']}>
+   <input type="hidden"  name="DEPT_id" value={$dept['DEPT_ID']}>
+   
+  <table  width="100%" height="100%" border="0" class="ctable" cellspacing="1" cellpadding="0">  
+      <tr>
+          <td>名称</td>
+          <td>
+          <input type="text" name="dept_name" value="{$dept['DEPT_NAME']}">
+        </td>
+      </tr>
+      
+        <tr>
+          <td>上级菜单</td>
+          <td>
+          <input type="text" id="parentDeptName"   readonly value="{$deptParent['DEPT_NAME']}">
+          <input type="hidden" readonly="readonly"   name="dept_parent_id" id="deptId" value="{$dept['DEPT_PARENT_ID']}"/>
+          <input type="button" class="bottom" value="变更" onclick="selectGroupId();"/>
+        </td>
+      </tr>
+         
+      <tr>
+          <td>状态</td>
+          <td>
+          <select id="status" name="status">
+          <?php 
+                  echo R('Admin/Util/select',array(array('正常1'=>'1',
+                                                         '注销0'=>'0',
+                                                         'TAB10'=>'10'),$dept['DEPT_STATUS']))
+                ?>
+        </select>
+    </td>
+      </tr>
+      <tr>
+          <td>备注</td>
+          <td><textarea name="remark" cols="50" rows="5" >{$dept['DEPT_REMARK']}</textarea></td>
+      </tr>
+      <tr class="bai">
+<td></td>
+<td>
+<input type="button" class="btn1_mouseout bottom" value=" 提 交 " onClick="save()">
+<input type="button" class="btn1_mouseout bottom" value=" 重 置 "  onClick="tdeForm.reset();"/>
+<input type="button" class="btn1_mouseout bottom" value=" 新 增 "  onClick="javascript:location.href='{:U('DEPT_edit')}';"/>
+</td>
+</tr>
+</table>
+</FORM>
+
+</block>
+
+<block name="js">
+<script type="text/javascript">
+  selectGroupId = function(){
+    // openDialog("{:U('DEPT_select')}",'400px','600px');
+    openWindow("{:U('dept_select')}",'选择部署菜单','400','600','800','100');
+  }
+
+  save = function(){
+    var DEPT_name = $("input[name=DEPT_name]").val();
+    if(DEPT_name.isEmpty()){
+      alert('组织名称不能为空');
+      return;
+    }
+    layer.load(2,{shade:[0.5,'#ccc']});
+    theForm.submit();
+  }
+</script>
+</block>

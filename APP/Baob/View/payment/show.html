@@ -1,0 +1,177 @@
+<extend name="pub/tpl3"/>
+<block name="title">缴费卡结算清单审核</block>
+<block name="css"></block>
+<block name="header">
+	<input type="button"  value="返 回" class="back_btn" />
+	<a class="title">缴费卡结算清单审核</a>
+</block>
+<block name="subtitle"></block>
+
+<block name="show">
+	<form action="{:U('Payment/show')}" method="post" id="theForm">
+		<div class="search_div">
+			<div class="group">
+				<label>渠道名称:</label>
+				<input type="text" name="org_name" id="org_name"  value="{$org_name}" />
+			</div>
+           
+			<div class="group">
+				<label>结算业务:</label>
+				<input type="text" name="busi_name" id="busi_name" value="{$busi_name}"/>
+			</div>
+			<div class="group">
+				<label>状态:</label>
+				<select name="status">
+					<option value="" {$status==''?selected:''}>全部</option>
+					<option value="1" {$status=='1'?selected:''} >未审核</option>
+					<option value="2" {$status=='2'?selected:''} >已审核</option>
+					<option value="3" {$status=='3'?selected:''} >已领取</option>
+				</select>
+			</div>
+			<div class="group1">
+				<input type="button"  value="搜 索" class="sub_btn" />
+			</div>
+
+
+			<div class="group1">
+				<input type="button"  value="导 出" class="dc_btn" />
+			</div>
+
+
+			<div class="group1">
+				<input type="button"  value="审 核" class="sh_btn" />
+			</div>
+			<div class="clear"></div>
+		</div>
+	</form>	
+	<table>
+		<tr>
+			<th style="width: 50px;">县市</th>
+			<th>渠道名称</th>
+			<th>手机号码</th>
+			<th>终端串号</th>
+			<th>结算业务</th>
+			<th>受理时间</th>
+			<th>结算金额</th>
+			<th>结算状态</th>
+			<th style="width: 50px;">
+				<input type="checkbox" name="" id="checkAll">
+			</th>
+		</tr>
+		<empty name="lists">
+			<tr>
+				<td colspan="9">暂无需要审核的数据</td>
+			</tr>
+		<else/>
+			<volist name="lists" id="list">
+				<tr>
+					<td>{$list['COUNTY_NAME']}</td>
+					<td>{$list['ORG_NAME']}</td>
+					<td>{$list['BILL_ID']}</td>
+					<td>{$list['IMEI']}</td>
+					<td>{$list['BUSI_NAME']}</td>
+					<td>{$list['DONE_DATE']}</td>
+					<td>{$list['AMOUNT']}</td>
+					<td>
+						<if  condition="$list['STATUS'] eq '1' ">未审核
+						<elseif condition="$list['STATUS'] eq '2' "/>已审核
+						<elseif condition="$list['STATUS'] eq '3' "/>已领取
+						</if>
+					</td>
+					<td class="tc">
+					    <if  condition="$list['STATUS'] eq '1' ">
+						<input type="checkbox" class="checkb" title="勾选为审核通过" 
+							para="{$list['LIST_ID']}"/>
+						</if>
+					</td>
+				</tr>
+			</volist>
+		</empty>
+	</table>
+</block>
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+
+			var status="{$status}";
+
+			if(status!='1'){
+				$('.sh_btn').attr('disabled',true);
+				$('.sh_btn').css('display','none');
+				$('#checkAll').attr('disabled',true);
+			}
+
+
+			$('.sub_btn').click(function(){
+				$('#theForm').submit();
+			});
+
+			/**
+
+			$('.back_btn').click(function(){
+				window.location="{:U('Login/payment_index')}";
+			});
+			**/
+
+			$('#checkAll').click(function(){
+				var checkAll=$('#checkAll');
+				if(checkAll.attr('checked')=="checked"){				
+					$('.checkb').attr('checked',true);
+				}else{
+					$('.checkb').attr('checked',false);
+				}
+			});
+
+			$('.checkb').click(function(){
+				var lenall=$('.checkb').length;
+				var lenchecked=$('.checkb:checked').length;
+				if(lenchecked==lenall){
+					$('#checkAll').attr('checked',true);
+				}else{
+					$('#checkAll').attr('checked',false);
+				}
+			});
+
+			$('.sh_btn').click(function(){
+				var  list_ids="";
+				$('.checkb').each(function(){
+					if($(this).attr('checked')=="checked"){
+						var list_id=$(this).attr('para');					
+						list_ids+=list_id+",";
+					}
+				});
+				if(!list_ids.isEmpty()){
+					url="{:U('Payment/item_shenhe')}";
+					layer.confirm('确定要审核通过勾选的数据吗?',{icon: 3, title:'提示'},function(index){
+						$.ajax({
+							url:url,
+							type:'post',
+							data:{list_ids:list_ids},
+							dataType:'json',
+							success:function(re){
+								if(re.status=='1'){
+									layer.alert(re.msg);
+									location.reload();
+								}else{
+									layer.alert(re.msg);
+								}
+							},
+							error:function(){
+								layer.alert('系统请求出错!');
+							}
+						});
+						layer.close(index);
+					});
+				}else{
+					layer.alert('请选择审核通过的数据!');
+				}
+			});
+
+
+			$('.dc_btn').click(function(){
+				window.location.href="{:U('Payment/item_busi_exp')}?org_name={$org_name}&busi_name={$busi_name}&status={$status}";
+			});
+		});
+	</script>
+</block>
+

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>营销活动缴费卡平台</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Baob/css/payment_index.css">
+	<style type="text/css">
+		.a_link{width: 150px;position: absolute;left: 650px;top:0;text-align: center;}
+		.a_link:hover{color: red;}
+		.a_link2{width: 150px;position: absolute;left: 220px;top:0;text-align: center;}
+		.a_link2:hover{color: red;}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<div class="box">
+		    <div class="header" >
+		    	<span class="oper_info">
+			        <if condition="$status eq '1' ">
+				        {$_SESSION['payment']['COUNTY_NAME']}--{$_SESSION['payment']['OPER_NAME']}--
+				        {$_SESSION['payment']['OA']}--{$_SESSION['payment']['OPER_LOGIN_CODE']}
+			        </if>
+		    	</span>
+		    	<if condition="$msg eq '1' and $auth8 eq '8'">
+		    		<a class="a_link2" href="{:U('Payment/payment_pcard_print?tabbs=8')}">缴费卡打印</a>
+		    	</if>
+		    	<h3>营销活动缴费卡管理平台</h3>
+		    	<if condition="$msg eq '1' and $auth7 eq '7'">
+		    		<a class="a_link" href="{:U('Payment/payment_by_case?tabbs=1')}">缴费卡报表清单</a>
+		    	</if>
+		    	<a class="a_doc"  href="__PUBLIC__/Baob/files/营销活动缴费卡结算管理平台使用说明.docx">
+		    	平台使用说明</a>
+		    </div>
+		    <div class="main">			   
+				<div class="group">
+					<a href="http://ls-webdev06.zj.chinamobile.com/uniflow/lsTaskManager/uniflow/UniflowConfig.db/invokePort.port?open&portName=startProcessAuto2.port&flowNo=ls_active_charge">规则申请</a>
+				</div>
+				
+
+				<if condition="($msg eq '1' and $auth2 eq '2') or ($msg2 eq '1' and $auth eq '2' )">
+					<div class="group">
+						<a href="{:U('Payment/show')}">缴费卡结算清单审核</a>
+					</div>
+				<else/>
+					<div class="group authno">
+						<a href="javascript:;">缴费卡结算清单审核</a>
+					</div>
+				</if>
+
+				<if condition="$msg eq '1' and $auth3 eq '3'">
+					<div class="group">
+						<a href="{:U('Payment/settlement')}">缴费卡结算</a>
+					</div>
+				<else/>
+					<div class="group authno">
+						<a href="javascript:;">缴费卡结算</a>
+					</div>
+				</if>
+
+				<if condition="$msg eq '1' and $auth4 eq '4'">
+					<div class="group">
+						<a href="{:U('Payment/item_list')}">缴费卡一级稽核</a>
+					</div>
+				<else/>
+					<div class="group authno">
+						<a href="javascript:;">缴费卡一级稽核</a>
+					</div>
+				</if>
+
+				<if condition="$msg eq '1' and $auth5 eq '5'">
+					<div class="group">
+						<a href="{:U('Payment/item_receive')}">缴费卡领取</a>
+					</div>
+				<else/>
+					<div class="group authno">
+						<a href="javascript:;">缴费卡领取</a>
+					</div>
+				</if>
+
+				<if condition="$msg eq '1' and $auth6 eq '6'">
+					<div class="group">
+						<a href="{:U('Payment/item_list_month?tab=2')}">营收资金稽核及报表</a>
+					</div>
+				<else/>
+					<div class="group authno">
+						<a href="javascript:;">营收资金稽核及报表</a>
+					</div>
+				</if>
+		    </div>
+		</div>
+	</div>
+</body>
+<script   src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/stringUtil.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var  msg3="{$msg3}";
+		if(msg3=='11'){
+			layer.alert('您未登陆OA,请先登陆OA！');
+		}
+
+		$('.authno').click(function(){
+			layer.alert('您没有此模块对应的权限!');
+		});
+
+		
+		$('.a_li').mouseover(function(){
+			$('.a_ul').css('display','block');
+		  
+		});
+		$('.a_li').mouseout(function(){
+			$('.a_ul').css('display','none');
+		  
+		});
+        /**
+		var info="{$info}";
+		if(info==99){
+			layer.alert('您未登陆OA,请先登陆OA!');
+		}
+	    **/	
+
+	});
+</script>
+
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '营销活动缴费卡管理平台', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>
+
+</html>

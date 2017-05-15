@@ -1,0 +1,92 @@
+<html>
+<head>	
+<title>赛马信息-登陆</title>
+
+<style>
+	.mask{ background: grey none repeat scroll 0 0;
+    top: 0;
+    height: 100%;
+    left: 0;
+    opacity: 0.4;
+    filter:alpha(opacity=40); 
+    -moz-opacity:0.4; 
+    -khtml-opacity: 0.4;  
+    position: absolute;
+    width: 100%;
+    z-index: 9998;}
+	.tip{padding:10px 20px;font-size: 12px;}
+	.loginDiv{background: rgb(250,250,250);padding:0px;border:solid 5px rgb(245,248,252) ;width:80%; 
+		position: absolute;top:20%;left:10%;z-index: 99999999999;}
+	.loginDiv p{height:45px;line-height: 45px;padding-left:50px;}
+	.loginDiv p span{font-size: 100%;font-weight: bold;display: inline-block;padding-right:20px;text-align: right;color: rgb(15, 142, 226);}
+	.loginDiv input{height:30px;line-height: 30px;border:0px;width:50%;font-size: 100%;}
+	input[type=text],input[type=password]{padding-left: 10px;border-bottom:solid 1px rgb(15, 142, 226);background: rgb(250,250,250);font-weight: bold;}
+	.msg{font-size: 12px;padding-left:240px !important;}
+	.error{color: red;}
+	.success{color:green;}
+
+</style>
+<link rel="stylesheet" href="__CSS__/rank_style.css">
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+</head>
+
+<body>
+<div class="mask"></div>
+<div class="loginDiv">
+
+<fieldset style="margin-left:0px; border-top:solid 25px rgb(245,248,252);padding-top:20px;">
+	<legend>用户登陆</legend>
+	<p><span>用户名</span><input type="text" name="oper_login_code" /></p>
+	<p><span>密&nbsp;&nbsp;&nbsp;码</span><input type="password" name="oper_login_pass"/></p>
+	<p class="msg"></p>
+	<p style="margin-left:50px;">
+	<a href="javascript:;" style="width:20%;font-size: 100%" class="e-btn submit">登陆</a>
+	&nbsp;
+	<a href="javascript:;" style="width:20%;font-size: 100%" class="c-btn reset">重置</a>
+	</p>
+</fieldset>
+
+	
+<div class="tip">
+	<!-- 该操作要求登陆后才能使用！ ； 账号密码同85系统保持一致 &nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://10.78.1.85/Public/getPass.jsp"><font color = "blue">忘记密码?</font></a> -->
+</div>
+</div>
+  
+
+</body>
+<script>
+	$(function(){
+		$(".submit").click(function(){
+			var oper_login_code= $("input[name=oper_login_code]").val(),
+				oper_login_pass= $("input[name=oper_login_pass]").val();
+			$(".msg").removeClass('error').html('验证中...,请稍后');
+			$.ajax({
+				type:'post',
+				url:"{:U('index/login')}",
+				data:{mobile:oper_login_code,pwd:oper_login_pass},
+				dataType:'json',
+				success:function(re){
+					if(re.success){
+						location.reload();
+					}else{
+						$("input[name=oper_login_code]").focus();
+						$(".msg").addClass('error').html(re.msg);
+					}
+				}
+			});
+		});
+
+		$(".reset").click(function(){
+			$("input").val('');
+		});
+
+		$(".mask").height($(document).height());
+		$(".mask").width($(document).width());
+	});
+
+$(window).resize(function(event) {
+	$(".mask").height($(document).height());
+	$(".mask").width($(document).width());
+});
+</script>
+</html>

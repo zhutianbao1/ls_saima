@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>中层廉政档案 | 登录</title>
+
+  <link rel="stylesheet" href="__PUBLIC__/dagl/ack.css">
+  <!--[if lt IE 9]>
+    <script src="__STATIC__/html5shiv.min.js"></script>
+    <script src="__STATIC__/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <div>
+  <form class="loginForm" action="{:U('index/login')}" method="post">
+  	<div class="form-header">廉政档案登录</div>
+  	<div>
+  	  <label for="login-code">用户名</label>
+	  <input type="text" name="loginCode" id="login-code"/>
+    </div>
+	<div>
+	  <label for="login-pwd">密码</label>
+	  <input type="password" name="loginPwd" id="login-pwd"/>
+	</div>
+	<button type="submit" class="btn submit"/>登录</button>
+  <div style="color:#f00">为提高安全性，页面有一段时间未进行操作<br/>就会要求重新登录；请关闭浏览器重新登录，<br/>或用85平台的帐号和密码进行输入登录</div>
+  </form>
+
+  </div>
+
+<!--[if !IE]> -->
+<script type="text/javascript">
+  window.jQuery || document.write("<script src='__STATIC__/jquery-2.0.3.min.js'>"+"<"+"/script>");
+</script>
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+  window.jQuery || document.write("<script src='__STATIC__/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+</body>
+</html>

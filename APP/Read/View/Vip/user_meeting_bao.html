@@ -1,0 +1,71 @@
+<extend name="Tpl/base"/>
+<block name="title">我报名的读书会</block>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/tag.css">
+</block>
+
+<block name="main_top">
+<div class="page-title" >
+  {:W('Side/user_tab')}
+  <div class="alternative">
+    <!-- <a href="/provider/all">按提供方浏览</a> -->
+  </div>
+</div>
+</block>
+<block name="main_left">
+  {:W('Side/vip_html')}
+</block>
+
+<block name="main_right">
+  <div class="hd lined">
+ <h3>我报名的读书会
+      <span class="help-tip"></span></h3>
+  </div>
+  <div class="bd">
+  <if condition="$mybaos neq null">
+  <table width="100%">
+    <tr height="22px">
+    <th style="background:#6e839a;color:#fff;">读书会</th>
+    <th style="background:#6e839a;color:#fff;">报名时间</th>
+    <th style="background:#6e839a;color:#fff;">状态</th>
+    <th style="background:#6e839a;color:#fff;">操作</th> 
+    </tr>
+    <volist name="mybaos" id="mybao">
+    <tr>
+      <td>{$mybao['meeting_name']}</td>
+      <td>{$mybao['bao_date']|date='Y-m-d',###}</td>
+      <td>
+        <if condition="$mybao['status'] eq 1  ">已报名
+        <elseif condition="$mybao['status'] eq 0  "/>已取消
+        <elseif condition="$mybao['status'] eq 2  "/>已请假
+        </if>
+      </td>
+      <td>
+       <if condition="$current_time  lt $mybao['meet_date'] ">
+          <a href="javascript:;" para="{$mybao['id']}" class="del_bao">撤销报名</a> 
+       <else/>
+          已完成
+       </if>
+      </td>
+    </tr>
+    </volist>
+  </table>
+  <div class="ft">
+      {$_page}
+  </div>
+  <else/>
+  <p style="color: #666;letter-spacing: 1px; font-size: 13px;font-weight: 700;"> 
+    暂未获得到关于您读书会报名的数据!</a>
+  </p>
+  </if>
+   <br>
+  </div>
+    
+{:W('Side/haoshu')}
+</block>
+
+<block name="js">
+<script>
+
+</script>
+</block>

@@ -1,0 +1,90 @@
+html,body,div,span,h1,h2,h3,h4,h5,h6,ul,li{margin:0px;padding:0px;}
+li{list-style: none;list-style-type:none;}
+* {font-family:"Microsoft YaHei";font-size: 12px;}
+a{text-decoration: none; color:#999;}
+input {
+	width: expression((this.type=="text"?"150":""));
+	height: expression((this.type=="text"?"25":""));
+	padding:5px;
+}
+select{width:140px; 
+	   appearance:none;
+  	   -moz-appearance:none;
+  	   -webkit-appearance:none;
+  	   border:solid 1px #ccc;
+  	}
+
+.clr{clear:both;} .show{display: block;} .hide{display:none;}
+.left{float:left;} .right{float:right;}
+.border{border:solid 1px red;}
+.wrap{padding:0px; margin:0px;background:rgb(219,234,249);}	
+
+.a_btn{display: inline-block;float: left;margin-right:10px;}
+.a_btn input{padding:5px 15px;font-size:12px;text-align: center;border:0px;cursor: pointer;}
+.a_btn_primary input{background:rgb(34,120,191);color:#fff;}
+.a_btn_default input{background:grey;color:#fff;}
+
+.form_wrap{}
+.form_tab{overflow:hidden;}
+.form_tab ul li{list-style: none;border:solid 0px red;}
+.form_tab li{float:left;margin-left:2px;}
+.form_tab li a{padding:5px 10px;display:block;padding:8px;color:#535353;}
+.form_tab li .curr{background:yellow;font-weight: bold;color:#535353;}
+
+.form_design{padding:2px;}
+
+.panel{border:solid 1px grey;border-radius:3px;}
+.panel legend{padding:5px 8px;font-size: 12px;color: #535353;font-weight: bold;}		
+.row_title{clear:both;background:rgb(219,234,249);padding:5px 20px;text-align: left;font-weight: bold;border-bottom: solid 1px #ccc;margin-bottom: 10px;}
+.row_submit{clear:both;padding-left:40%;border-bottom: solid 0px #ccc;margin-top:10px;margin-bottom: 10px;overflow: hidden;}
+.row{border-bottom:solid 0px #fff;clear:both;padding:2px 0px 2px 1%;height:20px;line-height: 20px;}
+.col{padding:3px 0px 3px 5px;}
+.col0{float:left;width:23%; background: none;}
+.col1{float:left;width:33%; background: none;}
+.col2{float:left;width:66%; background: none;}
+.col3{float:left;width:99%; background: none;}
+
+.col .in{position:relative;float:left;border:solid 0px red;height:28px;padding-right:40px;}
+.in select{padding:5px 0px;}
+.in input{vertical-align: middle;}
+.in textarea{width:100%;}
+.in .msg{width:110px;right:0px;top:0px;font-size: 11px;border:solid 0px red;padding-left:4px;float:right;}
+.in .msg_info{color:#535353;}
+.in .msg_err{color:red;}
+.in .msg_suc{color:green;}
+.col0 .in{padding-right:0px;}
+label{font-weight:bold;color:#535353;display:block;width:100px;text-align: right;padding-right:10px;font-size: 13px;display: inline-block;float: left;}
+
+.dis_wrap{position:relative;padding:0px 5px;border:solid 0px #ccc;overflow:hidden;}
+.dis_menu{width:50px;float:left;border:solid 1px #ccc;border-left:0px;border-bottom: 0px;}
+.dis_menu li {list-style: none;border-bottom:solid 1px #ccc;}
+.dis_menu li a{display:block;padding:5px 0px;cursor: move;text-align: center;}
+.dis_menu li a:hover{background:grey;color:#fff;height:25px;line-height: 25px;}
+
+.dis_con{width:100%;border:solid 0px red;}
+#dis_main{border:solid 1px #ccc;height:300px;overflow: auto;}
+#list_attrs{border:solid 1px #ccc;height:300px;overflow: auto;}
+#dis_attr{margin-top:2px;border:solid 1px #ccc;overflow:hidden;}
+.list_attrs_table{}
+.list_attrs_table th,td{text-align: center;padding:2px 0px;}
+.list_attrs_table th{background:rgb(219,234,249);color:#535353;}
+.list_attrs_table td{overflow: hidden;white-space: nowrap;text-overflow:ellipsis;color:blue;}
+.list_attrs_table td a{color:blue;text-decoration: underline;}
+
+.dis_attr_model li{float:left;}
+.dis_attr_model li a{display: block;padding:5px 8px;text-decoration: none;}
+.dis_attr_model li a:hover{background:grey;color: #fff;}
+.dis_attr_model li .curr{background:#535353;color: #fff;}
+
+.dis_attr_design{border-top:solid 1px #ccc;overflow: hidden;}
+.dis_attr_code{height:300px;background: #ccc;}
+
+/**下拉框值填写**/
+#form_list_values{position: absolute;top:10%;z-index:10000;border:solid 10px rgb(83,83,83);border-radius: 5px;background:#fff;margin-left:50%;left:-100px;}
+#form_list_values li{list-style: none;list-style-type:none;}
+#form_list_values li a{display: inline-block;width:40%;text-decoration: none;text-align: left;padding-left:10px;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;}
+#form_list_values li a:hover{background:#ccc;}
+#form_list_values .list_keys{}
+#form_list_values .list_vals{}
+#form_list_values .list_input{padding:5px 0px;background:#ccc;}
+#form_list_values .list_save{padding:2px 0px 2px 20px;overflow: hidden;background:#ccc;}

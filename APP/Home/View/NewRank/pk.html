@@ -1,0 +1,67 @@
+<extend name='pub/main_newRank'/>
+<block name="title">{$json['usera']['C']}-PK-{$json['userb']['C']}</block>
+<block name='css'>
+</block>
+<block name='body'>
+<div class="top">
+	<div class="body">
+		<div class="pk_head">
+			<div class="usera left">
+				<img src="__HEAD_IMG__/{$json['usera']['E']}.jpg" width="120px" height="150px">
+				<br>
+				{$json['usera']['C']}
+			</div>
+			<div class="left vs"><i>PK</i></div>
+			<div class="userb left">
+				<img src="__HEAD_IMG__/{$json['userb']['E']}.jpg" width="120px" height="150px">
+				<br>
+				{$json['userb']['C']}
+			</div>
+		</div>
+
+		<div class="info-model clear" style="margin-bottom:100px;top:70px;position:relative">
+			<div class="model-title">
+				<div class="left">PK 数据比较</div>
+				<div class="left"></div>
+			</div>
+			<div class="model-line"></div>
+
+			<div class="model-con">
+				 <?php 
+				$flag = false;
+				if(isset($json['usera'])){
+					echo "<div class='pk_data'><div class='pk_title'></div><div class='pk_usera'>".$json['usera']['C']."</div><div class='pk_userb'>".$json['userb']['C']."</div></div>";
+					echo "<div class='pk_data'><div class='pk_title'>总分</div><div class='pk_usera'>".$json['usera']['H']."</div><div class='pk_userb'>".$json['userb']['H']."</div></div>";
+				}else{
+					echo '未找到数据，请重试';	
+				}
+				foreach ($json['head'] as $k => $v) {
+					if($k=='I'){
+						$flag=true;
+					}
+
+					$fua = '';
+					if(floatval($json['usera'][$k])<0){
+						$fua = '<span class="danger">负分项</span>';
+					}
+
+					$fub = '';
+					if(floatval($json['userb'][$k])<0){
+						$fub = '<span class="danger">负分项</span>';
+					}
+
+					if(isset($v) && $flag && $k!='NUMROW'){
+						echo "<div class='pk_data'>
+									<div class='pk_title'>".$v."</div>
+									<div class='pk_usera'><span>".$json['usera'][$k]."</span>".$fua."<div class='pk_bg1' style='width:".(intval($json['usera'][$k]))."%;'></div></div>
+									<div class='pk_userb'><span>".$json['userb'][$k]."</span>".$fub."<div class='pk_bg2' style='width:".(intval($json['userb'][$k]))."%;'></div></div>
+							  </div>";
+
+					}
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+</block>

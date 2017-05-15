@@ -1,0 +1,114 @@
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+}
+ul, li {
+    list-style: outside none none;
+}
+fieldset, img {
+    border: medium none;
+}
+body {
+    background: #fff none repeat scroll 0 0;
+    overflow-x: hidden;
+}
+body, button, input, select, textarea {
+    font: 16px/1.5 tahoma,arial,"Hiragino Sans GB",宋体;
+}
+select, input, img, object, embed, iframe, label {
+    vertical-align: middle;
+}
+select, input, textarea {
+    font-family: inherit;
+    margin: 0;
+}
+input[type="text"], input[type="submit"], input[type="reset"] {
+    border-radius: 0;
+}
+table {
+    border-collapse: collapse;
+}
+table th {
+    font-weight: normal;
+}
+input[type="submit"], input[type="reset"], button {
+    cursor: pointer;
+}
+input:focus, select:focus, textarea:focus {
+    outline: medium none;
+}
+textarea {
+    resize: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+button {
+    cursor: pointer;
+}
+em {
+    font-style: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: 500;
+}
+a {
+	color:#000;
+    text-decoration: none;
+}
+a:focus {
+    outline: medium none;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+img, li {
+    vertical-align: top;
+}
+th {
+    text-align: inherit;
+}
+iframe {
+    display: block;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus {
+    border-color: rgba(242, 145, 73, 0.8) !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(242, 145, 73, 0.6);
+    outline: 0 none;
+}
+a:hover, a:active, a:focus {
+    text-decoration: underline;
+    transition: color 0.3s ease 0s;
+}
+.clearfix::after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+}
+.clearfix {
+}
+.clearit {
+    clear: both;
+    font-size: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.fn-text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.relative{position:relative !important;} 
+.absolute{position:absolute !important;} 
+.fixed{position:fixed !important;}
+ 
+ul,li{list-style-type:none;list-style:none;}

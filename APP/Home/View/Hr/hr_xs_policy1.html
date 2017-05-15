@@ -1,0 +1,185 @@
+<extend name="pub/main_hr"/>
+<block name="title">考核内容</block>
+<block name="css">
+	<style type="text/css">
+		table{text-align: center;border-collapse: collapse;font-weight: 600}
+		.test{text-align: left;font-weight: 100;}
+		table tr td{border: 1px solid #fff;padding: 3px 0px;}
+		table span {color: red;font-weight: 600;}
+		#kh{position:absolute; width:980px; overflow:auto; left: 50%;margin-left:-490px}
+	</style>
+</block>
+
+<block name="body">
+<div id="">
+	<table cellpadding="1" cellspacing="0" border="0" width="100%" class="tit">
+		<tr style="background: #4F81BD; color: #fff;">
+			<td style="width: 100px;">类别</td>
+			<td style="width: 160px;">具体指标</td>
+			<td>指标口径</td>
+			<td style="width: 100px;">考核权重</td>
+		</tr>
+		<tr>
+			<td rowspan="6">计件考核</td>
+			<td rowspan="2">放号量</td>
+			<td class="test">指标口径：当月放号量；</td>
+			<td rowspan="2">10</td>
+		</tr>
+		<tr>
+			<td class="test"><span>考核口径：完成目标量的100%得满分，低于目标值80%不得分，80%-100%线性得分</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">4G有效终端销量完成率</td>
+			<td class="test">指标口径：销售完成率=下辖网点4G有效终端销售量合计/下辖网点任务合计；<br/>当月体内外4G销量（含自带机），要求销售日至次月3日前激活，使用最多的号码上4G流量大于0M，通话天数大于等于1天。</td>
+			<td rowspan="2">10</td>
+		</tr>
+		<tr>
+			<td class="test"><span>考核口径：完成目标量的100%得满分，低于目标值80%不得分，80%-100%线性得分</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">宽带竣工量</td>
+			<td class="test">指标口径：当月宽带竣工量</td>
+			<td rowspan="2">15</td>
+		</tr>
+		<tr>
+			<td class="test"><span>考核口径：完成目标量的100%得满分，低于目标值80%不得分，80%-100%线性得分</span></td>
+		</tr>
+		<tr>
+			<td rowspan="16">过程考核</td>
+			<td rowspan="2">触点业务办理率</td>
+			<td class="test">指标口径：渠道触点用户通过触点业务平台查看后办理业务成功率<span>（要求触点查看率必须大于50%）</span></td>
+			<td rowspan="2">10</td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：完成目标量得满分，低于目标值70%不得分，70%-100%线性得分，<span>并且要求触点查看率必须大于50%，否则该项目不得分</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">宽带渠道参与率</td>
+			<td class="test">指标口径：当月签约星级渠道宽带竣工1户及以上渠道占比</td>
+			<td rowspan="2">10</td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：本月目标60%，完成目标量的100%得满分，低于目标值80%不得分，80%-100%线性得分</td>
+		</tr>
+		<tr>
+			<td rowspan="2">宣传达标</td>
+			<td class="test">指标口径：服务辖区内各级别渠道，落实市公司统一的宣传布置情况的达标度；</td>
+			<td rowspan="2">10</td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>一家不达标扣2分，整改不达标，按照每家4分进行扣罚，扣完10分为止。</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">渠道4G专卖</td>
+			<td class="test">指标口径：服务辖区内各级别渠道，落实市公司统一4G专卖要求</td>
+			<td rowspan="2">10</td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>一家不达标扣2分，整改不达标，按照每家4分进行扣罚，扣完5分为止。</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">手机APP使用率</td>
+			<td class="test">指标口径：要求销售经理APP每周使用率达到100%，数据统计以省公司为准</td>
+			<td rowspan="2">5</td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>未达到100%，不得分</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">渠道无纸化打印成功达标率</td>
+			<td class="test">指标口径：渠道无纸化打印成功达标率=渠道无纸化打印成功达标渠道数量/负责渠道总数</td>
+			<td rowspan="2">5</td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>每周统计1次，当周未达到100%达标的，按照每家扣1分进行扣罚；</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">孝道机有效销售</td>
+			<td class="test">指标口径：孝道机有效销售量（有效定义：当月4G活跃）</td>
+			<td rowspan="2">10</td>
+		</tr>
+		<tr>
+			<td class="test"><span>考核口径：完成目标量的100%得满分，低于目标值60%不得分，60%-100%线性得分;</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">苹果2G终端换机量</td>
+			<td class="test">指标口径：苹果2G终端目标用户换机办理量</td>
+			<td rowspan="2">5</td>
+		</tr>
+		<tr>
+			<td class="test"><span>考核口径：完成目标量的100%得满分，低于目标值60%不得分，60%-100%线性得分;</span></td>
+		</tr>
+		<tr>
+			<td rowspan="15">扣分项</td>
+			<td rowspan="2">渠道双禁</td>
+			<td class="test">指标口径：所辖渠道当月有渠道出现销售竞争对手产品，提供竞争对手服务；竞争对手渠道不得出现销售移动产品，提供移动服务的情况。</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：查到一家违规双禁，<span>扣5分，上不封顶。</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">渠道星级积分达标家数</td>
+			<td class="test">指标口径：所负责<span>签约星级渠道</span>星级积分达到目标的值数量</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>渠道要求月度星级业务积分（不含渠道考核积分）不低于40分，低于40分，每1家渠道扣5分；如提升1家达标渠道，奖励3分，封顶6分。</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">渠道一线人员政策知晓度</td>
+			<td class="test">指标口径：对渠道下发的政策、活动熟悉并了解相关酬金并及时宣贯告知渠道。</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>1家不达标扣1分，上不封顶。</span> </td>
+		</tr>
+		<tr>
+			<td rowspan="2">渠道实名制违反</td>
+			<td class="test">指标口径：根据省公司对实名制违规的统一定义判定。</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>所负责渠道当月违反实名制现象，违规1家，则考核扣5分，上不封顶。</span> </td>
+		</tr>
+		<tr>
+			<td rowspan="2">渠道套利</td>
+			<td class="test">指标口径：所辖渠道当月有渠道出现养卡、套机等套利情况，</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>查到一起扣5分，上不封顶。</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">渠道违规分销</td>
+			<td class="test">指标口径：所辖渠道当月有渠道出现违规分销情况，</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>查到一起扣5分，上不封顶。</span> </td>
+		</tr>
+		<tr>
+			<td>渠道网点不知情定制</td>
+			<td class="test">指标口径：销售经理所辖区域内，由于渠道未经用户同意为用户办理移动业务，导致用户投诉，发现一次扣0.5分，封顶5分。</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td rowspan="2">月度技能测试</td>
+			<td class="test">指标口径：每月市场部组织进行技能测试，测试结果作为评定标准</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>未在指定时间参考或考试分数低于80分，扣5分；考试成绩大于80分（含80）但低于90分（不含90）扣2.5分；90分以上不扣分</span></td>
+		</tr>
+		<tr>
+			<td rowspan="2">加分项</td>
+			<td rowspan="2">有效网点拓展</td>
+			<td class="test">指标口径：建设成功次月起，业务积分连续2个星级积分达到40分。</td>
+			<td rowspan="2"></td>
+		</tr>
+		<tr>
+			<td class="test">考核口径：<span>次月起，经稽核后，每月奖励10分，最高可连续奖励2个月。</span></td>
+		</tr>
+	</table>
+</div>
+</block>

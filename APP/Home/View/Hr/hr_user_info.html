@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  	<title>人力信息自助查询</title>
+  	<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+	 
+	<script type="text/javascript" src="__PULIC__/StringUtil.js"></script>
+	
+	<style type="text/css">
+	
+		html body{overflow:auto;padding:0;}
+		.pleft{padding-left:20px;}
+		
+		.con {position:relative; width:800px; left:50%;margin-left:-400px;top:0px;}
+
+		#info{width:100%;}
+		
+		#info th{height:30px; line-height:30px; background-color:#fff;color:#2B658C;padding-left:20px;font-size:13px;border-bottom: solid 1px #2B658C;font: 黑体;}
+		
+		#info td{height:50px; line-height:50px; background-color:#FFF;text-align:center;font-size:14px;font-weight:600;color:#666;
+		border:dashed 0px #2B658C; border-top:0px;font-family: "Microsoft Yahei"}
+		
+		.title {font-size:18px;padding-left:10px;font-size:18px;font-weight:600;color:#2B658C;
+				background-color:#fff;height:40px;line-height:40px;
+				width:100%;font-family: "Microsoft Yahei";text-align: left;margin-bottom: 30px;}
+
+		.title2 {font-size:13px;font-weight:600;font:黑体;
+				background-color:#fff;height:25px;line-height:25px;color:#2B658C;
+				width:100%;margin-top:30px;border-bottom: solid 1px #2B658C;}
+		/*.title2 i{background: #2B658C;color: #fff;padding:0px 20px;width:150px;}*/
+		.reamark{margin-top:20px;font-size: 10px;color: #666;}
+	</style>
+  </head>
+  
+  
+  <body>  
+  <div>
+     <notempty name="info">
+     <div class="con" >
+     		
+			<div class="title">
+				<span>{$info['USER_NAME']}</span>  
+			</div>
+
+			<table id="info" class="user-info pleft" border=0 cellspacing="0" cellpadding="0" style="margin-top:10px;">
+				<tr>
+					<th>员工编号</th><th>手机号码</th><th colspan="3">岗位</th><th>岗位标准职等</th> 
+				</tr>
+				
+				<tr>
+					<td>{$info['USER_ID']}</td><td>{$info['BILL_ID']}</td>
+					<td colspan="3">{$info['POSITION']}</td> 
+					<td>{$info['LVL']}</td> 
+				</tr>
+			</table>
+
+			<div class="title2">
+				<i>《I》职等分位信息</i>  
+			</div>
+			<table id="info" class="user-info pleft" border=0 cellspacing="0" cellpadding="2">
+			<tr>
+				<th>个人职等</th><th>绩效分位</th><th>工龄分位</th><th>职称分位</th><th>总分位</th><th>基薪</th>
+			</tr>
+			
+			<tr>
+				<td>{$info['USER_LVL']}</td><td>{$info['JX']}</td><td>{$info['GL']}</td>
+				<td>{$info['ZC']}</td><td>{$info['ZONG']}</td>
+				<td>{$info['TOTAL']}</td>
+			</tr>
+			</table>
+
+			<div class="title2">
+				<i>《II》保险公积金信息</i>  
+			</div>
+			<table id="info" class="user-info pleft" border=0 cellspacing="0" cellpadding="2">
+			<tr>
+				<th>养老保险</th><th>医疗保险</th><th>失业保险</th><th>公积金</th><th>企业年金</th><th>补充医疗特需金额度</th>
+			</tr>
+			
+			<tr>
+				<td>{$info['BX_YANGL']}</td><td>{$info['BX_YIL']}</td><td>{$info['BX_SHIY']}</td>
+				<td>{$info['BX_GONGJJ']}</td><td>{$info['BX_NIANJ']}</td><td>{$info['BX_BUC']}</td>
+			</tr>
+			</table>
+
+			<div class="title2">
+				<i>《III》绩效信息</i>  
+			</div>
+			<table id="info" class="user-info pleft" border=0 cellspacing="0" cellpadding="2">
+			<tr>
+			<th>2012年绩效</th>
+			<th>2013年绩效</th>
+			<th>2014年绩效</th>
+			<th>2015年绩效</th>
+			
+			</tr>
+			<tr>
+			<td>{$info['JX_12']}</td>
+			<td>{$info['JX_13']}</td>
+			<td>{$info['JX_14']}</td>
+			<td>{$info['JX_15']}</td>
+			
+			</tr>
+			</table>
+
+			<div class="reamark">提示： 数据由人力资源部门提供，如有疑问清联系人力</div>
+
+		</div>
+		<else/>
+			<empty name="user_auth">
+				<div class="alert alert-danger" role="alert">登录会话超时，请重新刷新OA进入</div>
+				<else/>
+				<div class="alert alert-danger" role="alert">未找到 {$bill_id} 相关信息数据,请核对您在人力登记的号码</div>
+			</empty>
+		</notempty>
+    </div>    
+  </body>
+<script type="text/javascript" src="__STATIC__/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+<!--1: 引入jquery -->
+<!--2: 定义常规信息 -->
+var logInfo = {
+	 name 		 : '员工个人信息查询平台', //项目名称
+	 title 		 : $(document).attr('title'), //当前页面名称
+	 county_code : "{$_SESSION['user_auth']['COUNTY_CODE']}", //县市编号
+	 user_id 	 : "{$_SESSION['user_auth']['OPER_ID']}", //用户编号
+	 bill_id 	 : "{$_SESSION['user_auth']['OPER_LOGIN_CODE']}", //手机号码
+	 user_name 	 : "{$_SESSION['user_auth']['OPER_NAME']}", //用户姓名
+	 url 		 : location.href, //当前访问地址
+	 ext 		 : '',  //拓展信息	
+	 bInfo 	     : ''   //浏览器信息
+} 
+</script>
+<script type="text/javascript" src="http://10.78.1.85:9000/logging/public/logUtil.js"></script>  
+</html>
+
+ 

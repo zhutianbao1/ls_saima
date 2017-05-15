@@ -1,0 +1,59 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">工会活动积分首页</block>
+<block name="css">
+	<style type="text/css">
+		tr td{line-height: 20px;}
+		.tit{line-height: 28px;background:#0F8EE2;color: white;font-weight: 600; }
+		.rank a{color: #0f8ee2;text-decoration: none;font-family: '微软雅黑';}
+		.p{color: grey;}
+		.xq span{color: #808080;}
+		.sc{background: #eee;padding: 5px;font-weight: 600;}
+	</style>
+</block>
+
+<block name="img">
+	<img style="margin-left:0px;width:959px;margin-bottom: -4px;" src="__IMG__/topjf.jpg">
+</block>
+<block name="nav">
+<div class="sc">
+   <a href="__PUBLIC__/images/工会活动积分模板.xlsx" style="float:left;line-height:25px;margin-right:20px">工会活动数据导入模板</a>
+	<form method="post" action="{:U('index/file')}" enctype="multipart/form-data">
+		<input type="file" name="file_stu" style="background:#fff;border:1px solid #ddd;height:25px;line-height:25px">
+		<input type="submit" name="" value="导入" style="width:50px;border:1px solid #ddd;height:25px"></div>
+	</form>
+</block>
+<block name="month"><div style="margin-bottom: 10px;"></div></block>
+<block name="body">
+	<table class="rank" cellpadding="2" cellspacing="0" style="border:solid 1px #0F8EE2;border-bottom:0px;border-top:0px;">
+		<tr>
+			<td class="tit" style="width: 250px;">单位</td>
+			<td class="tit">第一名</td>
+			<td class="tit">第二名</td>
+			<td class="tit">第三名</td>
+			<td class="tit">第四名</td>
+			<td class="tit">第五名</td>
+			<td class="tit">操作</td>
+		</tr>
+		<volist name="user" id="gr">
+			<tr class="xq">
+				<td>{$gr.POS_NAME}</td>
+				<td title="{$gr.P1}"><div class="p">{$gr.P1}</div></td>
+				<td title="{$gr.P2}"><div class="p">{$gr.P2}</div></td>
+				<td title="{$gr.P3}"><div class="p">{$gr.P3}</div></td>
+				<td title="{$gr.P4}"><div class="p">{$gr.P4}</div></td>
+				<td title="{$gr.P5}"><div class="p">{$gr.P5}</div></td>
+				<td><a href="{:U('index/rank_unions_info')}?id={$gr.ID}" target="_blank">详情</a></td>
+			</tr>
+		</volist>
+	</table>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">业务负责人：戴云，联系电话：13957072889</a><br/><br/>
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>
+
+

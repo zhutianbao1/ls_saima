@@ -1,0 +1,103 @@
+<extend name='./prize_base'/>
+<block name='title'>首页</block>
+<block name='css'>
+	<style type="text/css">
+		.fs{width:188px;float:left;margin:0px;height:300px;border:1px solid #A5C4E8;margin:5px}
+		.fs .pic{width:190px;text-align:center;display:block;margin-top:10px;word-break:break-all}
+		.fs .prize{color:white;top:-43px;position:relative;font-size:16px;font-weight:bold;cursor:pointer;display:block;width:100px;text-align: center;height: 38px;line-height: 38px}
+		.fs .btns{width:100px;margin-top:10px;margin-left:45px;}
+		.anchor{border:1px solid #eee;position: fixed;top:0px;left:0px;width:150px;background:#FFFFEC;z-index:999;color:#1488F4;height:100%;}
+		.hover{left: -120px}
+		.con_title{font-size:14px;color:#1488F4;font-weight:600;border-bottom:1px solid #28A0FF;padding-bottom:10px;width:99%}
+		.con_title a{float:right;margin-right:10px;color:#1488F4}
+	</style>
+</block>
+<block name='top'></block>
+<block name='left'></block>
+<block name='right'>
+	<div style="overflow: hidden;">
+		<div class="anchor">
+			<volist name="con" id="cons">
+				<span>
+					<a style="color:#000;margin:35px;display:block;font-weight:600" href="#{$cons['id']}">{$cons['type_name']}</a>
+				</span>
+			</volist>
+		</div>
+		<volist name="con" id="cons">
+			<div id="{$cons['id']}" class="con_title">{$cons['type_name']}
+				<span><a href="{:U('index/prize_borwse?type='.$cons['id'])}">更多</a></span>
+			</div>
+			<div style="height:320px">
+				<volist name="dity" id="ditys">
+					<if condition="($cons['id'] eq $ditys['prizes_type'])">
+						<div class="fs">
+							<img src="__IMG__/{$ditys['prizes_img']}" style="width:188px;border-bottom:1px solid #ccc"/>
+							<span class="pic">{$ditys['prizes_name']}</span>
+							<!-- <span class="pic" style="color:#a5a5a5;height:30px">{$ditys['prizes_type']}</span> -->
+							<img src="__IMG__/tu1.jpg" class="btns">
+							<span class="prize" onclick="aaa({$ditys['id']})">领奖</span>
+						</div>
+					</if>
+				</volist>
+				<volist name="num" id="nums">
+					<if condition="($cons['id'] eq $nums['prizes_type']) and ($nums['num'] lt 5)">
+						<div class="fs">
+							<img src="__IMG__/暂无.jpg" style="width:188px;border-bottom:1px solid #ccc"/>
+							<span class="pic">敬请期待。。。</span>
+						</div>
+					</if>
+				</volist>
+			</div>
+		</volist>
+	</div>
+</block>
+<block name='bottom'></block>
+<block name='js'>
+<script type="text/javascript">
+	var bill_id="{$_SESSION['user_auth']['OPER_LOGIN_CODE']}";
+	var info="{$info['bill_id']}";
+	var status="{$info['status']}";
+	function aaa(id){
+		if(bill_id==null || bill_id==""){
+			alert("未获取的您的信息，请重新登录！");
+		}else{
+			if(info==null || info==""){
+				alert("你未达到领取标准，暂不能领取！");
+			}else{
+				if(status==2){
+					alert("您已领取，不能重复领取！");
+				}else{
+					if(confirm('你确定领取当前奖品吗？领取后将无法更改')){
+						$.ajax({
+							url:"{:U('prize_receive')}",
+							type:"post",
+							dataType:"json",
+							data:"id="+id+"&bill_id="+bill_id,
+							success:function(result){
+								alert(result.msg);
+								location.reload();
+							}
+						})
+					}
+				}
+			}
+		}
+	}
+	$(document).ready(function(){
+		$(".anchor span:nth-child(1n) a").css("font-weight","bold");
+	});
+	setTimeout(aa,5000);
+	function aa(){
+		$(".anchor").addClass("hover");
+	}
+	$(".anchor").hover(
+		function(){
+			$(this).removeClass("hover");
+		},
+		function(){
+			$(this).addClass("hover");
+		}
+	)
+</script>
+</block>
+

@@ -1,0 +1,93 @@
+<extend name="./base"/>
+<block name="title">日常运维管理平台 | 常规流程</block>
+<block name="css">
+<style>
+  body{background-color: #efefef;}
+  .form{width:880px;margin-left:auto;margin-right:auto;}
+  .complain_type{width:735px;}
+  textarea{
+    width:735px;
+    min-height:100px;
+  }
+  .tj{
+    margin-left:20px;
+  }
+</style>
+</block>
+<block name="wrapper">
+<nav class="nav" role="navigation">
+  <div class="container-fluid bg-default">
+    <div class="navbar">
+      <a class="titleName" href="{:U('index')}">日常运维管理平台</a>
+      <div style="position:fixed;top:0;right:15px;color:#fff;"><?php echo session('user_auth.OA');?></div>
+    </div>
+  </div>
+</nav>
+
+<div class="wrapper container-fluid">
+  <div class="main-content">
+    <form id="theForm1" class="" action="{:U('Index/holidays')}" method="post">
+      <div class="form">
+        <div class="form-header">年休安排</div>
+
+        <div class="hidden">
+          <label>编号:</label>
+          <input class="readonly" type="text" name="id" value="{$ha['ID']}"/>
+        </div>
+
+        <div>
+          <label>姓名:</label>
+          <input readOnly="readOnly" type="text" name="user_name" value="{$ha['USER_NAME']}"/>
+
+          <label>已排年休:</label>
+          <input type="text" name="has_day" value="{$ha['HAS_DAY']/10}"/>
+
+          <label>未排年休:</label>
+          <input type="text" name="not_day" value="{$ha['NOT_DAY']/10}"/>
+        </div>
+
+        <div>
+          <label>剩余休息：<font color="#ff0000">*</font></label>
+          <input type="text" name="surplus_day" value="{$ha['SURPLUS_DAY']/10}"/>
+        </div>
+
+        <div class="btn-box">
+          <div class="btn-group">
+            <input type="button" class="btn tj" value="提交"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</block>
+
+<block name="js">
+<script>
+$(function(){
+
+  $(".tj").click(function(){
+    var has_day = $("input[name='has_day']").val();
+    if(has_day==''){
+      alert("已排天数不能为空");
+      return false;
+    }
+
+    var not_day = $("input[name='not_day']").val();
+    if(not_day==''){
+      alert("未排天数不能为空");
+      return false;
+    }
+
+    var surplus_day = $("input[name='surplus_day']").val();
+    if(surplus_day==''){
+      alert("剩余调休数不能为空");
+      return false;
+    }
+
+    $(".tj").attr("disabled", true);
+    $("#theForm1").submit(); 
+  });
+});
+</script>
+</block>

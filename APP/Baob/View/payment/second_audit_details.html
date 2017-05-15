@@ -1,0 +1,258 @@
+<extend name="pub/tpl3"/>
+<block name="title">二级稽核详情</block>
+<block name="css">
+	<style type="text/css">
+		.main_top{height: 30px;line-height: 30px;width: 600px;margin: 0 auto;}
+		.main_top .group{float: left;width: 300px;}
+		.main_top .group label{width:80px;display: inline-block;text-align: right;}
+		.main_top .group input[type='text']{width: 200px;height: 22px;line-height: 22px;
+							border: 1px solid #ccc;text-indent: 5px;}
+		.main .main_left,.main .mian_right{width: 48%;}
+		.main .main_left fieldset,.main .mian_right fieldset{padding: 10px;}
+		.main .main_left .pos,.main .main_left .shiti,
+		.main .mian_right .pos,.main .mian_right .shiti{width: 100%;border:1px solid #eee;margin-top: 5px;}
+		.main .main_left div>h3,.main .mian_right div>h3{background-color: #eee;}
+		.main .main_left .group,.main .mian_right .group{margin-top: 5px;height: 30px;line-height: 30px;}
+		.main .main_left .group label,.main .mian_right .group label{width: 30%;display: inline-block;
+							text-align: right;font-size: 14px;}
+		.main .main_left .group input[type='text'],.main .mian_right .group input[type='text']{
+							width: 60%;display: inline-block;height: 23px;line-height: 23px;
+							border: 1px solid #ccc;text-indent: 5px;}	
+	</style>
+</block>
+
+<block name="subtitle"></block>
+
+<block name="show">
+		<form action="{:U('Payment/second_month_result')}" method="post" id="theForm">
+			<div class="main_top">
+				<div class="group">
+					<label>起始日期:</label>
+					<input type="text" name="start_date" class="read" value="{$start_date}" id="start_date" />
+				</div>
+				<div class="group">
+					<label>结束日期:</label>
+					<input type="text" name="end_date" class="read" value="{$end_date}" id="end_date"/>
+				</div>
+			</div>
+			<div class="main_left fl">
+				<fieldset>
+					<legend>财务入账数据</legend>
+					<div class="pos">
+						<h3>营业厅POS券</h3>
+						<div class="group">
+							<label>500面值</label>
+							<input type="text" name="price500a"  class="req" / >
+						</div>
+						<div class="group">
+							<label>300面值</label>
+							<input type="text" name="price300a"  class="req"/ >
+						</div>
+						<div class="group">
+							<label>100面值</label>
+							<input type="text" name="price100a" class="req"/ >
+						</div>
+						<div class="group">
+							<label>50面值</label>
+							<input type="text" name="price50a" class="req"/ >
+						</div>
+						<div class="group">
+							<label>30面值</label>
+							<input type="text" name="price30a" class="req"/ >
+						</div>
+						<div class="group">
+							<label>20面值</label>
+							<input type="text" name="price20a" class="req"/ >
+						</div>
+					</div>
+					<div class="shiti">
+						<h3>全国卡赠送</h3>
+						<div class="group">
+							<label>500面值</label>
+							<input type="text" name="price500b" class="req"/ >
+						</div>
+						<div class="group">
+							<label>300面值</label>
+							<input type="text" name="price300b" class="req"/ >
+						</div>
+						<div class="group">
+							<label>100面值</label>
+							<input type="text" name="price100b" class="req"/ >
+						</div>
+						<div class="group">
+							<label>50面值</label>
+							<input type="text" name="price50b" class="req"/ >
+						</div>
+						<div class="group">
+							<label>30面值</label>
+							<input type="text" name="price30b" class="req"/ >
+						</div>
+						<div class="group">
+							<label>20面值</label>
+							<input type="text" name="price20b" class="req"/ >
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="mian_right fr">
+				<fieldset>
+					<legend>系统清单数据</legend>
+						<div class="pos">
+							<h3>营业厅POS券</h3>
+							
+							<div class="group">
+								<label>500面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '营业厅POS券' and $list['CARD_PRICE'] eq '500' ">
+										<input type="text" name="price500c"  value="{$list['CARD_NO']}" class="read" / >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>300面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '营业厅POS券' and $list['CARD_PRICE'] eq '300' ">
+										<input type="text" name="price300c"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>100面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '营业厅POS券' and $list['CARD_PRICE'] eq '100' ">
+										<input type="text" name="price100c"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>50面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '营业厅POS券' and $list['CARD_PRICE'] eq '50' ">
+										<input type="text" name="price50c"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>30面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '营业厅POS券' and $list['CARD_PRICE'] eq '30' ">
+										<input type="text" name="price30c"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>20面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '营业厅POS券' and $list['CARD_PRICE'] eq '20' ">
+										<input type="text" name="price20c"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							
+						</div>
+						<div class="shiti">
+							<h3>全国卡赠送</h3>
+							
+							<div class="group">
+								<label>500面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '全国卡赠送' and $list['CARD_PRICE'] eq '500' ">
+										<input type="text" name="price500d"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>300面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '全国卡赠送' and $list['CARD_PRICE'] eq '300' ">
+										<input type="text" name="price300d"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>100面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '全国卡赠送' and $list['CARD_PRICE'] eq '100' ">
+										<input type="text" name="price100d"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>50面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '全国卡赠送' and $list['CARD_PRICE'] eq '50' ">
+										<input type="text" name="price50d"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>30面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '全国卡赠送' and $list['CARD_PRICE'] eq '30' ">
+										<input type="text" name="rice30d"  value="{$list['CARD_NO']}" class="read"/ >
+									</if>
+								</volist>
+							</div>
+							<div class="group">
+								<label>20面值</label>
+								<volist name="listtmp1" id="list">
+									<if condition="$list['CARD_TYPE'] eq '全国卡赠送' and $list['CARD_PRICE'] eq '20' ">
+										<input type="text" name="price20d"  value="{$list['CARD_NO']}" class="read"/>
+									</if>
+								</volist>
+							</div>
+						</div>
+					
+				</fieldset>
+			</div>
+			<input type="hidden" name="result" id="result" class="req" />
+			<!--
+			<input type="hidden" name="start_date" value="{$start_date}" id="start_date" />
+			<input type="hidden" name="end_date" value="{$end_date}"  id="end_date" />
+			-->
+		</form>	
+
+	<div style="clear: both;"></div>
+	<div class="btn_div">
+		<input type="button"  value="同意" class="sub_btn fl" />
+		<input type="button"  value="不同意"   class="sub_btn fr">
+	</div>
+</block>
+<block name="js">
+	<script type="text/javascript">
+		$(function(){
+			$('.back_btn').click(function(){
+				window.location="{:U('Payment/item_list_month')}";
+			});
+
+
+			
+			$('.read').attr('readonly',true);
+			$('.read').css('background-color','#eee');
+			
+	        $('.sub_btn').click(function(){
+	        	var flag=true;
+
+	        	var result=$(this).val();
+	        	$('#result').val(result);
+
+	        	if($('.req').val().isEmpty()){
+	        		flag=false;
+	        		layer.alert('请将数据填写完整!');
+	        	}
+	        	if(result.isEmpty()){
+	        		flag=false;
+	        		layer.alert('未获得稽核结果!');
+	        	}
+
+	        	if(flag){
+	        		layer.confirm('确定要稽核对应的数据吗?', {icon: 3, title:'提示'}, function(index){
+	        			$('#theForm').submit();
+						layer.close(index);
+					});
+	        	}	
+	        });
+		});
+	</script>
+</block>
+

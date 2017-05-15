@@ -1,0 +1,27 @@
+<extend name="tmp"/>
+<block name="body">
+<table  width="98%" border="0" cellspacing="1" cellpadding="0">  
+<tr> 
+<th>姓名</th>
+<th>帐号</th>
+<th>登陆次数</th>
+<th>部门</th>
+<th>状态</th> 
+</tr>
+
+<volist name="opers" id="oper">
+<tr>
+   
+  <td>{$oper['OPER_NAME']}</td>
+  <td>{$oper['OPER_LOGIN_CODE']}</td>
+  <td>{$oper['OPER_VIEWS']}</td>
+  <td>{$oper['DEPT_NAME']}</td>
+  <td>{$oper['OPER_STATUS']}</td>
+  
+</tr>
+</volist>
+</table> 
+{$_page}
+</block>
+ 
+  

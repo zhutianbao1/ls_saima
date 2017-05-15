@@ -1,0 +1,65 @@
+<extend name="pub/msg_base"/>
+
+<block name="title">市公司人员评测首页</block>
+<block name="css">
+	<style type="text/css">
+		.jf{border-right: 1px solid #0F8EE2;width: 175px;}
+		tr td{line-height: 20px;}
+		.tit{line-height: 28px;background:#0F8EE2;color: white;font-weight: 600; }
+		.rank a{color: #0f8ee2;text-decoration: none;}
+		.p{color: grey;}
+		.xq span{color: #808080;}
+	</style>
+</block>
+
+<block name="img">
+	<div style="background: #fff;  width: 960px;padding: 20px 0px;overflow: hidden;"><span style="font-size: 45px;margin-left: 200px;font-family:'华文彩云';">市公司人员服务支撑评测平台</span><span style="display: block;text-align: center;">眼睛对内 <span style="padding:0 50px;">价值对外</span> 服务一线</span></div>
+</block>
+<block name="nav"></block>
+<block name="month"><div style="margin-bottom: 10px;"></div></block>
+<block name="body">
+	
+	<table class="rank" border="0" cellpadding="2" cellspacing="0" style="border:solid 1px #0F8EE2;border-bottom:0px; border-top:0px;">
+		<tr>
+			<td class="tit" style="width: 150px;"></td>
+			<td class="tit" style="width: 250px;">单位</td>
+			<td class="tit">第一名</td>
+			<td class="tit">第二名</td>
+			<td class="tit">第三名</td>
+			<td class="tit">第四名</td>
+			<td class="tit">第五名</td>
+			<td class="tit" style="text-align: center;">操作</td>
+		</tr>
+		<tr>
+			<td class="jf" rowspan="<?php echo count($gr)+1;?>">
+				<p style="text-align: left;white-space:normal;color: #888;">规则说明：<br/>
+					1.每天每IP限点赞1次吐槽1次<br/>
+					2.系统采用实名点赞，匿名吐槽<br/>
+					3.点赞吐槽请根据实际情况选择或进行个性化评价，每次限单项选择<br/>
+					4.点赞，吐槽内容公开，便于市公司人员提升服务质量<br/>
+					5.系统根据点赞数排名，后期进行评选和激励
+				</p>
+			</td>
+			<volist name="gr" id="gr">
+			<tr class="xq">
+				<td>{$gr.单位}</td>
+				<td title="{$gr.P1}"><div class="p">{$gr.P1}</div></td>
+				<td title="{$gr.P2}"><div class="p">{$gr.P2}</div></td>
+				<td title="{$gr.P3}"><div class="p">{$gr.P3}</div></td>
+				<td title="{$gr.P4}"><div class="p">{$gr.P4}</div></td>
+				<td title="{$gr.P5}"><div class="p">{$gr.P5}</div></td>
+				<td style="text-align: right;"><a href="{:U('index/rank_pc_info')}?id={$gr.CONFIG_ID}" target="_black">点赞评测详情</a>
+					<if condition="($pow['USER_NAME'] neq '')">&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('index/lead')}?id={$gr.CONFIG_ID}" target="_black">导入</a><else/></if></td>
+			</tr>
+			</volist>
+		</tr>
+	</table>
+</block>
+
+<block name="foot">
+	<div id="foot">
+		<a href="#">丽水移动分公司 - 业务支撑中心支持</a>
+	</div>
+</block>
+
+

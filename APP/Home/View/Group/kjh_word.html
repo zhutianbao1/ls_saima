@@ -1,0 +1,145 @@
+<extend name="pub/main_group"/>
+<block name="css">
+	<style type="text/css">
+		.text,.select{height: 30px;line-height: 30px}
+		.select{width:260px;background: rgb(250,250,250);color:rgb(15, 142, 226);border: 1px solid #ccc;font-weight: bold;}
+		.top{margin-top: 10px;}
+		.top span{border:1px solid #ccc;background:#eee;padding:5px 10px;}
+		.top span a{text-decoration: none;color: black}
+		.addfrom{display: none;margin-top:10px;}
+	.priview-head{height:80px;}
+	.priview-head .title{padding-top:20px;height:30px;line-height: 30px;font: 700 18px/20px STHei,"Microsoft YaHei","WenQuanYi Micro Hei";color: #505050;letter-spacing: 1px;}
+	.priview-head .des{font-size:12px;color: #929292;}
+
+	.priview-con {background: #fff;border-top:dashed 1px #000;padding:10px;text-indent: 12px;margin-top:10px;font-size: 14px;}
+	.kh li span{border: 1px solid red;width: 200px;display: block;}
+	</style>
+</block>
+<block name="body">
+<div class="model">
+	<div>
+		<div class="hr_info_title_l">
+			<span>考核办法</span>
+		</div>
+		<div class="top">
+			<span class="add" style="cursor: pointer;">添加考核内容</span>
+			<span><a href="{:U('kjh_word')}">返回主页</a></span>
+		</div>
+		<form action="{:U('group/add?title1='.$msg['TITLE'])}" method="post" class="addfrom">
+		<div class="form" style="height:120px;line-height:40px;background: white;padding:20px;border:1px solid #ccc">
+			月份：<input value="{$msg.RPT_MONTH}"  name="rpt_month"  class="text" type=text size="12" onClick="WdatePicker({dateFmt:'yyyyMM'})">
+			类型：
+			<select name="type" class="select" style="width:260px">
+				<option value="宽极化" {$msg['TYPE']=='宽极化'?'selected':''}>宽极化</option>
+				<option value="计件" {$msg['TYPE']=='计件'?'selected':''}>计件</option>
+			</select><br>
+			标题：<input value="{$msg.TITLE}" type="text" class="text" style="width:445px" name="title" /><br/>
+			管理人：<input value="{$msg.OPER_NAME}" type="text" name="oper_name" value="{$user_auth['OPER_NAME']}" class="text"/>
+			<input type="submit" value="保存" style="width: 80px;height: 30px;line-height: 30px;border: 0" />
+		</div>
+		<div class="editor">
+			<script id="container" name="msg" type="text/plain"  style="width:100%;height:500px;border:0;">
+			{$msg.MSG}
+			</script>
+		</div>
+		</form>
+
+		<div class="see" style="display:none">
+			<empty name="msg">
+				<div class="no-data">未找到任何数据</div>
+				<else/>
+					<div class="priview-head">
+						<div class="title">
+							{$msg.TITLE}
+						</div>
+						<div class="des">
+							{$msg.OPER_NAME} - {$msg.CREATE_DATE|strtotime|date="Y-m-d",###}
+						</div>
+					</div>
+
+					<div class="priview-con">
+						{$msg.MSG}
+					</div>
+			</empty>
+		</div>
+		<div style="margin-top:10px" class="kh">
+		宽极化：
+			<table class="rank" border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td class="rank-title">月份</td>
+					<td class="rank-title">标题</td>
+					<td class="rank-title">创建人</td>
+					<td class="rank-title">创建时间</td>
+					<td class="rank-title">操作</td>
+				</tr>
+				<volist name="msg" id="msg">
+				<tr>
+					<td >{$msg.RPT_MONTH}</td>
+					<td >{$msg.TITLE}</td>
+					<td >{$msg.OPER_NAME}</td>
+					<td >{$msg.CREATE_DATE|strtotime|date="Y-m-d",###}</td>
+					<td>
+						<a href="{:U('kjh_word?rpt_month='.$msg['RPT_MONTH'].'&type='.$msg['TYPE'])}">查看</a>
+						<a href="{:U('kjh_word?title='.$msg['TITLE'])}">修改</a>
+						<a href="{:U('group_delete?rpt_month='.$msg['RPT_MONTH'].'&type='.$msg['TYPE'])}">删除</a>
+					</td>
+				</tr>
+				</volist>
+			</table>
+			计件：
+			<table class="rank" border="0" cellpadding="2" cellspacing="0">
+				<tr>
+					<td class="rank-title">月份</td>
+					<td class="rank-title">标题</td>
+					<td class="rank-title">创建人</td>
+					<td class="rank-title">创建时间</td>
+					<td class="rank-title">操作</td>
+				</tr>
+				<volist name="msgs" id="msg">
+				<tr>
+					<td >{$msg.RPT_MONTH}</td>
+					<td >{$msg.TITLE}</td>
+					<td >{$msg.OPER_NAME}</td>
+					<td >{$msg.CREATE_DATE|strtotime|date="Y-m-d",###}</td>
+					<td>
+						<a href="{:U('kjh_word?rpt_month='.$msg['RPT_MONTH'].'&type='.$msg['TYPE'])}">查看</a>
+						<a href="{:U('kjh_word?title='.$msg['TITLE'])}">修改</a>
+						<a href="{:U('msg_delete?id='.$msg['ID'])}">删除</a>
+					</td>
+				</tr>
+				</volist>
+			</table>
+		</div>
+	</div> 
+ 
+</block>
+<block name="js">
+	
+<!-- 配置文件 -->
+    <script type="text/javascript" src="__STATIC__/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="__STATIC__/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript"> 
+	  var ue = UE.getEditor("container");
+	  var config_id=$("#config_id").val();
+
+	  var rpt_month="{$rpt_month}";
+	  var title="{$title}";
+	  if(rpt_month!=null && rpt_month!=""){
+	  	$(".see").css("display","block");
+	  	$(".kh").css("display","none");
+	  }
+	  if(title!=null && title!=""){
+	  	$(".addfrom").css("display","block");
+	  	$(".kh").css("display","none");
+	  	$(".see").css("display","none");
+	  	$(".add").css("display","none");
+	  }
+	  $(".add").click(function(){
+	  	$(".addfrom").css("display","block");
+	  	$(".kh").css("display","none");
+	  	$(".see").css("display","none");
+	  });
+
+ 	</script>
+</block>
